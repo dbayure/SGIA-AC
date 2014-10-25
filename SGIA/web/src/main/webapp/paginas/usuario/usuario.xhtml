@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+      <h1 style="text-align: center;">Administración de Funcionarios</h1>
+	
+
+      <h:form id="form" prependId="false">
+         <h2>Registro</h2>
+         
+         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
+         
+         <h:panelGrid columns="2" >
+
+			<p:outputLabel for="nombre" value="Nombre:" />
+			<p:inputText id="nombre" value="#{newUsuario.nombre}" label="nombre" required="true" />
+			<p:outputLabel for="usuario" value="Usuario:" />
+			<p:inputText id="usuario" value="#{newUsuario.usuario}" label="usuario" required="true" />
+			<p:outputLabel for="pass" value="Contraseña:" />
+			<p:password id="pass" value="#{newUsuario.password}" label="contraseña" required="true"/>
+			<p:outputLabel for="tel" value="Telefono:" />
+			<p:inputText id="tel" value="#{newUsuario.telefono}" label="telefono" required="true" />
+			<p:outputLabel for="correo" value="Correo:" />
+			<p:inputText id="correo" value="#{newUsuario.correo}" label="correo" required="true" />
+			<p:outputLabel for="rol" value="Perfil"/>
+			<p:selectOneMenu id="rol" value="#{newUsuario.rol}" required="true">
+				<f:converter converterId="rolConverter" />
+				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
+				<f:selectItems value="#{roles}" var="rol" itemLabel="#{rol.rol}" itemValue="#{rol}"/>
+			</p:selectOneMenu> 				
+		</h:panelGrid>
+         
+         <p>            
+            <h:commandButton id="register" action="#{usuarioBean.registrar}" value="Registrar" style="margin-left: 400px;" />
+         </p>      
+      <h:panelGroup rendered="#{empty usuario}">
+         <em>No hay Funcionario registrado.</em>
+      </h:panelGroup>
+      
+       <p:dataTable id="usuarios" var="_user" value="#{usuario}" editable="true">
+       		<f:facet name="header">  
+            	Administrar Usuarios  
+        	</f:facet>
+        	
+        	<p:ajax event="rowEdit" listener="#{usuarioBean.onEdit}" update=":form:messages" />  
+        	<p:ajax event="rowEditCancel" listener="#{usuarioBean.onCancel}" update=":form:messages" />  
+        	 
+        	 <p:column headerText="Id" style="width:5%">
+        	 	<h:outputText value="#{_user.id}" />
+        	 </p:column>
+        	 
+        	 <p:column headerText="Nombre" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_user.nombre}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputNom" value="#{_user.nombre}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+        	 <p:column headerText="Usuario" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_user.usuario}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputUser" value="#{_user.usuario}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>             	 
+           	 
+        	 <p:column headerText="Perfil" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_user.rol.rol}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputRol" value="#{_user.rol.rol}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>             	 
+           	 
+           	 <p:column style="width:3%">           	 
+	            <p:rowEditor />	         	           
+	        </p:column>
+	       <!--  -->
+	        <p:column style="width:3%">
+	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
+	        		styleClass="ui-icon ui-icon-trash" actionListener="#{usuarioBean.eliminar(_user.id)}">
+	        	</p:commandLink>	        	
+	        </p:column>
+	        
+       </p:dataTable>       
+		</h:form>     
+   </ui:define>
+</ui:composition>
