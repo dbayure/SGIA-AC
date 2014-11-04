@@ -50,6 +50,11 @@
             <artifactId>SGIA-ejb</artifactId>
             <type>ejb</type>
         </dependency>
+        <dependency>
+        	<groupId>org.codehaus.jackson</groupId>
+        	<artifactId>jackson-jaxrs</artifactId>
+        	<version>1.8.0</version>
+        </dependency>
     </dependencies>
 
     <build>

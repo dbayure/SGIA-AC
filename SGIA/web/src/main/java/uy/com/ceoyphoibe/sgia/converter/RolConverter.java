@@ -14,7 +14,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import uy.com.ceoyphoibe.SGIA.model.Rol;
 
-
 @FacesConverter(forClass = Rol.class, value = "rolConverter")
 public class RolConverter implements Converter {
 
