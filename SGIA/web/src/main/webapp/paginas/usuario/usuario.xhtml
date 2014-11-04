@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
-      <h1 style="text-align: center;">Administración de Funcionarios</h1>
+      <h1 style="text-align: center;">Administración de Usuarios</h1>
 	
 
       <h:form id="form" prependId="false">
@@ -38,7 +38,7 @@
             <h:commandButton id="register" action="#{usuarioBean.registrar}" value="Registrar" style="margin-left: 400px;" />
          </p>      
       <h:panelGroup rendered="#{empty usuario}">
-         <em>No hay Funcionario registrado.</em>
+         <em>No hay Usuario registrado.</em>
       </h:panelGroup>
       
        <p:dataTable id="usuarios" var="_user" value="#{usuario}" editable="true">
