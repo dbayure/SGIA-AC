@@ -9,19 +9,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Table(name = "tipoPuerto")
-public class TipoPuerto implements Serializable {
-	
+@Table(name = "factor")
+public class Factor implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5195600533836100836L;
+	private static final long serialVersionUID = 407757945510772852L;
 
 	@Id
 	private Long id;
 	
 	private String nombre;
-	private String descripcion;
+	private char estadado;
+	private char deAvance;
+	private char activoSistema;
 	
 	public Long getId() {
 		return id;
@@ -35,11 +37,23 @@ public class TipoPuerto implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDescripcion() {
-		return descripcion;
+	public char getEstadado() {
+		return estadado;
 	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setEstadado(char estadado) {
+		this.estadado = estadado;
+	}
+	public char getDeAvance() {
+		return deAvance;
+	}
+	public void setDeAvance(char deAvance) {
+		this.deAvance = deAvance;
+	}
+	public char getActivoSistema() {
+		return activoSistema;
+	}
+	public void setActivoSistema(char activoSistema) {
+		this.activoSistema = activoSistema;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -48,8 +62,9 @@ public class TipoPuerto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + activoSistema;
+		result = prime * result + deAvance;
+		result = prime * result + estadado;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
@@ -62,11 +77,12 @@ public class TipoPuerto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoPuerto other = (TipoPuerto) obj;
-		if (descripcion == null) {
-			if (other.descripcion != null)
-				return false;
-		} else if (!descripcion.equals(other.descripcion))
+		Factor other = (Factor) obj;
+		if (activoSistema != other.activoSistema)
+			return false;
+		if (deAvance != other.deAvance)
+			return false;
+		if (estadado != other.estadado)
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -82,8 +98,9 @@ public class TipoPuerto implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "TipoPuerto [id=" + id + ", nombre=" + nombre + ", descripcion="
-				+ descripcion + "]";
+		return "GrupoActuadores [id=" + id + ", nombre=" + nombre
+				+ ", estadado=" + estadado + ", deAvance=" + deAvance
+				+ ", activoSistema=" + activoSistema + "]";
 	}
 	
 }
