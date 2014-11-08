@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+      <h1 style="text-align: center;">Administración de Tipo Puertos</h1>
+	
+
+      <h:form id="form" prependId="false">
+         <h2>Registro</h2>
+         
+         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
+         
+         <h:panelGrid columns="2" >
+
+			<p:outputLabel for="Id" value="Id:" />
+			<p:inputText id="Id" value="#{newTipoPuerto.id}" label="id" required="true" />
+			
+			<p:outputLabel for="nombre" value="Nombre:" />
+			<p:inputText id="nombre" value="#{newTipoPuerto.nombre}" label="nombre" required="true" />
+			
+			<p:outputLabel for="desc" value="Descripcion:" />
+			<p:inputText id="desc" value="#{newTipoPuerto.descripcion}" label="descripcion" required="false" />
+
+		</h:panelGrid>
+         
+         <p>            
+            <h:commandButton id="register" action="#{tipoPuertoBean.registrar}" value="Registrar" style="margin-left: 400px;" />
+         </p>      
+      <h:panelGroup rendered="#{empty tipoPuerto}">
+         <em>No hay tipos de puertos registrados.</em>
+      </h:panelGroup>
+      
+       <p:dataTable id="tipoPuerto" var="_tp" value="#{tipoPuerto}" editable="true">
+       		<f:facet name="header">  
+            	Administrar Tipos de puertos  
+        	</f:facet>
+        	
+        	<p:ajax event="rowEdit" listener="#{tipoPuertoBean.onEdit}" update=":form:messages" />  
+        	<p:ajax event="rowEditCancel" listener="#{tipoPuertoBean.onCancel}" update=":form:messages" />  
+        	 
+        	 <p:column headerText="Id" style="width:5%">
+        	 	<h:outputText value="#{_tp.id}" />
+        	 </p:column>
+        	 
+        	 <p:column headerText="Nombre" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_tp.nombre}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputTipoPuerto" value="#{_tp.nombre}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+        	 <p:column headerText="Descripcion" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_tp.descripcion}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputDesc" value="#{_tp.descripcion}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	            	 
+           	 <p:column style="width:3%">           	 
+	            <p:rowEditor />	         	           
+	        </p:column>
+	       <!--  -->
+	        <p:column style="width:3%">
+	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
+	        		styleClass="ui-icon ui-icon-trash" actionListener="#{tipoPuertoBean.eliminar(_tp.id)}">
+	        	</p:commandLink>	        	
+	        </p:column>
+	        
+       </p:dataTable>       
+		</h:form>     
+   </ui:define>
+</ui:composition>

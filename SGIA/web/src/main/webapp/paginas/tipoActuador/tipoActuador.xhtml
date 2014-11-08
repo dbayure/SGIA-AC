@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+      <h1 style="text-align: center;">Administración de Tipo Actuadores</h1>
+	
+
+      <h:form id="form" prependId="false">
+         <h2>Registro</h2>
+         
+         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
+         
+         <h:panelGrid columns="2" >
+
+			<p:outputLabel for="Id" value="Id:" />
+			<p:inputText id="Id" value="#{newTipoActuador.id}" label="id" required="true" />
+			
+			<p:outputLabel for="nombre" value="Nombre:" />
+			<p:inputText id="nombre" value="#{newTipoActuador.categoria}" label="nombre" required="true" />
+			
+			<p:outputLabel for="desc" value="Descripcion:" />
+			<p:inputText id="desc" value="#{newTipoActuador.descripcion}" label="descripcion" required="false" />
+
+		</h:panelGrid>
+         
+         <p>            
+            <h:commandButton id="register" action="#{tipoActuadorBean.registrar}" value="Registrar" style="margin-left: 400px;" />
+         </p>      
+      <h:panelGroup rendered="#{empty tipoActuador">
+         <em>No hay tipos de actuadores registrados.</em>
+      </h:panelGroup>
+      
+       <p:dataTable id="tipoActuador" var="_ta" value="#{tipoActuador}" editable="true">
+       		<f:facet name="header">  
+            	Administrar Tipos de actuadores  
+        	</f:facet>
+        	
+        	<p:ajax event="rowEdit" listener="#{tipoActuadorBean.onEdit}" update=":form:messages" />  
+        	<p:ajax event="rowEditCancel" listener="#{tipoActuadorBean.onCancel}" update=":form:messages" />  
+        	 
+        	 <p:column headerText="Id" style="width:5%">
+        	 	<h:outputText value="#{_ta.id}" />
+        	 </p:column>
+        	 
+        	 <p:column headerText="Nombre" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_ta.categoria}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputTipoActuador" value="#{_ta.categoria}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+        	 <p:column headerText="Descripcion" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_ta.descripcion}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputDesc" value="#{_ta.descripcion}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	            	 
+           	 <p:column style="width:3%">           	 
+	            <p:rowEditor />	         	           
+	        </p:column>
+	       <!--  -->
+	        <p:column style="width:3%">
+	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
+	        		styleClass="ui-icon ui-icon-trash" actionListener="#{tipoActuadorBean.eliminar(_ta.id)}">
+	        	</p:commandLink>	        	
+	        </p:column>
+	        
+       </p:dataTable>       
+		</h:form>     
+   </ui:define>
+</ui:composition>
