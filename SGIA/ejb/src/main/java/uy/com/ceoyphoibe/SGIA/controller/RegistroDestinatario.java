@@ -1,0 +1,62 @@
+package uy.com.ceoyphoibe.SGIA.controller;
+
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+
+import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+
+
+
+@Stateful
+@Model
+public class RegistroDestinatario {
+	
+	@Inject
+	   private Logger log;
+
+	   @Inject
+	   private EntityManager em;
+
+	   @Inject
+	   private Event<Destinatario> destinatarioEventSrc;
+
+	   private Destinatario newDestinatario;
+
+	   @Produces
+	   @Named
+	   public Destinatario getNewDestinatario() {
+	      return newDestinatario;
+	   }
+
+	   public void registro() throws Exception {
+	      log.info("Registro " + newDestinatario.getNombre());
+	      em.persist(newDestinatario);
+	      destinatarioEventSrc.fire(newDestinatario);
+	      initNewDestinatario();
+	   }
+	   
+	   public void modificar(Destinatario destinatario) throws Exception {
+		   log.info("Modifico " + destinatario);
+		   em.merge(destinatario);
+	   }
+	   
+	   public void eliminar(Long id) throws Exception {
+		   log.info("Elimino " + id);
+		   Destinatario destinatario = em.find(Destinatario.class, id);
+		   em.remove(destinatario);
+		   destinatarioEventSrc.fire(newDestinatario);
+	   }
+
+	   @PostConstruct
+	   public void initNewDestinatario() {
+		   newDestinatario = new Destinatario();
+	   }
+}

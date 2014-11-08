@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+      <h1 style="text-align: center;">Administración de Destinatarios</h1>
+	
+
+      <h:form id="form" prependId="false">
+         <h2>Registro</h2>
+         
+         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
+         
+         <h:panelGrid columns="2" >
+
+			<p:outputLabel for="idDestinatario" value="Id Destinatarios:" />
+			<p:inputText id="idDestinatario" value="#{newDestinatario.idDestinatario}" label="Id Destinatario" required="false" />
+			
+			<p:outputLabel for="nombre" value="Nombre y Apellido:" />
+			<p:inputText id="nombre" value="#{newDestinatario.nombre}" label="Nombre y Apellido" required="true" />
+			
+			<p:outputLabel for="celular" value="Celular:" />
+			<p:inputText id="celular" value="#{newDestinatario.celular}" label="Celular" required="false" />
+			
+			<p:outputLabel for="mail" value="E-Mail:" />
+			<p:inputText id="mail" value="#{newDestinatario.mail}" label="E-Mail" required="false" />
+			
+			<p:outputLabel for="horaMin" value="Hora Mínima:" />
+			<p:inputText id="horaMin" value="#{newDestinatario.horaMin}" label="Hora mínima recepción notificaciones" required="false" />
+			
+			<p:outputLabel for="horaMax" value="Hora Máxima:" />
+			<p:inputText id="horaMax" value="#{newDestinatario.horaMax}" label="Hora máxima recepción notificaciones" required="false" />
+			
+			<p:outputLabel for="activoSistema" value="Activo Sistema:" label="Activo en el Sistema" required="true" />
+			<p:selectOneMenu id="activoSistema" value="#{newDestinatario.activoSistema}">
+	            <f:selectItem itemLabel="Activo" itemValue="S" />
+	            <f:selectItem itemLabel="No Activo" itemValue="N" />
+	        </p:selectOneMenu>
+
+		</h:panelGrid>
+         
+         <p>            
+            <h:commandButton id="register" action="#{destinatarioBean.registrar()}" value="Registrar" style="margin-left: 400px;" />
+         </p>      
+      <h:panelGroup rendered="#{empty destinatarios}">
+         <em>No hay Destinatario registrado.</em>
+      </h:panelGroup>
+      
+       <p:dataTable id="destinatarios" var="_destinatario" value="#{destinatarios}" editable="true">
+       		<f:facet name="header">  
+            	Administrar Destinatarios
+        	</f:facet>
+        	
+        	<p:ajax event="rowEdit" listener="#{destinatarioBean.onEdit}" update=":form:messages" />  
+        	<p:ajax event="rowEditCancel" listener="#{destinatarioBean.onCancel}" update=":form:messages" />  
+        	 
+        	 <p:column headerText="Id Destinatario" style="width:5%">
+        	 	<h:outputText value="#{_destinatario.idDestinatario}" />
+        	 </p:column>
+        	 
+        	 <p:column headerText="Nombre y Apellido" style="width:30%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_destinatario.nombre}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputNombre" value="#{_destinatario.nombre}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+        	 <p:column headerText="Celular" style="width:15%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_destinatario.celular}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputCelular" value="#{_destinatario.celular}" style="width:96%" required="false"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+           	 <p:column headerText="Mail" style="width:25%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_destinatario.mail}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputMail" value="#{_destinatario.mail}" style="width:96%" required="false"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+           	 <p:column headerText="Hora Mínima" style="width:10%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_destinatario.horaMin}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputHoraMin" value="#{_destinatario.horaMin}" style="width:96%" required="false"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+           	 <p:column headerText="Hora Máxima" style="width:10%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_destinatario.horaMax}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputHoraMax" value="#{_destinatario.horaMax}" style="width:96%" required="false"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	 
+           	 <p:column headerText="Activo Sistema" style="width:5%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_destinatario.activoSistema}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputActivoSistema" value="#{_destinatario.activoSistema}" style="width:96%" required="false"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	            	 
+           	 <p:column style="width:3%">           	 
+	            <p:rowEditor />	         	           
+	        </p:column>
+	       <!--  -->
+	        <p:column style="width:3%">
+	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
+	        		styleClass="ui-icon ui-icon-trash" actionListener="#{destinatarioBean.eliminar(_destinatario.idDestinatario)}">
+	        	</p:commandLink>	        	
+	        </p:column>
+	        
+       </p:dataTable>       
+		</h:form>     
+   </ui:define>
+</ui:composition>
