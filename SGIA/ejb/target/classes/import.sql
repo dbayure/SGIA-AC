@@ -16,4 +16,5 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
-insert into Registrant(id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212') 
+insert into rol (id, descripcion, rol) values (1, "Administrador Sistema", "SGIADMIN");
+insert into usuarios (id, correo, nombre, password, telefono, usuario, rol_id) values(1, "admin@sgia.com.uy", "administrador", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", 123456, "admin", 1);

@@ -9,19 +9,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Table(name = "tipoActuador")
-public class TipoActuador implements Serializable {
-
+@Table(name = "posicion")
+public class posicion implements Serializable {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6092319973077241634L;
-
+	private static final long serialVersionUID = -5917099098470830186L;
+	
 	@Id
 	private Long id;
-	
-	private String categoria;
 	private String descripcion;
+	private int valor;
 	
 	public Long getId() {
 		return id;
@@ -29,17 +28,17 @@ public class TipoActuador implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public int getValor() {
+		return valor;
+	}
+	public void setValor(int valor) {
+		this.valor = valor;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -49,10 +48,9 @@ public class TipoActuador implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + valor;
 		return result;
 	}
 	@Override
@@ -63,12 +61,7 @@ public class TipoActuador implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoActuador other = (TipoActuador) obj;
-		if (categoria == null) {
-			if (other.categoria != null)
-				return false;
-		} else if (!categoria.equals(other.categoria))
-			return false;
+		posicion other = (posicion) obj;
 		if (descripcion == null) {
 			if (other.descripcion != null)
 				return false;
@@ -79,12 +72,14 @@ public class TipoActuador implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (valor != other.valor)
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "TipoActuador [id=" + id + ", categoria=" + categoria
-				+ ", descripcion=" + descripcion + "]";
+		return "posicion [id=" + id + ", descripcion=" + descripcion
+				+ ", valor=" + valor + "]";
 	}
 	
 }
