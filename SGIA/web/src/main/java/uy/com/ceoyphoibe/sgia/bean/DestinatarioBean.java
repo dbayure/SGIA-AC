@@ -3,6 +3,7 @@ package uy.com.ceoyphoibe.sgia.bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -14,12 +15,28 @@ import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class DestinatarioBean {
 
 	@Inject
 	private RegistroDestinatario registroDestinatario;
 	
+	private Destinatario destinatarioSeleccionado;
+	
+	/**
+	 * @return the destinatarioSeleccionado
+	 */
+	public Destinatario getDestinatarioSeleccionado() {
+		return destinatarioSeleccionado;
+	}
+
+	/**
+	 * @param destinatarioSeleccionado the destinatarioSeleccionado to set
+	 */
+	public void setDestinatarioSeleccionado(Destinatario destinatarioSeleccionado) {
+		this.destinatarioSeleccionado = destinatarioSeleccionado;
+	}
+
 	public void registrar() {
 		try {
 			registroDestinatario.registro();
