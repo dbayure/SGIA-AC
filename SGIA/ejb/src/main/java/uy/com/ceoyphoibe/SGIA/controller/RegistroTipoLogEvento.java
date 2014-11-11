@@ -30,12 +30,14 @@ public class RegistroTipoLogEvento {
 
 	   private TipoLogEvento newTipoLogEvento;
 
+
 	   @Produces
 	   @Named
 	   public TipoLogEvento getNewTipoLogEvento() {
 	      return newTipoLogEvento;
 	   }
-
+	   
+	   
 	   public void registro() throws Exception {
 	      log.info("Registro " + newTipoLogEvento.getNombre());
 	      em.persist(newTipoLogEvento);
@@ -45,9 +47,12 @@ public class RegistroTipoLogEvento {
 	   
 	   public void modificar(TipoLogEvento tipoLogEvento) throws Exception {
 		   log.info("Modifico " + tipoLogEvento);
+		   System.out.println("entra al modificar del registro++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		   
 		   em.merge(tipoLogEvento);
 	   }
 	   
+	   	   
 	   public void eliminar(Long id) throws Exception {
 		   log.info("Elimino " + id);
 		   TipoLogEvento tipoLogEvento = em.find(TipoLogEvento.class, id);

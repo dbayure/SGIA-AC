@@ -1,12 +1,15 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,9 +27,16 @@ public class TipoLogEvento implements Serializable {
 	private String nombre;
 	private char enviarSMS;
 	private char enviarMail;
-	@OneToMany
+	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable(name="destinatariosTiposLog", joinColumns={@JoinColumn(name= "idTipoLogEvento", referencedColumnName= "idTipoLogEvento")}, inverseJoinColumns= {@JoinColumn(name= "idDestinatario", referencedColumnName= "idDestinatario")}	)
 	private List<Destinatario> listaDestinatarios;
+	
+	public TipoLogEvento(){
+		listaDestinatarios= new ArrayList<Destinatario>();
+	}
+	
+	
+	
 	/**
 	 * @return the idTipoLogEvento
 	 */
