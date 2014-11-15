@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   template="/WEB-INF/templates/default.xhtml">
+   <ui:define name="content">
+      <h1 style="text-align: center;">Administración de Sensores</h1>
+	
+
+      <h:form id="form" prependId="false">
+         <h2>Registro</h2>
+         
+         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
+         
+         <h:panelGrid columns="2" >
+
+			<p:outputLabel for="id" value="Id Dispositivo:" />
+			<p:inputText id="id" value="#{newSensor.id}" label="Id Dispositivo" required="true" />
+			
+			<p:outputLabel for="nombre" value="Nombre:" />
+			<p:inputText id="nombre" value="#{newSensor.nombre}" label="Nombre" required="true" />
+			
+			<p:outputLabel for="modelo" value="Modelo:" />
+			<p:inputText id="modelo" value="#{newSensor.modelo}" label="Modelo" required="false" />
+			
+			<p:outputLabel for="tipoPuerto" value="Tipo de Puerto:" />
+			<p:selectOneMenu id="tipoPuerto" value="#{newSensor.tipoPuerto}">
+				<f:converter converterId="tipoPuertoConverter" />
+				<f:selectItems value="#{tipoPuerto}" var="tPuerto"
+									itemLabel="#{tPuerto.nombre}" itemValue="#{tPuerto}" />
+	        </p:selectOneMenu>
+	        
+	        <p:outputLabel for="numPuerto" value="Número de Puerto:" />
+			<p:inputText id="numPuerto" value="#{newSensor.numeroPuerto}" label="Número de Puerto" required="true" />
+			
+			<p:outputLabel for="formConv" value="Fórmula de Conversión:" />
+			<p:inputText id="formConv" value="#{newSensor.formulaConversion}" label="Fórmula de Conversión" required="true" />
+			
+			<p:outputLabel for="estadoAlerta" value="Estado de Alerta:" label="Estado de Alerta" required="true" />
+			<p:selectOneMenu id="estadoAlerta" value="#{newSensor.estadoAlerta}">
+	            <f:selectItem itemLabel="Activo" itemValue="S" />
+	            <f:selectItem itemLabel="No Activo" itemValue="N" />
+	        </p:selectOneMenu>
+			
+			<p:outputLabel for="activoSistema" value="Activo Sistema:" label="Activo en el Sistema" required="true" />
+			<p:selectOneMenu id="activoSistema" value="#{newSensor.activoSistema}">
+	            <f:selectItem itemLabel="Activo" itemValue="S" />
+	            <f:selectItem itemLabel="No Activo" itemValue="N" />
+	        </p:selectOneMenu>
+
+		</h:panelGrid>
+         
+         <p>            
+            <p:commandButton id="register" action="#{sensorBean.registrar()}" value="Registrar" update=":form:sensores" style="margin-left: 400px;" />
+         </p>      
+      <h:panelGroup rendered="#{empty mensajes}">
+         <em>No hay Sensor registrado.</em>
+      </h:panelGroup>
+      
+       <p:dataTable id="sensores" var="_sensor" value="#{sensores}" editable="true">
+       		<f:facet name="header">  
+            	Administrar Sensores
+        	</f:facet>
+        	
+        	<p:ajax event="rowEdit" listener="#{sensorBean.onEdit}" update=":form:messages" />  
+        	<p:ajax event="rowEditCancel" listener="#{sensorBean.onCancel}" update=":form:messages" />  
+        	 
+        	 <p:column headerText="Id Dispositivo" style="width:10%">
+        	 	<h:outputText value="#{_sensor.id}" />
+        	 </p:column>
+        	 
+        	 <p:column headerText="Nombre" style="width:15%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.nombre}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputNom" value="#{_sensor.nombre}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column>  
+           	 
+        	 <p:column headerText="Modelo" style="width:15%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.modelo}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputMod" value="#{_sensor.modelo}" style="width:96%" required="false"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	 
+           	 <p:column headerText="Tipo de Puerto" style="width:20%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.tipoPuerto.nombre}" /></f:facet>  
+                   <f:facet name="input">
+	                   <p:selectOneMenu id="tipoPuertoTab" value="#{_sensor.tipoPuerto}" style="width:100%">
+	                   		<f:converter converterId="tipoPuertoConverter" />
+							<f:selectItems value="#{tipoPuerto}" var="tPuerto"
+												itemLabel="#{tPuerto.nombre}" itemValue="#{tPuerto}" />
+				        </p:selectOneMenu>  
+				   </f:facet> 
+               </p:cellEditor>  
+           	 </p:column> 
+           	 
+           	 <p:column headerText="Número de Puerto" style="width:10%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.numeroPuerto}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputNumP" value="#{_sensor.numeroPuerto}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	 
+           	 <p:column headerText="Fórmula de Conversión" style="width:20%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.formulaConversion}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputFormConv" value="#{_sensor.formulaConversion}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	 
+           	 <p:column headerText="Estado de Alerta" style="width:5%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.estadoAlerta}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputEstAl" value="#{_sensor.estadoAlerta}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	 
+           	 <p:column headerText="Activo Sistema" style="width:5%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{_sensor.activoSistema}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputActSist" value="#{_sensor.activoSistema}" style="width:96%" required="true"/></f:facet>  
+               </p:cellEditor>  
+           	 </p:column> 
+           	            	 
+           	 <p:column style="width:3%">           	 
+	            <p:rowEditor />	         	           
+	        </p:column>
+	       <!--  -->
+	        <p:column style="width:3%">
+	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
+	        		styleClass="ui-icon ui-icon-trash" actionListener="#{sensorBean.eliminar(_sensor.id)}">
+	        	</p:commandLink>	        	
+	        </p:column>
+	        
+       </p:dataTable>       
+		</h:form>     
+   </ui:define>
+</ui:composition>

@@ -47,8 +47,6 @@ public class RegistroTipoLogEvento {
 	   
 	   public void modificar(TipoLogEvento tipoLogEvento) throws Exception {
 		   log.info("Modifico " + tipoLogEvento);
-		   System.out.println("entra al modificar del registro++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		   
 		   em.merge(tipoLogEvento);
 	   }
 	   
