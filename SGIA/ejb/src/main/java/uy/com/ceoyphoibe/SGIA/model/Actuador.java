@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+
 
 @Entity
 @XmlRootElement
@@ -21,39 +23,55 @@ public class Actuador extends Dispositivo implements Serializable {
 	private static final long serialVersionUID = 6858893439293443051L;
 
 	private char estado;
+	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipo_actuador_id" , unique = false)
 	private TipoActuador tipoActuador;
-	private TipoPuerto tipoPuerto;
-	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinColumn ( name = "grupoActuadores_id", nullable = true )
-	private GrupoActuadores grupoActuadores;
 	
+	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipo_puerto_id" , unique = false)
+	private TipoPuerto tipoPuerto;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
+	private GrupoActuadores grupoActuadores;
+
+
 	public char getEstado() {
 		return estado;
 	}
+
 	public void setEstado(char estado) {
 		this.estado = estado;
 	}
+
 	public TipoActuador getTipoActuador() {
 		return tipoActuador;
 	}
+
 	public void setTipoActuador(TipoActuador tipoActuador) {
 		this.tipoActuador = tipoActuador;
 	}
+
 	public TipoPuerto getTipoPuerto() {
 		return tipoPuerto;
 	}
+
 	public void setTipoPuerto(TipoPuerto tipoPuerto) {
 		this.tipoPuerto = tipoPuerto;
 	}
+
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
 	}
+
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,6 +85,7 @@ public class Actuador extends Dispositivo implements Serializable {
 				+ ((tipoPuerto == null) ? 0 : tipoPuerto.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,11 +114,14 @@ public class Actuador extends Dispositivo implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Actuador [estado=" + estado + ", tipoActuador=" + tipoActuador
 				+ ", tipoPuerto=" + tipoPuerto + ", grupoActuadores="
 				+ grupoActuadores + "]";
 	}
+	
+	
 	
 }
