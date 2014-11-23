@@ -12,7 +12,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-import uy.com.ceoyphoibe.SGIA.model.PosicionPK;
+
 
 
 @Stateful
@@ -45,13 +45,20 @@ public class RegistroPosicion {
 	      initNewPosicion();
 	   }
 	   
+	   public void guardar(Posicion pos) throws Exception {
+		      log.info("Registro " + pos.getDescripcion());
+		      em.persist(pos);
+		      posicionEventSrc.fire(pos);
+		      initNewPosicion();
+		   }
+	   
 	   public void modificar(Posicion posicion) throws Exception {
 		   log.info("Modifico " + posicion);
 		   em.merge(posicion);
 	   }
 	   
 	   	   
-	   public void eliminar(PosicionPK id) throws Exception {
+	   public void eliminar(Long id) throws Exception {
 		   log.info("Elimino " + id);
 		   Posicion posicion = em.find(Posicion.class, id);
 		   em.remove(posicion);

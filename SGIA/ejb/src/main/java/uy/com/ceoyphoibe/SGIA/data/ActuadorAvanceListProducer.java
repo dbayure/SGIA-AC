@@ -14,35 +14,33 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.FetchMode;
-
-import uy.com.ceoyphoibe.SGIA.model.Posicion;
+import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 
 @RequestScoped
-public class PosicionListProducer {
+public class ActuadorAvanceListProducer {
 	
    @Inject
    private EntityManager em;
 
-   private List<Posicion> posiciones;
+   private List<ActuadorAvance> actuadoresAvance;
 
 
    @Produces
    @Named
-   public List<Posicion> getPosiciones() {
-      return posiciones;
+   public List<ActuadorAvance> getActuadoresAvance() {
+	   return actuadoresAvance;
    }
 
-   public void onListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Posicion posicion) {
+   public void onListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final ActuadorAvance actuadorAvance) {
 	      retrieveAllOrderedByName();
    }
 
    @PostConstruct
    public void retrieveAllOrderedByName() {
       CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Posicion> criteria = cb.createQuery(Posicion.class);
-      Root<Posicion> posicion = criteria.from(Posicion.class);
-      criteria.select(posicion).orderBy(cb.asc(posicion.get("idPosicion")));
-      posiciones = em.createQuery(criteria).getResultList();
+      CriteriaQuery<ActuadorAvance> criteria = cb.createQuery(ActuadorAvance.class);
+      Root<ActuadorAvance> actuadorAvance = criteria.from(ActuadorAvance.class);
+      criteria.select(actuadorAvance).orderBy(cb.asc(actuadorAvance.get("nombre")));
+      actuadoresAvance = em.createQuery(criteria).getResultList();
    }
 }

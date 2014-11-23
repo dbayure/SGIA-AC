@@ -11,8 +11,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-import uy.com.ceoyphoibe.SGIA.model.Sensor;
-import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
 @Path("/posiciones")
 @RequestScoped

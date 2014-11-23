@@ -1,6 +1,6 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +12,6 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPosicion;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-import uy.com.ceoyphoibe.SGIA.model.PosicionPK;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
 @ManagedBean
@@ -22,7 +21,7 @@ public class PosicionBean {
 	@Inject
 	private RegistroPosicion registroPosicion;
 	
-	private List<Sensor> listaSensores;
+	private Set<Sensor> listaSensores;
 	
 	
 	/**
@@ -42,14 +41,14 @@ public class PosicionBean {
 	/**
 	 * @return the listaSensores
 	 */
-	public List<Sensor> getListaSensores() {
+	public Set<Sensor> getListaSensores() {
 		return listaSensores;
 	}
 
 	/**
 	 * @param listaSensores the listaSensores to set
 	 */
-	public void setListaSensores(List<Sensor> listaSensores) {
+	public void setListaSensores(Set<Sensor> listaSensores) {
 		this.listaSensores = listaSensores;
 	}
 
@@ -87,7 +86,7 @@ public class PosicionBean {
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }  
 	
-	public void eliminar(PosicionPK id) {
+	public void eliminar(Long id) {
 		try {
 			registroPosicion.eliminar(id);
 			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());  
