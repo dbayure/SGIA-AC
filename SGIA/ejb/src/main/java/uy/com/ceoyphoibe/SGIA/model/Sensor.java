@@ -3,6 +3,8 @@ package uy.com.ceoyphoibe.SGIA.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,6 +19,7 @@ public class Sensor extends Dispositivo implements Serializable {
 	private static final long serialVersionUID = -2766478052400319078L;
 	
 	private String formulaConversion;
+	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoPuerto tipoPuerto;
 	
 	public String getFormulaConversion() {

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Inheritance(strategy=InheritanceType.JOINED)
 @Table(name = "dispositivo")
-public abstract class Dispositivo implements Serializable {
+public class Dispositivo implements Serializable {
 
 	/**
 	 * 

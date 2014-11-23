@@ -1,11 +1,9 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -117,24 +115,6 @@ public class TipoLogEventoBean {
 		}
 	}
 	
-	public void modificar () {  
-        
-       
-        try {
-        	tipoLogEventoSeleccionado.setListaDestinatarios(listaDestinatarios);
-        	ArrayList<Destinatario> dests= (ArrayList<Destinatario>) tipoLogEventoSeleccionado.getListaDestinatarios();
-        	System.out.println("tamaño de lista: "+ dests.size());
-        	tipoLogEventoSeleccionado.setListaDestinatarios(dests);
-        	registroTipoLogEvento.modificar(tipoLogEventoSeleccionado);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se modificó ", tipoLogEventoSeleccionado.getNombre());  
-            FacesContext.getCurrentInstance().addMessage(null, msg); 
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al modificar ", tipoLogEventoSeleccionado.getNombre());  
-            FacesContext.getCurrentInstance().addMessage(null, msg); 
-		}
-	}
-	
-
 	public void onEdit(RowEditEvent event) {  
             TipoLogEvento tipoLogEvento = ((TipoLogEvento) event.getObject());
            

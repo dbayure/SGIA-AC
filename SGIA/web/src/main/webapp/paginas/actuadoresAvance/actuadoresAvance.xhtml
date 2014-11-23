@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1 style="text-align: center;">Administración de Actuadores de Avance</h1>
+
+
+		<h:form id="form" prependId="false">
+			<h2>Registro</h2>
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:growl id="growl" sticky="true" showDetail="true" />
+
+			<p:wizard flowListener="#{actuadorAvanceBean.onFlowProcess}" widgetVar="wiz">
+				<p:tab id="datosBasicos" title="Datos Actuador">
+
+					<p:panel header="Datos Actuador de Avance">
+						<p:messages />
+
+						<h:panelGrid columns="2">
+
+							<p:outputLabel for="id" value="Id Dispositivo:" />
+							<p:inputText id="id" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}"
+								label="Id Dispositivo" required="true" />
+
+							<p:outputLabel for="nombre" value="Nombre:" />
+							<p:inputText id="nombre" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
+								label="Nombre" required="true" />
+
+							<p:outputLabel for="modelo" value="Modelo:" />
+							<p:inputText id="modelo" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.modelo}"
+								label="Modelo" required="false" />
+
+							<p:outputLabel for="tipoActuador" value="Tipo de Actuador:" />
+							<p:selectOneMenu id="tipoActuador"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoActuador}">
+								<f:converter converterId="tipoActuadorConverter" />
+								<f:selectItems value="#{tipoActuador}" var="tActuador"
+									itemLabel="#{tActuador.descripcion}" itemValue="#{tActuador}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="tipoPuerto" value="Tipo de Puerto:" />
+							<p:selectOneMenu id="tipoPuerto"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoPuerto}">
+								<f:converter converterId="tipoPuertoConverter" />
+								<f:selectItems value="#{tipoPuerto}" var="tPuerto"
+									itemLabel="#{tPuerto.nombre}" itemValue="#{tPuerto}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="numPuerto" value="Número de Puerto Avance:" />
+							<p:inputText id="numPuerto"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.numeroPuerto}"
+								label="Número de Puerto Avance" required="true" />
+
+							<p:outputLabel for="numPuertoRet"
+								value="Número de Puerto Retroceso:" />
+							<p:inputText id="numPuertoRet"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.numeroPuertoRetroceso}"
+								label="Número de Puerto Retroceso" required="true" />
+
+							<p:outputLabel for="posicionIni" value="Posición Inicial:" />
+							<p:inputText id="posicionIni"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.posicion}" label="Posición Inicial"
+								required="false" />
+								
+							<p:outputLabel for="tiempoPos" value="Tiempo entre posiciones:" />
+							<p:inputText id="tiempoPos"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tiempoEntrePosiciones}"
+								label="Tiempo entre posiciones" required="true" />
+
+							<h:outputText value="No ingresar posiciones: " />
+                    		<h:selectBooleanCheckbox value="#{actuadorAvanceBean.skip}" />
+
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+
+				<p:tab id="posiciones" title="Posiciones">
+					<p:panel header="Lista de Posiciones" id="ingPosicion">
+						<p:messages />
+						<h:panelGrid columns="2">
+
+
+							<p:outputLabel for="nroPosicion" value="Nro Posicion:" />
+							<p:inputText id="nroPosicion" value="#{actuadorAvanceBean.posicionTemp.nroPosicion}"
+								label="Nro Posicion" required="true" />
+
+							<p:outputLabel for="descPosicion" value="Descripción:" />
+							<p:inputText id="descPosicion" value="#{actuadorAvanceBean.posicionTemp.descripcion}"
+								label="Descripción" />
+
+							<p:outputLabel for="valorPos" value="Valor cumplimiento:" />
+							<p:inputText id="valorPos" value="#{actuadorAvanceBean.posicionTemp.valor}"
+								label="Valor cumplimiento" required="true" />
+
+							<p:outputLabel for="sensoresPos" value="Lista de Sensores:" />
+							<p:selectManyMenu id="sensoresPos"
+								value="#{actuadorAvanceBean.listaSensoresPosicion}"
+								style="width:100%;"
+								converter="sensorConverter" showCheckbox="true">
+								<f:selectItems value="#{sensores}" var="sens"
+									itemLabel="#{sens.nombre}" itemValue="#{sens}" />
+								<p:column>
+									<h:outputText value="#{sens.nombre}" />
+								</p:column>
+							</p:selectManyMenu>
+							
+						</h:panelGrid>
+
+						<h:panelGrid columns="1" >
+							<p:commandButton id="registerPosicion"
+								action="#{actuadorAvanceBean.agregarPosicion()}"
+								value="Agregar Posición" update=":form:posiciones1, form:ingPosicion"
+								 />
+						</h:panelGrid>
+						
+
+							<p:dataTable id="posiciones1" var="_posicion"
+								value="#{actuadorAvanceBean.listaPosiciones}" editable="false">
+								<f:facet name="header">  
+					            	Lista de Posiciones
+					        	</f:facet>
+
+								<p:column headerText="Id Posicion" style="width:10%">
+									<h:outputText value="#{_posicion.idPosicion}" />
+								</p:column>
+								
+								<p:column headerText="Nro Posicion" style="width:10%">
+									<h:outputText value="#{_posicion.nroPosicion}" />
+								</p:column>
+	
+								<p:column headerText="Descripcion" style="width:10%">
+									<h:outputText value="#{_posicion.descripcion}" />
+								</p:column>
+	
+								<p:column headerText="Valor" style="width:10%">
+									<h:outputText value="#{_posicion.valor}" />
+								</p:column>
+							</p:dataTable>
+						
+					</p:panel>
+				</p:tab>
+
+				<p:tab id="confirmacion" title="Confirmación">
+					<p:panel header="Confirmación">
+						<h:panelGrid id="confirmation" columns="2"	columnClasses="grid,grid" style="width:100%;" >
+							<h:panelGrid columns="2" columnClasses="label, value" style="width:50%;">
+								
+								<p:outputLabel for="idOut" value="Id Dispositivo:" style="width:50%; font-weight: bold;"/>
+								<h:outputText id="idOut" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}"
+									label="Id Dispositivo" style="width:50%;"  />
+
+								<p:outputLabel for="nombreOut" value="Nombre:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="nombreOut" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
+									label="Nombre" style="width:50%;" />
+
+								<p:outputLabel for="modeloOut" value="Modelo:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="modeloOut" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.modelo}"
+									label="Modelo" style="width:50%;"  />
+
+								<p:outputLabel for="tipoActuadorOut" value="Tipo de Actuador:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="tipoActuadorOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoActuador.descripcion}"
+									label="Tipo Actuador" style="width:50%;" />
+
+								<p:outputLabel for="tipoPuertoOut" value="Tipo de Puerto:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="tipoPuertoOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoPuerto.nombre}"
+									label="Tipo Puerto" style="width:50%;" />
+
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" columnClasses="label, value" style="width:50%;">
+								<p:outputLabel for="numPuertoOut" value="Número de Puerto Avance:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="numPuertoOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.numeroPuerto}"
+									label="Número de Puerto Avance" style="width:50%;" />
+
+								<p:outputLabel for="numPuertoRetOut" value="Número de Puerto Retroceso:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="numPuertoRetOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.numeroPuertoRetroceso}"
+									label="Número de Puerto Retroceso" style="width:50%;" />
+
+								<p:outputLabel for="posicionIniOut" value="Posición Inicial:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="posicionIniOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.posicion}" label="Posición Inicial" style="width:50%;" />
+								
+								<p:outputLabel for="tiempoPosOut" value="Tiempo entre posiciones:" style="width:50%; font-weight: bold;" />
+								<h:outputText id="tiempoPosOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tiempoEntrePosiciones}" label="Tiempo entre posiciones" style="width:50%;" />
+								
+							</h:panelGrid>
+
+
+						</h:panelGrid>
+
+						<p:dataTable id="posicionesOut" var="_posicion"
+							value="#{actuadorAvanceBean.listaPosiciones}" editable="false">
+							<f:facet name="header">  
+				            	Lista de Posiciones
+				        	</f:facet>
+
+
+							<p:column headerText="Id Posicion" style="width:10%">
+								<h:outputText value="#{_posicion.idPosicion}" />
+							</p:column>
+							
+							<p:column headerText="Id Posicion" style="width:10%">
+								<h:outputText value="#{_posicion.nroPosicion}" />
+							</p:column>
+
+							<p:column headerText="Descripcion" style="width:10%">
+								<h:outputText value="#{_posicion.descripcion}" />
+							</p:column>
+
+							<p:column headerText="Valor" style="width:10%">
+								<h:outputText value="#{_posicion.valor}" />
+							</p:column>
+						</p:dataTable>
+						
+						<br />
+						
+						<p:commandButton value="Confirmar"
+							actionListener="#{actuadorAvanceBean.guardar}"
+							update=":form:actuadores" process="@this" oncomplete="PF('wiz').loadStep (PF('wiz').cfg.steps [0], true)" 
+							style="float:right;" />
+					</p:panel>
+				</p:tab>
+			</p:wizard>
+
+			<p:spacer height="10"/> 
+
+			<h:panelGroup rendered="#{empty actuadoresAvance}">
+				<em>No hay Actuadores de Avance registrados.</em>
+			</h:panelGroup>
+
+
+
+
+			<p:dataTable id="actuadores" var="_actuador"
+				value="#{actuadoresAvance}" editable="true">
+				<f:facet name="header">  
+            	Administrar Actuadores de Avance
+        	</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{actuadorAvanceBean.onEdit}"
+					update=":form:messages" />
+				<p:ajax event="rowEditCancel"
+					listener="#{actuadorAvanceBean.onCancel}" update=":form:messages" />
+
+				<p:column headerText="Id Dispositivo" style="width:10%">
+					<h:outputText value="#{_actuador.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputNom" value="#{_actuador.nombre}"
+								style="width:96%" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Modelo" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.modelo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputMod" value="#{_actuador.modelo}"
+								style="width:96%" required="false" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Tipo de Actuador" style="width:20%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.tipoActuador.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu id="tipoActuadorTab"
+								value="#{_actuador.tipoActuador}" style="width:100%">
+								<f:converter converterId="tipoActuadorConverter" />
+								<f:selectItems value="#{tipoActuador}" var="tActuador"
+									itemLabel="#{tActuador.descripcion}" itemValue="#{tActuador}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Tipo de Puerto" style="width:20%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.tipoPuerto.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu id="tipoPuertoTab"
+								value="#{_actuador.tipoPuerto}" style="width:100%">
+								<f:converter converterId="tipoPuertoConverter" />
+								<f:selectItems value="#{tipoPuerto}" var="tPuerto"
+									itemLabel="#{tPuerto.nombre}" itemValue="#{tPuerto}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Número de Puerto Avance" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.numeroPuerto}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputNumPA"
+								value="#{_actuador.numeroPuerto}" style="width:96%"
+								required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Número de Puerto Retroceso" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.numeroPuertoRetroceso}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputNumPR"
+								value="#{_actuador.numeroPuertoRetroceso}" style="width:96%"
+								required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Posición" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.posicion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputPos" value="#{_actuador.posicion}"
+								style="width:96%" required="false" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Tiempo entre Posiciones" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.tiempoEntrePosiciones}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="tiempoPosIn" value="#{_actuador.tiempoEntrePosiciones}"
+								style="width:96%" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:3%">
+					<p:rowEditor />
+				</p:column>
+				<!--  -->
+				<p:column style="width:3%">
+					<p:commandLink id="deleteLink" update=":form" immediate="true"
+						ajax="true" styleClass="ui-icon ui-icon-trash"
+						actionListener="#{actuadorAvanceBean.eliminar(_actuador.id)}">
+					</p:commandLink>
+				</p:column>
+				
+				<p:column style="width:3%">
+					<p:commandLink id="detalle" 
+						styleClass="ui-icon ui-icon-search" 
+						action="detalleActuador?faces-redirect=true" 
+						
+						actionListener="#{actuadorAvanceBean.seleccionarActuadorAvanceSeleccionado(_actuador.id)}"
+						immediate="true">
+
+					</p:commandLink>	
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

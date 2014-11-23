@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1 style="text-align: center;">Logs de Eventos</h1>
+
+
+		<h:form id="form" prependId="false">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+
+			<h:panelGroup rendered="#{empty logEventos}">
+				<em>No hay Logs de Eventos.</em>
+			</h:panelGroup>
+
+			<p:dataTable id="logEventos" var="_logEvento" value="#{logEventos}"
+				editable="false">
+				<f:facet name="header">  
+            	Log de Eventos
+        	</f:facet>
+
+				<p:column headerText="Fecha" style="width:15%">
+					<h:outputText value="#{_logEvento.fecha}" />
+				</p:column>
+
+				<p:column headerText="Tipo Log" style="width:30%">
+					<p:commandLink update=":form:dialogoTipoLog"
+						styleClass="ui-icon ui-icon-search"
+						oncomplete="PF('dialogoTipoLog').show()" title="Ver Detalle"
+						style="float:left;">
+						<f:setPropertyActionListener value="#{_logEvento.tipoLogEvento}"
+							target="#{logEventoBean.tipoLogEvento}" />
+					</p:commandLink>
+					<h:outputText value="#{_logEvento.tipoLogEvento.nombre}" />
+				</p:column>
+
+				<p:column headerText="Mensaje" style="width:15%">
+					<p:commandLink update=":form:dialogoMensaje"
+						styleClass="ui-icon ui-icon-search"
+						oncomplete="PF('dialogoMensaje').show()" title="Ver Detalle"
+						style="float:left;">
+						<f:setPropertyActionListener value="#{_logEvento.mensaje}"
+							target="#{logEventoBean.mensaje}" />
+					</p:commandLink>
+					<h:outputText value="#{_logEvento.mensaje.id}, #{_logEvento.mensaje.tipo}" />
+				</p:column>
+
+				<p:column headerText="Dispositivo" style="width:15%">
+					<p:commandLink update=":form:dialogoDispositivo"
+						styleClass="ui-icon ui-icon-search"
+						oncomplete="PF('dialogoDispositivo').show()" title="Ver Detalle"
+						style="float:left;">
+						<f:setPropertyActionListener value="#{_logEvento.dispositivo}"
+							target="#{logEventoBean.dispositivo}" />
+					</p:commandLink>
+					<h:outputText value="#{_logEvento.dispositivo.nombre}" />
+				</p:column>
+			</p:dataTable>
+
+			<br />
+			<br />
+
+
+			<p:dialog header="Detalle Tipo Log" widgetVar="dialogoTipoLog"
+				modal="true" showEffect="blind" resizable="false">
+				<p:outputPanel id="dialogoTipoLog" style="text-align:center;">
+					<h:panelGrid columns="2">
+
+						<f:facet name="header">
+							<h:outputText value="#{logEventoBean.tipoLogEvento.nombre}" />
+						</f:facet>
+
+						<h:outputText value="Enviar SMS?:" />
+						<h:outputText value="#{logEventoBean.tipoLogEvento.enviarSMS}" />
+
+						<h:outputText value="Enviar Mail?" />
+						<h:outputText value="#{logEventoBean.tipoLogEvento.enviarMail}" />
+
+						<h:outputText value="Destinatarios" />
+						<p:dataList id="destinatarios"
+							value="#{logEventoBean.tipoLogEvento.listaDestinatarios}"
+							var="desti" type="unordered" itemType="none" paginator="false"
+							rows="10">
+
+<!-- 							<p:commandLink update=":form:destDetail" -->
+<!-- 								styleClass="ui-icon ui-icon-search" -->
+<!-- 								oncomplete="PF('destDialog').show()" title="Ver Detalle" -->
+<!-- 								style="float:left;"> -->
+<!-- 								<f:setPropertyActionListener value="#{desti}" -->
+<!-- 									target="#{tipoLogEventoBean.destinatarioSeleccionado}" /> -->
+<!-- 								<h:outputText value="#{desti.idDestinatario}" -->
+<!-- 									style="text-align:left;" /> -->
+<!-- 							</p:commandLink> -->
+							<h:outputText value="#{desti.nombre}" />
+						</p:dataList>
+
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+
+
+			<p:dialog header="Detalle Mensaje" widgetVar="dialogoMensaje"
+				modal="true" showEffect="blind" resizable="false">
+				<p:outputPanel id="dialogoMensaje" style="text-align:center;">
+					<h:panelGrid columns="1">
+
+						<f:facet name="header">
+							<h:outputText value="#{logEventoBean.mensaje.id}, #{logEventoBean.mensaje.tipo}" />
+						</f:facet>
+
+						<h:outputText value="#{logEventoBean.mensaje.texto}" />
+						
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+			
+			<p:dialog header="Detalle Dispositivo" widgetVar="dialogoDispositivo"
+				modal="true" showEffect="blind" resizable="false">
+				<p:outputPanel id="dialogoDispositivo" style="text-align:center;">
+					<h:panelGrid columns="2">
+
+						<f:facet name="header">
+							<h:outputText value="#{logEventoBean.dispositivo.nombre}" />
+						</f:facet>
+
+						<h:outputText value="Modelo" />
+						<h:outputText value="#{logEventoBean.dispositivo.modelo}" />
+						
+						<h:outputText value="Número de puerto" />
+						<h:outputText value="#{logEventoBean.dispositivo.numeroPuerto}" />
+						
+						<h:outputText value="Activo Sistema" />
+						<h:outputText value="#{logEventoBean.dispositivo.activoSistema}" />
+						
+						<h:outputText value="Estado Alerta" />
+						<h:outputText value="#{logEventoBean.dispositivo.estadoAlerta}" />
+						
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+			
+
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
