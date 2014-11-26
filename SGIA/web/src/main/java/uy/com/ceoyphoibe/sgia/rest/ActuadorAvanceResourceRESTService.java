@@ -29,10 +29,6 @@ public class ActuadorAvanceResourceRESTService {
 	public List<ActuadorAvance> listAll() {
 		@SuppressWarnings("unchecked")
 		final List<ActuadorAvance> results = em.createQuery("select c from actuadoresAvance c order by c.id").getResultList();
-//		for (ActuadorAvance actuadorAvance : results) {
-//			System.out.println("Lista:"
-//					+ actuadorAvance.getListaPosiciones().size());
-//		}
 		return results;
 	}
 

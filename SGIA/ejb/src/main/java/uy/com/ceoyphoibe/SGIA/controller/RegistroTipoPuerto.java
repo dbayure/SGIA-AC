@@ -3,18 +3,16 @@ package uy.com.ceoyphoibe.SGIA.controller;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+
 import uy.com.ceoyphoibe.SGIA.model.TipoPuerto;
 
-
-@Stateful
-@Model
+@Stateless
 public class RegistroTipoPuerto {
 	
 	@Inject
@@ -34,11 +32,10 @@ public class RegistroTipoPuerto {
 	      return newTipoPuerto;
 	   }
 
-	   public void registro() throws Exception {
-	      log.info("Registro " + newTipoPuerto.getNombre());
-	      em.persist(newTipoPuerto);
-	      tipoPuertoEventSrc.fire(newTipoPuerto);
-	      initNewTipoPuerto();
+	   public void registro(TipoPuerto tipoPuerto) throws Exception {
+	      log.info("Registro " + tipoPuerto.getNombre());
+	      em.persist(tipoPuerto);
+	      tipoPuertoEventSrc.fire(tipoPuerto);
 	   }
 	   
 	   public void modificar(TipoPuerto tipoPuerto) throws Exception {

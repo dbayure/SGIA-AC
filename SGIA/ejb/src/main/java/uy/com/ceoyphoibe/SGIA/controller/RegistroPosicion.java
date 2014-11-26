@@ -13,8 +13,6 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 
-
-
 @Stateful
 @Model
 public class RegistroPosicion {

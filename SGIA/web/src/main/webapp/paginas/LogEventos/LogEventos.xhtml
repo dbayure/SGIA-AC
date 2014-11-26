@@ -14,11 +14,6 @@
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
-
-			<h:panelGroup rendered="#{empty logEventos}">
-				<em>No hay Logs de Eventos.</em>
-			</h:panelGroup>
-
 			<p:dataTable id="logEventos" var="_logEvento" value="#{logEventos}"
 				editable="false">
 				<f:facet name="header">  
@@ -87,35 +82,20 @@
 							value="#{logEventoBean.tipoLogEvento.listaDestinatarios}"
 							var="desti" type="unordered" itemType="none" paginator="false"
 							rows="10">
-
-<!-- 							<p:commandLink update=":form:destDetail" -->
-<!-- 								styleClass="ui-icon ui-icon-search" -->
-<!-- 								oncomplete="PF('destDialog').show()" title="Ver Detalle" -->
-<!-- 								style="float:left;"> -->
-<!-- 								<f:setPropertyActionListener value="#{desti}" -->
-<!-- 									target="#{tipoLogEventoBean.destinatarioSeleccionado}" /> -->
-<!-- 								<h:outputText value="#{desti.idDestinatario}" -->
-<!-- 									style="text-align:left;" /> -->
-<!-- 							</p:commandLink> -->
 							<h:outputText value="#{desti.nombre}" />
 						</p:dataList>
-
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
-
 
 			<p:dialog header="Detalle Mensaje" widgetVar="dialogoMensaje"
 				modal="true" showEffect="blind" resizable="false">
 				<p:outputPanel id="dialogoMensaje" style="text-align:center;">
 					<h:panelGrid columns="1">
-
 						<f:facet name="header">
 							<h:outputText value="#{logEventoBean.mensaje.id}, #{logEventoBean.mensaje.tipo}" />
 						</f:facet>
-
 						<h:outputText value="#{logEventoBean.mensaje.texto}" />
-						
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
@@ -124,11 +104,9 @@
 				modal="true" showEffect="blind" resizable="false">
 				<p:outputPanel id="dialogoDispositivo" style="text-align:center;">
 					<h:panelGrid columns="2">
-
 						<f:facet name="header">
 							<h:outputText value="#{logEventoBean.dispositivo.nombre}" />
 						</f:facet>
-
 						<h:outputText value="Modelo" />
 						<h:outputText value="#{logEventoBean.dispositivo.modelo}" />
 						
@@ -140,13 +118,9 @@
 						
 						<h:outputText value="Estado Alerta" />
 						<h:outputText value="#{logEventoBean.dispositivo.estadoAlerta}" />
-						
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
-			
-
-			
 		</h:form>
 	</ui:define>
 </ui:composition>

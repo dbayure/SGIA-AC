@@ -3,9 +3,8 @@ package uy.com.ceoyphoibe.SGIA.controller;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,8 +13,7 @@ import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.Rol;
 
 
-@Stateful
-@Model
+@Stateless
 public class RegistroRol {
 	
 	@Inject
@@ -35,11 +33,10 @@ public class RegistroRol {
 	      return newRol;
 	   }
 
-	   public void registro() throws Exception {
+	   public void registro(Rol rol) throws Exception {
 	      log.info("Registro " + newRol.getRol());
-	      em.persist(newRol);
-	      rolEventSrc.fire(newRol);
-	      initNewrol();
+	      em.persist(rol);
+	      rolEventSrc.fire(rol);
 	   }
 	   
 	   public void modificar(Rol rol) throws Exception {

@@ -15,15 +15,18 @@ import uy.com.ceoyphoibe.SGIA.model.Rol;
 @ManagedBean
 @RequestScoped
 public class RolBean {
-
+	
 	@Inject
 	private RegistroRol registroRol;
 	
+	private Rol rolTemp= new Rol();
+	
 	public void registrar() {
 		try {
-			registroRol.registro();
+			registroRol.registro(rolTemp);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        rolTemp= new Rol();
 		}
 		catch (Exception e) {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
@@ -31,6 +34,20 @@ public class RolBean {
 		}
 	}
 	
+	/**
+	 * @return the rolTemp
+	 */
+	public Rol getRolTemp() {
+		return rolTemp;
+	}
+
+	/**
+	 * @param rolTemp the rolTemp to set
+	 */
+	public void setRolTemp(Rol rolTemp) {
+		this.rolTemp = rolTemp;
+	}
+
 	public void onEdit(RowEditEvent event) {  
             Rol rol = ((Rol) event.getObject());
            

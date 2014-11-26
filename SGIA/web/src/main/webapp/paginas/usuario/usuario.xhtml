@@ -10,24 +10,28 @@
 	
 
       <h:form id="form" prependId="false">
-         <h2>Registro</h2>
          
          <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
          
          <h:panelGrid columns="2" >
 
 			<p:outputLabel for="nombre" value="Nombre:" />
-			<p:inputText id="nombre" value="#{newUsuario.nombre}" label="nombre" required="true" />
+			<p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}" label="nombre" required="true" />
+			
 			<p:outputLabel for="usuario" value="Usuario:" />
-			<p:inputText id="usuario" value="#{newUsuario.usuario}" label="usuario" required="true" />
+			<p:inputText id="usuario" value="#{usuarioBean.usuario.usuario}" label="usuario" required="true" />
+			
 			<p:outputLabel for="pass" value="Contraseña:" />
-			<p:password id="pass" value="#{newUsuario.password}" label="contraseña" required="true"/>
+			<p:password id="pass" value="#{usuarioBean.usuario.password}" label="contraseña" required="true"/>
+			
 			<p:outputLabel for="tel" value="Telefono:" />
-			<p:inputText id="tel" value="#{newUsuario.telefono}" label="telefono" required="true" />
+			<p:inputText id="tel" value="#{usuarioBean.usuario.telefono}" label="telefono" required="true" />
+			
 			<p:outputLabel for="correo" value="Correo:" />
-			<p:inputText id="correo" value="#{newUsuario.correo}" label="correo" required="true" />
+			<p:inputText id="correo" value="#{usuarioBean.usuario.correo}" label="correo" required="true" />
+			
 			<p:outputLabel for="rol" value="Perfil"/>
-			<p:selectOneMenu id="rol" value="#{newUsuario.rol}" required="true">
+			<p:selectOneMenu id="rol" value="#{usuarioBean.usuario.rol}" required="true">
 				<f:converter converterId="rolConverter" />
 				<f:selectItem itemLabel="Seleccione..." itemValue=""/>
 				<f:selectItems value="#{roles}" var="rol" itemLabel="#{rol.rol}" itemValue="#{rol}"/>
@@ -35,16 +39,16 @@
 		</h:panelGrid>
          
          <p>            
-            <p:commandButton id="register" action="#{usuarioBean.registrar}" value="Registrar" style="margin-left: 400px;" />
+            <p:commandButton id="register" 
+            action="#{usuarioBean.registrar}" 
+            value="Registrar" 
+            style="margin-left: 400px;" 
+            update= ":form:usuarios, form"/>
          </p>      
-      <h:panelGroup rendered="#{empty usuario}">
-         <em>No hay Usuario registrado.</em>
-      </h:panelGroup>
+    
       
        <p:dataTable id="usuarios" var="_user" value="#{usuario}" editable="true">
-       		<f:facet name="header">  
-            	Administrar Usuarios  
-        	</f:facet>
+       		<f:facet name="header"> Usuarios  </f:facet>
         	
         	<p:ajax event="rowEdit" listener="#{usuarioBean.onEdit}" update=":form:messages" />  
         	<p:ajax event="rowEditCancel" listener="#{usuarioBean.onCancel}" update=":form:messages" />  

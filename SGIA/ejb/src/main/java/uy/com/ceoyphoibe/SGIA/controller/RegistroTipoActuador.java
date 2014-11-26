@@ -3,9 +3,8 @@ package uy.com.ceoyphoibe.SGIA.controller;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,8 +13,7 @@ import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 
 
-@Stateful
-@Model
+@Stateless
 public class RegistroTipoActuador {
 	
 	@Inject
@@ -35,11 +33,10 @@ public class RegistroTipoActuador {
 	      return newTipoActuador;
 	   }
 
-	   public void registro() throws Exception {
-	      log.info("Registro " + newTipoActuador.getCategoria());
-	      em.persist(newTipoActuador);
-	      tipoActuadorEventSrc.fire(newTipoActuador);
-	      initNewTipoActuador();
+	   public void registro(TipoActuador tipoActuador) throws Exception {
+	      log.info("Registro " + tipoActuador.getCategoria());
+	      em.persist(tipoActuador);
+	      tipoActuadorEventSrc.fire(tipoActuador);
 	   }
 	   
 	   public void modificar(TipoActuador tipoActuador) throws Exception {

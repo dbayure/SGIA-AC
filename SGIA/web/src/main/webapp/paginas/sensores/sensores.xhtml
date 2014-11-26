@@ -10,58 +10,44 @@
 	
 
       <h:form id="form" prependId="false">
-         <h2>Registro</h2>
          
          <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
          
          <h:panelGrid columns="2" >
 
 			<p:outputLabel for="id" value="Id Dispositivo:" />
-			<p:inputText id="id" value="#{newSensor.id}" label="Id Dispositivo" required="true" />
+			<p:inputText id="id" value="#{sensorBean.sensorTemp.id}" label="Id Dispositivo" required="true" />
 			
 			<p:outputLabel for="nombre" value="Nombre:" />
-			<p:inputText id="nombre" value="#{newSensor.nombre}" label="Nombre" required="true" />
+			<p:inputText id="nombre" value="#{sensorBean.sensorTemp.nombre}" label="Nombre" required="true" />
 			
 			<p:outputLabel for="modelo" value="Modelo:" />
-			<p:inputText id="modelo" value="#{newSensor.modelo}" label="Modelo" required="false" />
+			<p:inputText id="modelo" value="#{sensorBean.sensorTemp.modelo}" label="Modelo" required="false" />
 			
 			<p:outputLabel for="tipoPuerto" value="Tipo de Puerto:" />
-			<p:selectOneMenu id="tipoPuerto" value="#{newSensor.tipoPuerto}">
+			<p:selectOneMenu id="tipoPuerto" value="#{sensorBean.sensorTemp.tipoPuerto}">
 				<f:converter converterId="tipoPuertoConverter" />
 				<f:selectItems value="#{tipoPuerto}" var="tPuerto"
 									itemLabel="#{tPuerto.nombre}" itemValue="#{tPuerto}" />
 	        </p:selectOneMenu>
 	        
 	        <p:outputLabel for="numPuerto" value="Número de Puerto:" />
-			<p:inputText id="numPuerto" value="#{newSensor.numeroPuerto}" label="Número de Puerto" required="true" />
+			<p:inputText id="numPuerto" value="#{sensorBean.sensorTemp.numeroPuerto}" label="Número de Puerto" required="true" />
 			
 			<p:outputLabel for="formConv" value="Fórmula de Conversión:" />
-			<p:inputText id="formConv" value="#{newSensor.formulaConversion}" label="Fórmula de Conversión" required="true" />
+			<p:inputText id="formConv" value="#{sensorBean.sensorTemp.formulaConversion}" label="Fórmula de Conversión" required="true" />
 			
-			<p:outputLabel for="estadoAlerta" value="Estado de Alerta:" label="Estado de Alerta" required="true" />
-			<p:selectOneMenu id="estadoAlerta" value="#{newSensor.estadoAlerta}">
-	            <f:selectItem itemLabel="Activo" itemValue="S" />
-	            <f:selectItem itemLabel="No Activo" itemValue="N" />
-	        </p:selectOneMenu>
-			
-			<p:outputLabel for="activoSistema" value="Activo Sistema:" label="Activo en el Sistema" required="true" />
-			<p:selectOneMenu id="activoSistema" value="#{newSensor.activoSistema}">
-	            <f:selectItem itemLabel="Activo" itemValue="S" />
-	            <f:selectItem itemLabel="No Activo" itemValue="N" />
-	        </p:selectOneMenu>
-
 		</h:panelGrid>
          
          <p>            
-            <p:commandButton id="register" action="#{sensorBean.registrar()}" value="Registrar" update=":form:sensores" style="margin-left: 400px;" />
+            <p:commandButton id="register" action="#{sensorBean.registrar()}" value="Registrar" 
+            update=":form:sensores, form" 
+            style="margin-left: 400px;" />
          </p>      
-      <h:panelGroup rendered="#{empty mensajes}">
-         <em>No hay Sensor registrado.</em>
-      </h:panelGroup>
       
        <p:dataTable id="sensores" var="_sensor" value="#{sensores}" editable="true">
        		<f:facet name="header">  
-            	Administrar Sensores
+            	Sensores
         	</f:facet>
         	
         	<p:ajax event="rowEdit" listener="#{sensorBean.onEdit}" update=":form:messages" />  

@@ -13,6 +13,7 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.data.ActuadorListProducer;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
@@ -35,27 +36,12 @@ public class ActuadorAvanceBean {
 
 	private boolean skip;
 
-	private String prueba;
 
 	/**
 	 * @return the skip
 	 */
 	public boolean isSkip() {
 		return skip;
-	}
-
-	/**
-	 * @return the prueba
-	 */
-	public String getPrueba() {
-		return prueba;
-	}
-
-	/**
-	 * @param prueba the prueba to set
-	 */
-	public void setPrueba(String prueba) {
-		this.prueba = prueba;
 	}
 
 	/**

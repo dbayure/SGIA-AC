@@ -16,8 +16,6 @@ import javax.persistence.criteria.Root;
 
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 
-
-
 @RequestScoped
 public class MensajeListProducer {
 	
@@ -25,7 +23,6 @@ public class MensajeListProducer {
    private EntityManager em;
 
    private List<Mensaje> mensajes;
-
 
    @Produces
    @Named
@@ -42,7 +39,7 @@ public class MensajeListProducer {
       CriteriaBuilder cb = em.getCriteriaBuilder();
       CriteriaQuery<Mensaje> criteria = cb.createQuery(Mensaje.class);
       Root<Mensaje> mensaje = criteria.from(Mensaje.class);
-      criteria.select(mensaje).orderBy(cb.asc(mensaje.get("texto")));
+      criteria.select(mensaje).orderBy(cb.asc(mensaje.get("tipo")));
       mensajes = em.createQuery(criteria).getResultList();
    }
 }

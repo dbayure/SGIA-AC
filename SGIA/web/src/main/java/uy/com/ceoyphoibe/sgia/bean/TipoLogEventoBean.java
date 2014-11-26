@@ -14,8 +14,6 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
-
-
 @ManagedBean
 @ViewScoped
 public class TipoLogEventoBean {

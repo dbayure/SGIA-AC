@@ -20,11 +20,16 @@ public class SensorBean {
 	@Inject
 	private RegistroSensor registroSensor;
 	
+	private Sensor sensorTemp= new Sensor();
+	
 	public void registrar() {
 		try {
-			registroSensor.registro();
+			sensorTemp.setActivoSistema('S');
+			sensorTemp.setEstadoAlerta('N');
+			registroSensor.registro(sensorTemp);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        sensorTemp= new Sensor();
 		}
 		catch (Exception e) {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
@@ -32,6 +37,20 @@ public class SensorBean {
 		}
 	}
 	
+	/**
+	 * @return the sensorTemp
+	 */
+	public Sensor getSensorTemp() {
+		return sensorTemp;
+	}
+
+	/**
+	 * @param sensorTemp the sensorTemp to set
+	 */
+	public void setSensorTemp(Sensor sensorTemp) {
+		this.sensorTemp = sensorTemp;
+	}
+
 	public void onEdit(RowEditEvent event) {  
             Sensor sensor = ((Sensor) event.getObject());
            

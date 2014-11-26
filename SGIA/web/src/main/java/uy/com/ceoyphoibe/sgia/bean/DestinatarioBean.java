@@ -3,7 +3,6 @@ package uy.com.ceoyphoibe.sgia.bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -13,16 +12,23 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroDestinatario;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 
 
-
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class DestinatarioBean {
 
 	@Inject
 	private RegistroDestinatario registroDestinatario;
 	
-	private Destinatario destinatarioSeleccionado;
+	private Destinatario destinatarioSeleccionado = new Destinatario();
 	
+	/**
+	 * 
+	 */
+	public DestinatarioBean() {
+		destinatarioSeleccionado.setHoraMin(0);
+		destinatarioSeleccionado.setHoraMax(23);
+	}
+
 	/**
 	 * @return the destinatarioSeleccionado
 	 */
@@ -39,9 +45,13 @@ public class DestinatarioBean {
 
 	public void registrar() {
 		try {
-			registroDestinatario.registro();
+			destinatarioSeleccionado.setActivoSistema('S');
+			registroDestinatario.registro(destinatarioSeleccionado);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        destinatarioSeleccionado= new Destinatario();
+	        destinatarioSeleccionado.setHoraMin(0);
+			destinatarioSeleccionado.setHoraMax(23);
 		}
 		catch (Exception e) {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  

@@ -10,31 +10,32 @@
 	
 
       <h:form id="form" prependId="false">
-         <h2>Registro</h2>
-         
+      
          <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
          
          <h:panelGrid columns="2" >
 
 			<p:outputLabel for="nombre" value="Nombre:" />
-			<p:inputText id="nombre" value="#{newRol.rol}" label="nombre" required="true" />
+			<p:inputText id="nombre" value="#{rolBean.rolTemp.rol}" label="nombre" required="true" />
 			
 			<p:outputLabel for="desc" value="Descripcion:" />
-			<p:inputText id="desc" value="#{newRol.descripcion}" label="descripcion" required="false" />
+			<p:inputText id="desc" value="#{rolBean.rolTemp.descripcion}" label="descripcion" required="false" />
 
 		</h:panelGrid>
          
          <p>            
-            <p:commandButton id="register" action="#{rolBean.registrar}" value="Registrar" style="margin-left: 400px;" />
+            <p:commandButton id="register" 
+            	action="#{rolBean.registrar}" 
+            	value="Registrar" 
+            	style="margin-left: 400px;" 
+            	update=":form:roles, form"/>
          </p>      
       <h:panelGroup rendered="#{empty rol}">
          <em>No hay Rol registrado.</em>
       </h:panelGroup>
       
        <p:dataTable id="roles" var="_rol" value="#{roles}" editable="true">
-       		<f:facet name="header">  
-            	Administrar Rol  
-        	</f:facet>
+       		<f:facet name="header">  Roles 	</f:facet>
         	
         	<p:ajax event="rowEdit" listener="#{rolBean.onEdit}" update=":form:messages" />  
         	<p:ajax event="rowEditCancel" listener="#{rolBean.onCancel}" update=":form:messages" />  

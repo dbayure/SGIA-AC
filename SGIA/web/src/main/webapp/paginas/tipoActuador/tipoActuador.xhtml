@@ -17,22 +17,23 @@
          <h:panelGrid columns="2" >
 
 			<p:outputLabel for="Id" value="Id:" />
-			<p:inputText id="Id" value="#{newTipoActuador.id}" label="id" required="true" />
+			<p:inputText id="Id" value="#{tipoActuadorBean.tipoActuador.id}" label="id" required="true" />
 			
 			<p:outputLabel for="nombre" value="Nombre:" />
-			<p:inputText id="nombre" value="#{newTipoActuador.categoria}" label="nombre" required="true" />
+			<p:inputText id="nombre" value="#{tipoActuadorBean.tipoActuador.categoria}" label="nombre" required="true" />
 			
 			<p:outputLabel for="desc" value="Descripcion:" />
-			<p:inputText id="desc" value="#{newTipoActuador.descripcion}" label="descripcion" required="false" />
+			<p:inputText id="desc" value="#{tipoActuadorBean.tipoActuador.descripcion}" label="descripcion" required="false" />
 
 		</h:panelGrid>
          
          <p>            
-            <p:commandButton id="register" action="#{tipoActuadorBean.registrar}" value="Registrar" style="margin-left: 400px;" />
+            <p:commandButton id="register" action="#{tipoActuadorBean.registrar}" 
+            	value="Registrar" 
+            	style="margin-left: 400px;"
+            	update= ":form"/>
          </p>      
-      <h:panelGroup rendered="#{empty tipoActuador}">
-         <em>No hay tipos de actuadores registrados.</em>
-      </h:panelGroup>
+      
       
        <p:dataTable id="tipoActuador" var="_ta" value="#{tipoActuador}" editable="true">
        		<f:facet name="header">  

@@ -9,7 +9,6 @@ import org.primefaces.event.RowEditEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoActuador;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 
-
 @ManagedBean
 @RequestScoped
 public class TipoActuadorBean {
@@ -17,11 +16,28 @@ public class TipoActuadorBean {
 	@Inject
 	private RegistroTipoActuador registroTipoActuador;
 	
+	private TipoActuador tipoActuador= new TipoActuador();
+
+	/**
+	 * @return the tipoActuador
+	 */
+	public TipoActuador getTipoActuador() {
+		return tipoActuador;
+	}
+
+	/**
+	 * @param tipoActuador the tipoActuador to set
+	 */
+	public void setTipoActuador(TipoActuador tipoActuador) {
+		this.tipoActuador = tipoActuador;
+	}
+
 	public void registrar() {
 		try {
-			registroTipoActuador.registro();
+			registroTipoActuador.registro(tipoActuador);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        tipoActuador= new TipoActuador();
 		}
 		catch (Exception e) {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  

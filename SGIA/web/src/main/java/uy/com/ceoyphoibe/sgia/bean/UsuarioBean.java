@@ -20,11 +20,29 @@ public class UsuarioBean {
 	@Inject
 	private RegistroUsuario registroUsuario;
 	
+	private Usuario usuario= new Usuario();
+	
+
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public void registrar() {
 		try {
-			registroUsuario.registro();
+			registroUsuario.registro(usuario);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        usuario= new Usuario();
 		}
 		catch (Exception e) {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  

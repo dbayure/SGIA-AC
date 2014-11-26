@@ -17,11 +17,14 @@ public class TipoPuertoBean {
 	@Inject
 	private RegistroTipoPuerto registroTipoPuerto;
 	
+	private TipoPuerto tipoPuerto= new TipoPuerto();
+	
 	public void registrar() {
 		try {
-			registroTipoPuerto.registro();
+			registroTipoPuerto.registro(tipoPuerto);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	        tipoPuerto= new TipoPuerto();
 		}
 		catch (Exception e) {
 		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
@@ -29,6 +32,26 @@ public class TipoPuertoBean {
 		}
 	}
 	
+	
+	
+	/**
+	 * @return the tipoPuerto
+	 */
+	public TipoPuerto getTipoPuerto() {
+		return tipoPuerto;
+	}
+
+
+
+	/**
+	 * @param tipoPuerto the tipoPuerto to set
+	 */
+	public void setTipoPuerto(TipoPuerto tipoPuerto) {
+		this.tipoPuerto = tipoPuerto;
+	}
+
+
+
 	public void onEdit(RowEditEvent event) {  
             TipoPuerto tipoPuerto = ((TipoPuerto) event.getObject());
            

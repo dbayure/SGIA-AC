@@ -3,9 +3,8 @@ package uy.com.ceoyphoibe.SGIA.controller;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,8 +13,7 @@ import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
 
-@Stateful
-@Model
+@Stateless
 public class RegistroSensor {
 	
 	@Inject
@@ -35,11 +33,10 @@ public class RegistroSensor {
 	      return newSensor;
 	   }
 
-	   public void registro() throws Exception {
-	      log.info("Registro " + newSensor.getNombre());
-	      em.persist(newSensor);
-	      sensorEventSrc.fire(newSensor);
-	      initNewSensor();
+	   public void registro(Sensor sensor) throws Exception {
+	      log.info("Registro " + sensor.getNombre());
+	      em.persist(sensor);
+	      sensorEventSrc.fire(sensor);
 	   }
 	   
 	   public void modificar(Sensor sensor) throws Exception {
