@@ -8,10 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
-import org.hibernate.mapping.Array;
 import org.primefaces.event.RowEditEvent;
-
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;

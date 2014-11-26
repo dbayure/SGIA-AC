@@ -11,10 +11,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 
 @Entity
 @XmlRootElement
 @Table(name = "actuador")
+@JsonIgnoreProperties({"grupoActuadores"})
 public class Actuador extends Dispositivo implements Serializable {
 	
 	/**
@@ -30,6 +35,7 @@ public class Actuador extends Dispositivo implements Serializable {
 	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tipo_puerto_id" , unique = false)
 	private TipoPuerto tipoPuerto;
+	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
@@ -72,13 +78,12 @@ public class Actuador extends Dispositivo implements Serializable {
 		return serialVersionUID;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + estado;
-		result = prime * result
-				+ ((grupoActuadores == null) ? 0 : grupoActuadores.hashCode());
 		result = prime * result
 				+ ((tipoActuador == null) ? 0 : tipoActuador.hashCode());
 		result = prime * result
@@ -97,11 +102,6 @@ public class Actuador extends Dispositivo implements Serializable {
 		Actuador other = (Actuador) obj;
 		if (estado != other.estado)
 			return false;
-		if (grupoActuadores == null) {
-			if (other.grupoActuadores != null)
-				return false;
-		} else if (!grupoActuadores.equals(other.grupoActuadores))
-			return false;
 		if (tipoActuador == null) {
 			if (other.tipoActuador != null)
 				return false;
@@ -118,10 +118,10 @@ public class Actuador extends Dispositivo implements Serializable {
 	@Override
 	public String toString() {
 		return "Actuador [estado=" + estado + ", tipoActuador=" + tipoActuador
-				+ ", tipoPuerto=" + tipoPuerto + ", grupoActuadores="
-				+ grupoActuadores + "]";
+				+ ", tipoPuerto=" + tipoPuerto + "]";
 	}
-	
+
+
 	
 	
 }

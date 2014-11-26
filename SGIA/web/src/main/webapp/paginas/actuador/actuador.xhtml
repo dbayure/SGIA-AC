@@ -51,65 +51,63 @@
 		</h:panelGrid>
          
          <p>            
-            <p:commandButton id="register" action="#{actuadorBean.registrar}" value="Registrar" style="margin-left: 400px;" update="actuadores" />
+            <p:commandButton id="register" action="#{actuadorBean.registrar}" value="Registrar" style="margin-left: 400px;" update="TabActuadores" />
          </p>      
       <h:panelGroup id="renderActuadores" rendered="#{empty actuadores}">
          <em>No hay Actuadores registrados.</em>
       </h:panelGroup>
       
-       <p:dataTable id="actuadores" var="_actuadores" value="#{actuadores}" editable="true">
+       <p:dataTable id="TabActuadores" var="_actuador" value="#{actuadores}" editable="true">
        		<f:facet name="header">  
             	Administrar Actuadores
         	</f:facet>
         	
-        	<p:ajax event="rowEdit" listener="#{actuadorBean.onEdit}" update=":form:messages" />  
+        	<p:ajax event="rowEdit" listener="#{actuadorBean.onEdit}" update=":form:messages"/>  
         	<p:ajax event="rowEditCancel" listener="#{actuadorBean.onCancel}" update=":form:messages" />  
         	 
         	 <p:column headerText="Id" style="width:5%">
-        	 	<h:outputText value="#{_actuadores.id}" />
+        	 	<h:outputText value="#{_actuador.id}" />
         	 </p:column>
         	 
         	 <p:column headerText="Nombre" style="width:25%">  
                <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_actuadores.nombre}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputNombre" value="#{_actuadores.nombre}" style="width:96%" required="true"/></f:facet>  
+                   <f:facet name="output"><h:outputText value="#{_actuador.nombre}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputNombre" value="#{_actuador.nombre}" style="width:96%" required="true"/></f:facet>  
                </p:cellEditor>  
            	 </p:column>  
            	 
         	 <p:column headerText="Modelo" style="width:20%">  
                <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_actuadores.modelo}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputModelo" value="#{_actuadores.modelo}" style="width:950%" required="true"/></f:facet>  
+                   <f:facet name="output"><h:outputText value="#{_actuador.modelo}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputModelo" value="#{_actuador.modelo}" style="width:950%" required="true"/></f:facet>  
                </p:cellEditor>  
            	 </p:column>  
 
         	 <p:column headerText="Puerto" style="width:10%">  
                <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_actuadores.numeroPuerto}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputPuerto" value="#{_actuadores.numeroPuerto}" style="width:15%" required="true"/></f:facet>  
+                   <f:facet name="output"><h:outputText value="#{_actuador.numeroPuerto}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInputPuerto" value="#{_actuador.numeroPuerto}" style="width:15%" required="true"/></f:facet>  
                </p:cellEditor>  
            	 </p:column>  
            	 
         	 <p:column headerText="Tipo Actuador" style="width:40%">  
                <p:cellEditor>  
-                    <f:facet name="output"><h:outputText value="#{_actuadores.tipoActuador.categoria}" /></f:facet> 
+                    <f:facet name="output"><h:outputText value="#{_actuador.tipoActuador.categoria}" /></f:facet> 
                		<f:facet name="input">
-                   	<p:selectOneMenu id="tipoActuadorEdit" value="#{actuadorBean.actuador.tipoActuador}" required="true" style="width:100%" >
-						<f:converter converterId="tipoActuadorConverter" />
-						<f:selectItem itemLabel="Seleccione..." itemValue="" />
-						<f:selectItems value="#{tipoActuador}" var="ta" itemLabel="#{ta.categoria}" itemValue="#{ta}" style="width:150%"/>
-					</p:selectOneMenu>
+	            		<p:selectOneMenu id="tipoActuadorEdit" value="#{_actuador.tipoActuador}" required="true" style="width:100%">
+							<f:converter converterId="tipoActuadorConverter" />
+							<f:selectItems value="#{tipoActuador}" var="ta" itemLabel="#{ta.categoria}" itemValue="#{ta}"  />
+						</p:selectOneMenu>
 					</f:facet>
                </p:cellEditor>  
            	 </p:column>             	            	            	 
            	            	 
         	 <p:column headerText="Tipo Puerto" style="width:40%">  
                <p:cellEditor>  
-                    <f:facet name="output"><h:outputText value="#{_actuadores.tipoPuerto.nombre}" /></f:facet> 
+                    <f:facet name="output"><h:outputText value="#{_actuador.tipoPuerto.nombre}" /></f:facet> 
                		<f:facet name="input">
-                   	<p:selectOneMenu id="tipoPuertoEdit" value="#{actuadorBean.actuador.tipoPuerto}" required="true" style="width:100%" >
+                   	<p:selectOneMenu id="tipoPuertoEdit" value="#{_actuador.tipoPuerto}" required="true" style="width:100%" >
 						<f:converter converterId="tipoPuertoConverter" />
-						<f:selectItem itemLabel="#{actuadorBean.actuador.tipoPuerto}" itemValue="" />
 						<f:selectItems value="#{tipoPuerto}" var="tp" itemLabel="#{tp.nombre}" itemValue="#{tp}" style="width:150%"/>
 					</p:selectOneMenu>
 					</f:facet>
@@ -118,11 +116,10 @@
            	 
         	 <p:column headerText="Grupo Actuador" style="width:40%">  
                <p:cellEditor>  
-               		<f:facet name="output"><h:outputText value="#{_actuadores.grupoActuadores.nombre}" /></f:facet> 
+               		<f:facet name="output"><h:outputText value="#{_actuador.grupoActuadores.nombre}" /></f:facet> 
                		<f:facet name="input">
-                   	<p:selectOneMenu id="grupoActuadoresEdit" value="#{actuadorBean.actuador.grupoActuadores}" required="false" style="width:100%" >
+                   	<p:selectOneMenu id="grupoActuadoresEdit" value="#{actuadorBean.ga}" required="false" style="width:100%" >
 						<f:converter converterId="grupoActuadoresConverter" />
-						<f:selectItem itemLabel="Seleccione..." itemValue="" />
 						<f:selectItems value="#{grupoActuadores}" var="g" itemLabel="#{g.nombre}" itemValue="#{g}" style="width:150%"/>
 					</p:selectOneMenu>
 					</f:facet>

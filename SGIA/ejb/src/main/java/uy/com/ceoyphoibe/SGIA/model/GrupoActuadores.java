@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity
 @XmlRootElement
 @Table(name = "grupoActuadores")
@@ -30,6 +33,7 @@ public class GrupoActuadores implements Serializable {
 	private char deAvance;
 	private char activoSistema;
 	
+	@JsonBackReference
     @OneToMany( mappedBy = "grupoActuadores", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
     private List<Actuador> actuadores;
 
@@ -136,8 +140,10 @@ public class GrupoActuadores implements Serializable {
 	public String toString() {
 		return "GrupoActuadores [id=" + id + ", nombre=" + nombre + ", estado="
 				+ estado + ", deAvance=" + deAvance + ", activoSistema="
-				+ activoSistema + ", actuadores=" + actuadores + "]";
+				+ activoSistema + "]";
 	}
+
+	
 	
     
 	

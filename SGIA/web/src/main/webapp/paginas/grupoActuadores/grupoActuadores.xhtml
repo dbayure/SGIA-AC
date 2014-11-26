@@ -63,15 +63,14 @@
 			</p:dataTable>
 
 			<p:commandButton process="checkboxAct" update=":form"
-				icon="ui-icon-search" value="View"
-				oncomplete="PF('dialogoActuador').show()" style="float:left" />
+				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoActuador').show()" style="float:left" />
 
 
 			<h:panelGrid columns="2">
 				<p>
 					<p:commandButton id="register"
 						action="#{grupoActuadoresBean.registrar}" value="Registrar"
-						style="margin-left: 400px;" update=":form:gactuadores, form:gridActuadores" />
+						style="margin-left: 400px;" update=":form:messages" />
 				</p>
 			</h:panelGrid>
 

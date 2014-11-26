@@ -1,12 +1,17 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuador;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
@@ -23,11 +28,51 @@ public class ActuadorBean {
 	private RegistroActuador regActuador;
 	
 	private Actuador actuador = new Actuador();
+	private Actuador acatuadorSeleccionado = new Actuador();
+	
+	
+	public Actuador getAcatuadorSeleccionado() {
+		return acatuadorSeleccionado;
+	}
+
+
+	public void setAcatuadorSeleccionado(Actuador acatuadorSeleccionado) {
+		this.acatuadorSeleccionado = acatuadorSeleccionado;
+	}
+
+	private List<Actuador> actuadorLis = new ArrayList<Actuador>(); 
 	private GrupoActuadores ga = new GrupoActuadores();
 	
+
 	public Actuador getActuador() {
 		return actuador;
 	}
+
+
+
+	public GrupoActuadores getGa() {
+		return ga;
+	}
+
+
+
+	public void setGa(GrupoActuadores ga) {
+		this.ga = ga;
+	}
+
+
+
+	public List<Actuador> getActuadorLis() {
+		return actuadorLis;
+	}
+
+
+
+	public void setActuadorLis(List<Actuador> actuadorLis) {
+		this.actuadorLis = actuadorLis;
+	}
+
+
 
 	public void setActuador(Actuador actuador) {
 		this.actuador = actuador;
@@ -68,9 +113,10 @@ public class ActuadorBean {
 
 	public void onEdit(RowEditEvent event) {
 		Actuador actuador = ((Actuador) event.getObject());
-
+		System.out.println("Valor del grupo obtenido del actuador seleccionado " + actuador.getNombre());
 		try {
-//			registroActuador.modificar(actuador);
+			actuador.setGrupoActuadores(ga);
+			regActuador.modificar(actuador);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Se modificó ", actuador.getNombre());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -89,7 +135,7 @@ public class ActuadorBean {
 
 	public void eliminar(Long id) {
 		try {
-//			registroActuador.eliminar(id);
+			regActuador.eliminar(id);
 			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {

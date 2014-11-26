@@ -28,6 +28,7 @@ public class GrupoActuadoresConverter implements Converter {
 					+ "/rest/grupoActuadores/" + value), GrupoActuadores.class);
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de Conversion", "Grupo de Actuadores no válido"));
 		}
 		return grupoActuadores;
