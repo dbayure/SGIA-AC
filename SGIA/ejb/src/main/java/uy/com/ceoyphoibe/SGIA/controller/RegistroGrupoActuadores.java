@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -20,9 +21,12 @@ public class RegistroGrupoActuadores {
 	   @Inject
 	   private EntityManager em;
 
-
+	   @Inject
+	   private Event <GrupoActuadores> grupoActuadoresSrc;
+	   
 	   public void registro(GrupoActuadores ga) throws Exception {
 		   em.merge(ga);
+		   grupoActuadoresSrc.fire(ga);
 	   }
 	   
 	   public void modificar(GrupoActuadores grupoActuadores) throws Exception {

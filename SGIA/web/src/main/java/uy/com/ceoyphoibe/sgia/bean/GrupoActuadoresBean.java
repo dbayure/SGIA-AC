@@ -8,9 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
+import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 
 @ManagedBean
@@ -23,7 +26,44 @@ public class GrupoActuadoresBean {
 	private List<Actuador> actuadores = new ArrayList<Actuador>();
 	private GrupoActuadores ga = new GrupoActuadores();
 	private List<Actuador> actuadoresSelecconados = new ArrayList<Actuador>();
+	private List<ActuadorAvance> actuadoresDeAvanceSelecconados = new ArrayList<ActuadorAvance>();
 	
+	private boolean tablaSeleccionada = false;
+	
+	public void actualizarTabla(){
+		if (tablaSeleccionada){
+			System.out.println();
+			ga.setDeAvance('S');
+		}
+		else{
+			ga.setDeAvance('N');
+		}
+	}
+
+	public boolean getTablaSeleccionada() {
+		return tablaSeleccionada;
+	}
+
+	public void setTablaSeleccionada(boolean tablaSeleccionada) {
+		this.tablaSeleccionada = tablaSeleccionada;
+		if (tablaSeleccionada){
+			System.out.println();
+			ga.setDeAvance('S');
+		}
+		else{
+			ga.setDeAvance('N');
+		}
+		
+	}
+
+	public List<ActuadorAvance> getActuadoresDeAvanceSelecconados() {
+		return actuadoresDeAvanceSelecconados;
+	}
+
+	public void setActuadoresDeAvanceSelecconados(
+			List<ActuadorAvance> actuadoresDeAvanceSelecconados) {
+		this.actuadoresDeAvanceSelecconados = actuadoresDeAvanceSelecconados;
+	}
 
 	public List<Actuador> getActuadoresSelecconados() {
 		return actuadoresSelecconados;
@@ -59,27 +99,44 @@ public class GrupoActuadoresBean {
 	}
 
 	public void registrar() {
-		System.out.println("tamaño de la lista de actuadores"
-				+ actuadoresSelecconados.size());
+		ga.setActivoSistema('S');
+		ga.setEstado('A');
+		char da = ga.getDeAvance();
 		try {
-			if (actuadoresSelecconados.size() > 0) {
-				for (Actuador a : actuadoresSelecconados) {
-					System.out.println("Nombre del grupo a asignar: " + ga.getNombre() + "Al actuador: " + a.getNombre());
-					a.setGrupoActuadores(ga);
-					ga.getActuadores().add(a);
+			if(da == 'N'){
+				if (actuadoresSelecconados.size() > 0) {
+					for (Actuador a : actuadoresSelecconados) {
+						System.out.println("Nombre del grupo a asignar: " + ga.getNombre() + "Al actuador: " + a.getNombre());
+						a.setGrupoActuadores(ga);
+						ga.getActuadores().add(a);
+					}
+					registroGrupoActuadores.registro(ga);
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);	
+				} else {
+					registroGrupoActuadores.registro(ga);
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Se registró ", "con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
-				registroGrupoActuadores.registro(ga);
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);	
-			} else {
-				registroGrupoActuadores.registro(ga);
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Se registró ", "con éxito!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-			ga.setActivoSistema('S');
-			ga.setEstado('A');
-			registroGrupoActuadores.registro(ga);
+			else{
+				if (actuadoresDeAvanceSelecconados.size() > 0) {
+					for (ActuadorAvance aa : actuadoresDeAvanceSelecconados) {
+						System.out.println("Nombre del grupo a asignar: " + ga.getNombre() + "Al actuador de avance: " + aa.getNombre());
+						aa.setGrupoActuadores(ga);
+						ga.getActuadoresAvance().add(aa);
+					}
+					registroGrupoActuadores.registro(ga);
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);	
+				} else {
+					registroGrupoActuadores.registro(ga);
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Se registró ", "con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			}
 		}
 
 		catch (Exception e) {

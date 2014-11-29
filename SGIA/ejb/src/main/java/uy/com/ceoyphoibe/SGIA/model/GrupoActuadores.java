@@ -2,7 +2,9 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,9 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity
 @XmlRootElement
@@ -32,14 +31,18 @@ public class GrupoActuadores implements Serializable {
 	private char estado;
 	private char deAvance;
 	private char activoSistema;
-	
-	@JsonBackReference
+
     @OneToMany( mappedBy = "grupoActuadores", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
     private List<Actuador> actuadores;
 
-    public GrupoActuadores(){
+    @OneToMany( mappedBy = "grupoActuadores", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
+    private Set<ActuadorAvance> actuadoresAvance;
+	
+
+	public GrupoActuadores(){
     	super();
     	actuadores = new ArrayList<Actuador>();
+    	actuadoresAvance = new HashSet<ActuadorAvance>();
     }
     
 	public Long getId() {
@@ -71,6 +74,7 @@ public class GrupoActuadores implements Serializable {
 	}
 
 	public void setDeAvance(char deAvance) {
+		System.out.println("Valor del tipo de actuador seleccionado: "+ deAvance);
 		this.deAvance = deAvance;
 	}
 
@@ -95,6 +99,13 @@ public class GrupoActuadores implements Serializable {
 		return serialVersionUID;
 	}
 
+	public Set<ActuadorAvance> getActuadoresAvance() {
+		return actuadoresAvance;
+	}
+
+	public void setActuadoresAvance(Set<ActuadorAvance> actuadoresAvance) {
+		this.actuadoresAvance = actuadoresAvance;
+	}
 
 	@Override
 	public int hashCode() {

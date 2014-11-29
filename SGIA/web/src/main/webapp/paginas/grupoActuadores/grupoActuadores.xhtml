@@ -31,17 +31,24 @@
 				<p:outputLabel for="nombre" value="Nombre:" />
 				<p:inputText id="nombre" value="#{grupoActuadoresBean.ga.nombre}" label="nombre" required="false" />
 
-				<p:outputLabel for="deAvance" value="De Avacnce:" />
-				<p:selectOneRadio id="deAvance"
-					value="#{grupoActuadoresBean.ga.deAvance}" required="false">
-					<f:selectItem itemLabel="Si" itemValue="S" />
-					<f:selectItem itemLabel="No" itemValue="N" />
-				</p:selectOneRadio>
+<!-- 				<p:outputLabel for="deAvance" value="De Avacnce:" /> -->
+<!-- 				<p:selectOneRadio id="deAvance"   -->
+<!-- 					value="#{grupoActuadoresBean.tablaSeleccionada}" required="false"> -->
+<!-- 					<f:selectItem itemLabel="Si" itemValue="1" /> -->
+<!-- 					<f:selectItem itemLabel="No" itemValue="0" /> -->
+<!-- 					<p:ajax   update=":form:checkboxAct :form:checkboxActAv" /> -->
+<!-- 				</p:selectOneRadio> -->
 
-
+<!--  				<p:selectBooleanButton id="value1" value="#{grupoActuadoresBean.tablaSeleccionada}" onLabel="Si" offLabel="No" style="width:60px"/>  -->
+<!--  				onchange="if(#{grupoActuadoresBean.tablaSeleccionada}){ PF('tala1').show(); PF('tabla2').close();}else{PF('tala2').show(); PF('tabla1').close();}"/> -->
+				<p:selectBooleanButton id="value2" value="#{grupoActuadoresBean.tablaSeleccionada}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
+            		<p:ajax update="checkboxAct checkboxActAv" 	 />
+        		</p:selectBooleanButton>
+	
 			</h:panelGrid>
-			<p:dataTable id="checkboxAct" var="act" value="#{actuadores}" selection="#{grupoActuadoresBean.actuadoresSelecconados}"
-				rowKey="#{act.id}" rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" >
+			<p:panel style="border: none;" closable="true" toggleable="true"  rendered="#{grupoActuadoresBean.tablaSeleccionada}">
+			<p:dataTable id="checkboxAct" var="act" value="#{actuadores}" selection="#{grupoActuadoresBean.actuadoresSelecconados}" 
+				rowKey="#{act.id}" rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"  >
 				<f:facet name="header">
 			            Actuadores disponibles
 			        </f:facet>
@@ -61,16 +68,43 @@
 				</p:column>
 
 			</p:dataTable>
+			</p:panel>
 
-			<p:commandButton process="checkboxAct" update=":form"
-				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoActuador').show()" style="float:left" />
+			<p:dialog widgetVar="dlg">
+				<p:outputLabel>Hola Eduardito</p:outputLabel>
+			</p:dialog>
+			<p:panel style="border: none;" closable="true" toggleable="true" rendered="#{!grupoActuadoresBean.tablaSeleccionada}" >
+			<p:dataTable id="checkboxActAv" var="actAvance" value="#{actuadoresAvance}" selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
+				rowKey="#{actAvance.id}" rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" >
+				<f:facet name="header">
+			            Actuadores de Avance disponibles
+			        </f:facet>
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Id" style="width:15%">
+					<h:outputText value="#{actAvance.id}" />
+				</p:column>
+				<p:column headerText="Nombre Actuador">
+					<h:outputText value="#{actAvance.nombre}" />
+				</p:column>
+				<p:column headerText="Modelo">
+					<h:outputText value="#{actAvance.modelo}" />
+				</p:column>
+				<p:column headerText="Grupo Asignado">
+					<h:outputText value="#{actAvance.grupoActuadores.nombre}" />
+				</p:column>
+
+			</p:dataTable>
+			</p:panel>
+<!-- 			<p:commandButton process="checkboxAct" update=":form" -->
+<!-- 				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoActuador').show()" style="float:left" /> -->
 
 
 			<h:panelGrid columns="2">
 				<p>
 					<p:commandButton id="register"
 						action="#{grupoActuadoresBean.registrar}" value="Registrar"
-						style="margin-left: 400px;" update=":form:messages" />
+						style="margin-left: 400px;" update=":form:messages :form:gactuadores" />
 				</p>
 			</h:panelGrid>
 

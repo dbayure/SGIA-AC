@@ -14,23 +14,34 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @XmlRootElement
 @Table(name = "actuadoresAvance")
+@JsonIgnoreProperties({"grupoActuadores"})
 public class ActuadorAvance extends Dispositivo implements Serializable {
 	
 	private static final long serialVersionUID = -4807811365963928429L;
 	
 	private int posicion;
 	private int numeroPuertoRetroceso;
+
 	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoActuador tipoActuador;
+	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoPuerto tipoPuerto;
+	
 	private int tiempoEntrePosiciones;
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name="actuadoresAvancePosiciones", joinColumns={@JoinColumn(name= "idActuadorAvance", referencedColumnName= "id")}, inverseJoinColumns= {@JoinColumn(name= "idPosicion", referencedColumnName= "idPosicion")}	)
 	private Set<Posicion> listaPosiciones;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
+	private GrupoActuadores grupoActuadores;
 	
 	public ActuadorAvance(){
 		listaPosiciones= new HashSet<Posicion>();
@@ -128,9 +139,14 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
 	
+	public GrupoActuadores getGrupoActuadores() {
+		return grupoActuadores;
+	}
+
+	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
+		this.grupoActuadores = grupoActuadores;
+	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

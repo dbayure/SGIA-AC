@@ -45,6 +45,14 @@
 									itemLabel="#{tActuador.descripcion}" itemValue="#{tActuador}" />
 							</p:selectOneMenu>
 
+							<p:outputLabel for="grupoActuador" value="Grupo Actuador:" />
+							<p:selectOneMenu id="grupoActuador"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.grupoActuadores}">
+								<f:converter converterId="grupoActuadoresConverter" />
+								<f:selectItems value="#{grupoActuadores}" var="gActuador"
+									itemLabel="#{gActuador.nombre}" itemValue="#{gActuador}" />
+							</p:selectOneMenu>
+
 							<p:outputLabel for="tipoPuerto" value="Tipo de Puerto:" />
 							<p:selectOneMenu id="tipoPuerto"
 								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoPuerto}">
