@@ -18,18 +18,25 @@ public class Factor implements Serializable {
 	private static final long serialVersionUID = 407757945510772852L;
 
 	@Id
-	private Long id;
+	private Long idFactor;
 	
 	private String nombre;
 	private char estadado;
 	private char deAvance;
 	private char activoSistema;
 	
-	public Long getId() {
-		return id;
+
+	/**
+	 * @return the idFactor
+	 */
+	public Long getIdFactor() {
+		return idFactor;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	/**
+	 * @param idFactor the idFactor to set
+	 */
+	public void setIdFactor(Long idFactor) {
+		this.idFactor = idFactor;
 	}
 	public String getNombre() {
 		return nombre;
