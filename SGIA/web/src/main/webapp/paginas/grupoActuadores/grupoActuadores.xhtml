@@ -31,12 +31,12 @@
 				<p:outputLabel for="nombre" value="Nombre:" />
 				<p:inputText id="nombre" value="#{grupoActuadoresBean.ga.nombre}" label="nombre" required="false" />
 
-
-            		<p:ajax update="checkboxAct checkboxActAv" 	 />
+				<p:selectBooleanButton id="value2" value="#{grupoActuadoresBean.tablaSeleccionada}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
+            		<p:ajax update="panel1 panel2" 	 />
         		</p:selectBooleanButton>
 	
 			</h:panelGrid>
-			<p:panel style="border: none;" closable="true" toggleable="true"  rendered="#{grupoActuadoresBean.tablaSeleccionada}">
+			<p:panel id="panel1" style="border: none;" closable="true" toggleable="true"  rendered="#{grupoActuadoresBean.tablaSeleccionada}">
 			<p:dataTable id="checkboxAct" var="act" value="#{actuadores}" selection="#{grupoActuadoresBean.actuadoresSelecconados}" 
 				rowKey="#{act.id}" rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"  >
 				<f:facet name="header">
@@ -63,7 +63,7 @@
 			<p:dialog widgetVar="dlg">
 				<p:outputLabel>Hola Eduardito</p:outputLabel>
 			</p:dialog>
-			<p:panel style="border: none;" closable="true" toggleable="true" rendered="#{!grupoActuadoresBean.tablaSeleccionada}" >
+			<p:panel id="panel2" style="border: none;" closable="true" toggleable="true" rendered="#{!grupoActuadoresBean.tablaSeleccionada}" >
 			<p:dataTable id="checkboxActAv" var="actAvance" value="#{actuadoresAvance}" selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
 				rowKey="#{actAvance.id}" rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" >
 				<f:facet name="header">
