@@ -26,19 +26,26 @@
 			<h:panelGrid columns="2" id="gridActuadores">
 
 				<p:outputLabel for="id" value="Id:" />
-				<p:inputText id="id" value="#{grupoActuadoresBean.ga.id}" label="id" required="false" />
+				<p:inputText id="id" value="#{grupoActuadoresBean.ga.id}" label="id" required="false"  />
 
 				<p:outputLabel for="nombre" value="Nombre:" />
 				<p:inputText id="nombre" value="#{grupoActuadoresBean.ga.nombre}" label="nombre" required="false" />
+				
+				<p:outputLabel for="deAvance" value="De Avance:" />
+				<p:selectOneMenu id="deAvance"
+					value="#{grupoActuadoresBean.ga.deAvance}">
+					<f:selectItem itemLabel="Seleccione..." itemValue="" />
+					<f:selectItem itemLabel="Si" itemValue="S" />
+					<f:selectItem itemLabel="No" itemValue="N" />
+					
+					<p:ajax event="change" process="@this" update="@form" />
+				</p:selectOneMenu>
 
-				<p:selectBooleanButton id="value2" value="#{grupoActuadoresBean.tablaSeleccionada}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
-            		<p:ajax update="panel1 panel2" 	 />
-        		</p:selectBooleanButton>
-	
 			</h:panelGrid>
-			<p:panel id="panel1" style="border: none;" closable="true" toggleable="true"  rendered="#{grupoActuadoresBean.tablaSeleccionada}">
-			<p:dataTable id="checkboxAct" var="act" value="#{actuadores}" selection="#{grupoActuadoresBean.actuadoresSelecconados}" 
-				rowKey="#{act.id}" rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"  >
+
+			<p:dataTable id="panel1" var="act" value="#{actuadores}" selection="#{grupoActuadoresBean.actuadoresSelecconados}" 
+				rowKey="#{act.id}" rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" 
+				rendered="#{grupoActuadoresBean.ga.deAvance == 'N'}" >
 				<f:facet name="header">
 			            Actuadores disponibles
 			        </f:facet>
@@ -58,14 +65,15 @@
 				</p:column>
 
 			</p:dataTable>
-			</p:panel>
+			
 
 			<p:dialog widgetVar="dlg">
 				<p:outputLabel>Hola Eduardito</p:outputLabel>
 			</p:dialog>
-			<p:panel id="panel2" style="border: none;" closable="true" toggleable="true" rendered="#{!grupoActuadoresBean.tablaSeleccionada}" >
-			<p:dataTable id="checkboxActAv" var="actAvance" value="#{actuadoresAvance}" selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
-				rowKey="#{actAvance.id}" rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" >
+			
+			<p:dataTable id="panel2" var="actAvance" value="#{actuadoresAvance}" selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
+				rowKey="#{actAvance.id}" rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" 
+				rendered="#{grupoActuadoresBean.ga.deAvance == 'S'}" >
 				<f:facet name="header">
 			            Actuadores de Avance disponibles
 			        </f:facet>
@@ -85,7 +93,7 @@
 				</p:column>
 
 			</p:dataTable>
-			</p:panel>
+			
 <!-- 			<p:commandButton process="checkboxAct" update=":form" -->
 <!-- 				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoActuador').show()" style="float:left" /> -->
 
@@ -130,7 +138,7 @@
 				</p:column>
 				
 				<p:column style="width:3%">
-					<p:commandLink id="deleteLink" update=":form" immediate="true"
+					<p:commandLink id="deleteLink" update="gactuadores" immediate="false"
 						ajax="true" styleClass="ui-icon ui-icon-trash"
 						actionListener="#{grupoActuadoresBean.eliminar(_gactuadores.id)}">
 					</p:commandLink>

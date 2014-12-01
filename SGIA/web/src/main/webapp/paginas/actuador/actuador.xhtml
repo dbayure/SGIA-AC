@@ -51,11 +51,8 @@
 		</h:panelGrid>
          
          <p>            
-            <p:commandButton id="register" action="#{actuadorBean.registrar}" value="Registrar" style="margin-left: 400px;" update="TabActuadores" />
+            <p:commandButton id="register" action="#{actuadorBean.registrar}" value="Registrar" style="margin-left: 400px;" update="@form" />
          </p>      
-      <h:panelGroup id="renderActuadores" rendered="#{empty actuadores}">
-         <em>No hay Actuadores registrados.</em>
-      </h:panelGroup>
       
        <p:dataTable id="TabActuadores" var="_actuador" value="#{actuadores}" editable="true">
        		<f:facet name="header">  
@@ -131,8 +128,8 @@
 	        </p:column>
 	       <!--  -->
 	        <p:column style="width:3%">
-	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
-	        		styleClass="ui-icon ui-icon-trash" actionListener="#{actuadorBean.eliminar(_actuadores.id)}">
+	        	<p:commandLink  id="deleteLink" update="@form" immediate="true" ajax="true"
+	        		styleClass="ui-icon ui-icon-trash" actionListener="#{actuadorBean.eliminar(_actuador.id)}">
 	        	</p:commandLink>	        	
 	        </p:column>
 	        

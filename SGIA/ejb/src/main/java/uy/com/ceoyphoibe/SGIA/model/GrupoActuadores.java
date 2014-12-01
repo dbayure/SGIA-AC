@@ -29,13 +29,15 @@ public class GrupoActuadores implements Serializable {
 	
 	private String nombre;
 	private char estado;
-	private char deAvance;
+	private String deAvance;
 	private char activoSistema;
 
     @OneToMany( mappedBy = "grupoActuadores", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
     private List<Actuador> actuadores;
 
-    @OneToMany( mappedBy = "grupoActuadores", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
+    //@OneToMany( mappedBy = "grupoActuadores",  cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH }, orphanRemoval = true, fetch = FetchType.EAGER )
+    @OneToMany( mappedBy = "grupoActuadores",  cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER )
+
     private Set<ActuadorAvance> actuadoresAvance;
 	
 
@@ -69,11 +71,11 @@ public class GrupoActuadores implements Serializable {
 		this.estado = estado;
 	}
 
-	public char getDeAvance() {
+	public String getDeAvance() {
 		return deAvance;
 	}
 
-	public void setDeAvance(char deAvance) {
+	public void setDeAvance(String deAvance) {
 		System.out.println("Valor del tipo de actuador seleccionado: "+ deAvance);
 		this.deAvance = deAvance;
 	}
@@ -107,12 +109,18 @@ public class GrupoActuadores implements Serializable {
 		this.actuadoresAvance = actuadoresAvance;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + activoSistema;
-		result = prime * result + deAvance;
+		result = prime
+				* result
+				+ ((actuadoresAvance == null) ? 0 : actuadoresAvance.hashCode());
+		result = prime * result
+				+ ((deAvance == null) ? 0 : deAvance.hashCode());
 		result = prime * result + estado;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
@@ -130,7 +138,15 @@ public class GrupoActuadores implements Serializable {
 		GrupoActuadores other = (GrupoActuadores) obj;
 		if (activoSistema != other.activoSistema)
 			return false;
-		if (deAvance != other.deAvance)
+		if (actuadoresAvance == null) {
+			if (other.actuadoresAvance != null)
+				return false;
+		} else if (!actuadoresAvance.equals(other.actuadoresAvance))
+			return false;
+		if (deAvance == null) {
+			if (other.deAvance != null)
+				return false;
+		} else if (!deAvance.equals(other.deAvance))
 			return false;
 		if (estado != other.estado)
 			return false;

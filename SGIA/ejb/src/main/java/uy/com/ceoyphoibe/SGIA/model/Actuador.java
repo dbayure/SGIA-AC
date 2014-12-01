@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,7 +38,8 @@ public class Actuador extends Dispositivo implements Serializable {
 	private TipoPuerto tipoPuerto;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	//@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
 	private GrupoActuadores grupoActuadores;
 

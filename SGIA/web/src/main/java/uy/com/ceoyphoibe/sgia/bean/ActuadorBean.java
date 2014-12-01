@@ -135,6 +135,10 @@ public class ActuadorBean {
 
 	public void eliminar(Long id) {
 		try {
+			System.out.println("El valor del id que tiene al actuador a eliminar : " + id);
+			Actuador a =  regActuador.obtenerActuadorPorId(id);
+			a.setGrupoActuadores(null);
+			regActuador.modificar(a);
 			regActuador.eliminar(id);
 			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
