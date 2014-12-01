@@ -2,15 +2,20 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @XmlRootElement
-@Table(name = "sensor")
+@Table(name = "sensores")
+@JsonIgnoreProperties({"factor"})
 public class Sensor extends Dispositivo implements Serializable {
 
 	/**
@@ -21,6 +26,11 @@ public class Sensor extends Dispositivo implements Serializable {
 	private String formulaConversion;
 	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoPuerto tipoPuerto;
+	
+	@ManyToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn ( name = "factor_id",  referencedColumnName = "idFactor")
+	private Factor factor;
+
 	
 	public String getFormulaConversion() {
 		return formulaConversion;
@@ -36,6 +46,19 @@ public class Sensor extends Dispositivo implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	/**
+	 * @return the factor
+	 */
+	public Factor getFactor() {
+		return factor;
+	}
+	/**
+	 * @param factor the factor to set
+	 */
+	public void setFactor(Factor factor) {
+		this.factor = factor;
 	}
 	@Override
 	public int hashCode() {

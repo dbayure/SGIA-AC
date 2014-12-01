@@ -42,13 +42,20 @@ public class RegistroSensor {
 	   public void modificar(Sensor sensor) throws Exception {
 		   log.info("Modifico " + sensor);
 		   em.merge(sensor);
+		   sensorEventSrc.fire(sensor);
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {
 		   log.info("Elimino " + id);
 		   Sensor sensor = em.find(Sensor.class, id);
 		   em.remove(sensor);
-		   sensorEventSrc.fire(newSensor);
+		   sensorEventSrc.fire(sensor);
+	   }
+	   
+	   public Sensor obtenerSensorPorId (Long id)
+	   {
+		   Sensor s= em.find(Sensor.class, id);
+		   return s;
 	   }
 
 	   @PostConstruct
