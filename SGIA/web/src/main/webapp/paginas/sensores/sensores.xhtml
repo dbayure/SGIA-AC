@@ -37,15 +37,23 @@
 			<p:outputLabel for="formConv" value="Fórmula de Conversión:" />
 			<p:inputText id="formConv" value="#{sensorBean.sensorTemp.formulaConversion}" label="Fórmula de Conversión" required="true" />
 			
+			<p:outputLabel for="factorAsig" value="Factor:" />
+			<p:selectOneMenu id="factorAsig" value="#{sensorBean.sensorTemp.factor}" required="false">
+				<f:converter converterId="factorConverter" />
+				<f:selectItem itemLabel="Seleccione..." itemValue="" />
+				<f:selectItems value="#{factores}" var="fact" itemLabel="#{fact.nombre}" itemValue="#{fact}"  />
+			</p:selectOneMenu>
+
+			
 		</h:panelGrid>
          
          <p>            
             <p:commandButton id="register" action="#{sensorBean.registrar()}" value="Registrar" 
-            update=":form:sensores, form" 
+            update=":form:sensoresTab, form" 
             style="margin-left: 400px;" />
          </p>      
       
-       <p:dataTable id="sensores" var="_sensor" value="#{sensores}" editable="true">
+       <p:dataTable id="sensoresTab" var="_sensor" value="#{sensores}" editable="true">
        		<f:facet name="header">  
             	Sensores
         	</f:facet>

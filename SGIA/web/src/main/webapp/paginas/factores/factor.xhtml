@@ -49,6 +49,7 @@
 				<f:facet name="header">
 			            Sensores disponibles
 			        </f:facet>
+        		<p:ajax event="rowUnselect" listener="#{factorBean.desvincularSensor}" />
 				<p:column selectionMode="multiple"
 					style="width:16px;text-align:center" />
 				<p:column headerText="Id" style="width:15%">
@@ -66,15 +67,13 @@
 
 			</p:dataTable>
 
-			<p:commandButton process="checkboxSens" update=":form"
-				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoSensor').show()" style="float:left" />
+<!-- 			<p:commandButton process="checkboxSens"  -->
+<!-- 				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoSensor').show()" style="float:left" /> -->
 
-
-			
 				<p>
 					<p:commandButton id="register"
 						action="#{factorBean.registrar()}" value="Registrar"
-						style="margin-left: 400px;" update=":form:messages, form:factoresTab, form:gridFactor" />
+						style="margin-left: 400px;" update=":form" />
 				</p>
 			
 
@@ -120,35 +119,35 @@
 
 			</p:dataTable>
 
-			<p:dialog header="Sensor Seleccionado" widgetVar="dialogoSensor"
-				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
-				>
+<!-- 			<p:dialog header="Sensor Seleccionado" widgetVar="dialogoSensor" -->
+<!-- 				modal="true" showEffect="fade" hideEffect="fade" resizable="false" -->
+<!-- 				> -->
 
-				<p:dataList value="#{factorBean.sensoresSelecconados}"
-					var="_sensor" type="ordered">
+<!-- 				<p:dataList value="#{factorBean.sensoresSelecconados}" -->
+<!-- 					var="_sensor" type="ordered"> -->
 
-					<h:panelGrid columns="2">
-						<h:outputText value="Id:" />
-						<h:outputText value="#{_sensor.id}" />
-						<h:outputText value="Nombre:" />
-						<h:outputText value="#{_sensor.nombre}" />
-						<h:outputText value="Modelo:" />
-						<h:outputText value="#{_sensor.modelo}" />
-						<h:outputText value="Numero de puerto:" />
-						<h:outputText value="#{_sensor.numeroPuerto}" />
-						<h:outputText value="Activo:" />
-						<h:outputText value="#{_sensor.activoSistema}" />
+<!-- 					<h:panelGrid columns="2"> -->
+<!-- 						<h:outputText value="Id:" /> -->
+<!-- 						<h:outputText value="#{_sensor.id}" /> -->
+<!-- 						<h:outputText value="Nombre:" /> -->
+<!-- 						<h:outputText value="#{_sensor.nombre}" /> -->
+<!-- 						<h:outputText value="Modelo:" /> -->
+<!-- 						<h:outputText value="#{_sensor.modelo}" /> -->
+<!-- 						<h:outputText value="Numero de puerto:" /> -->
+<!-- 						<h:outputText value="#{_sensor.numeroPuerto}" /> -->
+<!-- 						<h:outputText value="Activo:" /> -->
+<!-- 						<h:outputText value="#{_sensor.activoSistema}" /> -->
 						
-						<h:outputText value="Unidad:" />
-						<h:outputText value="#{_sensor.formulaConversion}" />
+<!-- 						<h:outputText value="Unidad:" /> -->
+<!-- 						<h:outputText value="#{_sensor.formulaConversion}" /> -->
 						
-						<h:outputText value="Tipo de puerto:" />
-						<h:outputText value="#{_sensor.tipoPuerto.nombre}" />
-						<h:outputText value="Factor asignado:" />
-						<h:outputText value="#{_sensor.factor.nombre}" />
-					</h:panelGrid>
-				</p:dataList>
-			</p:dialog>
+<!-- 						<h:outputText value="Tipo de puerto:" /> -->
+<!-- 						<h:outputText value="#{_sensor.tipoPuerto.nombre}" /> -->
+<!-- 						<h:outputText value="Factor asignado:" /> -->
+<!-- 						<h:outputText value="#{_sensor.factor.nombre}" /> -->
+<!-- 					</h:panelGrid> -->
+<!-- 				</p:dataList> -->
+<!-- 			</p:dialog> -->
 
 		</h:form>
 
