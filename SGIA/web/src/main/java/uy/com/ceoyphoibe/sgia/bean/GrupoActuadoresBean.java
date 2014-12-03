@@ -5,9 +5,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -34,64 +32,7 @@ public class GrupoActuadoresBean {
 	@Inject
 	private RegistroActuador registroActuador;
 
-	//	private boolean tablaSeleccionada = false;
-	
-	
-	
-	
-//	public void actualizarTabla(){
-//		if (tablaSeleccionada){
-//			System.out.println();
-//			ga.setDeAvance('S');
-//			ga.setActivoSistema('S');
-//			ga.setEstado('A');
-//			try {
-//				registroGrupoActuadores.registro(ga);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		else{
-//			ga.setDeAvance('N');
-//			ga.setActivoSistema('S');
-//			ga.setEstado('A');
-//		}
-//		try {
-//			registroGrupoActuadores.registro(ga);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public boolean getTablaSeleccionada() {
-//		return tablaSeleccionada;
-//	}
-//
-//	public void setTablaSeleccionada(boolean tablaSeleccionada) {
-//		System.out.println("El ga tiene id:      "+ga.getId());
-//		ga.setActivoSistema('S');
-//		ga.setEstado('A');
-//		try {
-//			registroGrupoActuadores.registro(ga);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		this.tablaSeleccionada = tablaSeleccionada;
-//		if (tablaSeleccionada){
-//
-//			ga.setDeAvance('S');
-//			
-//		}
-//		else{
-//			ga.setDeAvance('N');
-//
-//		}
-//		
-//		
-//	}
+
 
 	public List<ActuadorAvance> getActuadoresDeAvanceSelecconados() {
 		return actuadoresDeAvanceSelecconados;
@@ -146,14 +87,7 @@ public class GrupoActuadoresBean {
 		System.out.println("el valor de si es de avance es: " +  da);
 		try {
 			if(da.equals("N")){
-				if (actuadoresSelecconados == null){
-					System.out.println("actuadores seleccionados es null");
 
-				}
-				if (actuadoresSelecconados.size() > 0){
-					System.out.println("El tamaño de la lista actuadores es : " + actuadoresSelecconados.size());
-
-				}
 				if ((actuadoresSelecconados != null ) && (actuadoresSelecconados.size() > 0)) {
 					for (Actuador a : actuadoresSelecconados) {
 						System.out.println("Nombre del grupo a asignar: " + ga.getNombre() + "Al actuador: " + a.getNombre());
@@ -161,10 +95,12 @@ public class GrupoActuadoresBean {
 						ga.getActuadores().add(a);
 					}
 					registroGrupoActuadores.registro(ga);
+					actuadoresSelecconados= new ArrayList<Actuador>();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);	
 				} else {
 					registroGrupoActuadores.registro(ga);
+					actuadoresSelecconados= new ArrayList<Actuador>();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Se registró ", "con éxito!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -178,15 +114,18 @@ public class GrupoActuadoresBean {
 						ga.getActuadoresAvance().add(aa);
 					}
 					registroGrupoActuadores.registro(ga);
+					actuadoresDeAvanceSelecconados= new ArrayList<ActuadorAvance>();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);	
 				} else {
 					registroGrupoActuadores.registro(ga);
+					actuadoresDeAvanceSelecconados= new ArrayList<ActuadorAvance>();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Se registró ", "con éxito!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
 			}
+			ga= new GrupoActuadores();
 		}
 
 		catch (Exception e) {

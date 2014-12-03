@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -18,7 +19,7 @@ import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class FactorBean {
 
 	@Inject
@@ -29,6 +30,15 @@ public class FactorBean {
 	private List<Sensor> sensores = new ArrayList<Sensor>();
 	private Factor factorTemp = new Factor();
 	private List<Sensor> sensoresSelecconados = new ArrayList<Sensor>();
+
+	
+	
+	/**
+	 * 
+	 */
+	public FactorBean() {
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-------constructor factor");
+	}
 
 	/**
 	 * @return the registroFactor
@@ -97,9 +107,15 @@ public class FactorBean {
 			
 			//asigno los nuevos sensores
 			System.out.println("**************cantidad de seleccionados: "+sensoresSelecconados.size());
+			System.out.println("**************cantidad de sensores temp: "+sensores.size());
+			for (Sensor s : sensores) {
+				s.setFactor(null);
+				registroSensor.modificar(s);
+			}
 			if (sensoresSelecconados.size() > 0) {
 				for (Sensor s : sensoresSelecconados) {
 					s.setFactor(factorTemp);
+					registroSensor.modificar(s);
 				}
 				factorTemp.setSensores(sensoresSelecconados);
 				registroFactor.registro(factorTemp);
@@ -131,12 +147,8 @@ public class FactorBean {
 			factorTemp = registroFactor.obtenerFactorPorId(id);
 			sensoresSelecconados = factorTemp.getSensores();
 			sensores= factorTemp.getSensores();
-			System.out.println("Cantidad vieja de sensores: "+sensores.size());
-			for (Sensor s : sensores) {
-				s.setFactor(null);
-				registroSensor.modificar(s);
-			}
-			System.out.println("-**-*-*-*-*-*-*-*-*-*- obtiene sensores: "+ sensoresSelecconados.size());
+			
+			System.out.println("**************cantidad de temp en onEditar: "+sensores.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

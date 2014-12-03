@@ -38,7 +38,7 @@
 					<f:selectItem itemLabel="Si" itemValue="S" />
 					<f:selectItem itemLabel="No" itemValue="N" />
 					
-					<p:ajax event="change" process="@this" update="@form" />
+					<p:ajax event="change" process="@this" update=":form:panel1" />
 				</p:selectOneMenu>
 
 			</h:panelGrid>
@@ -66,10 +66,6 @@
 
 			</p:dataTable>
 			
-
-			<p:dialog widgetVar="dlg">
-				<p:outputLabel>Hola Eduardito</p:outputLabel>
-			</p:dialog>
 			
 			<p:dataTable id="panel2" var="actAvance" value="#{actuadoresAvance}" selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
 				rowKey="#{actAvance.id}" rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" 
@@ -94,15 +90,11 @@
 
 			</p:dataTable>
 			
-<!-- 			<p:commandButton process="checkboxAct" update=":form" -->
-<!-- 				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoActuador').show()" style="float:left" /> -->
-
-
 			<h:panelGrid columns="2">
 				<p>
 					<p:commandButton id="register"
 						action="#{grupoActuadoresBean.registrar}" value="Registrar"
-						style="margin-left: 400px;" update=":form:messages :form:gactuadores" />
+						style="margin-left: 400px;" update=":form" />
 				</p>
 			</h:panelGrid>
 

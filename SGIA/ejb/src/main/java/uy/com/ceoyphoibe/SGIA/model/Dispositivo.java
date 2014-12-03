@@ -1,10 +1,14 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,6 +31,25 @@ public class Dispositivo implements Serializable {
 	private int numeroPuerto;
 	private char activoSistema;
 	private char estadoAlerta;
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn ( name = "padre_id",  referencedColumnName = "id")
+	private PlacaAuxiliar padre;
+	
+	
+	
+	/**
+	 * @return the padre
+	 */
+	public PlacaAuxiliar getPadre() {
+		return padre;
+	}
+	/**
+	 * @param padre the padre to set
+	 */
+	public void setPadre(PlacaAuxiliar padre) {
+		this.padre = padre;
+	}
 	
 	public Long getId() {
 		return id;

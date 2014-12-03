@@ -1,8 +1,12 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,6 +26,24 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 	private int numeroPuertoEDig;
 	private int numeroPuertoSdig;
 	
+	@OneToMany( mappedBy = "padre", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER )
+    private List<Dispositivo> listaDispositivos;
+	
+	
+	
+	
+	/**
+	 * @return the listaDispositivos
+	 */
+	public List<Dispositivo> getListaDispositivos() {
+		return listaDispositivos;
+	}
+	/**
+	 * @param listaDispositivos the listaDispositivos to set
+	 */
+	public void setListaDispositivos(List<Dispositivo> listaDispositivos) {
+		this.listaDispositivos = listaDispositivos;
+	}
 	public String getNumeroSerie() {
 		return numeroSerie;
 	}

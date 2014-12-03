@@ -71,6 +71,9 @@ public class SensorBean {
 	
 	public void eliminar(Long id) {
 		try {
+			Sensor s= registroSensor.obtenerSensorPorId(id);
+			s.setFactor(null);
+			registroSensor.modificar(s);
 			registroSensor.eliminar(id);
 			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
