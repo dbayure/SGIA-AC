@@ -12,40 +12,35 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 
-@FacesConverter(forClass = Factor.class, value = "factorConverter")
-public class FactorConverter implements Converter {
+@FacesConverter(forClass = NivelSeveridad.class, value = "nivelSeveridadConverter")
+public class NivelSeveridadConverter implements Converter {
 
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Factor factor = null;
 		if (value.trim().equals("")) {
 			value = ((HttpServletRequest) context.getExternalContext().getRequest()).getParameter(component.getClientId()+"_input");
 //			return null;
 		}
-		else
-		{
-			try {
-				ObjectMapper mapper = new ObjectMapper();
-				factor = mapper.readValue(new URL( context.getExternalContext().getRequestScheme() + "://" + context.getExternalContext().getRequestServerName()
-						+ ":"  + context.getExternalContext().getRequestServerPort() + context.getExternalContext().getRequestContextPath() 
-						+ "/rest/factor/" + value), Factor.class);
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de Conversion", "Grupo de Actuadores no válido"));
-			}
+		NivelSeveridad nivel = null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			nivel = mapper.readValue(new URL( context.getExternalContext().getRequestScheme() + "://" + context.getExternalContext().getRequestServerName()
+					+ ":"  + context.getExternalContext().getRequestServerPort() + context.getExternalContext().getRequestContextPath() 
+					+ "/rest/nivelSeveridad/" + value), NivelSeveridad.class);
 		}
-		return factor;
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de Conversion", "Nivel de severidad no válido"));
+		}
+		return nivel;
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value == null || value.equals("")) {
             return "";
         } else {
-        	return String.valueOf( ((Factor)value).getIdFactor() );
+        	return String.valueOf( ((NivelSeveridad)value).getId() );
         }
 	}
-
-	
 }

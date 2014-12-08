@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1 style="text-align: center;">Administración de Niveles
+			Severidad</h1>
+
+		<style type="text/css">
+.sensorRowSelected {
+	background-color: #dbffb8 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
+
+
+		<h:form id="form" prependId="false">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:panel id="panelIng">
+			
+				<p:focus context="panelIng"/>
+				
+				<h:panelGrid columns="2" columnClasses="label, value"
+					style="width:100%;">
+					<p:outputLabel for="id" value="Id:" />
+					<p:inputText id="id"
+						value="#{nivelSeveridadBean.nivelSeveridadSeleccionado.id}"
+						label="Id" required="false" />
+
+					<p:outputLabel for="nombre" value="Nombre:" />
+					<p:inputText id="nombre"
+						value="#{nivelSeveridadBean.nivelSeveridadSeleccionado.nombre}"
+						label="Nombre" required="false" />
+				</h:panelGrid>
+
+
+				<h:panelGrid columns="2" id="gridInsert" columnClasses="grid,grid"
+					style="width:100%;">
+					<h:panelGrid columns="2" columnClasses="label, value"
+						style="width:120%;">
+
+						<h:outputText value="Factor" />
+						<p:selectOneMenu id="factor"
+							value="#{nivelSeveridadBean.factorTemp}"
+							required="false">
+							<f:converter converterId="factorConverter" />
+							<f:selectItem itemLabel="Seleccione..." itemValue="" />
+							<f:selectItems value="#{factores}" var="fact"
+								itemLabel="#{fact.nombre}" itemValue="#{fact}"
+								style="width:120%;" />
+						</p:selectOneMenu>
+
+						<h:outputText value="&#160;" />
+						<h:outputText value="&#160;" />
+
+						<h:outputText value="Rango Mínimo:" />
+
+						<h:outputText value="Rango Máximo:" />
+						<p:inputText id="rangoMin"
+							value="#{nivelSeveridadBean.nivelSeveridadSeleccionado.rangoMin}"
+							label="Rango Mínimo" required="false" />
+
+						<p:inputText id="rangoMax"
+							value="#{nivelSeveridadBean.nivelSeveridadSeleccionado.rangoMax}"
+							label="Rango Máximo" required="false" />
+
+						<h:outputText value="&#160;" />
+						<h:outputText value="&#160;" />
+
+						<h:outputText value="Prioridad:" />
+						<p:spinner id="prioridad"
+							value="#{nivelSeveridadBean.nivelSeveridadSeleccionado.prioridad}" />
+
+
+					</h:panelGrid>
+					<p:panel style="width:75%; float:right;">
+						<h:panelGrid columns="1" id="perfilAct">
+							<h:panelGrid columns="2" id="ingFilaPerf" style="width:100%;">
+								<h:outputText value="Grupo de Actuadores" style="width:60%;" />
+
+
+								<p:selectOneMenu id="grupoActuadores"
+									value="#{nivelSeveridadBean.grupoTemp}" required="false">
+									<f:converter converterId="grupoActuadoresConverter" />
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems value="#{grupoActuadores}" var="grupo"
+										itemLabel="#{grupo.nombre}" itemValue="#{grupo}" />
+									<p:ajax event="change"
+										listener="#{nivelSeveridadBean.seleccionGrupoActuadores}"
+										process="@this" update=":form:perfilAct" />
+								</p:selectOneMenu>
+
+								<h:outputText value="Estado" />
+								<!-- 								para grupo de actuadores comunes -->
+								<p:inputSwitch id="estado1"
+									value="#{nivelSeveridadBean.estadoTemp}"
+									rendered="#{nivelSeveridadBean.grupoTemp.deAvance == 'N'}" />
+								<!-- 								para actuadores de avance -->
+								<p:selectOneMenu id="posiciones"
+									value="#{nivelSeveridadBean.posicionTemp}" required="false"
+									rendered="#{nivelSeveridadBean.grupoTemp.deAvance == 'S'}">
+
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems
+										value="#{nivelSeveridadBean.posicionesDisponibles}" var="pos"
+										itemLabel="#{pos.nroPosicion}" itemValue="#{pos.nroPosicion}" />
+								</p:selectOneMenu>
+
+							</h:panelGrid>
+
+							<p:panel style="border:none; width:100%;">
+								<p:commandLink id="mas" style="float:right;" ajax="true"
+									update=":form:perfilTab, form:ingFilaPerf"
+									actionListener="#{nivelSeveridadBean.agregarFilaPerfil()}">
+									<p:graphicImage value="/resources/gfx/edit_add_ico.png" />
+								</p:commandLink>
+								<p:spacer height="12" />
+
+							</p:panel>
+
+							<p:dataTable id="perfilTab" var="_fila" style="width:100%;"
+								value="#{nivelSeveridadBean.perfilActivacion}" editable="true">
+								<f:facet name="header"> Perfil de Activacion 	</f:facet>
+
+								<p:ajax event="rowEdit"
+									listener="#{nivelSeveridadBean.onEditFila}"
+									update=":form:messages" />
+								<p:ajax event="rowEditCancel"
+									listener="#{nivelSeveridadBean.onCancelFila}"
+									update=":form:messages" />
+
+								<p:column style="width:60%">
+									<h:outputText value="#{_fila.grupoActuadores.nombre}" />
+								</p:column>
+
+
+
+								<p:column style="width:40%">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{_fila.estado}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText id="modelInputEstado" value="#{_fila.estado}"
+												style="width:15%" required="true" />
+										</f:facet>
+									</p:cellEditor>
+
+
+								</p:column>
+
+								<p:column style="width:3%">
+									<p:rowEditor />
+								</p:column>
+								<!--  -->
+								<p:column style="width:3%">
+									<p:commandLink id="deleteLink" update="@form" immediate="true"
+										ajax="true" styleClass="ui-icon ui-icon-trash"
+										actionListener="#{nivelSeveridadBean.eliminarFilaPerfil(_fila)}">
+									</p:commandLink>
+								</p:column>
+
+							</p:dataTable>
+						</h:panelGrid>
+					</p:panel>
+				</h:panelGrid>
+				<p:panel style="border:none;">
+					<p:commandLink id="aplicar" style="float:right;" ajax="true"
+						update=":form" 
+						actionListener="#{nivelSeveridadBean.registrar()}">
+						<p:graphicImage value="/resources/gfx/apply.png" />
+					</p:commandLink>
+					<p:spacer height="12" />
+
+				</p:panel>
+
+			</p:panel>
+			
+			<p:spacer height="15"/>
+
+
+			<p:dataScroller value="#{nivelesSeveridad}" var="_nivel"
+				chunkSize="5">
+				<f:facet name="header">  Niveles de Severidad   </f:facet>
+
+				<p:panel>
+					<h:panelGrid columns="2" columnClasses="label, value"
+						style="width:100%;">
+						
+						<p:outputLabel for="nombreLista" value="Nombre:" />
+						<h:outputText id="nombreLista" value="#{_nivel.nombre}" style="font-weight: bold;" />
+					</h:panelGrid>
+
+
+					<h:panelGrid columns="2" columnClasses="grid,grid"
+						style="width:100%;">
+						<h:panelGrid columns="2" columnClasses="label, value"
+							style="width:120%;">
+
+							<h:outputText value="Factor: " style="width:120%; font-weight: bold;" />
+							<h:outputText value="#{_nivel.factor.nombre}" style="width:120%;"/>
+
+							<h:outputText value="&#160;" />
+							<h:outputText value="&#160;" />
+
+							<h:outputText value="Rango Mínimo:" style="width:120%; font-weight: bold;"/>
+							<h:outputText value="Rango Máximo:" style="width:120%; font-weight: bold;"/>
+							<h:outputText value="#{_nivel.rangoMin}" style="width:120%;" />
+
+							<h:outputText value="#{_nivel.rangoMax}" style="width:120%;" />
+
+							<h:outputText value="&#160;" />
+							<h:outputText value="&#160;" />
+
+							<h:outputText value="Prioridad:" style="width:120%; font-weight: bold;"/>
+							<h:outputText value="#{_nivel.prioridad}" style="width:120%;" />
+
+
+						</h:panelGrid>
+						<p:panel style="width:75%; float:right;">
+							
+								<p:dataTable id="perfilTabLista" var="_fila" style="width:100%;"
+									value="#{_nivel.perfilActivacion}" editable="true">
+									<f:facet name="header"> Perfil de Activacion 	</f:facet>
+
+									<p:column style="width:60%">
+										<h:outputText value="#{_fila.grupoActuadores.nombre}" />
+									</p:column>
+
+									<p:column style="width:40%">
+										<h:outputText value="#{_fila.estado}" />
+									</p:column>
+									
+								</p:dataTable>
+		
+						</p:panel>
+					</h:panelGrid>
+					<p:panel style="border:none; width:100%;">
+								<p:commandLink id="eliminar" style="float:right;" ajax="true"
+									update="@form"
+									actionListener="#{nivelSeveridadBean.eliminar(_nivel.id)}">
+									<p:graphicImage value="/resources/gfx/redTrash_ico.png" />
+								</p:commandLink>
+								<p:commandLink id="clonar" style="float:right;" ajax="true"
+									update="@form"
+									actionListener="#{nivelSeveridadBean.clonar(_nivel.id)}">
+									<p:graphicImage value="/resources/gfx/clone_ico.png" />
+								</p:commandLink>
+								<p:spacer height="12" />
+								<p:commandLink id="editar" style="float:right;" ajax="true"
+									update="@form"
+									actionListener="#{nivelSeveridadBean.onEdit(_nivel.id)}">
+									<p:graphicImage value="/resources/gfx/edit_ico.png" />
+								</p:commandLink>
+								<p:spacer height="12" />
+
+				</p:panel>
+				<p:spacer height="10"/>
+					
+				</p:panel>
+				
+			</p:dataScroller>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
