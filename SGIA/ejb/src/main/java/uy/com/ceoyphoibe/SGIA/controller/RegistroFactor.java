@@ -1,5 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -11,6 +12,9 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
+import ws.Comunicacion;
+import ws.Comunicacion_Service;
+import ws.ResultadoCreacionWS;
 
 
 @Stateless
@@ -26,6 +30,22 @@ public class RegistroFactor {
 	   private Event <Factor> factorEventSrc;
 	   
 	   public void registro(Factor factor) throws Exception {
+		   System.out.println("***********************");
+	        System.out.println("Create Web Service Client...");
+	        Comunicacion_Service service1 = new Comunicacion_Service();
+	        System.out.println("Create Web Service...");
+	        Comunicacion port1 = service1.getComunicacion();
+	        System.out.println("Call Web Service Operation...");
+	        
+	        BigInteger valorMin= BigInteger.valueOf(factor.getValorMin());
+	        BigInteger valorMax= BigInteger.valueOf(factor.getValorMax());
+	        BigInteger umbral= BigInteger.valueOf(factor.getUmbral());
+	        ResultadoCreacionWS resultadoWS= port1.wsCrearFactor(factor.getNombre(), factor.getUnidad(), valorMin, valorMax, umbral);
+	        Long id=resultadoWS.getIdObjeto().longValue();
+	        
+	        factor.setIdFactor(id);
+		   
+		   
 		   em.merge(factor);
 		   factorEventSrc.fire(factor);
 	   }

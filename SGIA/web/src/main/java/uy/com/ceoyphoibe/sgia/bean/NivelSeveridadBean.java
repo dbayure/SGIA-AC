@@ -128,10 +128,7 @@ public class NivelSeveridadBean {
 
 	public void registrar() {
 		try {
-			System.out.println("Intenta registrar un nivel con id: "+nivelSeveridadSeleccionado.getId());
-			System.out.println("Intenta registrar un nivel con rangoMin: "+nivelSeveridadSeleccionado.getRangoMin());
-			System.out.println("Intenta registrar un nivel con rangoMax: "+nivelSeveridadSeleccionado.getRangoMax());
-			System.out.println("Intenta registrar un nivel con prioridad: "+nivelSeveridadSeleccionado.getPrioridad());
+
 			nivelSeveridadSeleccionado.setActivoSistema("S");
 			nivelSeveridadSeleccionado.setPerfilActivacion(perfilActivacion);
 			nivelSeveridadSeleccionado.setFactor(factorTemp);
@@ -145,8 +142,8 @@ public class NivelSeveridadBean {
 					"Se registró ", "con éxito!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
