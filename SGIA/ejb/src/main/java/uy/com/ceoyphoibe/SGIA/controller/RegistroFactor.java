@@ -1,9 +1,13 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.math.BigInteger;
+<<<<<<< HEAD
 import java.net.URL;
 import java.util.ArrayList;
+=======
+>>>>>>> refs/remotes/origin/master
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
