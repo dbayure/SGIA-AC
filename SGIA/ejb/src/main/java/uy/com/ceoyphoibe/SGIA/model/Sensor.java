@@ -27,7 +27,7 @@ public class Sensor extends Dispositivo implements Serializable {
 	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoPuerto tipoPuerto;
 	
-	@ManyToOne(cascade = {CascadeType.MERGE})
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn ( name = "factor_id",  referencedColumnName = "idFactor")
 	private Factor factor;
 

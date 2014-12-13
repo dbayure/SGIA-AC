@@ -36,60 +36,78 @@ public class Dispositivo implements Serializable {
 	@JoinColumn ( name = "padre_id",  referencedColumnName = "id")
 	private PlacaAuxiliar padre;
 	
-	
-	
-	/**
-	 * @return the padre
-	 */
-	public PlacaAuxiliar getPadre() {
-		return padre;
-	}
-	/**
-	 * @param padre the padre to set
-	 */
-	public void setPadre(PlacaAuxiliar padre) {
-		this.padre = padre;
-	}
-	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	private Placa placa;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getModelo() {
 		return modelo;
 	}
+
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
+
 	public int getNumeroPuerto() {
 		return numeroPuerto;
 	}
+
 	public void setNumeroPuerto(int numeroPuerto) {
 		this.numeroPuerto = numeroPuerto;
 	}
+
 	public char getActivoSistema() {
 		return activoSistema;
 	}
+
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
 	}
+
 	public char getEstadoAlerta() {
 		return estadoAlerta;
 	}
+
 	public void setEstadoAlerta(char estadoAlerta) {
 		this.estadoAlerta = estadoAlerta;
 	}
+
+	public PlacaAuxiliar getPadre() {
+		return padre;
+	}
+
+	public void setPadre(PlacaAuxiliar padre) {
+		this.padre = padre;
+	}
+
+	public Placa getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -100,8 +118,11 @@ public class Dispositivo implements Serializable {
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + numeroPuerto;
+		result = prime * result + ((padre == null) ? 0 : padre.hashCode());
+		result = prime * result + ((placa == null) ? 0 : placa.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,15 +153,25 @@ public class Dispositivo implements Serializable {
 			return false;
 		if (numeroPuerto != other.numeroPuerto)
 			return false;
+		if (padre == null) {
+			if (other.padre != null)
+				return false;
+		} else if (!padre.equals(other.padre))
+			return false;
+		if (placa == null) {
+			if (other.placa != null)
+				return false;
+		} else if (!placa.equals(other.placa))
+			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Dispositivo [id=" + id + ", nombre=" + nombre + ", modelo="
 				+ modelo + ", numeroPuerto=" + numeroPuerto
 				+ ", activoSistema=" + activoSistema + ", estadoAlerta="
-				+ estadoAlerta + "]";
+				+ estadoAlerta + ", padre=" + padre + ", placa=" + placa + "]";
 	}
-	
 	
 }

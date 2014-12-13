@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
@@ -13,34 +12,35 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 
-import uy.com.ceoyphoibe.SGIA.model.Posicion;
+
 
 @RequestScoped
-public class PosicionListProducer {
+public class PlacaListProducer {
 	
    @Inject
    private EntityManager em;
 
-   private List<Posicion> posiciones;
+   private List<Placa> placas;
 
 
    @Produces
    @Named
-   public List<Posicion> getPosiciones() {
-      return posiciones;
+   public List<Placa> getPlacas() {
+      return placas;
    }
 
-   public void onListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Posicion posicion) {
+   public void onListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Placa placa) {
 	      retrieveAllOrderedByName();
    }
 
    @PostConstruct
    public void retrieveAllOrderedByName() {
       CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Posicion> criteria = cb.createQuery(Posicion.class);
-      Root<Posicion> posicion = criteria.from(Posicion.class);
-      criteria.select(posicion).orderBy(cb.asc(posicion.get("idPosicion")));
-      posiciones = em.createQuery(criteria).getResultList();
+      CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
+      Root<Placa> placa = criteria.from(Placa.class);
+      criteria.select(placa).orderBy(cb.asc(placa.get("id")));
+      placas = em.createQuery(criteria).getResultList();
    }
 }
