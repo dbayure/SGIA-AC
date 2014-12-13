@@ -1,13 +1,18 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -30,128 +35,100 @@ public class Factor implements Serializable {
 	private int valorMin;
 	private int valorMax;
 	private int umbral;
-	@OneToMany( mappedBy = "factor", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER )
+	
+    
+    @OneToMany( mappedBy = "factor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
     private List<Sensor> sensores;
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	private Placa placa;
+	
 	private char activoSistema;
 	
 	
-	
-	//cascade = {CascadeType.MERGE, CascadeType.DETACH}
-	
-	/**
-	 * 
-	 */
+
 	public Factor() {
-		sensores= new ArrayList<Sensor>();
+		super();
+		this.sensores = new ArrayList<Sensor>();
 	}
-	/**
-	 * @return the activoSistema
-	 */
-	public char getActivoSistema() {
-		return activoSistema;
-	}
-	/**
-	 * @param activoSistema the activoSistema to set
-	 */
-	public void setActivoSistema(char activoSistema) {
-		this.activoSistema = activoSistema;
-	}
-	/**
-	 * @return the idFactor
-	 */
+
 	public Long getIdFactor() {
 		return idFactor;
 	}
-	/**
-	 * @param idFactor the idFactor to set
-	 */
+
 	public void setIdFactor(Long idFactor) {
 		this.idFactor = idFactor;
 	}
-	/**
-	 * @return the nombre
-	 */
+
 	public String getNombre() {
 		return nombre;
 	}
-	/**
-	 * @param nombre the nombre to set
-	 */
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	/**
-	 * @return the unidad
-	 */
+
 	public String getUnidad() {
 		return unidad;
 	}
-	/**
-	 * @param unidad the unidad to set
-	 */
+
 	public void setUnidad(String unidad) {
 		this.unidad = unidad;
 	}
-	/**
-	 * @return the valorMin
-	 */
+
 	public int getValorMin() {
 		return valorMin;
 	}
-	/**
-	 * @param valorMin the valorMin to set
-	 */
+
 	public void setValorMin(int valorMin) {
 		this.valorMin = valorMin;
 	}
-	/**
-	 * @return the valorMax
-	 */
+
 	public int getValorMax() {
 		return valorMax;
 	}
-	/**
-	 * @param valorMax the valorMax to set
-	 */
+
 	public void setValorMax(int valorMax) {
 		this.valorMax = valorMax;
 	}
-	/**
-	 * @return the umbral
-	 */
+
 	public int getUmbral() {
 		return umbral;
 	}
-	/**
-	 * @param umbral the umbral to set
-	 */
+
 	public void setUmbral(int umbral) {
 		this.umbral = umbral;
 	}
-	/**
-	 * @return the sensores
-	 */
+
 	public List<Sensor> getSensores() {
 		return sensores;
 	}
-	/**
-	 * @param sensores the sensores to set
-	 */
+
 	public void setSensores(List<Sensor> sensores) {
 		this.sensores = sensores;
 	}
-	/**
-	 * @return the serialversionuid
-	 */
+
+	public Placa getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
+
+	public char getActivoSistema() {
+		return activoSistema;
+	}
+
+	public void setActivoSistema(char activoSistema) {
+		this.activoSistema = activoSistema;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -160,15 +137,14 @@ public class Factor implements Serializable {
 		result = prime * result
 				+ ((idFactor == null) ? 0 : idFactor.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((placa == null) ? 0 : placa.hashCode());
 		result = prime * result + umbral;
 		result = prime * result + ((unidad == null) ? 0 : unidad.hashCode());
 		result = prime * result + valorMax;
 		result = prime * result + valorMin;
 		return result;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -190,6 +166,11 @@ public class Factor implements Serializable {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (placa == null) {
+			if (other.placa != null)
+				return false;
+		} else if (!placa.equals(other.placa))
+			return false;
 		if (umbral != other.umbral)
 			return false;
 		if (unidad == null) {
@@ -203,20 +184,13 @@ public class Factor implements Serializable {
 			return false;
 		return true;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "Factor [idFactor=" + idFactor + ", nombre=" + nombre
 				+ ", unidad=" + unidad + ", valorMin=" + valorMin
-				+ ", valorMax=" + valorMax + ", umbral=" + umbral
-				+ ", activoSistema=" + activoSistema + "]";
+				+ ", valorMax=" + valorMax + ", umbral=" + umbral + ", placa="
+				+ placa + ", activoSistema=" + activoSistema + "]";
 	}
-	
-	
-	
-
-	
 	
 }

@@ -1,11 +1,12 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -194,7 +195,7 @@ public class FactorBean {
 	}
 
 	public void getSensoresId(long id) {
-		sensoresSelecconados = registroFactor.getListaSensoresId(id);
+		sensoresSelecconados = (List<Sensor>) registroFactor.getListaSensoresId(id);
 
 	}
 }

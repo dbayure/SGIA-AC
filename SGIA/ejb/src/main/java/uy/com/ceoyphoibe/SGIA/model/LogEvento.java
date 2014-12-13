@@ -3,9 +3,11 @@ package uy.com.ceoyphoibe.SGIA.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,81 +23,72 @@ public class LogEvento implements Serializable {
 	@Id
 	private Long idLogEvento;
 	private Date fecha;
+	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoLogEvento tipoLogEvento;
+	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Mensaje mensaje;
+	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Dispositivo dispositivo;
-	/**
-	 * @return the idLogEvento
-	 */
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	private Placa placa;
+
 	public Long getIdLogEvento() {
 		return idLogEvento;
 	}
-	/**
-	 * @param idLogEvento the idLogEvento to set
-	 */
+
 	public void setIdLogEvento(Long idLogEvento) {
 		this.idLogEvento = idLogEvento;
 	}
-	/**
-	 * @return the fecha
-	 */
+
 	public Date getFecha() {
 		return fecha;
 	}
-	/**
-	 * @param fecha the fecha to set
-	 */
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	/**
-	 * @return the tipoLogEvento
-	 */
+
 	public TipoLogEvento getTipoLogEvento() {
 		return tipoLogEvento;
 	}
-	/**
-	 * @param tipoLogEvento the tipoLogEvento to set
-	 */
+
 	public void setTipoLogEvento(TipoLogEvento tipoLogEvento) {
 		this.tipoLogEvento = tipoLogEvento;
 	}
-	/**
-	 * @return the mensaje
-	 */
+
 	public Mensaje getMensaje() {
 		return mensaje;
 	}
-	/**
-	 * @param mensaje the mensaje to set
-	 */
+
 	public void setMensaje(Mensaje mensaje) {
 		this.mensaje = mensaje;
 	}
-	/**
-	 * @return the dispositivo
-	 */
+
 	public Dispositivo getDispositivo() {
 		return dispositivo;
 	}
-	/**
-	 * @param dispositivo the dispositivo to set
-	 */
+
 	public void setDispositivo(Dispositivo dispositivo) {
 		this.dispositivo = dispositivo;
 	}
-	/**
-	 * @return the serialversionuid
-	 */
+
+	public Placa getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -106,13 +99,12 @@ public class LogEvento implements Serializable {
 		result = prime * result
 				+ ((idLogEvento == null) ? 0 : idLogEvento.hashCode());
 		result = prime * result + ((mensaje == null) ? 0 : mensaje.hashCode());
+		result = prime * result + ((placa == null) ? 0 : placa.hashCode());
 		result = prime * result
 				+ ((tipoLogEvento == null) ? 0 : tipoLogEvento.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -142,6 +134,11 @@ public class LogEvento implements Serializable {
 				return false;
 		} else if (!mensaje.equals(other.mensaje))
 			return false;
+		if (placa == null) {
+			if (other.placa != null)
+				return false;
+		} else if (!placa.equals(other.placa))
+			return false;
 		if (tipoLogEvento == null) {
 			if (other.tipoLogEvento != null)
 				return false;
@@ -149,14 +146,12 @@ public class LogEvento implements Serializable {
 			return false;
 		return true;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "LogEvento [idLogEvento=" + idLogEvento + ", fecha=" + fecha
 				+ ", tipoLogEvento=" + tipoLogEvento + ", mensaje=" + mensaje
-				+ ", dispositivo=" + dispositivo + "]";
+				+ ", dispositivo=" + dispositivo + ", placa=" + placa + "]";
 	}
 
 }
