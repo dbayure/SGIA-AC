@@ -1,6 +1,7 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
+import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 import ws.Comunicacion;
 import ws.Comunicacion_Service;
 import ws.ResultadoCreacionWS;
@@ -32,7 +34,10 @@ public class RegistroFactor {
 	   public void registro(Factor factor) throws Exception {
 		   System.out.println("***********************");
 	        System.out.println("Create Web Service Client...");
-	        Comunicacion_Service service1 = new Comunicacion_Service();
+	        Herramientas h= new Herramientas();
+	        URL wsdl= h.obtenerWSDL("192.168.0.101", "7789");
+	        Comunicacion_Service service1 = new Comunicacion_Service(wsdl);
+	     //  Comunicacion_Service service1 = new Comunicacion_Service();
 	        System.out.println("Create Web Service...");
 	        Comunicacion port1 = service1.getComunicacion();
 	        System.out.println("Call Web Service Operation...");

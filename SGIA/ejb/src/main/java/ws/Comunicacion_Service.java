@@ -26,7 +26,7 @@ public class Comunicacion_Service extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("http://192.168.1.21:7789/?wsdl");
+            url = new URL("http://192.168.0.101:7789/?wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(Comunicacion_Service.class.getName())
                 .log(java.util.logging.Level.INFO, 
