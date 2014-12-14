@@ -2,6 +2,7 @@ package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.List;
 
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -86,6 +87,16 @@ public class FachadaWS {
         ResultadoCreacionWS resultadoWS= clienteWS.wsCrearFactor(factor.getNombre(), factor.getUnidad(), valorMin, valorMax, umbral);
         Long id=resultadoWS.getIdObjeto().longValue();
         factor.setIdFactor(id);
+        List<Sensor> listaSensores= factor.getSensores();
+        if (listaSensores.size() > 0)
+        {
+        	BigInteger idFactor= resultadoWS.getIdObjeto();
+        	for (Sensor s: listaSensores)
+        	{
+        		BigInteger idDispositivo= BigInteger.valueOf(s.getId());
+        		clienteWS.wsAsociarFactorSensor(idFactor, idDispositivo);        		
+        	}
+        }
 		return factor;
 	}
 	
@@ -107,5 +118,7 @@ public class FachadaWS {
 		sensor.setId(id);
 		return sensor;
 	}
+	
+	
 
 }

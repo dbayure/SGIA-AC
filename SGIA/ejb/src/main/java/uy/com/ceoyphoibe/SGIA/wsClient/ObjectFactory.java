@@ -30,6 +30,7 @@ public class ObjectFactory {
     private final static QName _WsReestablecerEstadoAlertaDispositivo_QNAME = new QName("Comunicacion.Comunicacion", "wsReestablecerEstadoAlertaDispositivo");
     private final static QName _WsCrearGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearGrupoActuadores");
     private final static QName _WsCrearActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuadorAvance");
+    private final static QName _WsAsociarFactorSensorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarFactorSensorResponse");
     private final static QName _WsApagarGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsApagarGrupoActuadores");
     private final static QName _ResultadoLecturaWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoLecturaWS");
     private final static QName _WsApagarGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsApagarGrupoActuadoresResponse");
@@ -42,6 +43,7 @@ public class ObjectFactory {
     private final static QName _ResultadoCreacionWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoCreacionWS");
     private final static QName _WsReestablecerActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsReestablecerActuadorAvance");
     private final static QName _WsEliminarFilaPerfilActivacion_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarFilaPerfilActivacion");
+    private final static QName _WsAsociarFactorSensor_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarFactorSensor");
     private final static QName _WsCrearPlacaAuxiliar_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearPlacaAuxiliar");
     private final static QName _WsCrearActuadorAvanceResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuadorAvanceResponse");
     private final static QName _WsCrearGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearGrupoActuadoresResponse");
@@ -52,9 +54,9 @@ public class ObjectFactory {
     private final static QName _Mensaje_QNAME = new QName("Comunicacion.Comunicacion", "Mensaje");
     private final static QName _WsCrearFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearFactor");
     private final static QName _WsReestablecerEstadoAlertaDispositivoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsReestablecerEstadoAlertaDispositivoResponse");
+    private final static QName _WsEliminarNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarNivelSeveridadResponse");
     private final static QName _WsCrearTipoActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoActuador");
     private final static QName _WsAgregarSensorPosicionActuadorAvanceResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarSensorPosicionActuadorAvanceResponse");
-    private final static QName _WsEliminarNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarNivelSeveridadResponse");
     private final static QName _WsCrearNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearNivelSeveridadResponse");
     private final static QName _WsAgregarFilaPerfilActivacion_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarFilaPerfilActivacion");
     private final static QName _WsCrearActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuador");
@@ -101,6 +103,14 @@ public class ObjectFactory {
      */
     public WsCrearActuadorAvanceResponse createWsCrearActuadorAvanceResponse() {
         return new WsCrearActuadorAvanceResponse();
+    }
+
+    /**
+     * Create an instance of {@link WsAsociarFactorSensor }
+     * 
+     */
+    public WsAsociarFactorSensor createWsAsociarFactorSensor() {
+        return new WsAsociarFactorSensor();
     }
 
     /**
@@ -205,6 +215,14 @@ public class ObjectFactory {
      */
     public WsApagarGrupoActuadores createWsApagarGrupoActuadores() {
         return new WsApagarGrupoActuadores();
+    }
+
+    /**
+     * Create an instance of {@link WsAsociarFactorSensorResponse }
+     * 
+     */
+    public WsAsociarFactorSensorResponse createWsAsociarFactorSensorResponse() {
+        return new WsAsociarFactorSensorResponse();
     }
 
     /**
@@ -424,6 +442,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsEliminarNivelSeveridadResponse }
+     * 
+     */
+    public WsEliminarNivelSeveridadResponse createWsEliminarNivelSeveridadResponse() {
+        return new WsEliminarNivelSeveridadResponse();
+    }
+
+    /**
      * Create an instance of {@link WsCrearTipoActuador }
      * 
      */
@@ -437,14 +463,6 @@ public class ObjectFactory {
      */
     public WsAgregarSensorPosicionActuadorAvanceResponse createWsAgregarSensorPosicionActuadorAvanceResponse() {
         return new WsAgregarSensorPosicionActuadorAvanceResponse();
-    }
-
-    /**
-     * Create an instance of {@link WsEliminarNivelSeveridadResponse }
-     * 
-     */
-    public WsEliminarNivelSeveridadResponse createWsEliminarNivelSeveridadResponse() {
-        return new WsEliminarNivelSeveridadResponse();
     }
 
     /**
@@ -582,6 +600,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsAsociarFactorSensorResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsAsociarFactorSensorResponse")
+    public JAXBElement<WsAsociarFactorSensorResponse> createWsAsociarFactorSensorResponse(WsAsociarFactorSensorResponse value) {
+        return new JAXBElement<WsAsociarFactorSensorResponse>(_WsAsociarFactorSensorResponse_QNAME, WsAsociarFactorSensorResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsApagarGrupoActuadores }{@code >}}
      * 
      */
@@ -690,6 +717,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsAsociarFactorSensor }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsAsociarFactorSensor")
+    public JAXBElement<WsAsociarFactorSensor> createWsAsociarFactorSensor(WsAsociarFactorSensor value) {
+        return new JAXBElement<WsAsociarFactorSensor>(_WsAsociarFactorSensor_QNAME, WsAsociarFactorSensor.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsCrearPlacaAuxiliar }{@code >}}
      * 
      */
@@ -780,6 +816,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsEliminarNivelSeveridadResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsEliminarNivelSeveridadResponse")
+    public JAXBElement<WsEliminarNivelSeveridadResponse> createWsEliminarNivelSeveridadResponse(WsEliminarNivelSeveridadResponse value) {
+        return new JAXBElement<WsEliminarNivelSeveridadResponse>(_WsEliminarNivelSeveridadResponse_QNAME, WsEliminarNivelSeveridadResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsCrearTipoActuador }{@code >}}
      * 
      */
@@ -795,15 +840,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsAgregarSensorPosicionActuadorAvanceResponse")
     public JAXBElement<WsAgregarSensorPosicionActuadorAvanceResponse> createWsAgregarSensorPosicionActuadorAvanceResponse(WsAgregarSensorPosicionActuadorAvanceResponse value) {
         return new JAXBElement<WsAgregarSensorPosicionActuadorAvanceResponse>(_WsAgregarSensorPosicionActuadorAvanceResponse_QNAME, WsAgregarSensorPosicionActuadorAvanceResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link WsEliminarNivelSeveridadResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsEliminarNivelSeveridadResponse")
-    public JAXBElement<WsEliminarNivelSeveridadResponse> createWsEliminarNivelSeveridadResponse(WsEliminarNivelSeveridadResponse value) {
-        return new JAXBElement<WsEliminarNivelSeveridadResponse>(_WsEliminarNivelSeveridadResponse_QNAME, WsEliminarNivelSeveridadResponse.class, null, value);
     }
 
     /**

@@ -53,6 +53,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsEliminarNivelSeveridad(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsAsociarFactorSensor(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsLecturaFactor(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -129,6 +132,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsEliminarNivelSeveridad(null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsAsociarFactorSensor(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsLecturaFactor(null));
