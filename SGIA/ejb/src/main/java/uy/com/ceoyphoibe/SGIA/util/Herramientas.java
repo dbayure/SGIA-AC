@@ -3,7 +3,7 @@ package uy.com.ceoyphoibe.SGIA.util;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import ws.Comunicacion_Service;
+import uy.com.ceoyphoibe.SGIA.wsClient.Comunicacion_Service;
 
 public class Herramientas {
 	

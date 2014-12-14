@@ -1,8 +1,6 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
 
-import java.util.concurrent.ExecutionException;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,14 +12,14 @@ import org.primefaces.event.RowEditEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
-@ManagedBean
+@ManagedBean(name= "placaBean")
 @SessionScoped
 public class PlacaBean {
 
 	@Inject
 	private RegistroPlaca registroPlaca;
 	
-	private Placa placa = new Placa();
+	private Placa placa;
 	private boolean mostrar = false;
 	private String ip;
 	private int puerto;
@@ -58,6 +56,11 @@ public class PlacaBean {
 		this.placa = placa;
 	}
 	
+	
+	public void seleccionarPlaca( Placa placa)
+	{
+		this.placa= placa;
+	}
 
 	public boolean isMostrar() {
 		return mostrar;
@@ -70,10 +73,8 @@ public class PlacaBean {
 	public void registrar() {
 		
 		try {
-			placa.setEstadoAlerta('N');
-			placa.setEstado('C');
-			placa = new Placa();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,	"Se registró ", "con éxito!");
+			registroPlaca.modificar(placa);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,	"Se actualizó ", "con éxito!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			
 		} catch (Exception e) {
@@ -81,6 +82,8 @@ public class PlacaBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
+	
+	
 
 	public void onEdit(RowEditEvent event) {
 		Placa placa = ((Placa) event.getObject());
@@ -118,7 +121,7 @@ public class PlacaBean {
 	public boolean conectar(){
 		try{
 			System.out.println("conectando al servidor mediante el ws ...  \n");
-			registroPlaca.conectarWs(ip, puerto);
+			placa= registroPlaca.conectarWs(ip, puerto);
 		}
 		catch (Exception e){
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,

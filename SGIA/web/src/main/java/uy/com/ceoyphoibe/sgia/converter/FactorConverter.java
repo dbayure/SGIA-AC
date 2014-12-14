@@ -33,7 +33,7 @@ public class FactorConverter implements Converter {
 			}
 			catch(Exception e) {
 				e.printStackTrace();
-				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de Conversion", "Grupo de Actuadores no válido"));
+				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de Conversion del Factor", ""));
 			}
 		}
 		return factor;

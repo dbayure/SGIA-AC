@@ -1,13 +1,13 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -17,29 +17,27 @@ import org.primefaces.event.UnselectEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
-@ManagedBean
-@SessionScoped
+@ManagedBean (name="factorBean")
+@ViewScoped
 public class FactorBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroFactor registroFactor;
 	@Inject
 	private RegistroSensor registroSensor;
+	
+	
 
 	private List<Sensor> sensores = new ArrayList<Sensor>();
 	private Factor factorTemp = new Factor();
 	private List<Sensor> sensoresSelecconados = new ArrayList<Sensor>();
 
-	
-	
-	/**
-	 * 
-	 */
-	public FactorBean() {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-------constructor factor");
-	}
 
 	/**
 	 * @return the registroFactor
@@ -85,6 +83,17 @@ public class FactorBean {
 	public void setFactorTemp(Factor factorTemp) {
 		this.factorTemp = factorTemp;
 	}
+	
+	
+
+	
+
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
 
 	/**
 	 * @return the sensoresSelecconados
@@ -104,8 +113,9 @@ public class FactorBean {
 	public void registrar() {
 		factorTemp.setActivoSistema('S');
 		try {
-			
-			
+			//asigno la placa controladora a la que pertenece
+			System.out.println("Va a asignar la placa: "+placa.getDescripcion()+ " nroSerie: "+placa.getNroSerie());
+			factorTemp.setPlaca(placa);
 			//asigno los nuevos sensores
 			System.out.println("**************cantidad de seleccionados: "+sensoresSelecconados.size());
 			System.out.println("**************cantidad de sensores temp: "+sensores.size());

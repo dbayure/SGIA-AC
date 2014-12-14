@@ -2,6 +2,7 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
 
@@ -17,6 +19,9 @@ import uy.com.ceoyphoibe.SGIA.model.Sensor;
 @RequestScoped
 public class SensorBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroSensor registroSensor;
 	
@@ -24,6 +29,7 @@ public class SensorBean {
 	
 	public void registrar() {
 		try {
+			sensorTemp.setPlaca(placa);
 			sensorTemp.setActivoSistema('S');
 			sensorTemp.setEstadoAlerta('N');
 			registroSensor.registro(sensorTemp);
@@ -50,6 +56,14 @@ public class SensorBean {
 	public void setSensorTemp(Sensor sensorTemp) {
 		this.sensorTemp = sensorTemp;
 	}
+	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
+
 
 	public void onEdit(RowEditEvent event) {  
             Sensor sensor = ((Sensor) event.getObject());

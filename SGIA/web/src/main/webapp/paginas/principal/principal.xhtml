@@ -32,7 +32,7 @@
 						<p:inputText id="puerto" value="#{placaBean.puerto}"/>
 					</h:panelGrid>
 							
-					<p:commandLink id="conectar" update="form" actionListener="#{placaBean.conectar}">
+					<p:commandLink id="conectar" update=":form" actionListener="#{placaBean.conectar}">
 	        			<h:graphicImage value="/resources/gfx/connect_creating.png" alt="conectar" height="50px"/>
 	    			</p:commandLink>
 				
@@ -44,24 +44,31 @@
 			
 			<p:panel id="p3">
 			
-			    <p:dataScroller value="#{placas}" var="placa" chunkSize="10" mode="inline" scrollHeight="500">
+			    <p:dataScroller value="#{placas}" var="_placa" chunkSize="10" mode="inline" scrollHeight="500">
 			        <f:facet name="header">
 			            Placas Disponibles
 			        </f:facet>
 			 
 			        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-			            <h:graphicImage value="/resources/gfx/motherboard_icon.jpg" alt="placas" height="50px"/>
+			        	
+			        	<p:commandLink id="selPlaca" style="float:left;" ajax="true"
+									update=":form"
+									actionListener="#{placaBean.seleccionarPlaca(_placa)}">
+									<p:graphicImage value="/resources/gfx/motherboard_icon.jpg" height="50px" />
+						</p:commandLink>
+						
+<!-- 			            <h:graphicImage value="/resources/gfx/motherboard_icon.jpg" alt="placas" height="50px"/> -->
 			 
 			            <p:outputPanel>
 			                <h:panelGrid columns="2" cellpadding="5">
 			                    <h:outputText value="Id:" />
-			                    <h:outputText value="#{placa.id}" style="font-weight: bold"/>
+			                    <h:outputText value="#{_placa.id}" style="font-weight: bold"/>
 			 
 			                    <h:outputText value="Descripcion:" />
-			                    <h:outputText value="#{placa.descripcion}" style="font-weight: bold"/>
+			                    <h:outputText value="#{_placa.descripcion}" style="font-weight: bold"/>
 			 
 			                    <h:outputText value="Serie:" />
-			                    <h:outputText value="#{placa.nroSerie}" style="font-weight: bold"/>
+			                    <h:outputText value="#{_placa.nroSerie}" style="font-weight: bold"/>
 			                </h:panelGrid>
 			            </p:outputPanel>
 			        </h:panelGrid>

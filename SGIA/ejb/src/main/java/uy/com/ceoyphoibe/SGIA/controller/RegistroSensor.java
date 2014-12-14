@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 
 @Stateless
@@ -34,7 +35,10 @@ public class RegistroSensor {
 	   }
 
 	   public void registro(Sensor sensor) throws Exception {
-	      log.info("Registro " + sensor.getNombre());
+		   FachadaWS ws= new FachadaWS();
+		   sensor= ws.registroSensor(sensor);
+		   
+		   log.info("Registro " + sensor.getNombre());
 	      em.persist(sensor);
 	      sensorEventSrc.fire(sensor);
 	   }
