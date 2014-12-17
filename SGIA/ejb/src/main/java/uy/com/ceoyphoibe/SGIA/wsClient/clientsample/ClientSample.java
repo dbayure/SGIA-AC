@@ -68,6 +68,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsCrearActuador(null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsAsociarActuadorAvanceGrupo(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsCrearGrupoActuadores(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -87,6 +90,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsCrearTipoPlaca(null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsAsociarActuadorGrupo(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Create Web Service...");
@@ -149,6 +155,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port2.wsCrearActuador(null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port2.wsAsociarActuadorAvanceGrupo(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port2.wsCrearGrupoActuadores(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -168,6 +177,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCrearTipoPlaca(null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsAsociarActuadorGrupo(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("***********************");

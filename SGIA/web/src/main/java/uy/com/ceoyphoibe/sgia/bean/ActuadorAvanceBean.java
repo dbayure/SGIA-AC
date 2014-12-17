@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -13,7 +14,6 @@ import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
-import uy.com.ceoyphoibe.SGIA.data.ActuadorListProducer;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
@@ -23,6 +23,9 @@ import uy.com.ceoyphoibe.SGIA.model.Sensor;
 public class ActuadorAvanceBean {
 
 
+	@ManagedProperty("#{placaBean}")
+    private PlacaBean placaBean; 
+	
 	@Inject
 	private RegistroActuadorAvance registroActuadorAvance;
 
@@ -73,6 +76,13 @@ public class ActuadorAvanceBean {
 	 */
 	public RegistroActuadorAvance getRegistroActuadorAvance() {
 		return registroActuadorAvance;
+	}
+	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlacaBean(PlacaBean placaBean) {
+		this.placaBean = placaBean;
 	}
 
 	/**
@@ -137,25 +147,15 @@ public class ActuadorAvanceBean {
 		this.listaPosiciones = listaPosiciones;
 	}
 
-	public void registrar() {
-		try {
-			registroActuadorAvance.registro();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se registró ", "con éxito!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-	}
+	
 
 	public void guardar() {
 		try {
 			if (!skip)
-			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
 			actuadorAvanceSeleccionado.setActivoSistema('S');
 			actuadorAvanceSeleccionado.setEstadoAlerta('N');
+			actuadorAvanceSeleccionado.setPlaca(placaBean.getPlaca());
 			registroActuadorAvance.guardar(actuadorAvanceSeleccionado);
 			actuadorAvanceSeleccionado = new ActuadorAvance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,

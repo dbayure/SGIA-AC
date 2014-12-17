@@ -25,10 +25,16 @@ public class RegistroFactor {
 	   @Inject
 	   private Event <Factor> factorEventSrc;
 	   
-	   public void registro(Factor factor) throws Exception {
+	   public Factor registroPlaca(Factor factor) throws Exception {
 		   FachadaWS ws= new FachadaWS();
 		   factor= ws.registroFactor(factor);
 		   
+		   em.merge(factor);
+		   factorEventSrc.fire(factor);
+		   return factor;
+	   }
+	   
+	   public void registro(Factor factor) throws Exception {
 		   em.merge(factor);
 		   factorEventSrc.fire(factor);
 	   }

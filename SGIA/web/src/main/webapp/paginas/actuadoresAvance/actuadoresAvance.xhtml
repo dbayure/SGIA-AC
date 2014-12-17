@@ -25,9 +25,9 @@
 
 						<h:panelGrid columns="2">
 
-							<p:outputLabel for="id" value="Id Dispositivo:" />
-							<p:inputText id="id" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}"
-								label="Id Dispositivo" required="true" />
+<!-- 							<p:outputLabel for="id" value="Id Dispositivo:" /> -->
+<!-- 							<p:inputText id="id" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}" -->
+<!-- 								label="Id Dispositivo" required="true" /> -->
 
 							<p:outputLabel for="nombre" value="Nombre:" />
 							<p:inputText id="nombre" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
@@ -49,6 +49,7 @@
 							<p:selectOneMenu id="grupoActuador"
 								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.grupoActuadores}">
 								<f:converter converterId="grupoActuadoresConverter" />
+								<f:selectItem itemLabel="Seleccione..." itemValue="" />
 								<f:selectItems value="#{grupoActuadores}" var="gActuador"
 									itemLabel="#{gActuador.nombre}" itemValue="#{gActuador}" />
 							</p:selectOneMenu>

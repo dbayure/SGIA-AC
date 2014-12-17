@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -21,11 +22,11 @@ import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
 @ManagedBean (name="factorBean")
-@ViewScoped
+@SessionScoped
 public class FactorBean {
 
-	@ManagedProperty("#{placaBean.placa}")
-    private Placa placa; 
+	@ManagedProperty("#{placaBean}")
+    private PlacaBean placaBean; 
 	
 	@Inject
 	private RegistroFactor registroFactor;
@@ -91,8 +92,8 @@ public class FactorBean {
 	/**
 	 * @param placa the placa to set
 	 */
-	public void setPlaca(Placa placa) {
-		this.placa = placa;
+	public void setPlacaBean(PlacaBean placaBean) {
+		this.placaBean = placaBean;
 	}
 
 	/**
@@ -113,12 +114,9 @@ public class FactorBean {
 	public void registrar() {
 		factorTemp.setActivoSistema('S');
 		try {
-			//asigno la placa controladora a la que pertenece
-			System.out.println("Va a asignar la placa: "+placa.getDescripcion()+ " nroSerie: "+placa.getNroSerie());
-			factorTemp.setPlaca(placa);
-			//asigno los nuevos sensores
-			System.out.println("**************cantidad de seleccionados: "+sensoresSelecconados.size());
-			System.out.println("**************cantidad de sensores temp: "+sensores.size());
+			factorTemp.setPlaca(placaBean.getPlaca());
+			factorTemp= registroFactor.registroPlaca(factorTemp);
+
 			for (Sensor s : sensores) {
 				s.setFactor(null);
 				registroSensor.modificar(s);
@@ -158,8 +156,7 @@ public class FactorBean {
 			factorTemp = registroFactor.obtenerFactorPorId(id);
 			sensoresSelecconados = factorTemp.getSensores();
 			sensores= factorTemp.getSensores();
-			
-			System.out.println("**************cantidad de temp en onEditar: "+sensores.size());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

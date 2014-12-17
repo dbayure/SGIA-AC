@@ -6,7 +6,8 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -16,11 +17,15 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroActuador;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ActuadorBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroGrupoActuadores registroGrupoActuadores;
 
@@ -60,6 +65,12 @@ public class ActuadorBean {
 		this.ga = ga;
 	}
 
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
 
 
 	public List<Actuador> getActuadorLis() {
@@ -82,7 +93,8 @@ public class ActuadorBean {
 		
 		try {
 			if (actuador.getGrupoActuadores() != null) {
-				System.out.println("Entro al registrar del actuador y llamo al registro del grupo.");
+				
+				actuador.setPlaca(placa);
 				actuador.setEstado('A');
 				actuador.setEstadoAlerta('N');
 				actuador.setActivoSistema('S');
@@ -93,15 +105,18 @@ public class ActuadorBean {
 				ga.setNombre(actuador.getGrupoActuadores().getNombre());
 				ga.getActuadores().add(actuador);
 				registroGrupoActuadores.registro(ga);
+				actuador= new Actuador();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,	"Se registró ", "con éxito!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 			else{
-				System.out.println("Entro al registrar del actuador y llamo al registro del actuador.");
+				actuador.setPlaca(placa);
 				actuador.setEstado('A');
 				actuador.setEstadoAlerta('N');
 				actuador.setActivoSistema('S');
+				
 				regActuador.registro(actuador);
+				actuador= new Actuador();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,	"Se registró ", "con éxito!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}

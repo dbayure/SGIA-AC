@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
-import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 
 @Stateless
@@ -28,13 +28,19 @@ public class RegistroActuador {
 	   }
 
 	   public void registro(Actuador a) throws Exception {
-	      em.merge(a);
-	      actuadoresSrc.fire(a);
+		   FachadaWS ws= new FachadaWS();
+		   a= ws.registroActuador(a);
+		   
+		   em.merge(a);
+		   actuadoresSrc.fire(a);
 	   }
 	   
-	   public void modificar(Actuador actudaror) throws Exception {
-		   log.info("Modifico " + actudaror);
-		   em.merge(actudaror);
+	   public void modificar(Actuador actuador) throws Exception {
+		   log.info("Modifico " + actuador);
+		   FachadaWS wsClient = new FachadaWS();
+		   wsClient.asociarActuadorGrupoActuadores(actuador);
+		   
+		   em.merge(actuador);
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {

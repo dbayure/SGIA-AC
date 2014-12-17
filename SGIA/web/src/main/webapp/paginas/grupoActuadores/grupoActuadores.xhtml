@@ -6,99 +6,115 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h1 style="text-align: center;">Administración de Grupo de	Actuadores</h1>
+		<h1 style="text-align: center;">Administración de Grupo de
+			Actuadores</h1>
 
 		<style type="text/css">
-			.actuadorRowSelected {
-				background-color: #dbffb8  !important;
-				background-image: none !important;
-				color: #000000 !important;
-		}
-		</style>
+.actuadorRowSelected {
+	background-color: #dbffb8 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
 
 
 		<h:form id="form" prependId="false">
-			<h2>Registro</h2>
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
 			<h:panelGrid columns="2" id="gridActuadores">
 
-				<p:outputLabel for="id" value="Id:" />
-				<p:inputText id="id" value="#{grupoActuadoresBean.ga.id}" label="id" required="false"  />
+				<!-- 				<p:outputLabel for="id" value="Id:" /> -->
+				<!-- 				<p:inputText id="id" value="#{grupoActuadoresBean.ga.id}" label="id" required="false"  /> -->
 
 				<p:outputLabel for="nombre" value="Nombre:" />
-				<p:inputText id="nombre" value="#{grupoActuadoresBean.ga.nombre}" label="nombre" required="false" />
-				
+				<p:inputText id="nombre" value="#{grupoActuadoresBean.ga.nombre}"
+					label="nombre" required="false" />
+
 				<p:outputLabel for="deAvance" value="De Avance:" />
 				<p:selectOneMenu id="deAvance"
 					value="#{grupoActuadoresBean.ga.deAvance}">
 					<f:selectItem itemLabel="Seleccione..." itemValue="" />
 					<f:selectItem itemLabel="Si" itemValue="S" />
 					<f:selectItem itemLabel="No" itemValue="N" />
-					
-					<p:ajax event="change" process="@this" update=":form:panel1" />
+
+					<p:ajax event="change" process="@this"
+						update=":form:tablasActuadores" />
 				</p:selectOneMenu>
 
 			</h:panelGrid>
 
-			<p:dataTable id="panel1" var="act" value="#{actuadores}" selection="#{grupoActuadoresBean.actuadoresSelecconados}" 
-				rowKey="#{act.id}" rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" 
-				rendered="#{grupoActuadoresBean.ga.deAvance == 'N'}" >
-				<f:facet name="header">
+			<p:accordionPanel id="tablasActuadores" activeIndex="-1">
+				<p:tab title="Asoiar Actuadores...">
+
+					<p:dataTable id="panel1" var="act" value="#{actuadores}"
+						selection="#{grupoActuadoresBean.actuadoresSelecconados}"
+						rowKey="#{act.id}"
+						rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"
+						rendered="#{grupoActuadoresBean.ga.deAvance == 'N'}">
+						<f:facet name="header">
 			            Actuadores disponibles
 			        </f:facet>
-				<p:column selectionMode="multiple"
-					style="width:16px;text-align:center" />
-				<p:column headerText="Id" style="width:15%">
-					<h:outputText value="#{act.id}" />
-				</p:column>
-				<p:column headerText="Nombre Actuador">
-					<h:outputText value="#{act.nombre}" />
-				</p:column>
-				<p:column headerText="Modelo">
-					<h:outputText value="#{act.modelo}" />
-				</p:column>
-				<p:column headerText="Grupo Asignado">
-					<h:outputText value="#{act.grupoActuadores.nombre}" />
-				</p:column>
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Id" style="width:15%">
+							<h:outputText value="#{act.id}" />
+						</p:column>
+						<p:column headerText="Nombre Actuador">
+							<h:outputText value="#{act.nombre}" />
+						</p:column>
+						<p:column headerText="Modelo">
+							<h:outputText value="#{act.modelo}" />
+						</p:column>
+						<p:column headerText="Grupo Asignado">
+							<h:outputText value="#{act.grupoActuadores.nombre}" />
+						</p:column>
 
-			</p:dataTable>
-			
-			
-			<p:dataTable id="panel2" var="actAvance" value="#{actuadoresAvance}" selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
-				rowKey="#{actAvance.id}" rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}" 
-				rendered="#{grupoActuadoresBean.ga.deAvance == 'S'}" >
-				<f:facet name="header">
+					</p:dataTable>
+
+
+					<p:dataTable id="panel2" var="actAvance"
+						value="#{actuadoresAvance}"
+						selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
+						rowKey="#{actAvance.id}"
+						rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"
+						rendered="#{grupoActuadoresBean.ga.deAvance == 'S'}">
+						<f:facet name="header">
 			            Actuadores de Avance disponibles
 			        </f:facet>
-				<p:column selectionMode="multiple"
-					style="width:16px;text-align:center" />
-				<p:column headerText="Id" style="width:15%">
-					<h:outputText value="#{actAvance.id}" />
-				</p:column>
-				<p:column headerText="Nombre Actuador">
-					<h:outputText value="#{actAvance.nombre}" />
-				</p:column>
-				<p:column headerText="Modelo">
-					<h:outputText value="#{actAvance.modelo}" />
-				</p:column>
-				<p:column headerText="Grupo Asignado">
-					<h:outputText value="#{actAvance.grupoActuadores.nombre}" />
-				</p:column>
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Id" style="width:15%">
+							<h:outputText value="#{actAvance.id}" />
+						</p:column>
+						<p:column headerText="Nombre Actuador">
+							<h:outputText value="#{actAvance.nombre}" />
+						</p:column>
+						<p:column headerText="Modelo">
+							<h:outputText value="#{actAvance.modelo}" />
+						</p:column>
+						<p:column headerText="Grupo Asignado">
+							<h:outputText value="#{actAvance.grupoActuadores.nombre}" />
+						</p:column>
 
-			</p:dataTable>
+					</p:dataTable>
+
+					
+				</p:tab>
+			</p:accordionPanel>
 			
+			<p></p>
 			<h:panelGrid columns="2">
-				<p>
-					<p:commandButton id="register"
-						action="#{grupoActuadoresBean.registrar}" value="Registrar"
-						style="margin-left: 400px;" update=":form" />
-				</p>
-			</h:panelGrid>
+						<p>
+							<p:commandButton id="register"
+								action="#{grupoActuadoresBean.registrar}" value="Registrar"
+								style="margin-left: 400px;" update=":form" />
+						</p>
+					</h:panelGrid>
 
-			<p:dataTable id="gactuadores" var="_gactuadores" value="#{grupoActuadores}" editable="true">
+			<p:dataTable id="gactuadores" var="_gactuadores"
+				value="#{grupoActuadores}" editable="true">
 				<f:facet name="header">  
             	Administrar Grupo Actuadores
         	</f:facet>
@@ -122,16 +138,16 @@
 				<p:column headerText="Activo" style="width:25%">
 					<h:outputText value="#{_gactuadores.activoSistema}" />
 				</p:column>
-				
+
 				<p:column style="width:3%">
-					<h:commandLink id="editLink"  
-						styleClass="ui-icon ui-icon-pencil"	actionListener="#{grupoActuadoresBean.onEditar(_gactuadores.id)}">
+					<h:commandLink id="editLink" styleClass="ui-icon ui-icon-pencil"
+						actionListener="#{grupoActuadoresBean.onEditar(_gactuadores.id)}">
 					</h:commandLink>
 				</p:column>
-				
+
 				<p:column style="width:3%">
-					<p:commandLink id="deleteLink" update="gactuadores" immediate="false"
-						ajax="true" styleClass="ui-icon ui-icon-trash"
+					<p:commandLink id="deleteLink" update="gactuadores"
+						immediate="false" ajax="true" styleClass="ui-icon ui-icon-trash"
 						actionListener="#{grupoActuadoresBean.eliminar(_gactuadores.id)}">
 					</p:commandLink>
 				</p:column>
@@ -169,7 +185,6 @@
 					</h:panelGrid>
 				</p:dataList>
 			</p:dialog>
-
 		</h:form>
 
 	</ui:define>

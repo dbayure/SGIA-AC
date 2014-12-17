@@ -45,6 +45,8 @@ public class RegistroSensor {
 	   
 	   public void modificar(Sensor sensor) throws Exception {
 		   log.info("Modifico " + sensor);
+		   FachadaWS wsClient = new FachadaWS();
+		   wsClient.asociarSensorFactor(sensor);
 		   em.merge(sensor);
 		   sensorEventSrc.fire(sensor);
 	   }

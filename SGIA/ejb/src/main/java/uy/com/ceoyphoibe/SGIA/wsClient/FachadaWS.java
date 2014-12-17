@@ -2,10 +2,15 @@ package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 
+import uy.com.ceoyphoibe.SGIA.model.Actuador;
+import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
+import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 
@@ -77,6 +82,19 @@ public class FachadaWS {
 		return placa;
 	}
 	
+	public boolean asociarSensorFactor(Sensor sensor)
+	{
+		boolean ok= false;
+		Comunicacion clienteWS= iniciarConexion(sensor.getPlaca().getIpPlaca(), sensor.getPlaca().getPuetroPlaca());
+		BigInteger idFactor= null;
+		if (sensor.getFactor() != null)
+			idFactor= BigInteger.valueOf(sensor.getFactor().getIdFactor());
+		BigInteger idDispositivo= BigInteger.valueOf(sensor.getId());
+        Mensaje mensajeResultado= clienteWS.wsAsociarFactorSensor(idFactor, idDispositivo);  
+        ok= mensajeResultado.getTipo().equals("Informativo");
+        return ok;
+	}
+	
 	public Factor registroFactor(Factor factor)
 	{
 		Comunicacion clienteWS= iniciarConexion(factor.getPlaca().getIpPlaca(), factor.getPlaca().getPuetroPlaca());
@@ -87,16 +105,7 @@ public class FachadaWS {
         ResultadoCreacionWS resultadoWS= clienteWS.wsCrearFactor(factor.getNombre(), factor.getUnidad(), valorMin, valorMax, umbral);
         Long id=resultadoWS.getIdObjeto().longValue();
         factor.setIdFactor(id);
-        List<Sensor> listaSensores= factor.getSensores();
-        if (listaSensores.size() > 0)
-        {
-        	BigInteger idFactor= resultadoWS.getIdObjeto();
-        	for (Sensor s: listaSensores)
-        	{
-        		BigInteger idDispositivo= BigInteger.valueOf(s.getId());
-        		clienteWS.wsAsociarFactorSensor(idFactor, idDispositivo);        		
-        	}
-        }
+        
 		return factor;
 	}
 	
@@ -117,6 +126,106 @@ public class FachadaWS {
 		Long id=resultadoWS.getIdObjeto().longValue();
 		sensor.setId(id);
 		return sensor;
+	}
+	
+	public Actuador registroActuador (Actuador actuador)
+	{
+		Comunicacion clienteWS= iniciarConexion(actuador.getPlaca().getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+		
+		BigInteger nroPuerto= BigInteger.valueOf(actuador.getNumeroPuerto());
+		BigInteger idTipoPuerto= BigInteger.valueOf(actuador.getTipoPuerto().getId());
+		BigInteger idTipoActuador= BigInteger.valueOf(actuador.getTipoActuador().getId());
+		BigInteger idPlacaPadre= null;
+		if (actuador.getPadre() != null)
+			idPlacaPadre= BigInteger.valueOf(actuador.getPadre().getId());
+		BigInteger idGrupoActuadores= null;
+		if (actuador.getGrupoActuadores() != null)
+			idGrupoActuadores= BigInteger.valueOf(actuador.getGrupoActuadores().getId());
+		
+		ResultadoCreacionWS resultadoWS= clienteWS.wsCrearActuador(actuador.getNombre(), actuador.getModelo(), nroPuerto, idTipoPuerto, idTipoActuador, idPlacaPadre, idGrupoActuadores);
+		Long id=resultadoWS.getIdObjeto().longValue();
+		actuador.setId(id);
+		return actuador;
+	}
+	
+	public ActuadorAvance registroActuadorAvance (ActuadorAvance actuadorAvance)
+	{
+		Comunicacion clienteWS= iniciarConexion(actuadorAvance.getPlaca().getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+		
+		BigInteger nroPuerto= BigInteger.valueOf(actuadorAvance.getNumeroPuerto());
+		BigInteger nroPuertoRetroceso= BigInteger.valueOf(actuadorAvance.getNumeroPuertoRetroceso());
+		BigInteger posicion= BigInteger.valueOf(actuadorAvance.getPosicion());
+		BigInteger idTipoPuerto= BigInteger.valueOf(actuadorAvance.getTipoPuerto().getId());
+		BigInteger tiempoEntrePosiciones= BigInteger.valueOf(actuadorAvance.getTiempoEntrePosiciones());
+		BigInteger idTipoActuador= BigInteger.valueOf(actuadorAvance.getTipoActuador().getId());
+		BigInteger idPlacaPadre= null;
+		if (actuadorAvance.getPadre() != null)
+			idPlacaPadre= BigInteger.valueOf(actuadorAvance.getPadre().getId());
+		BigInteger idGrupoActuadores= null;
+		if (actuadorAvance.getGrupoActuadores() != null)
+			idGrupoActuadores= BigInteger.valueOf(actuadorAvance.getGrupoActuadores().getId());
+		
+		ResultadoCreacionWS resultadoWS= clienteWS.wsCrearActuadorAvance(actuadorAvance.getNombre(), actuadorAvance.getModelo(), nroPuerto, posicion, idTipoPuerto, idTipoActuador, idPlacaPadre, nroPuertoRetroceso, idTipoPuerto, tiempoEntrePosiciones, idGrupoActuadores);
+		Long id=resultadoWS.getIdObjeto().longValue();
+		actuadorAvance.setId(id);
+		
+		BigInteger idActuadorAvance= resultadoWS.getIdObjeto();
+		Set<Posicion> posiciones= actuadorAvance.getListaPosiciones();
+		Iterator<Posicion> itPosiciones= posiciones.iterator();
+		while (itPosiciones.hasNext())
+		{
+			Posicion posicionTemp= itPosiciones.next();
+			BigInteger numeroPosicion= BigInteger.valueOf(posicionTemp.getNroPosicion());
+			BigInteger valor= BigInteger.valueOf(posicionTemp.getValor());
+			clienteWS.wsAgregarPosicionActuadorAvance(idActuadorAvance, numeroPosicion, posicionTemp.getDescripcion(), valor);
+			Set<Sensor> listaSensores= posicionTemp.getListaSensores();
+			Iterator<Sensor> itSensor= listaSensores.iterator();
+			while (itSensor.hasNext())
+			{
+				Sensor sensorTemp= itSensor.next();
+				BigInteger idSensor= BigInteger.valueOf(sensorTemp.getId());
+				clienteWS.wsAgregarSensorPosicionActuadorAvance(idSensor, idActuadorAvance, numeroPosicion);
+			}
+		}
+		
+		return actuadorAvance;
+	}
+	
+	public GrupoActuadores registroGrupoActuadores(GrupoActuadores grupo)
+	{
+		Comunicacion clienteWS= iniciarConexion(grupo.getPlaca().getIpPlaca(), grupo.getPlaca().getPuetroPlaca());
+        
+        ResultadoCreacionWS resultadoWS= clienteWS.wsCrearGrupoActuadores(grupo.getNombre(), grupo.getDeAvance());
+        Long id=resultadoWS.getIdObjeto().longValue();
+        grupo.setId(id);
+        
+		return grupo;
+	}
+	
+	public boolean asociarActuadorGrupoActuadores(Actuador actuador)
+	{
+		boolean ok= false;
+		Comunicacion clienteWS= iniciarConexion(actuador.getPlaca().getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+		BigInteger idGrupoActuadores= null;
+		if (actuador.getGrupoActuadores() != null)
+			idGrupoActuadores= BigInteger.valueOf(actuador.getGrupoActuadores().getId());
+		BigInteger idDispositivo= BigInteger.valueOf(actuador.getId());
+        Mensaje mensajeResultado= clienteWS.wsAsociarActuadorGrupo(idGrupoActuadores, idDispositivo); 
+        ok= mensajeResultado.getTipo().equals("Informativo");
+        return ok;
+	}
+	
+	public boolean asociarActuadorAvanceGrupoActuadores(ActuadorAvance actuadorAvance)
+	{
+		boolean ok= false;
+		Comunicacion clienteWS= iniciarConexion(actuadorAvance.getPlaca().getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+		BigInteger idGrupoActuadores= null;
+		if (actuadorAvance.getGrupoActuadores() != null)
+			idGrupoActuadores= BigInteger.valueOf(actuadorAvance.getGrupoActuadores().getId());
+		BigInteger idDispositivo= BigInteger.valueOf(actuadorAvance.getId());
+        Mensaje mensajeResultado= clienteWS.wsAsociarActuadorAvanceGrupo(idGrupoActuadores, idDispositivo);
+        ok= mensajeResultado.getTipo().equals("Informativo");
+        return ok;
 	}
 	
 	

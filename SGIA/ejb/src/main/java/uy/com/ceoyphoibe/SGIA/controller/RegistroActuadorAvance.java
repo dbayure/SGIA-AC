@@ -4,9 +4,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,9 +13,9 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
-@Stateful
-@Model
+@Stateless
 public class RegistroActuadorAvance {
 
 	@Inject
@@ -36,23 +35,20 @@ public class RegistroActuadorAvance {
 		return newActuadorAvance;
 	}
 
-	public void registro() throws Exception {
-		log.info("Registro " + newActuadorAvance.getNombre());
-		em.persist(newActuadorAvance);
-		actuadorAvanceEventSrc.fire(newActuadorAvance);
-		initNewActuadorAvance();
-	}
-
-	public void guardar(ActuadorAvance actuadorAvance) {
-		log.info("Registro " + actuadorAvance.getNombre());
+	
+	public ActuadorAvance guardar(ActuadorAvance actuadorAvance) {
+		FachadaWS ws= new FachadaWS();
+		actuadorAvance= ws.registroActuadorAvance(actuadorAvance);
+		
 		em.merge(actuadorAvance);
-		// actuadorAvanceEventSrc.fire(actuadorAvance);
-		// initNewActuadorAvance();
+		actuadorAvanceEventSrc.fire(actuadorAvance);
+		return actuadorAvance;
 	}
 
 	public void modificar(ActuadorAvance actuadorAvance) throws Exception {
 		log.info("Modifico " + actuadorAvance);
-
+		FachadaWS wsClient = new FachadaWS();
+		wsClient.asociarActuadorAvanceGrupoActuadores(actuadorAvance);
 		em.merge(actuadorAvance);
 	}
 
