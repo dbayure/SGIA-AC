@@ -2,17 +2,24 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoActuador;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 
 @ManagedBean
 @RequestScoped
 public class TipoActuadorBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroTipoActuador registroTipoActuador;
 	
@@ -31,9 +38,17 @@ public class TipoActuadorBean {
 	public void setTipoActuador(TipoActuador tipoActuador) {
 		this.tipoActuador = tipoActuador;
 	}
+	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
 
 	public void registrar() {
 		try {
+			tipoActuador.setPlaca(placa);
 			registroTipoActuador.registro(tipoActuador);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);

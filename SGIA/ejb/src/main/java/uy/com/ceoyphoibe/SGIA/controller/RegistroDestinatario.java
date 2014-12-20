@@ -11,47 +11,50 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
 public class RegistroDestinatario {
-	
-	   @Inject
-	   private Logger log;
 
-	   @Inject
-	   private EntityManager em;
+	@Inject
+	private Logger log;
 
-	   @Inject
-	   private Event<Destinatario> destinatarioEventSrc;
+	@Inject
+	private EntityManager em;
 
-	   private Destinatario newDestinatario;
+	@Inject
+	private Event<Destinatario> destinatarioEventSrc;
 
-	   @Produces
-	   @Named
-	   public Destinatario getNewDestinatario() {
-	      return newDestinatario;
-	   }
+	private Destinatario newDestinatario;
 
-	   public void registro(Destinatario destinatario) throws Exception {
-	      log.info("Registro " + destinatario.getNombre());
-	      em.persist(destinatario);
-	      destinatarioEventSrc.fire(destinatario);
-	   }
-	   
-	   public void modificar(Destinatario destinatario) throws Exception {
-		   log.info("Modifico " + destinatario);
-		   em.merge(destinatario);
-	   }
-	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
-		   Destinatario destinatario = em.find(Destinatario.class, id);
-		   em.remove(destinatario);
-		   destinatarioEventSrc.fire(newDestinatario);
-	   }
+	@Produces
+	@Named
+	public Destinatario getNewDestinatario() {
+		return newDestinatario;
+	}
 
-	   @PostConstruct
-	   public void initNewDestinatario() {
-		   newDestinatario = new Destinatario();
-	   }
+	public void registro(Destinatario destinatario) throws Exception {
+		FachadaWS ws = new FachadaWS();
+		destinatario = ws.registroDestinatario(destinatario);
+
+		em.persist(destinatario);
+		destinatarioEventSrc.fire(destinatario);
+	}
+
+	public void modificar(Destinatario destinatario) throws Exception {
+		log.info("Modifico " + destinatario);
+		em.merge(destinatario);
+	}
+
+	public void eliminar(Long id) throws Exception {
+		log.info("Elimino " + id);
+		Destinatario destinatario = em.find(Destinatario.class, id);
+		em.remove(destinatario);
+		destinatarioEventSrc.fire(newDestinatario);
+	}
+
+	@PostConstruct
+	public void initNewDestinatario() {
+		newDestinatario = new Destinatario();
+	}
 }

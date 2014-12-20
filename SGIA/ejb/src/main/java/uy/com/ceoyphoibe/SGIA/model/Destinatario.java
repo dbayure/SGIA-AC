@@ -2,8 +2,11 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,6 +25,10 @@ public class Destinatario implements Serializable {
 	private int horaMin;
 	private int horaMax;
 	private char activoSistema;
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	private Placa placa;
 	
 
 	/**
@@ -120,6 +127,22 @@ public class Destinatario implements Serializable {
 	 */
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
+	}
+	
+	
+
+	/**
+	 * @return the placa
+	 */
+	public Placa getPlaca() {
+		return placa;
+	}
+
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
 	}
 
 	/**

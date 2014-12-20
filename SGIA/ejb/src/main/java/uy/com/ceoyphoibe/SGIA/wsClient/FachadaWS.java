@@ -7,11 +7,13 @@ import java.util.Set;
 
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
+import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 
 public class FachadaWS {
@@ -228,6 +230,28 @@ public class FachadaWS {
         return ok;
 	}
 	
+	public TipoActuador registroTipoActuador(TipoActuador tipoActuador)
+	{
+		Comunicacion clienteWS= iniciarConexion(tipoActuador.getPlaca().getIpPlaca(), tipoActuador.getPlaca().getPuetroPlaca());
+        
+        ResultadoCreacionWS resultadoWS= clienteWS.wsCrearTipoActuador(tipoActuador.getCategoria());
+        Long id=resultadoWS.getIdObjeto().longValue();
+        tipoActuador.setId(id);
+        
+		return tipoActuador;
+	}
+	
+	public Destinatario registroDestinatario(Destinatario destinatario)
+	{
+		Comunicacion clienteWS= iniciarConexion(destinatario.getPlaca().getIpPlaca(), destinatario.getPlaca().getPuetroPlaca());
+		BigInteger horaMin= BigInteger.valueOf(destinatario.getHoraMin());
+		BigInteger horaMax= BigInteger.valueOf(destinatario.getHoraMax());
+        ResultadoCreacionWS resultadoWS= clienteWS.wsCrearDestinatario(destinatario.getNombre(), destinatario.getCelular(), destinatario.getMail(), horaMin, horaMax);
+        Long id=resultadoWS.getIdObjeto().longValue();
+        destinatario.setIdDestinatario(id);
+        
+		return destinatario;
+	}
 	
 
 }
