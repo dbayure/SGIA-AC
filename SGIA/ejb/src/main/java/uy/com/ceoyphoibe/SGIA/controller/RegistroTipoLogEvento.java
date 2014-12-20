@@ -10,7 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
 public class RegistroTipoLogEvento {
@@ -41,9 +43,17 @@ public class RegistroTipoLogEvento {
 	      initNewTipoLogEvento();
 	   }
 	   
-	   public void modificar(TipoLogEvento tipoLogEvento) throws Exception {
-		   log.info("Modifico " + tipoLogEvento);
+	   public void modificar(TipoLogEvento tipoLogEvento, Placa placa) throws Exception {
+		   FachadaWS ws = new FachadaWS();
+		   ws.asociarDestinatariosTipoLogEventos(tipoLogEvento, placa);
+			
 		   em.merge(tipoLogEvento);
+		   tipoLogEventoEventSrc.fire(tipoLogEvento);
+	   }
+	   
+	   public void eliminarDestinatarios(TipoLogEvento tipoLogEvento, Placa placa) throws Exception {
+		   FachadaWS ws = new FachadaWS();
+		   ws.desasociarDestinatariosTipoLogEventos(tipoLogEvento, placa);
 	   }
 	   
 	   	   

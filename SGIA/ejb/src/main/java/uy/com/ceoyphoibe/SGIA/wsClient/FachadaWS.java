@@ -3,6 +3,7 @@ package uy.com.ceoyphoibe.SGIA.wsClient;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
@@ -14,6 +15,7 @@ import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
+import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 
 public class FachadaWS {
@@ -253,5 +255,36 @@ public class FachadaWS {
 		return destinatario;
 	}
 	
+	public void asociarDestinatariosTipoLogEventos(TipoLogEvento tipoLogEvento, Placa placa)
+	{
+		Comunicacion clienteWS= iniciarConexion(placa.getIpPlaca(), placa.getPuetroPlaca());
+		BigInteger idTipoLogEvento= BigInteger.valueOf(tipoLogEvento.getIdTipoLogEvento());
+		List<Destinatario> destinatarios= tipoLogEvento.getListaDestinatarios();
+		System.out.println("tamaño de la lista de destinatarios: "+ destinatarios.size());
+		int i= 0;
+		while (i<destinatarios.size())
+		{
+			Destinatario destinatarioTemp= destinatarios.get(i);
+			BigInteger idDestinatario= BigInteger.valueOf(destinatarioTemp.getIdDestinatario());
+			System.out.println("Invoca al WS con: "+idTipoLogEvento+", "+idDestinatario);
+			clienteWS.wsAsociarDestinatarioTipoLogEvento(idTipoLogEvento, idDestinatario);
+			i++;
+		}
+	}
+	
+	public void desasociarDestinatariosTipoLogEventos(TipoLogEvento tipoLogEvento, Placa placa)
+	{
+		Comunicacion clienteWS= iniciarConexion(placa.getIpPlaca(), placa.getPuetroPlaca());
+		BigInteger idTipoLogEvento= BigInteger.valueOf(tipoLogEvento.getIdTipoLogEvento());
+		List<Destinatario> destinatarios= tipoLogEvento.getListaDestinatarios();
+		int i= 0;
+		while (i<destinatarios.size())
+		{
+			Destinatario destinatarioTemp= destinatarios.get(i);
+			BigInteger idDestinatario= BigInteger.valueOf(destinatarioTemp.getIdDestinatario());
+			clienteWS.wsDesasociarDestinatarioTipoLogEvento(idTipoLogEvento, idDestinatario);
+			i++;
+		}
+	}
 
 }
