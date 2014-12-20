@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.UnselectEvent;
 
+import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
@@ -38,7 +39,17 @@ public class FactorBean {
 	private List<Sensor> sensores = new ArrayList<Sensor>();
 	private Factor factorTemp = new Factor();
 	private List<Sensor> sensoresSelecconados = new ArrayList<Sensor>();
+	
+	private ResultadoLectura rl = new ResultadoLectura();
 
+
+	public ResultadoLectura getRl() {
+		return rl;
+	}
+
+	public void setRl(ResultadoLectura rl) {
+		this.rl = rl;
+	}
 
 	/**
 	 * @return the registroFactor
@@ -203,6 +214,9 @@ public class FactorBean {
 
 	public void getSensoresId(long id) {
 		sensoresSelecconados = (List<Sensor>) registroFactor.getListaSensoresId(id);
-
+	}
+	
+	public void lecturaFactor(int idFactor){
+		rl = registroFactor.lecturaFactor(idFactor);
 	}
 }

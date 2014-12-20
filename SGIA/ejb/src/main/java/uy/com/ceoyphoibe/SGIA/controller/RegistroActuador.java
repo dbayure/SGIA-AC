@@ -7,8 +7,13 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
+import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
+import uy.com.ceoyphoibe.SGIA.wsClient.WsApagarGrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.wsClient.WsCambiarPosicionGrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.wsClient.WsEncenderGrupoActuadores;
 
 
 @Stateless
@@ -50,5 +55,21 @@ public class RegistroActuador {
 		   actuadoresSrc.fire(actudaror);
 	   }
 
-
+	   public ResultadoAccion encenderGrupo(GrupoActuadores ga){
+		   ResultadoAccion ra = new ResultadoAccion();
+		   ra = WsEncenderGrupoActuadores(ga);
+		   return ra;
+	   }
+	   
+	   public ResultadoAccion apagarGrupo(GrupoActuadores ga){
+		   ResultadoAccion ra = new ResultadoAccion();
+		   ra = WsApagarGrupoActuadores(ga);
+		   return ra;
+	   }
+	   
+	   public ResultadoAccion cambiarPosicionGrupo(GrupoActuadores ga, int posicion){
+		   ResultadoAccion ra = new ResultadoAccion();
+		   ra = WsCambiarPosicionGrupoActuadores(ga, posicion);
+		   return ra;
+	   }
 }

@@ -8,9 +8,11 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
+import uy.com.ceoyphoibe.SGIA.wsClient.WsLecturaFactor;
 
 
 @Stateless
@@ -60,5 +62,11 @@ public class RegistroFactor {
 
 	   public Factor obtenerFactorPorId (long id){
 		   return em.find(Factor.class, id);		   
+	   }
+	   
+	   public ResultadoLectura lecturaFactor(int idFactor){
+		   ResultadoLectura rl = new ResultadoLectura();
+		   rl = WsLecturaFactor(idFactor);
+		   return rl;
 	   }
 }
