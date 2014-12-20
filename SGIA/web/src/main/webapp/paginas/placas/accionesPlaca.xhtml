@@ -12,66 +12,84 @@
          
          <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />     
       
-      <p:panel id="panelBotones" >
+     	 <p:panel id="panelBotones" >
       
-      	<h:panelGrid id="grillaBotones" columns="6" style=" margin: 0 auto; text-align: center; ">
+      		<h:panelGrid id="grillaBotones" columns="6" style=" margin: 0 auto; text-align: center; ">
       		
-      		<p:commandLink>
-      			<h:graphicImage value="/resources/gfx/actuadores.png" alt="actuadores" height="150px"/>
-      		</p:commandLink>
-      		<p:spacer width="100" />
-      		
-      		<p:commandLink>
-      			<h:graphicImage value="/resources/gfx/factores.png" alt="factores" height="150px"/>
-      		</p:commandLink>
-      		<p:spacer width="100" />
-      		
-      		<p:commandLink>
-      			<h:graphicImage value="/resources/gfx/niveles.png" alt="niveles" height="150px"/>
-      		</p:commandLink>
-      		<p:spacer width="100" />
-      		   		
-      		<h3>Grupos de Actuadores</h3>
-      		<p:spacer width="100" />
-      		
-      		<h3>Factores</h3>
-      		<p:spacer width="100" />
-      		
-      		<h3>Niveles de Severidad</h3>
-      		<p:spacer width="100" />
-      		
-      	</h:panelGrid>
+	      		<p:commandLink>
+	      			<h:graphicImage value="/resources/gfx/actuadores.png" alt="actuadores" height="150px"/>
+	      		</p:commandLink>
+	      		<p:spacer width="100" />
+	      		
+	      		<p:commandLink>
+	      			<h:graphicImage value="/resources/gfx/factores.png" alt="factores" height="150px"/>
+	      		</p:commandLink>
+	      		<p:spacer width="100" />
+	      		
+	      		<p:commandLink>
+	      			<h:graphicImage value="/resources/gfx/niveles.png" alt="niveles" height="150px"/>
+	      		</p:commandLink>
+	      		<p:spacer width="100" />
+	      		   		
+	      		<h3>Grupos de Actuadores</h3>
+	      		<p:spacer width="100" />
+	      		
+	      		<h3>Factores</h3>
+	      		<p:spacer width="100" />
+	      		
+	      		<h3>Niveles de Severidad</h3>
+	      		<p:spacer width="100" />
+	      		
+	      	</h:panelGrid>
       	
-      </p:panel>    
+	      </p:panel>    
+	      
+	      <p:panel id="panelElementos" >
+	      	
+	      	<p:panelGrid id="gridFactores">
+	      	 
+	      	 <p:dataList value="#{factores}" var="_factores" type="definition" >
+	      	 
+	      	 	<h:panelGrid columns="5" style=" margin-left: 10; margin-right: auto; width: 100%;">
+	      	 		
+	      			<h:graphicImage value="/resources/gfx/#{_factores.nombre}.png" alt="niveles" height="100px" width="100px" style=" margin-left: 50px; margin-right: inherit; vertical-align: middle;"/>    			
+	      			<p:spacer width="100" />
+	      			<p:panel>
+	      			<h2 style="text-align: center; vertical-align: bottom;">Lectura</h2>
+	      			<h3 style="text-align: center; vertical-align: bottom;">#{factorBean.rl.lectura} #{_factores.unidad}</h3>
+	      				<h:panelGrid columns="3">
+	      					<p:commandLink style="display: block; margin-left: 50px; margin-right: auto;" onclick="PF('dlgGrafica').show()">
+	      						<h:graphicImage value="/resources/gfx/Graficar.png" alt="niveles" height="30px"/>
+	      					</p:commandLink>
+	      					<p:spacer width="30" />
+	      					<p:commandLink style="display: block; margin-left: 50px; margin-right: auto;" action="#{factorBean.factores}">
+	      						<h:graphicImage value="/resources/gfx/Modificar.png" alt="niveles" height="30px"/>
+	      					</p:commandLink>
+	      				</h:panelGrid>
+	      			</p:panel>
+	      			
+	      			<p:spacer width="100" />
+	      			
+	      			<p:commandLink style="display: block; margin-left: auto; margin-right: auto ver">
+	      				<h:graphicImage value="/resources/gfx/Recargar.png" alt="niveles" height="50px"/>
+	      			</p:commandLink>
+	      			
+	      			<h3 style="text-align: center;">#{_factores.nombre}</h3>		
+			    	     	
+	      	 		</h:panelGrid>
+	
+	      	 	</p:dataList>
+	      	
+	      		</p:panelGrid>
+	      	
+	      	</p:panel>  
       
-      <p:panel id="panelElementos" >
-      	
-      	<p:panelGrid id="gridFactores">
-      	 
-      	 <p:dataList value="#{factores}" var="_factores" type="definition" >
-      	 
-      	 	<h:panelGrid columns="5" style=" margin-left: 10; margin-right: auto; width: 100%;">
-      	 		
-      			<h:graphicImage value="/resources/gfx/#{_factores.nombre}.png" alt="niveles" height="100px" width="100px" style=" margin-left: 50px; margin-right: inherit; vertical-align: middle;"/>    			
-      			<p:spacer width="100" />
-      			
-      			<h3 style="text-align: center; vertical-align: bottom;">Lectura: #{factorBean.rl.lectura}</h3>
-      			<p:spacer width="100" />
-      			
-      			<p:commandLink style="display: block; margin-left: auto; margin-right: auto ver">
-      				<h:graphicImage value="/resources/gfx/Recargar.png" alt="niveles" height="50px"/>
-      			</p:commandLink>
-      			
-      			<h3 style="text-align: center;">#{_factores.nombre}</h3>		
-		    	     	
-      	 	</h:panelGrid>
-
-      	 </p:dataList>
-      	
-      	</p:panelGrid>
-      	
-      </p:panel>  
-      
-		</h:form>     
+		</h:form>   
+		<p:dialog header="Lecturas" widgetVar="dlgGrafica" modal="true" height="100">
+    		<h:panelGrid columns="2" columnClasses="left,right" style="width:100%">	
+   				<p:chart type="line" model="#{factorBean.animatedModel1}" style="width:400px;" />
+    			<p:chart type="bar" model="#{factorBean.animatedModel2}" style="width:400px;" />
+			</h:panelGrid>
+		</p:dialog>   
    </ui:define>
 </ui:composition>
