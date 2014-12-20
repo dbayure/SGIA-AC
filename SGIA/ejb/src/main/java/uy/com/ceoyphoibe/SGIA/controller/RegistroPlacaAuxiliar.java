@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 
 @Stateless
@@ -25,6 +26,9 @@ public class RegistroPlacaAuxiliar {
 	   private Event <PlacaAuxiliar> placaAuxiliarEventSrc;
 	   
 	   public void registro(PlacaAuxiliar placaAux) throws Exception {
+		   FachadaWS ws= new FachadaWS();
+		   placaAux= ws.registroPlacaAuxiliar(placaAux);
+		   
 		   em.merge(placaAux);
 		   placaAuxiliarEventSrc.fire(placaAux);
 	   }

@@ -15,8 +15,8 @@
          
          <h:panelGrid columns="2" >
 
-			<p:outputLabel for="id" value="Id Dispositivo:" />
-			<p:inputText id="id" value="#{placaAuxiliarBean.placaAuxiliarTemp.id}" label="Id Dispositivo" required="true" />
+<!-- 			<p:outputLabel for="id" value="Id Dispositivo:" /> -->
+<!-- 			<p:inputText id="id" value="#{placaAuxiliarBean.placaAuxiliarTemp.id}" label="Id Dispositivo" required="true" /> -->
 			
 			<p:outputLabel for="nombre" value="Nombre:" />
 			<p:inputText id="nombre" value="#{placaAuxiliarBean.placaAuxiliarTemp.nombre}" label="Nombre" required="true" />
@@ -36,7 +36,11 @@
 			<p:inputText id="numSerie" value="#{placaAuxiliarBean.placaAuxiliarTemp.numeroSerie}" label="Número de serie" required="false" />
 			
 			<p:outputLabel for="tipoPlacaAux" value="Tipo de Placa Auxiliar:" />
-			<p:inputText id="tipoPlacaAux" value="#{placaAuxiliarBean.placaAuxiliarTemp.tipo}" label="Tipo de Placa Auxiliar" required="false" />
+			<p:selectOneMenu id="tipoPlacaAux" value="#{placaAuxiliarBean.placaAuxiliarTemp.tipoPlacaAuxiliar}" required="true">
+				<f:converter converterId="tipoPlacaAuxiliarConverter" />
+				<f:selectItem itemLabel="Seleccione..." itemValue="" />
+				<f:selectItems value="#{tipoPlacasAuxiliares}" var="tipoPA" itemLabel="#{tipoPA.nombre}" itemValue="#{tipoPA}"  />
+			</p:selectOneMenu>
 			
 			<p:outputLabel for="numPuertoAnalog" value="Número de puertos analógicos:" />
 			<p:inputText id="numPuertoAnalog" value="#{placaAuxiliarBean.placaAuxiliarTemp.numeroPuertoAnal}" label="Número de puertos analógicos" required="false" />

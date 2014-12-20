@@ -6,7 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,7 +23,9 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 	private static final long serialVersionUID = -1207751157271188774L;
 	
 	private String numeroSerie;
-	private String tipo;
+	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipoPlacaAuxiliar_id" , unique = false)
+	private TipoPlacaAuxiliar tipoPlacaAuxiliar;
 	private int numeroPuertoAnal;
 	private int numeroPuertoEDig;
 	private int numeroPuertoSdig;
@@ -50,11 +54,20 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 	public void setNumeroSerie(String numeroSerie) {
 		this.numeroSerie = numeroSerie;
 	}
-	public String getTipo() {
-		return tipo;
+	
+	
+	
+	/**
+	 * @return the tipoPlacaAuxiliar
+	 */
+	public TipoPlacaAuxiliar getTipoPlacaAuxiliar() {
+		return tipoPlacaAuxiliar;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	/**
+	 * @param tipoPlacaAuxiliar the tipoPlacaAuxiliar to set
+	 */
+	public void setTipoPlacaAuxiliar(TipoPlacaAuxiliar tipoPlacaAuxiliar) {
+		this.tipoPlacaAuxiliar = tipoPlacaAuxiliar;
 	}
 	public int getNumeroPuertoAnal() {
 		return numeroPuertoAnal;
@@ -77,6 +90,9 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,9 +102,15 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 		result = prime * result + numeroPuertoSdig;
 		result = prime * result
 				+ ((numeroSerie == null) ? 0 : numeroSerie.hashCode());
-		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		result = prime
+				* result
+				+ ((tipoPlacaAuxiliar == null) ? 0 : tipoPlacaAuxiliar
+						.hashCode());
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -109,19 +131,25 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 				return false;
 		} else if (!numeroSerie.equals(other.numeroSerie))
 			return false;
-		if (tipo == null) {
-			if (other.tipo != null)
+		if (tipoPlacaAuxiliar == null) {
+			if (other.tipoPlacaAuxiliar != null)
 				return false;
-		} else if (!tipo.equals(other.tipo))
+		} else if (!tipoPlacaAuxiliar.equals(other.tipoPlacaAuxiliar))
 			return false;
 		return true;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "PlacaAuxiliar [numeroSerie=" + numeroSerie + ", tipo=" + tipo
+		return "PlacaAuxiliar [numeroSerie=" + numeroSerie
+				+ ", tipoPlacaAuxiliar=" + tipoPlacaAuxiliar
 				+ ", numeroPuertoAnal=" + numeroPuertoAnal
 				+ ", numeroPuertoEDig=" + numeroPuertoEDig
 				+ ", numeroPuertoSdig=" + numeroPuertoSdig + "]";
 	}
+	
+	
 	
 }

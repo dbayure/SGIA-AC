@@ -10,12 +10,16 @@ import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
+import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
+import uy.com.ceoyphoibe.SGIA.model.TipoPlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 
 public class FachadaWS {
@@ -285,6 +289,61 @@ public class FachadaWS {
 			clienteWS.wsDesasociarDestinatarioTipoLogEvento(idTipoLogEvento, idDestinatario);
 			i++;
 		}
+	}
+	
+	public TipoPlacaAuxiliar registroTipoPlacaAuxiliar(TipoPlacaAuxiliar tipoPlacaAuxiliar)
+	{
+		Comunicacion clienteWS= iniciarConexion(tipoPlacaAuxiliar.getPlaca().getIpPlaca(), tipoPlacaAuxiliar.getPlaca().getPuetroPlaca());
+        
+        ResultadoCreacionWS resultadoWS= clienteWS.wsCrearTipoPlaca(tipoPlacaAuxiliar.getNombre());
+        Long id=resultadoWS.getIdObjeto().longValue();
+        tipoPlacaAuxiliar.setId(id);
+        
+		return tipoPlacaAuxiliar;
+	}
+	
+	
+	public PlacaAuxiliar registroPlacaAuxiliar(PlacaAuxiliar placaAux)
+	{
+		Comunicacion clienteWS= iniciarConexion(placaAux.getPlaca().getIpPlaca(), placaAux.getPlaca().getPuetroPlaca());
+        
+        BigInteger nroPuerto= BigInteger.valueOf(placaAux.getNumeroPuerto());
+        BigInteger idTipoPlaca= BigInteger.valueOf(placaAux.getTipoPlacaAuxiliar().getId());
+        BigInteger idPlacaPadre= null;
+        if (placaAux.getPadre() != null)
+        	idPlacaPadre= BigInteger.valueOf(placaAux.getPadre().getId());
+        
+        ResultadoCreacionWS resultadoWS= clienteWS.wsCrearPlacaAuxiliar(placaAux.getNombre(), placaAux.getModelo(), nroPuerto, placaAux.getNumeroSerie(), idTipoPlaca, idPlacaPadre);
+        Long id=resultadoWS.getIdObjeto().longValue();
+        placaAux.setId(id);
+        
+		return placaAux;
+	}
+	
+	public NivelSeveridad registroNivelSeveridad(NivelSeveridad nivel)
+	{
+		Comunicacion clienteWS= iniciarConexion(nivel.getPlaca().getIpPlaca(), nivel.getPlaca().getPuetroPlaca());
+        
+        BigInteger idFactor= BigInteger.valueOf(nivel.getFactor().getIdFactor());
+        BigInteger prioridad= BigInteger.valueOf(nivel.getPrioridad());
+        BigInteger rangoMinimo= BigInteger.valueOf(nivel.getRangoMin());
+        BigInteger rangoMaximo= BigInteger.valueOf(nivel.getRangoMax());
+                
+        ResultadoCreacionWS resultadoWS= clienteWS.wsCrearNivelSeveridad(nivel.getNombre(), idFactor, prioridad, rangoMinimo, rangoMaximo);
+        Long id=resultadoWS.getIdObjeto().longValue();
+        nivel.setId(id);
+        BigInteger idNivelSeveridad= BigInteger.valueOf(id);
+        
+        Iterator<FilaPerfilActivacion> perfilActivacion= nivel.getPerfilActivacion().iterator();
+        while (perfilActivacion.hasNext())
+        {
+        	FilaPerfilActivacion filaPerfil= perfilActivacion.next();
+        	BigInteger idGrupoActuadores= BigInteger.valueOf(filaPerfil.getGrupoActuadores().getId());
+        	
+        	clienteWS.wsAgregarFilaPerfilActivacion(idNivelSeveridad, idGrupoActuadores, filaPerfil.getEstado());
+        }
+        
+		return nivel;
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 import uy.com.ceyphoibe.SGIA.exception.contradiccionPrioridadException;
 import uy.com.ceyphoibe.SGIA.exception.perfilContradictorioFactorException;
 import uy.com.ceyphoibe.SGIA.exception.rangoNivelException;
@@ -169,6 +170,9 @@ public class RegistroNivelSeveridad {
 	public void registro(NivelSeveridad n) throws Exception {
 		if (validarNivelSeveridad(n))
 		{	
+			FachadaWS ws= new FachadaWS();
+			n= ws.registroNivelSeveridad(n);
+			   
 			em.merge(n);
 			nivelSeveridadEventSrc.fire(n);
 		}

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -24,7 +25,9 @@ import uy.com.ceoyphoibe.SGIA.model.Posicion;
 @SessionScoped
 public class NivelSeveridadBean {
 
-
+	@ManagedProperty("#{placaBean}")
+    private PlacaBean placaBean; 
+	
 	@Inject
 	private RegistroNivelSeveridad registroNivelSeveridad;
 	
@@ -90,6 +93,13 @@ public class NivelSeveridadBean {
 		this.perfilActivacion = perfilActivacion;
 	}
 	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlacaBean(PlacaBean placaBean) {
+		this.placaBean = placaBean;
+	}
+	
 	public void seleccionGrupoActuadores()
 	{
 		if (grupoTemp.getDeAvance().equals("S"))
@@ -132,6 +142,7 @@ public class NivelSeveridadBean {
 			nivelSeveridadSeleccionado.setActivoSistema("S");
 			nivelSeveridadSeleccionado.setPerfilActivacion(perfilActivacion);
 			nivelSeveridadSeleccionado.setFactor(factorTemp);
+			nivelSeveridadSeleccionado.setPlaca(placaBean.getPlaca());
 			registroNivelSeveridad.registro(nivelSeveridadSeleccionado);
 			nivelSeveridadSeleccionado= new NivelSeveridad();
 			perfilActivacion= new HashSet<FilaPerfilActivacion>();

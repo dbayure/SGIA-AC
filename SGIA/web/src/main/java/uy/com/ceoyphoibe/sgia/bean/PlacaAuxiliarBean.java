@@ -3,6 +3,7 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -10,12 +11,16 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlacaAuxiliar;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
 
 @ManagedBean
 @RequestScoped
 public class PlacaAuxiliarBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroPlacaAuxiliar registroPlacaAuxiliar;
 	
@@ -51,12 +56,19 @@ public class PlacaAuxiliarBean {
 		this.placaAuxiliarTemp = placaAuxiliarTemp;
 	}
 	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
 
 	public void registrar() {
 		
 		try {
 			placaAuxiliarTemp.setEstadoAlerta('N');
 			placaAuxiliarTemp.setActivoSistema('S');
+			placaAuxiliarTemp.setPlaca(placa);
 			registroPlacaAuxiliar.registro(placaAuxiliarTemp);
 			placaAuxiliarTemp= new PlacaAuxiliar();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,	"Se registró ", "con éxito!");
