@@ -130,4 +130,9 @@ public class PlacaBean {
 		}
 		return mostrar;
 	}
+	
+	public String acciones()
+	{
+		return "/paginas/placas/accionesPlaca.xhtml?faces-redirect=true";
+	}
 }
