@@ -16,36 +16,21 @@
 				closable="true" />
 
 
-			<h:panelGroup rendered="#{empty destinatarios}">
-				<em>No hay Tipo Log Evento registrado.</em>
-			</h:panelGroup>
-
 			<p:dataTable id="tipoLogEventos" var="_tipoLogEventos"
 				value="#{tipoLogEventos}" editable="true">
-				<f:facet name="header">  
-            	Administrar Tipo Log Eventos
-        	</f:facet>
+				<f:facet name="header">  Tipos de Log de Eventos 	</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{tipoLogEventoBean.onEdit}" />
-								update=":form:messages" />
+				<p:ajax event="rowEdit" listener="#{tipoLogEventoBean.onEdit}" update=":form:messages"/>
+
 				<p:ajax event="rowEditCancel"
 					listener="#{tipoLogEventoBean.onCancel}" update=":form:messages" />
 
-				<p:column headerText="Id Tipo Log Eventos" style="width:15%">
+				<p:column headerText="Id" style="width:5%">
 					<h:outputText value="#{_tipoLogEventos.idTipoLogEvento}" />
 				</p:column>
 
-				<p:column headerText="Nombre" style="width:30%">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{_tipoLogEventos.nombre}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText id="modelInputNombre"
-								value="#{_tipoLogEventos.nombre}" style="width:96%"
-								required="true" />
-						</f:facet>
-					</p:cellEditor>
+				<p:column headerText="Nombre" style="width:40%">
+					<h:outputText value="#{_tipoLogEventos.nombre}" />
 				</p:column>
 
 				<p:column headerText="Enviar SMS" style="width:15%">
@@ -105,12 +90,12 @@
 					<p:rowEditor />
 				</p:column>
 				<!--  -->
-				<p:column style="width:3%">
-					<p:commandLink id="deleteLink" update=":form" immediate="true"
-						ajax="true" styleClass="ui-icon ui-icon-trash"
-						actionListener="#{tipoLogEventoBean.eliminar(_tipoLogEventos.idTipoLogEvento)}">
-					</p:commandLink>
-				</p:column>
+<!-- 				<p:column style="width:3%"> -->
+<!-- 					<p:commandLink id="deleteLink" update=":form" immediate="true" -->
+<!-- 						ajax="true" styleClass="ui-icon ui-icon-trash" -->
+<!-- 						actionListener="#{tipoLogEventoBean.eliminar(_tipoLogEventos.idTipoLogEvento)}"> -->
+<!-- 					</p:commandLink> -->
+<!-- 				</p:column> -->
 
 				<p:column style="width:3%">
 					<p:commandButton id="detalle" update=":form:tipoLog"

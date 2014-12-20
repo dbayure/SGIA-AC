@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -12,12 +13,16 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
 @ManagedBean
 @ViewScoped
 public class TipoLogEventoBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroTipoLogEvento registroTipoLogEvento;
 	
@@ -100,26 +105,22 @@ public class TipoLogEventoBean {
 	public void setRegistroTipoLogEvento(RegistroTipoLogEvento registroTipoLogEvento) {
 		this.registroTipoLogEvento = registroTipoLogEvento;
 	}
-
-	public void registrar() {
-		try {
-			registroTipoLogEvento.registro();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		catch (Exception e) {
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
-        FacesContext.getCurrentInstance().addMessage(null, msg); 
-		}
+	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
 	}
+
 	
 	public void onEdit(RowEditEvent event) {  
             TipoLogEvento tipoLogEvento = ((TipoLogEvento) event.getObject());
            
             try {
-
+            	registroTipoLogEvento.eliminarDestinatarios(tipoLogEvento, placa);
             	tipoLogEvento.setListaDestinatarios(listaDestinatarios);
-            	registroTipoLogEvento.modificar(tipoLogEvento);
+            	registroTipoLogEvento.modificar(tipoLogEvento, placa);
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se modificó ", tipoLogEvento.getNombre());  
 	            FacesContext.getCurrentInstance().addMessage(null, msg); 
 			} catch (Exception e) {

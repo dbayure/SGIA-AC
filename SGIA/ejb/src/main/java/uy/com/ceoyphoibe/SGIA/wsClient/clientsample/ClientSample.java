@@ -14,16 +14,19 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsApagarGrupoActuadores(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
-	        System.out.println("Server said: " + port1.wsEncenderGrupoActuadores(null));
-	        //Please input the parameters instead of 'null' for the upper method!
-	
-	        System.out.println("Server said: " + port1.wsCambiarPosicionGrupoActuadores(null,null));
+	        System.out.println("Server said: " + port1.wsDesasociarDestinatarioTipoLogEvento(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsCambiarEstadoSistema(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsCrearFactor(null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsEncenderGrupoActuadores(null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsCambiarPosicionGrupoActuadores(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsAgregarSensorPosicionActuadorAvance(null,null,null));
@@ -71,6 +74,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsAsociarActuadorAvanceGrupo(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsAsociarDestinatarioTipoLogEvento(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsCrearDestinatario(null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -104,16 +110,19 @@ public class ClientSample {
 	        System.out.println("Server said: " + port2.wsApagarGrupoActuadores(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
-	        System.out.println("Server said: " + port2.wsEncenderGrupoActuadores(null));
-	        //Please input the parameters instead of 'null' for the upper method!
-	
-	        System.out.println("Server said: " + port2.wsCambiarPosicionGrupoActuadores(null,null));
+	        System.out.println("Server said: " + port2.wsDesasociarDestinatarioTipoLogEvento(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCambiarEstadoSistema(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCrearFactor(null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsEncenderGrupoActuadores(null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsCambiarPosicionGrupoActuadores(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsAgregarSensorPosicionActuadorAvance(null,null,null));
@@ -159,6 +168,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsAsociarActuadorAvanceGrupo(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsAsociarDestinatarioTipoLogEvento(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCrearDestinatario(null,null,null,null,null));

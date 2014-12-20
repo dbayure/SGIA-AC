@@ -52,16 +52,19 @@ public class ObjectFactory {
     private final static QName _WsCrearGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearGrupoActuadoresResponse");
     private final static QName _WsEliminarGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarGrupoActuadoresResponse");
     private final static QName _WsCrearTipoActuadorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoActuadorResponse");
+    private final static QName _WsAsociarDestinatarioTipoLogEventoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarDestinatarioTipoLogEventoResponse");
     private final static QName _WsLecturaFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsLecturaFactor");
     private final static QName _WsAgregarPosicionActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarPosicionActuadorAvance");
     private final static QName _Mensaje_QNAME = new QName("Comunicacion.Comunicacion", "Mensaje");
     private final static QName _WsCrearFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearFactor");
     private final static QName _WsAsociarActuadorAvanceGrupo_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarActuadorAvanceGrupo");
     private final static QName _WsReestablecerEstadoAlertaDispositivoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsReestablecerEstadoAlertaDispositivoResponse");
+    private final static QName _WsDesasociarDestinatarioTipoLogEvento_QNAME = new QName("Comunicacion.Comunicacion", "wsDesasociarDestinatarioTipoLogEvento");
     private final static QName _WsAgregarSensorPosicionActuadorAvanceResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarSensorPosicionActuadorAvanceResponse");
     private final static QName _WsCrearTipoActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoActuador");
     private final static QName _WsEliminarNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarNivelSeveridadResponse");
     private final static QName _WsCrearNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearNivelSeveridadResponse");
+    private final static QName _WsDesasociarDestinatarioTipoLogEventoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsDesasociarDestinatarioTipoLogEventoResponse");
     private final static QName _WsAgregarFilaPerfilActivacion_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarFilaPerfilActivacion");
     private final static QName _WsCrearActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuador");
     private final static QName _WsEliminarDispositivo_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarDispositivo");
@@ -72,6 +75,7 @@ public class ObjectFactory {
     private final static QName _WsEliminarNivelSeveridad_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarNivelSeveridad");
     private final static QName _WsCambiarEstadoSistema_QNAME = new QName("Comunicacion.Comunicacion", "wsCambiarEstadoSistema");
     private final static QName _WsCrearTipoPlacaResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoPlacaResponse");
+    private final static QName _WsAsociarDestinatarioTipoLogEvento_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarDestinatarioTipoLogEvento");
     private final static QName _WsCrearNivelSeveridad_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearNivelSeveridad");
     private final static QName _WsEliminarFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarFactor");
     private final static QName _WsEliminarGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarGrupoActuadores");
@@ -144,6 +148,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsAsociarDestinatarioTipoLogEventoResponse }
+     * 
+     */
+    public WsAsociarDestinatarioTipoLogEventoResponse createWsAsociarDestinatarioTipoLogEventoResponse() {
+        return new WsAsociarDestinatarioTipoLogEventoResponse();
+    }
+
+    /**
      * Create an instance of {@link WsCrearTipoActuadorResponse }
      * 
      */
@@ -189,6 +201,14 @@ public class ObjectFactory {
      */
     public WsCrearFactor createWsCrearFactor() {
         return new WsCrearFactor();
+    }
+
+    /**
+     * Create an instance of {@link WsDesasociarDestinatarioTipoLogEvento }
+     * 
+     */
+    public WsDesasociarDestinatarioTipoLogEvento createWsDesasociarDestinatarioTipoLogEvento() {
+        return new WsDesasociarDestinatarioTipoLogEvento();
     }
 
     /**
@@ -536,6 +556,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsDesasociarDestinatarioTipoLogEventoResponse }
+     * 
+     */
+    public WsDesasociarDestinatarioTipoLogEventoResponse createWsDesasociarDestinatarioTipoLogEventoResponse() {
+        return new WsDesasociarDestinatarioTipoLogEventoResponse();
+    }
+
+    /**
      * Create an instance of {@link ResultadoAccionWS }
      * 
      */
@@ -589,6 +617,14 @@ public class ObjectFactory {
      */
     public WsCambiarEstadoSistema createWsCambiarEstadoSistema() {
         return new WsCambiarEstadoSistema();
+    }
+
+    /**
+     * Create an instance of {@link WsAsociarDestinatarioTipoLogEvento }
+     * 
+     */
+    public WsAsociarDestinatarioTipoLogEvento createWsAsociarDestinatarioTipoLogEvento() {
+        return new WsAsociarDestinatarioTipoLogEvento();
     }
 
     /**
@@ -852,6 +888,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsAsociarDestinatarioTipoLogEventoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsAsociarDestinatarioTipoLogEventoResponse")
+    public JAXBElement<WsAsociarDestinatarioTipoLogEventoResponse> createWsAsociarDestinatarioTipoLogEventoResponse(WsAsociarDestinatarioTipoLogEventoResponse value) {
+        return new JAXBElement<WsAsociarDestinatarioTipoLogEventoResponse>(_WsAsociarDestinatarioTipoLogEventoResponse_QNAME, WsAsociarDestinatarioTipoLogEventoResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsLecturaFactor }{@code >}}
      * 
      */
@@ -906,6 +951,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsDesasociarDestinatarioTipoLogEvento }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsDesasociarDestinatarioTipoLogEvento")
+    public JAXBElement<WsDesasociarDestinatarioTipoLogEvento> createWsDesasociarDestinatarioTipoLogEvento(WsDesasociarDestinatarioTipoLogEvento value) {
+        return new JAXBElement<WsDesasociarDestinatarioTipoLogEvento>(_WsDesasociarDestinatarioTipoLogEvento_QNAME, WsDesasociarDestinatarioTipoLogEvento.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsAgregarSensorPosicionActuadorAvanceResponse }{@code >}}
      * 
      */
@@ -939,6 +993,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsCrearNivelSeveridadResponse")
     public JAXBElement<WsCrearNivelSeveridadResponse> createWsCrearNivelSeveridadResponse(WsCrearNivelSeveridadResponse value) {
         return new JAXBElement<WsCrearNivelSeveridadResponse>(_WsCrearNivelSeveridadResponse_QNAME, WsCrearNivelSeveridadResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsDesasociarDestinatarioTipoLogEventoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsDesasociarDestinatarioTipoLogEventoResponse")
+    public JAXBElement<WsDesasociarDestinatarioTipoLogEventoResponse> createWsDesasociarDestinatarioTipoLogEventoResponse(WsDesasociarDestinatarioTipoLogEventoResponse value) {
+        return new JAXBElement<WsDesasociarDestinatarioTipoLogEventoResponse>(_WsDesasociarDestinatarioTipoLogEventoResponse_QNAME, WsDesasociarDestinatarioTipoLogEventoResponse.class, null, value);
     }
 
     /**
@@ -1029,6 +1092,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsCrearTipoPlacaResponse")
     public JAXBElement<WsCrearTipoPlacaResponse> createWsCrearTipoPlacaResponse(WsCrearTipoPlacaResponse value) {
         return new JAXBElement<WsCrearTipoPlacaResponse>(_WsCrearTipoPlacaResponse_QNAME, WsCrearTipoPlacaResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsAsociarDestinatarioTipoLogEvento }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsAsociarDestinatarioTipoLogEvento")
+    public JAXBElement<WsAsociarDestinatarioTipoLogEvento> createWsAsociarDestinatarioTipoLogEvento(WsAsociarDestinatarioTipoLogEvento value) {
+        return new JAXBElement<WsAsociarDestinatarioTipoLogEvento>(_WsAsociarDestinatarioTipoLogEvento_QNAME, WsAsociarDestinatarioTipoLogEvento.class, null, value);
     }
 
     /**
