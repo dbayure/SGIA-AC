@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity
 @XmlRootElement
 @Table(name = "placas")
-@JsonIgnoreProperties({"listaDispositivos", "logsEventos", "niveles", "factores", "gruposActuadores" })
+@JsonIgnoreProperties({"listaDispositivos", "logsEventos", "niveles", "factores", "gruposActuadores", "tiposActuadores", "destinatarios" })
 public class Placa implements Serializable {
 
 	/**
@@ -60,6 +60,12 @@ public class Placa implements Serializable {
 	
 	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
 	private Set<GrupoActuadores> gruposActuadores;
+	
+	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+	private Set<TipoActuador> tiposActuadores;
+	
+	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+	private Set<Destinatario> destinatarios;
 	
 	public Placa() {
 		super();

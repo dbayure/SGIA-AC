@@ -2,8 +2,11 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,6 +25,10 @@ public class TipoActuador implements Serializable {
 	
 	private String categoria;
 	private String descripcion;
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	private Placa placa;
 	
 	public Long getId() {
 		return id;
@@ -43,6 +50,21 @@ public class TipoActuador implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	
+	
+	/**
+	 * @return the placa
+	 */
+	public Placa getPlaca() {
+		return placa;
+	}
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
 	}
 	@Override
 	public int hashCode() {

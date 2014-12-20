@@ -2,6 +2,7 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -10,12 +11,16 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDestinatario;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
 
 
 @ManagedBean
 @RequestScoped
 public class DestinatarioBean {
 
+	@ManagedProperty("#{placaBean.placa}")
+    private Placa placa; 
+	
 	@Inject
 	private RegistroDestinatario registroDestinatario;
 	
@@ -35,6 +40,13 @@ public class DestinatarioBean {
 	public Destinatario getDestinatarioSeleccionado() {
 		return destinatarioSeleccionado;
 	}
+	
+	/**
+	 * @param placa the placa to set
+	 */
+	public void setPlaca(Placa placa) {
+		this.placa = placa;
+	}
 
 	/**
 	 * @param destinatarioSeleccionado the destinatarioSeleccionado to set
@@ -45,6 +57,7 @@ public class DestinatarioBean {
 
 	public void registrar() {
 		try {
+			destinatarioSeleccionado.setPlaca(placa);
 			destinatarioSeleccionado.setActivoSistema('S');
 			registroDestinatario.registro(destinatarioSeleccionado);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  

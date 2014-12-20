@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
+import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 
 @Stateless
@@ -34,7 +35,9 @@ public class RegistroTipoActuador {
 	   }
 
 	   public void registro(TipoActuador tipoActuador) throws Exception {
-	      log.info("Registro " + tipoActuador.getCategoria());
+		   FachadaWS ws= new FachadaWS();
+		   tipoActuador= ws.registroTipoActuador(tipoActuador);
+		   
 	      em.persist(tipoActuador);
 	      tipoActuadorEventSrc.fire(tipoActuador);
 	   }
