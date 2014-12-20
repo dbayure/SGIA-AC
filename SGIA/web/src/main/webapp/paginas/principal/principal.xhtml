@@ -6,7 +6,7 @@
    xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		
+				
 		<h:form prependId="false" id="form">
 			
 			<p:panel id="p1">
@@ -49,15 +49,12 @@
 			            Placas Disponibles
 			        </f:facet>
 			 
-			        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+			        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
 			        	
-			        	<p:commandLink id="selPlaca" style="float:left;" ajax="true"
-									update=":form"
-									actionListener="#{placaBean.seleccionarPlaca(_placa)}">
+			        	<p:commandLink id="selPlaca" style="float:left;" ajax="true" 
+									update=":form" actionListener="#{placaBean.seleccionarPlaca(_placa)}">
 									<p:graphicImage value="/resources/gfx/motherboard_icon.jpg" height="50px" />
 						</p:commandLink>
-						
-<!-- 			            <h:graphicImage value="/resources/gfx/motherboard_icon.jpg" alt="placas" height="50px"/> -->
 			 
 			            <p:outputPanel>
 			                <h:panelGrid columns="2" cellpadding="5">
@@ -71,10 +68,15 @@
 			                    <h:outputText value="#{_placa.nroSerie}" style="font-weight: bold"/>
 			                </h:panelGrid>
 			            </p:outputPanel>
+			            
+			            <p:commandLink id="acctiones" action="#{placaBean.acciones}">
+	        				<h:graphicImage value="/resources/gfx/connect_creating.png" alt="acciones" height="50px"/>
+	    				</p:commandLink>
 			        </h:panelGrid>
-			    </p:dataScroller>
+			    </p:dataScroller>	
 			</p:panel>
-			
+					
+				
 		</h:form>
 	</ui:define>
 </ui:composition>
