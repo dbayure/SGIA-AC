@@ -12,7 +12,6 @@ import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-import uy.com.ceoyphoibe.SGIA.wsClient.WsLecturaFactor;
 
 
 @Stateless
@@ -64,9 +63,13 @@ public class RegistroFactor {
 		   return em.find(Factor.class, id);		   
 	   }
 	   
-	   public ResultadoLectura lecturaFactor(int idFactor){
+	   public ResultadoLectura lecturaFactor(long idFactor){
+		   System.out.println("Entra a pedir lectura del factor: "+idFactor);
 		   ResultadoLectura rl = new ResultadoLectura();
-		   rl = WsLecturaFactor(idFactor);
+		   Factor factor= obtenerFactorPorId(idFactor);
+		   System.out.println("Obtiene el factor: "+factor.getNombre());
+		   FachadaWS ws= new FachadaWS();
+		   rl = ws.lecturaFactor(factor);
 		   return rl;
 	   }
 }

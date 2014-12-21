@@ -47,6 +47,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsCrearPlacaAuxiliar(null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsActualizarDestinatario(null,null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsCrearTipoActuador(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -141,6 +144,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCrearPlacaAuxiliar(null,null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsActualizarDestinatario(null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCrearTipoActuador(null));

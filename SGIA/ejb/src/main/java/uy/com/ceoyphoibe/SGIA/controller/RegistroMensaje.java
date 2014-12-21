@@ -1,5 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
+import uy.com.ceoyphoibe.SGIA.model.Posicion;
 
 
 @Stateless
@@ -51,6 +55,10 @@ public class RegistroMensaje {
 		   em.remove(mensaje);
 		   mensajeEventSrc.fire(newMensaje);
 	   }
+	   
+	   public Mensaje obtenerMensajeId(Long id) {
+		   return em.find(Mensaje.class, id);
+		}
 
 	   @PostConstruct
 	   public void initNewMensaje() {

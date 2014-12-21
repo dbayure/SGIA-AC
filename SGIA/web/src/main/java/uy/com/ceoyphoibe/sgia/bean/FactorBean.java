@@ -24,7 +24,9 @@ import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
+
 
 @ManagedBean (name="factorBean")
 @SessionScoped
@@ -303,8 +305,32 @@ public class FactorBean {
 		sensoresSelecconados = (List<Sensor>) registroFactor.getListaSensoresId(id);
 	}
 	
-	public void lecturaFactor(int idFactor){
+	public String lecturaFactor(long idFactor){
 		rl = registroFactor.lecturaFactor(idFactor);
+		Mensaje mensaje= rl.getMensaje();
+		if (mensaje.getTipo().equals("Error"))
+		{
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else
+		{
+			if (mensaje.getTipo().equals("Advertencia"))
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			else
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		return Float.toString(rl.getLectura());
+		
 	}
 	
 	public String factores()

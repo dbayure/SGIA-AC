@@ -2,16 +2,19 @@ package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
@@ -24,8 +27,7 @@ import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 
 public class FachadaWS {
 
-	
-	
+
 	public FachadaWS() {
 		
 	}
@@ -98,7 +100,7 @@ public class FachadaWS {
 		if (sensor.getFactor() != null)
 			idFactor= BigInteger.valueOf(sensor.getFactor().getIdFactor());
 		BigInteger idDispositivo= BigInteger.valueOf(sensor.getId());
-        Mensaje mensajeResultado= clienteWS.wsAsociarFactorSensor(idFactor, idDispositivo);  
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje mensajeResultado= clienteWS.wsAsociarFactorSensor(idFactor, idDispositivo);  
         ok= mensajeResultado.getTipo().equals("Informativo");
         return ok;
 	}
@@ -112,6 +114,7 @@ public class FachadaWS {
         BigInteger umbral= BigInteger.valueOf(factor.getUmbral());
         ResultadoCreacionWS resultadoWS= clienteWS.wsCrearFactor(factor.getNombre(), factor.getUnidad(), valorMin, valorMax, umbral);
         Long id=resultadoWS.getIdObjeto().longValue();
+        System.out.println("Id que vuelve del WS: "+id);
         factor.setIdFactor(id);
         
 		return factor;
@@ -218,7 +221,7 @@ public class FachadaWS {
 		if (actuador.getGrupoActuadores() != null)
 			idGrupoActuadores= BigInteger.valueOf(actuador.getGrupoActuadores().getId());
 		BigInteger idDispositivo= BigInteger.valueOf(actuador.getId());
-        Mensaje mensajeResultado= clienteWS.wsAsociarActuadorGrupo(idGrupoActuadores, idDispositivo); 
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje mensajeResultado= clienteWS.wsAsociarActuadorGrupo(idGrupoActuadores, idDispositivo); 
         ok= mensajeResultado.getTipo().equals("Informativo");
         return ok;
 	}
@@ -231,7 +234,7 @@ public class FachadaWS {
 		if (actuadorAvance.getGrupoActuadores() != null)
 			idGrupoActuadores= BigInteger.valueOf(actuadorAvance.getGrupoActuadores().getId());
 		BigInteger idDispositivo= BigInteger.valueOf(actuadorAvance.getId());
-        Mensaje mensajeResultado= clienteWS.wsAsociarActuadorAvanceGrupo(idGrupoActuadores, idDispositivo);
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje mensajeResultado= clienteWS.wsAsociarActuadorAvanceGrupo(idGrupoActuadores, idDispositivo);
         ok= mensajeResultado.getTipo().equals("Informativo");
         return ok;
 	}
@@ -257,6 +260,22 @@ public class FachadaWS {
         destinatario.setIdDestinatario(id);
         
 		return destinatario;
+	}
+	
+	public Mensaje actualizarDestinatario(Destinatario destinatario)
+	{
+		System.out.println("intenta conectar a: "+ destinatario.getPlaca().getIpPlaca() + ", "+ destinatario.getPlaca().getPuetroPlaca());
+		Comunicacion clienteWS= iniciarConexion(destinatario.getPlaca().getIpPlaca(), destinatario.getPlaca().getPuetroPlaca());
+		BigInteger horaMin= BigInteger.valueOf(destinatario.getHoraMin());
+		BigInteger horaMax= BigInteger.valueOf(destinatario.getHoraMax());
+		BigInteger idDestinatario= BigInteger.valueOf(destinatario.getIdDestinatario());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarDestinatario(destinatario.getNombre(), destinatario.getCelular(), destinatario.getMail(), horaMin, horaMax, idDestinatario);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+        
+		return mensaje;
 	}
 	
 	public void asociarDestinatariosTipoLogEventos(TipoLogEvento tipoLogEvento, Placa placa)
@@ -344,6 +363,51 @@ public class FachadaWS {
         }
         
 		return nivel;
+	}
+	
+	public ResultadoLectura lecturaFactor(Factor factor)
+	{
+		Comunicacion clienteWS= iniciarConexion(factor.getPlaca().getIpPlaca(), factor.getPlaca().getPuetroPlaca());
+		
+		BigInteger idFactor= BigInteger.valueOf(factor.getIdFactor());
+		ResultadoLecturaWS resultadoWS=clienteWS.wsLecturaFactor(idFactor);
+		System.out.println("Despues de llamar al WS vuelve con:");
+		System.out.println("Mensjaje: "+ resultadoWS.getMensaje().getTexto());
+		System.out.println("Lectura: "+ resultadoWS.getValor());
+		
+		ResultadoLectura resultado= new ResultadoLectura();
+		System.out.println("1");
+		Timestamp fechaHora= new Timestamp(resultadoWS.getFecha().toGregorianCalendar().getTimeInMillis());
+		System.out.println("2");
+		float lectura= resultadoWS.getValor();
+		System.out.println("3");
+		Long idMensaje= resultadoWS.getMensaje().getIdMensaje().longValue();
+		System.out.println("Va a buscar el mensaje con id: "+idMensaje);
+		Mensaje mensaje= new Mensaje();
+		mensaje.setTexto(resultadoWS.getMensaje().getTexto());
+		mensaje.setTipo(resultadoWS.getMensaje().getTipo());
+		mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
+		
+		resultado.setMensaje(mensaje);
+		resultado.setFecha(fechaHora);
+		resultado.setLectura(lectura);
+		
+		return resultado;
+	}
+	
+	public Mensaje cambiarEstadoPlaca(Placa placa, String estado)
+	{
+		Comunicacion clienteWS= iniciarConexion(placa.getIpPlaca(), placa.getPuetroPlaca());
+		
+//		String estado= String.valueOf(placa.getEstado());
+        
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsCambiarEstadoSistema(estado);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setTexto(resultadoWS.getTexto());
+		mensaje.setTipo(resultadoWS.getTipo());
+		mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        
+		return mensaje;
 	}
 
 }

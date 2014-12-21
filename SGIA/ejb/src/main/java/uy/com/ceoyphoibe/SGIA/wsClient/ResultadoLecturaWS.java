@@ -44,7 +44,7 @@ public class ResultadoLecturaWS {
     protected XMLGregorianCalendar fecha;
     protected Mensaje mensaje;
     protected BigInteger idFactor;
-    protected BigInteger valor;
+    protected float valor;
 
     /**
      * Gets the value of the fecha property.
@@ -126,7 +126,7 @@ public class ResultadoLecturaWS {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getValor() {
+    public float getValor() {
         return valor;
     }
 
@@ -138,7 +138,7 @@ public class ResultadoLecturaWS {
      *     {@link BigInteger }
      *     
      */
-    public void setValor(BigInteger value) {
+    public void setValor(float value) {
         this.valor = value;
     }
 

@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
@@ -41,9 +42,12 @@ public class RegistroDestinatario {
 		destinatarioEventSrc.fire(destinatario);
 	}
 
-	public void modificar(Destinatario destinatario) throws Exception {
-		log.info("Modifico " + destinatario);
-		em.merge(destinatario);
+	public Mensaje modificar(Destinatario destinatario) throws Exception {
+		FachadaWS ws = new FachadaWS();
+		Mensaje mensaje = ws.actualizarDestinatario(destinatario);
+		if (mensaje.getTipo().equals("Informativo"))
+			em.merge(destinatario);
+		return mensaje;
 	}
 
 	public void eliminar(Long id) throws Exception {

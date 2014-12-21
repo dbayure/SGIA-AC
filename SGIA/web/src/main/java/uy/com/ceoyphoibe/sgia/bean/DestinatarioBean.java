@@ -11,6 +11,7 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDestinatario;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
 
@@ -76,11 +77,20 @@ public class DestinatarioBean {
             Destinatario destinatario = ((Destinatario) event.getObject());
            
             try {
-            	registroDestinatario.modificar(destinatario);
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se modificó ", destinatario.getNombre());  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	Mensaje resultado= registroDestinatario.modificar(destinatario);
+            	if (resultado.getTipo().equals("Informativo"))
+				{
+            		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, resultado.getTexto(), "");  
+            		FacesContext.getCurrentInstance().addMessage(null, msg); 
+				}
+            	else
+            	{
+            		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, resultado.getTexto(), "");  
+            		FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	}
+	            
 			} catch (Exception e) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al modificar ", destinatario.getNombre());  
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al modificar ", destinatario.getNombre());  
 	            FacesContext.getCurrentInstance().addMessage(null, msg); 
 			}
     }

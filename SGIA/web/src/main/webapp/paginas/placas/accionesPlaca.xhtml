@@ -10,9 +10,10 @@
 
       <h:form id="form" prependId="false">
          
-         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />     
+            
       
      	 <p:panel id="panelBotones" >
+     	 	<p:messages id="messages2" showDetail="true" autoUpdate="true" closable="true" />  
       
       		<h:panelGrid id="grillaBotones" columns="6" style=" margin: 0 auto; text-align: center; ">
       		
@@ -45,6 +46,8 @@
 	      </p:panel>    
 	      
 	      <p:panel id="panelElementos" >
+	      
+	      	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />   
 	      	
 	      	<p:panelGrid id="gridFactores">
 	      	 
@@ -56,7 +59,7 @@
 	      			<p:spacer width="100" />
 	      			<p:panel>
 	      			<h2 style="text-align: center; vertical-align: bottom;">Lectura</h2>
-	      			<h3 style="text-align: center; vertical-align: bottom;">#{factorBean.rl.lectura} #{_factores.unidad}</h3>
+	      			<h3 style="text-align: center; vertical-align: bottom;">#{factorBean.lecturaFactor(_factores.idFactor)} #{_factores.unidad}</h3>
 	      				<h:panelGrid columns="3">
 	      					<p:commandLink style="display: block; margin-left: 50px; margin-right: auto;" onclick="PF('dlgGrafica').show()">
 	      						<h:graphicImage value="/resources/gfx/Graficar.png" alt="niveles" height="30px"/>
@@ -70,7 +73,7 @@
 	      			
 	      			<p:spacer width="100" />
 	      			
-	      			<p:commandLink style="display: block; margin-left: auto; margin-right: auto ver">
+	      			<p:commandLink style="display: block; margin-left: auto; margin-right: auto ver" update=":form">
 	      				<h:graphicImage value="/resources/gfx/Recargar.png" alt="niveles" height="50px"/>
 	      			</p:commandLink>
 	      			
