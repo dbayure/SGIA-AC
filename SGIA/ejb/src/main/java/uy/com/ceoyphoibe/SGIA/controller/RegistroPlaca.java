@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 import uy.com.ceyphoibe.SGIA.exception.PlacaNoSeConectaExeption;
@@ -93,4 +94,17 @@ public class RegistroPlaca {
 		}
 
 	}
+	
+	public Mensaje cambiarEstadoPlaca(Placa placa, String estado){
+		Mensaje msg = new Mensaje();
+		FachadaWS ws= new FachadaWS();
+		if (msg.getTipo() == "Informativo"){
+			char est = estado.charAt(0);
+			placa.setEstado(est);
+			em.merge(placa);
+		}
+		msg = ws.
+		return msg;
+	}
+	
 }

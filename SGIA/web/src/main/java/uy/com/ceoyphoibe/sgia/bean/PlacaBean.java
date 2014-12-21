@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
 @ManagedBean(name= "placaBean")
@@ -21,9 +22,37 @@ public class PlacaBean {
 	
 	private Placa placa;
 	private boolean mostrar = false;
+	private boolean mostrarCambiarEstadoPlaca = false;
 	private String ip;
 	private int puerto;
+	private String seleccion;
+	private String estadoPlaca;
 	
+	
+	public boolean isMostrarCambiarEstadoPlaca() {
+		return mostrarCambiarEstadoPlaca;
+	}
+
+	public void setMostrarCambiarEstadoPlaca(boolean mostrarCambiarEstadoPlaca) {
+		this.mostrarCambiarEstadoPlaca = mostrarCambiarEstadoPlaca;
+	}
+
+	public String getEstadoPlaca() {
+		return estadoPlaca;
+	}
+
+	public void setEstadoPlaca(String estadoPlaca) {
+		this.estadoPlaca = estadoPlaca;
+	}
+
+	public String getSeleccion() {
+		return seleccion;
+	}
+
+	public void setSeleccion(String seleccion) {
+		this.seleccion = seleccion;
+	}
+
 	public String getIp() {
 		return ip;
 	}
@@ -134,5 +163,51 @@ public class PlacaBean {
 	public String acciones()
 	{
 		return "/paginas/placas/accionesPlaca.xhtml?faces-redirect=true";
+	}
+	
+	public void setFactores(){
+		seleccion = "factores";
+	}
+	
+	public void setActuadores(){
+		seleccion = "actuadores";
+	}
+	
+	public void setNiveles(){
+		seleccion = "niveles";
+	}
+	
+	public void mostrarCambioEstadoPlaca(){
+		if (mostrarCambiarEstadoPlaca == false){
+			mostrarCambiarEstadoPlaca = true;
+		}
+		else {
+			mostrarCambiarEstadoPlaca = false;
+		}
+		
+	}
+	
+	
+	public void cambiarEstadoPlaca (){
+		Mensaje mensaje = new Mensaje();
+		mensaje = registroPlaca.cambiarEstadoPlaca(placa, estadoPlaca);
+		if (mensaje.getTipo() == "Error"){
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else{
+			if (mensaje.getTipo() == "Advertencia"){
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			else{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+	
 	}
 }
