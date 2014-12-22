@@ -189,8 +189,8 @@ public class PlacaBean {
 	
 	
 	public void cambiarEstadoPlaca (){
-		Mensaje mensaje = new Mensaje();
-		mensaje = registroPlaca.cambiarEstadoPlaca(placa, estadoPlaca);
+		System.out.println("entra a cambiarEstadoPlaca en el BEAN");
+		Mensaje mensaje = registroPlaca.cambiarEstadoPlaca(placa, estadoPlaca);
 		if (mensaje.getTipo() == "Error"){
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensaje.getTexto(), "");

@@ -96,14 +96,15 @@ public class RegistroPlaca {
 	}
 	
 	public Mensaje cambiarEstadoPlaca(Placa placa, String estado){
-		Mensaje msg = new Mensaje();
+		System.out.println("quiere asignar el estado: "+estado);
 		FachadaWS ws= new FachadaWS();
-		if (msg.getTipo() == "Informativo"){
+		
+		Mensaje msg = ws.cambiarEstadoPlaca(placa, estado);
+		if (msg.getTipo().equals("Informativo")){
 			char est = estado.charAt(0);
 			placa.setEstado(est);
 			em.merge(placa);
 		}
-		msg = ws.
 		return msg;
 	}
 	
