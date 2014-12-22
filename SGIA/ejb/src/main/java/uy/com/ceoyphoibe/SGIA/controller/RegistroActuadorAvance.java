@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
@@ -45,11 +46,14 @@ public class RegistroActuadorAvance {
 		return actuadorAvance;
 	}
 
-	public void modificar(ActuadorAvance actuadorAvance) throws Exception {
+	public Mensaje modificar(ActuadorAvance actuadorAvance) throws Exception {
 		log.info("Modifico " + actuadorAvance);
 		FachadaWS wsClient = new FachadaWS();
 		wsClient.asociarActuadorAvanceGrupoActuadores(actuadorAvance);
-		em.merge(actuadorAvance);
+		Mensaje resultado= wsClient.actualizarActuadorAvance(actuadorAvance);
+		if (resultado.getTipo().equals("Informativo"))
+			em.merge(actuadorAvance);
+		return resultado;
 	}
 
 	public void eliminar(Long id) throws Exception {

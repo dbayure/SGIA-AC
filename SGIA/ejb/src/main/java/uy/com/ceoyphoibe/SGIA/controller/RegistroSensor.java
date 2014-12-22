@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
@@ -44,10 +45,12 @@ public class RegistroSensor {
 	   }
 	   
 	   public void modificar(Sensor sensor) throws Exception {
-		   log.info("Modifico " + sensor);
+		   
 		   FachadaWS wsClient = new FachadaWS();
-		   wsClient.asociarSensorFactor(sensor);
-		   em.merge(sensor);
+		   Mensaje resultado=wsClient.actualizarSensor(sensor);
+		   System.out.println("vuelve de la llamada al ws el siguiente mensaje: "+ resultado.getTexto());
+		   if (resultado.getTipo().equals("Informativo"))
+			   em.merge(sensor);
 		   sensorEventSrc.fire(sensor);
 	   }
 	   

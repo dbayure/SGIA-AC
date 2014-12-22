@@ -15,6 +15,7 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
@@ -172,11 +173,21 @@ public class ActuadorAvanceBean {
 		try {
 			
 			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
+			Mensaje mensaje=registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
+			if (mensaje.getTipo().equals("Informativo"))
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				
+			}
+			else
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 			
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se actualizó ", "con éxito!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Error al actualizar ", "");

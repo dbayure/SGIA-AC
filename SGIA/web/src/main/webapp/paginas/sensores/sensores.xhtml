@@ -87,7 +87,7 @@
 				<p:ajax event="rowEditCancel" listener="#{sensorBean.onCancel}"
 					update=":form:messages" />
 
-				<p:column headerText="Id Dispositivo" style="width:10%">
+				<p:column headerText="Id" style="width:5%">
 					<h:outputText value="#{_sensor.id}" />
 				</p:column>
 
@@ -147,7 +147,7 @@
 				<!--                </p:cellEditor>   -->
 				<!--            	 </p:column>  -->
 
-				<p:column headerText="Tipo de Puerto" style="width:20%">
+				<p:column headerText="Tipo de Puerto" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_sensor.tipoPuerto.nombre}" />
@@ -188,30 +188,30 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Estado de Alerta" style="width:5%">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{_sensor.estadoAlerta}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText id="modelInputEstAl" value="#{_sensor.estadoAlerta}"
-								style="width:96%" required="true" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+<!-- 				<p:column headerText="Estado de Alerta" style="width:5%"> -->
+<!-- 					<p:cellEditor> -->
+<!-- 						<f:facet name="output"> -->
+<!-- 							<h:outputText value="#{_sensor.estadoAlerta}" /> -->
+<!-- 						</f:facet> -->
+<!-- 						<f:facet name="input"> -->
+<!-- 							<p:inputText id="modelInputEstAl" value="#{_sensor.estadoAlerta}" -->
+<!-- 								style="width:96%" required="true" /> -->
+<!-- 						</f:facet> -->
+<!-- 					</p:cellEditor> -->
+<!-- 				</p:column> -->
 
-				<p:column headerText="Activo Sistema" style="width:5%">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{_sensor.activoSistema}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText id="modelInputActSist"
-								value="#{_sensor.activoSistema}" style="width:96%"
-								required="true" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+<!-- 				<p:column headerText="Activo Sistema" style="width:5%"> -->
+<!-- 					<p:cellEditor> -->
+<!-- 						<f:facet name="output"> -->
+<!-- 							<h:outputText value="#{_sensor.activoSistema}" /> -->
+<!-- 						</f:facet> -->
+<!-- 						<f:facet name="input"> -->
+<!-- 							<p:inputText id="modelInputActSist" -->
+<!-- 								value="#{_sensor.activoSistema}" style="width:96%" -->
+<!-- 								required="true" /> -->
+<!-- 						</f:facet> -->
+<!-- 					</p:cellEditor> -->
+<!-- 				</p:column> -->
 
 				<p:column style="width:3%">
 					<p:rowEditor />

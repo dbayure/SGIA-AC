@@ -409,5 +409,60 @@ public class FachadaWS {
         
 		return mensaje;
 	}
+	
+	public Mensaje actualizarSensor(Sensor sensor)
+	{
+		
+		Comunicacion clienteWS= iniciarConexion(sensor.getPlaca().getIpPlaca(), sensor.getPlaca().getPuetroPlaca());
+		BigInteger nroPuerto= BigInteger.valueOf(sensor.getNumeroPuerto());
+		BigInteger idTipoPuerto= null;
+		if (sensor.getTipoPuerto() != null)
+			idTipoPuerto= BigInteger.valueOf(sensor.getTipoPuerto().getId());
+		BigInteger idPlacaPadre= null;
+		if (sensor.getPadre() != null)
+			idPlacaPadre= BigInteger.valueOf(sensor.getPadre().getId());
+		BigInteger idFactor= null;
+		if (sensor.getFactor() != null)
+			idFactor= BigInteger.valueOf(sensor.getFactor().getIdFactor());
+		BigInteger idDispositivo= BigInteger.valueOf(sensor.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarSensor(sensor.getNombre(), sensor.getModelo(), nroPuerto, sensor.getFormulaConversion(), idTipoPuerto, idPlacaPadre, idFactor, idDispositivo);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+        
+		return mensaje;
+	}
+	
+	public Mensaje actualizarActuadorAvance(ActuadorAvance actuadorAvance)
+	{
+		
+		Comunicacion clienteWS= iniciarConexion(actuadorAvance.getPlaca().getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+		BigInteger nroPuerto= BigInteger.valueOf(actuadorAvance.getNumeroPuerto());
+		BigInteger idTipoPuerto= null;
+		if (actuadorAvance.getTipoPuerto() != null)
+			idTipoPuerto= BigInteger.valueOf(actuadorAvance.getTipoPuerto().getId());
+		BigInteger idTipoActuador= null;
+		if (actuadorAvance.getTipoActuador() != null)
+			idTipoActuador= BigInteger.valueOf(actuadorAvance.getTipoActuador().getId());
+		BigInteger posicion= BigInteger.valueOf(actuadorAvance.getPosicion());
+		BigInteger idPlacaPadre= null;
+		if (actuadorAvance.getPadre() != null)
+			idPlacaPadre= BigInteger.valueOf(actuadorAvance.getPadre().getId());
+		BigInteger idFactor= null;
+		BigInteger nroPuertoRetroceso= BigInteger.valueOf(actuadorAvance.getNumeroPuertoRetroceso());
+		BigInteger tiempoEntrePosiciones= BigInteger.valueOf(actuadorAvance.getTiempoEntrePosiciones());
+		BigInteger idGrupoActuadores= null;
+		if (actuadorAvance.getGrupoActuadores() != null)
+			idFactor= BigInteger.valueOf(actuadorAvance.getGrupoActuadores().getId());
+		BigInteger idDispositivo= BigInteger.valueOf(actuadorAvance.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarActuadorAvance(actuadorAvance.getNombre(), actuadorAvance.getModelo(), nroPuerto, posicion, idTipoPuerto, idTipoActuador, idPlacaPadre, nroPuertoRetroceso, tiempoEntrePosiciones, idGrupoActuadores, idDispositivo);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+        
+		return mensaje;
+	}
 
 }

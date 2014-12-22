@@ -53,6 +53,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsCrearTipoActuador(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsActualizarSensor(null,null,null,null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsAgregarFilaPerfilActivacion(null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -60,6 +63,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsAsociarFactorSensor(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsActualizarActuadorAvance(null,null,null,null,null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsLecturaFactor(null));
@@ -152,6 +158,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port2.wsCrearTipoActuador(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port2.wsActualizarSensor(null,null,null,null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port2.wsAgregarFilaPerfilActivacion(null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -159,6 +168,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsAsociarFactorSensor(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsActualizarActuadorAvance(null,null,null,null,null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsLecturaFactor(null));
