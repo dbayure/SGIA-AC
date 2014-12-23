@@ -35,6 +35,12 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsEliminarFactor(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsActualizarTipoPlaca(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsActualizarTipoActuador(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsReestablecerActuadorAvance(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -57,6 +63,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsAgregarFilaPerfilActivacion(null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsActualizarGrupoActuadores(null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsEliminarNivelSeveridad(null));
@@ -84,6 +93,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsAsociarDestinatarioTipoLogEvento(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port1.wsActualizarActuador(null,null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port1.wsCrearDestinatario(null,null,null,null,null));
@@ -140,6 +152,12 @@ public class ClientSample {
 	        System.out.println("Server said: " + port2.wsEliminarFactor(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port2.wsActualizarTipoPlaca(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsActualizarTipoActuador(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port2.wsReestablecerActuadorAvance(null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -162,6 +180,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsAgregarFilaPerfilActivacion(null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsActualizarGrupoActuadores(null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsEliminarNivelSeveridad(null));
@@ -189,6 +210,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsAsociarDestinatarioTipoLogEvento(null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsActualizarActuador(null,null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsCrearDestinatario(null,null,null,null,null));

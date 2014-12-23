@@ -7,6 +7,7 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.TipoPlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
@@ -34,9 +35,12 @@ public class RegistroTipoPlacaAuxiliar {
 	      tipoPlacaAuxiliarEventSrc.fire(tipoPlacaAuxiliar);
 	   }
 	   
-	   public void modificar(TipoPlacaAuxiliar tipoPlacaAuxiliar) throws Exception {
-		   log.info("Modifico " + tipoPlacaAuxiliar);
-		   em.merge(tipoPlacaAuxiliar);
+	   public Mensaje modificar(TipoPlacaAuxiliar tipoPlacaAuxiliar) throws Exception {
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje respuesta= ws.actualizarTipoPlaca(tipoPlacaAuxiliar);
+		   if (respuesta.getTipo().equals("Informativo"))
+			   em.merge(tipoPlacaAuxiliar);
+		   return respuesta;
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {

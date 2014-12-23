@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
@@ -42,9 +43,12 @@ public class RegistroTipoActuador {
 	      tipoActuadorEventSrc.fire(tipoActuador);
 	   }
 	   
-	   public void modificar(TipoActuador tipoActuador) throws Exception {
-		   log.info("Modifico " + tipoActuador);
-		   em.merge(tipoActuador);
+	   public Mensaje modificar(TipoActuador tipoActuador) throws Exception {
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje respuesta= ws.actualizarTipoActuador(tipoActuador);
+		   if (respuesta.getTipo().equals("Informativo"))
+			   em.merge(tipoActuador);
+		   return respuesta;
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {

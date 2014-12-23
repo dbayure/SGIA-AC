@@ -7,13 +7,9 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
-import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-import uy.com.ceoyphoibe.SGIA.wsClient.WsApagarGrupoActuadores;
-import uy.com.ceoyphoibe.SGIA.wsClient.WsCambiarPosicionGrupoActuadores;
-import uy.com.ceoyphoibe.SGIA.wsClient.WsEncenderGrupoActuadores;
 
 
 @Stateless
@@ -40,12 +36,13 @@ public class RegistroActuador {
 		   actuadoresSrc.fire(a);
 	   }
 	   
-	   public void modificar(Actuador actuador) throws Exception {
-		   log.info("Modifico " + actuador);
+	   public Mensaje modificar(Actuador actuador) throws Exception {
 		   FachadaWS wsClient = new FachadaWS();
 		   wsClient.asociarActuadorGrupoActuadores(actuador);
-		   
-		   em.merge(actuador);
+		   Mensaje resultado= wsClient.actualizarActuador(actuador);
+		   if (resultado.getTipo().equals("Informativo"))
+			   em.merge(actuador);
+		   return resultado;
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {
@@ -55,21 +52,4 @@ public class RegistroActuador {
 		   actuadoresSrc.fire(actudaror);
 	   }
 
-	   public ResultadoAccion encenderGrupo(GrupoActuadores ga){
-		   ResultadoAccion ra = new ResultadoAccion();
-		   ra = WsEncenderGrupoActuadores(ga);
-		   return ra;
-	   }
-	   
-	   public ResultadoAccion apagarGrupo(GrupoActuadores ga){
-		   ResultadoAccion ra = new ResultadoAccion();
-		   ra = WsApagarGrupoActuadores(ga);
-		   return ra;
-	   }
-	   
-	   public ResultadoAccion cambiarPosicionGrupo(GrupoActuadores ga, int posicion){
-		   ResultadoAccion ra = new ResultadoAccion();
-		   ra = WsCambiarPosicionGrupoActuadores(ga, posicion);
-		   return ra;
-	   }
 }

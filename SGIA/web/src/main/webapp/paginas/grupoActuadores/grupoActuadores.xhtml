@@ -108,7 +108,7 @@
 			<h:panelGrid columns="2">
 						<p>
 							<p:commandButton id="register"
-								action="#{grupoActuadoresBean.registrar}" value="Registrar"
+								action="#{grupoActuadoresBean.registrar}" value="#{grupoActuadoresBean.nombreBoton}"
 								style="margin-left: 400px;" update=":form" />
 						</p>
 					</h:panelGrid>
@@ -135,9 +135,9 @@
 					<h:outputText value="#{_gactuadores.deAvance}" />
 				</p:column>
 
-				<p:column headerText="Activo" style="width:25%">
-					<h:outputText value="#{_gactuadores.activoSistema}" />
-				</p:column>
+<!-- 				<p:column headerText="Activo" style="width:25%"> -->
+<!-- 					<h:outputText value="#{_gactuadores.activoSistema}" /> -->
+<!-- 				</p:column> -->
 
 				<p:column style="width:3%">
 					<h:commandLink id="editLink" styleClass="ui-icon ui-icon-pencil"

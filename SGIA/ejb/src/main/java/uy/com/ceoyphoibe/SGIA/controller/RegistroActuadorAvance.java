@@ -47,7 +47,6 @@ public class RegistroActuadorAvance {
 	}
 
 	public Mensaje modificar(ActuadorAvance actuadorAvance) throws Exception {
-		log.info("Modifico " + actuadorAvance);
 		FachadaWS wsClient = new FachadaWS();
 		wsClient.asociarActuadorAvanceGrupoActuadores(actuadorAvance);
 		Mensaje resultado= wsClient.actualizarActuadorAvance(actuadorAvance);

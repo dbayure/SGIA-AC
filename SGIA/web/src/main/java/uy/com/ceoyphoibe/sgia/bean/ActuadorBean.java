@@ -17,6 +17,7 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroActuador;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
 @ManagedBean
@@ -131,10 +132,20 @@ public class ActuadorBean {
 		System.out.println("Valor del grupo obtenido del actuador seleccionado " + actuador.getNombre());
 		try {
 			actuador.setGrupoActuadores(ga);
-			regActuador.modificar(actuador);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se modificó ", actuador.getNombre());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			Mensaje mensaje=regActuador.modificar(actuador);
+			if (mensaje.getTipo().equals("Informativo"))
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			else
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Error al modificar ", actuador.getNombre());

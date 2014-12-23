@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 
@@ -39,9 +40,12 @@ public class RegistroGrupoActuadores {
 		   grupoActuadoresSrc.fire(ga);
 	   }
 	   
-	   public void modificar(GrupoActuadores grupoActuadores) throws Exception {
-		   log.info("Modifico " + grupoActuadores);
-		   em.merge(grupoActuadores);
+	   public Mensaje modificar(GrupoActuadores grupoActuadores) throws Exception {
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje resultado= ws.actualizarGrupoActuadores(grupoActuadores);
+		   if (resultado.getTipo().equals("Informativo"))
+			   em.merge(grupoActuadores);
+		   return resultado;
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {

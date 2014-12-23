@@ -449,12 +449,11 @@ public class FachadaWS {
 		BigInteger idPlacaPadre= null;
 		if (actuadorAvance.getPadre() != null)
 			idPlacaPadre= BigInteger.valueOf(actuadorAvance.getPadre().getId());
-		BigInteger idFactor= null;
 		BigInteger nroPuertoRetroceso= BigInteger.valueOf(actuadorAvance.getNumeroPuertoRetroceso());
 		BigInteger tiempoEntrePosiciones= BigInteger.valueOf(actuadorAvance.getTiempoEntrePosiciones());
 		BigInteger idGrupoActuadores= null;
 		if (actuadorAvance.getGrupoActuadores() != null)
-			idFactor= BigInteger.valueOf(actuadorAvance.getGrupoActuadores().getId());
+			idGrupoActuadores= BigInteger.valueOf(actuadorAvance.getGrupoActuadores().getId());
 		BigInteger idDispositivo= BigInteger.valueOf(actuadorAvance.getId());
         uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarActuadorAvance(actuadorAvance.getNombre(), actuadorAvance.getModelo(), nroPuerto, posicion, idTipoPuerto, idTipoActuador, idPlacaPadre, nroPuertoRetroceso, tiempoEntrePosiciones, idGrupoActuadores, idDispositivo);
         Mensaje mensaje= new Mensaje();
@@ -464,5 +463,70 @@ public class FachadaWS {
         
 		return mensaje;
 	}
+	
+	public Mensaje actualizarActuador(Actuador actuador)
+	{
+		
+		Comunicacion clienteWS= iniciarConexion(actuador.getPlaca().getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+		BigInteger nroPuerto= BigInteger.valueOf(actuador.getNumeroPuerto());
+		BigInteger idTipoPuerto= null;
+		if (actuador.getTipoPuerto() != null)
+			idTipoPuerto= BigInteger.valueOf(actuador.getTipoPuerto().getId());
+		BigInteger idTipoActuador= null;
+		if (actuador.getTipoActuador() != null)
+			idTipoActuador= BigInteger.valueOf(actuador.getTipoActuador().getId());
+		BigInteger idPlacaPadre= null;
+		if (actuador.getPadre() != null)
+			idPlacaPadre= BigInteger.valueOf(actuador.getPadre().getId());
+		BigInteger idGrupoActuadores= null;
+		if (actuador.getGrupoActuadores() != null)
+			idGrupoActuadores= BigInteger.valueOf(actuador.getGrupoActuadores().getId());
+		BigInteger idDispositivo= BigInteger.valueOf(actuador.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarActuador(actuador.getNombre(), actuador.getModelo(), nroPuerto, idTipoPuerto, idTipoActuador, idPlacaPadre, idGrupoActuadores, idDispositivo);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+        
+		return mensaje;
+	}
+	
+	public Mensaje actualizarGrupoActuadores(GrupoActuadores grupoActuadores)
+	{
+		Comunicacion clienteWS= iniciarConexion(grupoActuadores.getPlaca().getIpPlaca(), grupoActuadores.getPlaca().getPuetroPlaca());
+		BigInteger idGrupoActuadores= BigInteger.valueOf(grupoActuadores.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarGrupoActuadores(grupoActuadores.getNombre(), grupoActuadores.getDeAvance(), idGrupoActuadores);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje actualizarTipoActuador(TipoActuador tipoActuador)
+	{
+		Comunicacion clienteWS= iniciarConexion(tipoActuador.getPlaca().getIpPlaca(), tipoActuador.getPlaca().getPuetroPlaca());
+		BigInteger idTipoActuador= BigInteger.valueOf(tipoActuador.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarTipoActuador(tipoActuador.getCategoria(), idTipoActuador);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje actualizarTipoPlaca(TipoPlacaAuxiliar tipoPlaca)
+	{
+		Comunicacion clienteWS= iniciarConexion(tipoPlaca.getPlaca().getIpPlaca(), tipoPlaca.getPlaca().getPuetroPlaca());
+		BigInteger idTipoPlaca= BigInteger.valueOf(tipoPlaca.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarTipoPlaca(tipoPlaca.getNombre(), idTipoPlaca);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	
 
 }

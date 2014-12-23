@@ -26,13 +26,14 @@ public class ObjectFactory {
 
     private final static QName _WsCrearDestinatarioResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearDestinatarioResponse");
     private final static QName _WsObtenerDatosPlacaResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsObtenerDatosPlacaResponse");
+    private final static QName _WsActualizarTipoActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarTipoActuador");
     private final static QName _WsCambiarEstadoSistemaResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCambiarEstadoSistemaResponse");
     private final static QName _WsCrearSensor_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearSensor");
     private final static QName _WsReestablecerEstadoAlertaDispositivo_QNAME = new QName("Comunicacion.Comunicacion", "wsReestablecerEstadoAlertaDispositivo");
-    private final static QName _WsCrearActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuadorAvance");
     private final static QName _WsCrearGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearGrupoActuadores");
-    private final static QName _WsApagarGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsApagarGrupoActuadores");
+    private final static QName _WsCrearActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuadorAvance");
     private final static QName _WsAsociarFactorSensorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarFactorSensorResponse");
+    private final static QName _WsApagarGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsApagarGrupoActuadores");
     private final static QName _WsActualizarSensor_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarSensor");
     private final static QName _WsApagarGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsApagarGrupoActuadoresResponse");
     private final static QName _ResultadoLecturaWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoLecturaWS");
@@ -42,6 +43,7 @@ public class ObjectFactory {
     private final static QName _WsAgregarFilaPerfilActivacionResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarFilaPerfilActivacionResponse");
     private final static QName _WsEncenderGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsEncenderGrupoActuadores");
     private final static QName _WsEliminarFactorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarFactorResponse");
+    private final static QName _WsActualizarActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarActuador");
     private final static QName _WsAgregarSensorPosicionActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarSensorPosicionActuadorAvance");
     private final static QName _ResultadoCreacionWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoCreacionWS");
     private final static QName _WsAsociarActuadorGrupoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarActuadorGrupoResponse");
@@ -56,10 +58,12 @@ public class ObjectFactory {
     private final static QName _WsCrearTipoActuadorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoActuadorResponse");
     private final static QName _WsActualizarDestinatarioResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarDestinatarioResponse");
     private final static QName _WsAsociarDestinatarioTipoLogEventoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarDestinatarioTipoLogEventoResponse");
+    private final static QName _WsActualizarTipoPlaca_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarTipoPlaca");
     private final static QName _WsLecturaFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsLecturaFactor");
     private final static QName _WsAgregarPosicionActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarPosicionActuadorAvance");
     private final static QName _Mensaje_QNAME = new QName("Comunicacion.Comunicacion", "Mensaje");
     private final static QName _WsCrearFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearFactor");
+    private final static QName _WsActualizarTipoPlacaResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarTipoPlacaResponse");
     private final static QName _WsAsociarActuadorAvanceGrupo_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarActuadorAvanceGrupo");
     private final static QName _WsReestablecerEstadoAlertaDispositivoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsReestablecerEstadoAlertaDispositivoResponse");
     private final static QName _WsDesasociarDestinatarioTipoLogEvento_QNAME = new QName("Comunicacion.Comunicacion", "wsDesasociarDestinatarioTipoLogEvento");
@@ -67,11 +71,14 @@ public class ObjectFactory {
     private final static QName _WsCrearTipoActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoActuador");
     private final static QName _WsEliminarNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarNivelSeveridadResponse");
     private final static QName _WsCrearNivelSeveridadResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearNivelSeveridadResponse");
+    private final static QName _WsActualizarGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarGrupoActuadoresResponse");
+    private final static QName _WsActualizarActuadorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarActuadorResponse");
     private final static QName _WsDesasociarDestinatarioTipoLogEventoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsDesasociarDestinatarioTipoLogEventoResponse");
     private final static QName _WsAgregarFilaPerfilActivacion_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarFilaPerfilActivacion");
     private final static QName _WsCrearActuador_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuador");
     private final static QName _WsEliminarDispositivo_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarDispositivo");
     private final static QName _WsEliminarDispositivoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarDispositivoResponse");
+    private final static QName _WsActualizarTipoActuadorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarTipoActuadorResponse");
     private final static QName _ResultadoAccionWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoAccionWS");
     private final static QName _WsCrearTipoPlaca_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearTipoPlaca");
     private final static QName _ResultadoDatosPlacaWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoDatosPlacaWS");
@@ -90,6 +97,7 @@ public class ObjectFactory {
     private final static QName _WsCrearActuadorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearActuadorResponse");
     private final static QName _WsCrearDestinatario_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearDestinatario");
     private final static QName _WsCrearFactorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearFactorResponse");
+    private final static QName _WsActualizarGrupoActuadores_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarGrupoActuadores");
     private final static QName _WsLecturaFactorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsLecturaFactorResponse");
     private final static QName _WsAgregarPosicionActuadorAvanceResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarPosicionActuadorAvanceResponse");
     private final static QName _WsEliminarFilaPerfilActivacionResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarFilaPerfilActivacionResponse");
@@ -154,6 +162,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsActualizarTipoPlaca }
+     * 
+     */
+    public WsActualizarTipoPlaca createWsActualizarTipoPlaca() {
+        return new WsActualizarTipoPlaca();
+    }
+
+    /**
      * Create an instance of {@link WsActualizarDestinatarioResponse }
      * 
      */
@@ -210,6 +226,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsActualizarTipoPlacaResponse }
+     * 
+     */
+    public WsActualizarTipoPlacaResponse createWsActualizarTipoPlacaResponse() {
+        return new WsActualizarTipoPlacaResponse();
+    }
+
+    /**
      * Create an instance of {@link WsCrearFactor }
      * 
      */
@@ -239,6 +263,14 @@ public class ObjectFactory {
      */
     public WsCambiarEstadoSistemaResponse createWsCambiarEstadoSistemaResponse() {
         return new WsCambiarEstadoSistemaResponse();
+    }
+
+    /**
+     * Create an instance of {@link WsActualizarTipoActuador }
+     * 
+     */
+    public WsActualizarTipoActuador createWsActualizarTipoActuador() {
+        return new WsActualizarTipoActuador();
     }
 
     /**
@@ -290,19 +322,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link WsCrearActuadorAvance }
-     * 
-     */
-    public WsCrearActuadorAvance createWsCrearActuadorAvance() {
-        return new WsCrearActuadorAvance();
-    }
-
-    /**
      * Create an instance of {@link WsCrearGrupoActuadores }
      * 
      */
     public WsCrearGrupoActuadores createWsCrearGrupoActuadores() {
         return new WsCrearGrupoActuadores();
+    }
+
+    /**
+     * Create an instance of {@link WsCrearActuadorAvance }
+     * 
+     */
+    public WsCrearActuadorAvance createWsCrearActuadorAvance() {
+        return new WsCrearActuadorAvance();
     }
 
     /**
@@ -367,6 +399,14 @@ public class ObjectFactory {
      */
     public WsCrearSensorResponse createWsCrearSensorResponse() {
         return new WsCrearSensorResponse();
+    }
+
+    /**
+     * Create an instance of {@link WsActualizarActuador }
+     * 
+     */
+    public WsActualizarActuador createWsActualizarActuador() {
+        return new WsActualizarActuador();
     }
 
     /**
@@ -490,6 +530,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsActualizarGrupoActuadores }
+     * 
+     */
+    public WsActualizarGrupoActuadores createWsActualizarGrupoActuadores() {
+        return new WsActualizarGrupoActuadores();
+    }
+
+    /**
      * Create an instance of {@link WsCrearFactorResponse }
      * 
      */
@@ -546,6 +594,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsActualizarGrupoActuadoresResponse }
+     * 
+     */
+    public WsActualizarGrupoActuadoresResponse createWsActualizarGrupoActuadoresResponse() {
+        return new WsActualizarGrupoActuadoresResponse();
+    }
+
+    /**
      * Create an instance of {@link WsCrearNivelSeveridadResponse }
      * 
      */
@@ -578,6 +634,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link WsActualizarActuadorResponse }
+     * 
+     */
+    public WsActualizarActuadorResponse createWsActualizarActuadorResponse() {
+        return new WsActualizarActuadorResponse();
+    }
+
+    /**
      * Create an instance of {@link WsCrearActuador }
      * 
      */
@@ -607,6 +671,14 @@ public class ObjectFactory {
      */
     public ResultadoAccionWS createResultadoAccionWS() {
         return new ResultadoAccionWS();
+    }
+
+    /**
+     * Create an instance of {@link WsActualizarTipoActuadorResponse }
+     * 
+     */
+    public WsActualizarTipoActuadorResponse createWsActualizarTipoActuadorResponse() {
+        return new WsActualizarTipoActuadorResponse();
     }
 
     /**
@@ -708,6 +780,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarTipoActuador }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarTipoActuador")
+    public JAXBElement<WsActualizarTipoActuador> createWsActualizarTipoActuador(WsActualizarTipoActuador value) {
+        return new JAXBElement<WsActualizarTipoActuador>(_WsActualizarTipoActuador_QNAME, WsActualizarTipoActuador.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsCambiarEstadoSistemaResponse }{@code >}}
      * 
      */
@@ -735,15 +816,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link WsCrearActuadorAvance }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsCrearActuadorAvance")
-    public JAXBElement<WsCrearActuadorAvance> createWsCrearActuadorAvance(WsCrearActuadorAvance value) {
-        return new JAXBElement<WsCrearActuadorAvance>(_WsCrearActuadorAvance_QNAME, WsCrearActuadorAvance.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsCrearGrupoActuadores }{@code >}}
      * 
      */
@@ -753,12 +825,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link WsApagarGrupoActuadores }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsCrearActuadorAvance }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsApagarGrupoActuadores")
-    public JAXBElement<WsApagarGrupoActuadores> createWsApagarGrupoActuadores(WsApagarGrupoActuadores value) {
-        return new JAXBElement<WsApagarGrupoActuadores>(_WsApagarGrupoActuadores_QNAME, WsApagarGrupoActuadores.class, null, value);
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsCrearActuadorAvance")
+    public JAXBElement<WsCrearActuadorAvance> createWsCrearActuadorAvance(WsCrearActuadorAvance value) {
+        return new JAXBElement<WsCrearActuadorAvance>(_WsCrearActuadorAvance_QNAME, WsCrearActuadorAvance.class, null, value);
     }
 
     /**
@@ -768,6 +840,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsAsociarFactorSensorResponse")
     public JAXBElement<WsAsociarFactorSensorResponse> createWsAsociarFactorSensorResponse(WsAsociarFactorSensorResponse value) {
         return new JAXBElement<WsAsociarFactorSensorResponse>(_WsAsociarFactorSensorResponse_QNAME, WsAsociarFactorSensorResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsApagarGrupoActuadores }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsApagarGrupoActuadores")
+    public JAXBElement<WsApagarGrupoActuadores> createWsApagarGrupoActuadores(WsApagarGrupoActuadores value) {
+        return new JAXBElement<WsApagarGrupoActuadores>(_WsApagarGrupoActuadores_QNAME, WsApagarGrupoActuadores.class, null, value);
     }
 
     /**
@@ -849,6 +930,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsEliminarFactorResponse")
     public JAXBElement<WsEliminarFactorResponse> createWsEliminarFactorResponse(WsEliminarFactorResponse value) {
         return new JAXBElement<WsEliminarFactorResponse>(_WsEliminarFactorResponse_QNAME, WsEliminarFactorResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarActuador }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarActuador")
+    public JAXBElement<WsActualizarActuador> createWsActualizarActuador(WsActualizarActuador value) {
+        return new JAXBElement<WsActualizarActuador>(_WsActualizarActuador_QNAME, WsActualizarActuador.class, null, value);
     }
 
     /**
@@ -978,6 +1068,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarTipoPlaca }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarTipoPlaca")
+    public JAXBElement<WsActualizarTipoPlaca> createWsActualizarTipoPlaca(WsActualizarTipoPlaca value) {
+        return new JAXBElement<WsActualizarTipoPlaca>(_WsActualizarTipoPlaca_QNAME, WsActualizarTipoPlaca.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsLecturaFactor }{@code >}}
      * 
      */
@@ -1011,6 +1110,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsCrearFactor")
     public JAXBElement<WsCrearFactor> createWsCrearFactor(WsCrearFactor value) {
         return new JAXBElement<WsCrearFactor>(_WsCrearFactor_QNAME, WsCrearFactor.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarTipoPlacaResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarTipoPlacaResponse")
+    public JAXBElement<WsActualizarTipoPlacaResponse> createWsActualizarTipoPlacaResponse(WsActualizarTipoPlacaResponse value) {
+        return new JAXBElement<WsActualizarTipoPlacaResponse>(_WsActualizarTipoPlacaResponse_QNAME, WsActualizarTipoPlacaResponse.class, null, value);
     }
 
     /**
@@ -1077,6 +1185,24 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarGrupoActuadoresResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarGrupoActuadoresResponse")
+    public JAXBElement<WsActualizarGrupoActuadoresResponse> createWsActualizarGrupoActuadoresResponse(WsActualizarGrupoActuadoresResponse value) {
+        return new JAXBElement<WsActualizarGrupoActuadoresResponse>(_WsActualizarGrupoActuadoresResponse_QNAME, WsActualizarGrupoActuadoresResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarActuadorResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarActuadorResponse")
+    public JAXBElement<WsActualizarActuadorResponse> createWsActualizarActuadorResponse(WsActualizarActuadorResponse value) {
+        return new JAXBElement<WsActualizarActuadorResponse>(_WsActualizarActuadorResponse_QNAME, WsActualizarActuadorResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsDesasociarDestinatarioTipoLogEventoResponse }{@code >}}
      * 
      */
@@ -1119,6 +1245,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsEliminarDispositivoResponse")
     public JAXBElement<WsEliminarDispositivoResponse> createWsEliminarDispositivoResponse(WsEliminarDispositivoResponse value) {
         return new JAXBElement<WsEliminarDispositivoResponse>(_WsEliminarDispositivoResponse_QNAME, WsEliminarDispositivoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarTipoActuadorResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarTipoActuadorResponse")
+    public JAXBElement<WsActualizarTipoActuadorResponse> createWsActualizarTipoActuadorResponse(WsActualizarTipoActuadorResponse value) {
+        return new JAXBElement<WsActualizarTipoActuadorResponse>(_WsActualizarTipoActuadorResponse_QNAME, WsActualizarTipoActuadorResponse.class, null, value);
     }
 
     /**
@@ -1281,6 +1416,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsCrearFactorResponse")
     public JAXBElement<WsCrearFactorResponse> createWsCrearFactorResponse(WsCrearFactorResponse value) {
         return new JAXBElement<WsCrearFactorResponse>(_WsCrearFactorResponse_QNAME, WsCrearFactorResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsActualizarGrupoActuadores }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsActualizarGrupoActuadores")
+    public JAXBElement<WsActualizarGrupoActuadores> createWsActualizarGrupoActuadores(WsActualizarGrupoActuadores value) {
+        return new JAXBElement<WsActualizarGrupoActuadores>(_WsActualizarGrupoActuadores_QNAME, WsActualizarGrupoActuadores.class, null, value);
     }
 
     /**
