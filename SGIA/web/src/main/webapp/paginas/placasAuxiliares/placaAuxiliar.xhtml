@@ -6,11 +6,50 @@
    xmlns:p="http://primefaces.org/ui"
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
-      <h1 style="text-align: center;">Administración de Placas Auxiliares</h1>
+      
 	
 
       <h:form id="form" prependId="false">
-         
+			<p:panel id="p1">
+				<h:panelGrid id="gridImg" columns="10">
+					<h:graphicImage value="/resources/gfx/circuito.png" alt="placa"
+						height="50px" />
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
+				</h:panelGrid>
+				<h:panelGrid id="gridEstado"
+					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
+						<f:selectItem itemLabel="Configuracion" itemValue="C" />
+						<f:selectItem itemLabel="Manual" itemValue="M" />
+						<f:selectItem itemLabel="Automatico" itemValue="A" />
+					</p:selectOneButton>
+					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
+						update="form" icon="ui-icon-transferthick-e-w" />
+				</h:panelGrid>
+
+			</p:panel>
+			
+		<h1 style="text-align: center;">Administración de Placas Auxiliares</h1>
+			       		  
          <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />          
          
          <h:panelGrid columns="2" >
@@ -33,7 +72,7 @@
 	        </p:selectOneMenu>
 	        
 	        <p:outputLabel for="numSerie" value="Número de Serie:" />
-			<p:inputText id="numSerie" value="#{placaAuxiliarBean.placaAuxiliarTemp.numeroSerie}" label="Número de serie" required="false" />
+			<p:inputText id="numSerie" value="#{placaAuxiliarBean.placaAuxiliarTemp.numeroSerie}" label="Número de serie" required="true" />
 			
 			<p:outputLabel for="tipoPlacaAux" value="Tipo de Placa Auxiliar:" />
 			<p:selectOneMenu id="tipoPlacaAux" value="#{placaAuxiliarBean.placaAuxiliarTemp.tipoPlacaAuxiliar}" required="true">
@@ -99,47 +138,47 @@
                </p:cellEditor>  
            	 </p:column> 
            	 
-           	 <p:column headerText="Número de Serie" style="width:15%">  
+           	 <p:column headerText="Nro Serie" style="width:15%">  
                <p:cellEditor>  
                    <f:facet name="output"><h:outputText value="#{_placaAux.numeroSerie}" /></f:facet>  
                    <f:facet name="input"><p:inputText id="numSerieTab" value="#{_placaAux.numeroSerie}" style="width:96%" required="false"/></f:facet>  
                </p:cellEditor>  
            	 </p:column> 
            	 
-           	 <p:column headerText="Núm. Puerto Analóg." style="width:15%">  
+           	 <p:column headerText="Nro. Puerto Analóg." style="width:15%">  
                <p:cellEditor>  
                    <f:facet name="output"><h:outputText value="#{_placaAux.numeroPuertoAnal}" /></f:facet>  
                    <f:facet name="input"><p:inputText id="numPuertoAnalTab" value="#{_placaAux.numeroPuertoAnal}" style="width:96%" required="false"/></f:facet>  
                </p:cellEditor>  
            	 </p:column> 
            	 
-           	 <p:column headerText="Núm. Puerto Ent. Dig." style="width:15%">  
+           	 <p:column headerText="Nro. Puerto Ent. Dig." style="width:15%">  
                <p:cellEditor>  
                    <f:facet name="output"><h:outputText value="#{_placaAux.numeroPuertoEDig}" /></f:facet>  
                    <f:facet name="input"><p:inputText id="numPuertoEDigTab" value="#{_placaAux.numeroPuertoEDig}" style="width:96%" required="false"/></f:facet>  
                </p:cellEditor>  
            	 </p:column> 
            	 
-           	 <p:column headerText="Núm. Puerto Sal. Dig." style="width:15%">  
+           	 <p:column headerText="Nro Puerto Sal. Dig." style="width:15%">  
                <p:cellEditor>  
                    <f:facet name="output"><h:outputText value="#{_placaAux.numeroPuertoSdig}" /></f:facet>  
                    <f:facet name="input"><p:inputText id="numPuertoSDigTab" value="#{_placaAux.numeroPuertoSdig}" style="width:96%" required="false"/></f:facet>  
                </p:cellEditor>  
            	 </p:column> 
            	 
-           	 <p:column headerText="Estado de Alerta" style="width:5%">  
-               <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_placaAux.estadoAlerta}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputEstAl" value="#{_placaAux.estadoAlerta}" style="width:96%" required="true"/></f:facet>  
-               </p:cellEditor>  
-           	 </p:column> 
+<!--            	 <p:column headerText="Estado de Alerta" style="width:5%">   -->
+<!--                <p:cellEditor>   -->
+<!--                    <f:facet name="output"><h:outputText value="#{_placaAux.estadoAlerta}" /></f:facet>   -->
+<!--                    <f:facet name="input"><p:inputText id="modelInputEstAl" value="#{_placaAux.estadoAlerta}" style="width:96%" required="true"/></f:facet>   -->
+<!--                </p:cellEditor>   -->
+<!--            	 </p:column>  -->
            	 
-           	 <p:column headerText="Activo Sistema" style="width:5%">  
-               <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_placaAux.activoSistema}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputActSist" value="#{_placaAux.activoSistema}" style="width:96%" required="true"/></f:facet>  
-               </p:cellEditor>  
-           	 </p:column> 
+<!--            	 <p:column headerText="Activo Sistema" style="width:5%">   -->
+<!--                <p:cellEditor>   -->
+<!--                    <f:facet name="output"><h:outputText value="#{_placaAux.activoSistema}" /></f:facet>   -->
+<!--                    <f:facet name="input"><p:inputText id="modelInputActSist" value="#{_placaAux.activoSistema}" style="width:96%" required="true"/></f:facet>   -->
+<!--                </p:cellEditor>   -->
+<!--            	 </p:column>  -->
            	            	 
            	 <p:column style="width:3%">           	 
 	            <p:rowEditor />	         	           

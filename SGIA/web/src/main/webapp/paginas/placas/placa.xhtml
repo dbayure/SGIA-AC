@@ -1,104 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui"
-   template="/WEB-INF/templates/default.xhtml">
-   <ui:define name="content">
-            
-     <p:outputPanel deferred="true" id="panelLogo" >
-     <h:panelGrid columns="8">
-        <h3>Conectado a la placa...</h3>
-        <h:graphicImage value="/resources/gfx/circuito.png" heigh="100px" width="100px"/>
-        <p:outputLabel value="" />
-        <h5>Serie:  #{placaBean.placa.nroSerie}</h5>
-        <p:outputLabel value="" />
-        <h5>Descripción:  #{placaBean.placa.descripcion}</h5>
-        <p:outputLabel value="" />
-        <h5>IP:  #{placaBean.placa.ipPlaca}</h5>
-     </h:panelGrid>   
-    </p:outputPanel>
- 
-  
-      <h1 style="text-align: center;">Administración de Placas</h1>
-	
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+
+
+
 		<style type="text/css">
-			.placaRowSelected {
-				background-color: #dbffb8 !important;
-				background-image: none !important;
-				color: #000000 !important;
-				}
-		</style>
+.placaRowSelected {
+	background-color: #dbffb8 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
 
-      <h:form id="form" prependId="false">
-         
-         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />     
-         
-<!--      <p:panel id="panelIp"> -->
-     
-<!--    		<p:outputLabel> -->
-<!--        		<h3>Conectar a phidgets SBC</h3> -->
-<!--        	</p:outputLabel> -->
-       	
-<!--          <h:panelGrid columns="2" > -->
+		<h:form id="form" prependId="false">
 
-<!-- 			<p:outputLabel for="ip" value="Ip :" /> -->
-<!-- 			<p:inputText id="ip" value="#{placaBean.placa.ipPlaca}" label="Ip placa" required="true" /> -->
-			
-<!-- 			<p:outputLabel for="puerto" value="Puerto :" /> -->
-<!-- 			<p:inputText id="puerto" value="#{placaBean.placa.puetroPlaca}" label="puerto" required="true" /> -->
-	     
-<!-- 		</h:panelGrid> -->
-         
-<!--          <p>             -->
-<!--             <p:commandButton id="conectar" action="#{placaBean.conectar}"  -->
-<!--             	value="Conecatar"  -->
-<!--             	style="margin-left: 400px;" -->
-<!--             	update= ":form :panelLogo"/> -->
-<!--          </p>   -->
-        
-<!--       </p:panel>       -->
-      
-      <p:panel id="panelSBC" >
-      
-      	<h:panelGrid columns="2">
-      	
-      		<p:outputLabel for="estado" value="Estado :" />
-			<p:inputText id="estado" value="#{placaBean.placa.estado}" label="Estado" required="false" />
-			
-			<p:outputLabel for="serie" value="Serie :" />
-			<p:inputText id="serie" value="#{placaBean.placa.nroSerie}" label="serie" required="true" />
-			
-			<p:outputLabel for="descripcion" value="Descripcion :" />
-			<p:inputText id="descripcion" value="#{placaBean.placa.descripcion}" label="Descripcion" required="false" />
-			
-			<p:outputLabel for="nroPuertosAnalogicos" value="Puertos Analogicos :" />
-			<p:inputText id="nroPuertosAnalogicos" value="#{placaBean.placa.numPuertosAnalogicos}" label="analogicos" required="false" />
-			
-			<p:outputLabel for="nroPuertosSDigitales" value="Puertos Salida Digitales :" />
-			<p:inputText id="nroPuertosSDigitales" value="#{placaBean.placa.numPuertosSDigitales}" label="sDigitales" required="false" />
-			
-			<p:outputLabel for="nroPuertosEDigitales" value="Puertos Entrada Digitales :" />
-			<p:inputText id="nroPuertosEDigitales" value="#{placaBean.placa.numPuertosEDigitales}" label="eDigitales" required="false" />
-			
-			<p:outputLabel for="estadoAlerta" value="Estado Alerta :" />
-			<p:inputText id="estadoAlerta" value="#{placaBean.placa.estadoAlerta}" label="estadoAlerta" required="false" />
-			
-      		<p:outputLabel for="perLecturas" value="Periodicidad Lecturas :" />
-			<p:inputText id="perLecturas" value="#{placaBean.placa.periodicidadLecturas}" label="pLecturas" required="false" />
-			
-			<p:outputLabel for="perNiveles" value="Periodicidad Niveles :" />
-			<p:inputText id="perNiveles" value="#{placaBean.placa.periodicidadNiveles}" label="pNiveles" required="false" />			
 
-      	</h:panelGrid>
-      	        <p>            
-            <p:commandButton id="actualizar" action="#{placaBean.registrar}" 
-            	value="Actualizar" 
-            	style="margin-left: 400px;"
-            	update= ":form"/>
-         </p>  
-      </p:panel>    
-		</h:form>     
-   </ui:define>
+
+			<p:panel id="p1">
+				<h:panelGrid id="gridImg" columns="10">
+					<h:graphicImage value="/resources/gfx/circuito.png" alt="placa"
+						height="50px" />
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
+				</h:panelGrid>
+				<h:panelGrid id="gridEstado"
+					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
+						<f:selectItem itemLabel="Configuracion" itemValue="C" />
+						<f:selectItem itemLabel="Manual" itemValue="M" />
+						<f:selectItem itemLabel="Automatico" itemValue="A" />
+					</p:selectOneButton>
+					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
+						update="form" icon="ui-icon-transferthick-e-w" />
+				</h:panelGrid>
+
+			</p:panel>
+
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			
+			<p></p>
+			<h1 style="text-align: center;">Administración de Placas</h1>
+			<p:panel id="panelSBC">
+				
+
+				<h:panelGrid columns="2">
+
+					<p:outputLabel for="estado" value="Estado :" />
+					<h:outputText id="estado" value="#{placaBean.placa.estado}"
+						label="Estado"/>
+
+					<p:outputLabel for="serie" value="Serie :" />
+					<h:outputText id="serie" value="#{placaBean.placa.nroSerie}"
+						label="serie"/>
+
+					<p:outputLabel for="descripcion" value="Descripcion :" />
+					<p:inputText id="descripcion"
+						value="#{placaBean.placa.descripcion}" label="Descripcion"
+						required="false" />
+
+					<p:outputLabel for="nroPuertosAnalogicos"
+						value="Puertos Analogicos :" />
+					<p:spinner id="nroPuertosAnalogicos"
+						value="#{placaBean.placa.numPuertosAnalogicos}" label="analogicos"
+						required="false" />
+
+					<p:outputLabel for="nroPuertosSDigitales"
+						value="Puertos Salida Digitales :" />
+					<p:spinner id="nroPuertosSDigitales"
+						value="#{placaBean.placa.numPuertosSDigitales}" label="sDigitales"
+						required="false" />
+
+					<p:outputLabel for="nroPuertosEDigitales"
+						value="Puertos Entrada Digitales :" />
+					<p:spinner id="nroPuertosEDigitales"
+						value="#{placaBean.placa.numPuertosEDigitales}" label="eDigitales"
+						required="false" />
+
+					<p:outputLabel for="estadoAlerta" value="Estado Alerta :" />
+					<h:outputText id="estadoAlerta"
+						value="#{placaBean.placa.estadoAlerta}" label="estadoAlerta"
+						required="false" />
+
+					<p:outputLabel for="perLecturas" value="Periodicidad Lecturas :" />
+					<p:inputText id="perLecturas"
+						value="#{placaBean.placa.periodicidadLecturas}" label="pLecturas"
+						required="false" />
+
+					<p:outputLabel for="perNiveles" value="Periodicidad Niveles :" />
+					<p:inputText id="perNiveles"
+						value="#{placaBean.placa.periodicidadNiveles}" label="pNiveles"
+						required="false" />
+
+				</h:panelGrid>
+				<p>
+					<p:commandButton id="actualizar" action="#{placaBean.registrar}"
+						value="Actualizar" style="margin-left: 400px;" update=":form" />
+				</p>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
 </ui:composition>

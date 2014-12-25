@@ -37,9 +37,14 @@ public class RegistroPlaca {
 		placaEventSrc.fire(placa);
 	}
 
-	public void modificar(Placa placa) throws Exception {
-		em.merge(placa);
+	public Mensaje modificar(Placa placa) throws Exception {
+		System.out.println("Entra a modificar la placa con id: "+placa.getId());
+		FachadaWS ws= new FachadaWS();
+		Mensaje resultado= ws.actualizarParametrosPlaca(placa);
+		if (resultado.getTipo().equals("Informativo"))
+			em.merge(placa);
 		placaEventSrc.fire(placa);
+		return resultado;
 	}
 
 	public void eliminar(Long id) throws Exception {

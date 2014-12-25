@@ -13,6 +13,7 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
@@ -120,9 +121,17 @@ public class TipoLogEventoBean {
             try {
             	registroTipoLogEvento.eliminarDestinatarios(tipoLogEvento, placa);
             	tipoLogEvento.setListaDestinatarios(listaDestinatarios);
-            	registroTipoLogEvento.modificar(tipoLogEvento, placa);
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se modificó ", tipoLogEvento.getNombre());  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	Mensaje mensaje=registroTipoLogEvento.modificar(tipoLogEvento, placa);
+            	if (mensaje.getTipo().equals("Informativo"))
+            	{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+		            FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	}
+            	else
+            	{
+            		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+		            FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	}
 			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al modificar ", tipoLogEvento.getNombre());  
 	            FacesContext.getCurrentInstance().addMessage(null, msg); 

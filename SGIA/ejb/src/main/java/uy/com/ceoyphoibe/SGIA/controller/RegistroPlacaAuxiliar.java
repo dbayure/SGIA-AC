@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
@@ -33,10 +34,13 @@ public class RegistroPlacaAuxiliar {
 		   placaAuxiliarEventSrc.fire(placaAux);
 	   }
 	   
-	   public void modificar(PlacaAuxiliar placaAux) throws Exception {
-		   log.info("Modifico " + placaAux);
-		   em.merge(placaAux);
+	   public Mensaje modificar(PlacaAuxiliar placaAux) throws Exception {
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje resultado= ws.actualizarPlacaAuxiliar(placaAux);
+		   if (resultado.getTipo().equals("Informativo"))
+			   em.merge(placaAux);
 		   placaAuxiliarEventSrc.fire(placaAux);
+		   return resultado;
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {

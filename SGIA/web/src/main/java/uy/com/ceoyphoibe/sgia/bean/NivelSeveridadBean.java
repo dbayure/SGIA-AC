@@ -18,6 +18,7 @@ import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 
@@ -46,6 +47,9 @@ public class NivelSeveridadBean {
 	private int posicionTemp;
 	
 	private Factor factorTemp;
+	
+	private boolean editando= false;
+	private String nombreIcono="/resources/gfx/apply.png";
 
 
 	/**
@@ -138,20 +142,40 @@ public class NivelSeveridadBean {
 
 	public void registrar() {
 		try {
-
+			
 			nivelSeveridadSeleccionado.setActivoSistema("S");
 			nivelSeveridadSeleccionado.setPerfilActivacion(perfilActivacion);
 			nivelSeveridadSeleccionado.setFactor(factorTemp);
 			nivelSeveridadSeleccionado.setPlaca(placaBean.getPlaca());
-			registroNivelSeveridad.registro(nivelSeveridadSeleccionado);
+			if (!editando)
+			{
+				registroNivelSeveridad.registro(nivelSeveridadSeleccionado);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se registró ", "con éxito!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			else
+			{
+				editando= false;
+				Mensaje mensaje= registroNivelSeveridad.modificar(nivelSeveridadSeleccionado);
+				nombreIcono="/resources/gfx/apply.png";
+				if (mensaje.getTipo().equals("Informativo"))
+            	{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+		            FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	}
+            	else
+            	{
+            		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+		            FacesContext.getCurrentInstance().addMessage(null, msg); 
+            	}
+			}
 			nivelSeveridadSeleccionado= new NivelSeveridad();
 			perfilActivacion= new HashSet<FilaPerfilActivacion>();
 			grupoTemp= new GrupoActuadores();
 			factorTemp= new Factor();
 			posicionesDisponibles= new HashSet<Posicion>();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se registró ", "con éxito!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
@@ -171,10 +195,11 @@ public class NivelSeveridadBean {
 			nivelSeveridadSeleccionado= nivelSeveridad;
 			perfilActivacion= nivelSeveridad.getPerfilActivacion();
 			factorTemp= nivelSeveridad.getFactor();
-			
+			editando= true;
+			nombreIcono="/resources/gfx/Recargar.png";
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", nivelSeveridad.getNombre());
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -321,6 +346,20 @@ public class NivelSeveridadBean {
 	 */
 	public void setFactorTemp(Factor factorTemp) {
 		this.factorTemp = factorTemp;
+	}
+
+	/**
+	 * @return the nombreIcono
+	 */
+	public String getNombreIcono() {
+		return nombreIcono;
+	}
+
+	/**
+	 * @param nombreIcono the nombreIcono to set
+	 */
+	public void setNombreIcono(String nombreIcono) {
+		this.nombreIcono = nombreIcono;
 	}
 
 }

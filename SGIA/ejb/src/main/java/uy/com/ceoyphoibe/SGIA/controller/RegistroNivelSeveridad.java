@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 import uy.com.ceyphoibe.SGIA.exception.contradiccionPrioridadException;
@@ -43,7 +44,7 @@ public class RegistroNivelSeveridad {
 		while (ok && i<listaNiveles.size())
 		{
 			NivelSeveridad nivelTemp= listaNiveles.get(i);
-			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor().getIdFactor())
+			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor().getIdFactor() && nivelTemp.getId() != nivel.getId())
 			{
 				if ( (nivel.getRangoMin() >= nivelTemp.getRangoMin() && nivel.getRangoMin() < nivelTemp.getRangoMax()) || (nivel.getRangoMax() > nivelTemp.getRangoMin() && nivel.getRangoMax() <= nivelTemp.getRangoMax()) )
 					ok = false;
@@ -70,7 +71,7 @@ public class RegistroNivelSeveridad {
 		while (ok && i<listaNiveles.size())
 		{
 			NivelSeveridad nivelTemp= listaNiveles.get(i);
-			if ((nivel.getFactor().getIdFactor() != nivelTemp.getFactor().getIdFactor()) && (nivel.getPrioridad() == nivelTemp.getPrioridad()))
+			if ((nivel.getFactor().getIdFactor() != nivelTemp.getFactor().getIdFactor()) && (nivel.getPrioridad() == nivelTemp.getPrioridad()) && nivelTemp.getId() != nivel.getId())
 			{
 				Iterator<FilaPerfilActivacion> perfilTemp= nivelTemp.getPerfilActivacion().iterator();
 				while(ok && perfilTemp.hasNext())
@@ -101,7 +102,7 @@ public class RegistroNivelSeveridad {
 		while (ok && i<listaNiveles.size())
 		{
 			NivelSeveridad nivelTemp= listaNiveles.get(i);
-			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor().getIdFactor())
+			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor().getIdFactor() && nivelTemp.getId() != nivel.getId())
 			{
 				ok= nivel.getPerfilActivacion().size() == nivelTemp.getPerfilActivacion().size();
 				
@@ -127,7 +128,6 @@ public class RegistroNivelSeveridad {
 	
 	private boolean validarNivelSeveridad(NivelSeveridad nivel) throws rangoNivelException, contradiccionPrioridadException, perfilContradictorioFactorException
 	{
-		System.out.println("entra a validar el nivel de severidad");
 		boolean control= true;
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -136,8 +136,8 @@ public class RegistroNivelSeveridad {
 	      criteria.select(nivelT).orderBy(cb.asc(nivelT.get("id")));
 	      List<NivelSeveridad>listaNiveles = em.createQuery(criteria).getResultList();
 		
-
-		System.out.println("obtiene la lista de niveles con largo: "+ listaNiveles.size());
+	    if (nivel.getId() == null)
+	    	nivel.setId(Long.valueOf(0));
 		if (listaNiveles.size() > 0)
 		{
 			control= validarRangoFactor(listaNiveles, nivel);
@@ -180,9 +180,21 @@ public class RegistroNivelSeveridad {
 			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NO PASA EL CONTROL DE NIVELES");
 	}
 
-	public void modificar(NivelSeveridad nivel) throws Exception {
-		log.info("Modifico " + nivel);
-		em.merge(nivel);
+	public Mensaje modificar(NivelSeveridad nivel) throws Exception {
+		Mensaje resultado= null;
+		if (validarNivelSeveridad(nivel))
+		{	
+			FachadaWS ws= new FachadaWS();
+			resultado= ws.eliminarPerfilActivacion(nivel);
+			if (resultado.getTipo().equals("Informativo"))
+			{
+				resultado= ws.actualizarNivelSeveridad(nivel);
+				if (resultado.getTipo().equals("Informativo"))
+					em.merge(nivel);
+			}
+			nivelSeveridadEventSrc.fire(nivel);
+		}
+		return resultado;
 	}
 
 	public void eliminar(Long id) throws Exception {

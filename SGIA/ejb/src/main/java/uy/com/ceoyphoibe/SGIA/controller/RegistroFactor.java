@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
@@ -40,10 +41,13 @@ public class RegistroFactor {
 		   factorEventSrc.fire(factor);
 	   }
 	   
-	   public void modificar(Factor factor) throws Exception {
-		   log.info("Modifico " + factor);
-		   em.merge(factor);
+	   public Mensaje modificar(Factor factor) throws Exception {
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje resultado= ws.actualizarFactor(factor);
+		   if (resultado.getTipo().equals("Informativo"))
+			   em.merge(factor);
 		   factorEventSrc.fire(factor);
+		   return resultado;
 	   }
 	   
 	   public void eliminar(Long id) throws Exception {

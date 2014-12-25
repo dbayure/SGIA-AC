@@ -527,6 +527,105 @@ public class FachadaWS {
 		return mensaje;
 	}
 	
+	public Mensaje actualizarTipoLogEvento(TipoLogEvento tipoLogEvento, Placa placa)
+	{
+		Comunicacion clienteWS= iniciarConexion(placa.getIpPlaca(), placa.getPuetroPlaca());
+		BigInteger idTipoLogEvento= BigInteger.valueOf(tipoLogEvento.getIdTipoLogEvento());
+		String enviarMail= String.valueOf(tipoLogEvento.getEnviarMail());
+		String enviarSMS= String.valueOf(tipoLogEvento.getEnviarSMS());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarTipoLogEvento(enviarMail, enviarSMS, idTipoLogEvento);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
 	
+	public Mensaje actualizarFactor(Factor factor)
+	{
+		Comunicacion clienteWS= iniciarConexion(factor.getPlaca().getIpPlaca(), factor.getPlaca().getPuetroPlaca());
+        
+        BigInteger valorMin= BigInteger.valueOf(factor.getValorMin());
+        BigInteger valorMax= BigInteger.valueOf(factor.getValorMax());
+        BigInteger idFactor= BigInteger.valueOf(factor.getIdFactor());
+        BigInteger umbral= BigInteger.valueOf(factor.getUmbral());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarFactor(factor.getNombre(), factor.getUnidad(), valorMin, valorMax, umbral, idFactor);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje actualizarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar)
+	{
+		Comunicacion clienteWS= iniciarConexion(placaAuxiliar.getPlaca().getIpPlaca(), placaAuxiliar.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(placaAuxiliar.getId());
+		BigInteger idTipoPlaca= BigInteger.valueOf(placaAuxiliar.getTipoPlacaAuxiliar().getId());
+        BigInteger idPlacaPadre= null;
+        if (placaAuxiliar.getPadre() != null)
+        	idPlacaPadre= BigInteger.valueOf(placaAuxiliar.getPadre().getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarPlacaAuxiliar(placaAuxiliar.getNombre(), placaAuxiliar.getModelo(), placaAuxiliar.getNumeroSerie(), idTipoPlaca, idPlacaPadre, idDispositivo);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje actualizarNivelSeveridad(NivelSeveridad nivelSeveridad)
+	{
+		Comunicacion clienteWS= iniciarConexion(nivelSeveridad.getPlaca().getIpPlaca(), nivelSeveridad.getPlaca().getPuetroPlaca());
+        
+		BigInteger idFactor= BigInteger.valueOf(nivelSeveridad.getFactor().getIdFactor());
+        BigInteger prioridad= BigInteger.valueOf(nivelSeveridad.getPrioridad());
+        BigInteger rangoMinimo= BigInteger.valueOf(nivelSeveridad.getRangoMin());
+        BigInteger rangoMaximo= BigInteger.valueOf(nivelSeveridad.getRangoMax());
+        BigInteger idNivelSeveridad= BigInteger.valueOf(nivelSeveridad.getId());
+        
+        Iterator<FilaPerfilActivacion> perfilActivacion= nivelSeveridad.getPerfilActivacion().iterator();
+        while (perfilActivacion.hasNext())
+        {
+        	FilaPerfilActivacion filaPerfil= perfilActivacion.next();
+        	BigInteger idGrupoActuadores= BigInteger.valueOf(filaPerfil.getGrupoActuadores().getId());
+        	
+        	clienteWS.wsAgregarFilaPerfilActivacion(idNivelSeveridad, idGrupoActuadores, filaPerfil.getEstado());
+        }
+        
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarNivelSeveridad(nivelSeveridad.getNombre(), idFactor, prioridad, rangoMinimo, rangoMaximo, idNivelSeveridad);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarPerfilActivacion(NivelSeveridad nivelSeveridad)
+	{
+		Comunicacion clienteWS= iniciarConexion(nivelSeveridad.getPlaca().getIpPlaca(), nivelSeveridad.getPlaca().getPuetroPlaca());
+        
+		BigInteger idNivelSeveridad= BigInteger.valueOf(nivelSeveridad.getId());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarPerfilActivacion(idNivelSeveridad);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje actualizarParametrosPlaca(Placa placa)
+	{
+		Comunicacion clienteWS= iniciarConexion(placa.getIpPlaca(), placa.getPuetroPlaca());
+        
+		BigInteger periodicidadLecturas= BigInteger.valueOf(placa.getPeriodicidadLecturas());
+		BigInteger periodicidadNiveles= BigInteger.valueOf(placa.getPeriodicidadNiveles());
+        uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarPlaca(periodicidadLecturas, periodicidadNiveles);
+        Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
 
 }

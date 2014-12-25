@@ -47,6 +47,8 @@ public class FactorBean {
 	private List<Sensor> sensoresSelecconados = new ArrayList<Sensor>();
 	
 	private ResultadoLectura rl = new ResultadoLectura();
+	private boolean editando=false;
+	private String nombreBoton= "Registrar";
 	
 	
     private LineChartModel animatedModel1;
@@ -215,7 +217,22 @@ public class FactorBean {
 		factorTemp.setActivoSistema('S');
 		try {
 			factorTemp.setPlaca(placaBean.getPlaca());
-			factorTemp= registroFactor.registroPlaca(factorTemp);
+			if (editando)
+			{
+				Mensaje mensaje= registroFactor.modificar(factorTemp);
+				if (mensaje.getTipo().equals("Informativo"))
+				{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(),	"");
+					FacesContext.getCurrentInstance().addMessage(null, msg);	
+				}
+				else
+				{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);	
+				}
+			}
+			else
+				factorTemp= registroFactor.registroPlaca(factorTemp);
 
 			for (Sensor s : sensores) {
 				s.setFactor(null);
@@ -230,15 +247,29 @@ public class FactorBean {
 				registroFactor.registro(factorTemp);
 				factorTemp= new Factor();
 				sensoresSelecconados= new ArrayList<Sensor>();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Se registró ", "con éxito!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				if (!editando)
+				{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);	
+				}
+				else
+				{
+					editando= false;
+					nombreBoton= "Registro";
+				}
 			} else {
 				registroFactor.registro(factorTemp);
 				factorTemp= new Factor();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Se registró ", "con éxito!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				if (!editando)
+				{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ",	"con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);	
+				}
+				else
+				{
+					editando= false;
+					nombreBoton= "Registro";
+				}
 			}
 
 		}
@@ -256,7 +287,8 @@ public class FactorBean {
 			factorTemp = registroFactor.obtenerFactorPorId(id);
 			sensoresSelecconados = factorTemp.getSensores();
 			sensores= factorTemp.getSensores();
-
+			editando= true;
+			nombreBoton= "Actualizar";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -336,5 +368,19 @@ public class FactorBean {
 	public String factores()
 	{
 		return "/paginas/factores/factor.xhtml?faces-redirect=true";
+	}
+
+	/**
+	 * @return the nombreBoton
+	 */
+	public String getNombreBoton() {
+		return nombreBoton;
+	}
+
+	/**
+	 * @param nombreBoton the nombreBoton to set
+	 */
+	public void setNombreBoton(String nombreBoton) {
+		this.nombreBoton = nombreBoton;
 	}
 }
