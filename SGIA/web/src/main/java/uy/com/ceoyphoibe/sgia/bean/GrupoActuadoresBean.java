@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 
+import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuador;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
@@ -19,6 +20,7 @@ import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
+import uy.com.ceoyphoibe.SGIA.model.Posicion;
 
 @ManagedBean
 @SessionScoped
@@ -41,6 +43,12 @@ public class GrupoActuadoresBean {
 	private List<ActuadorAvance> actuadoresDeAvanceSelecconados = new ArrayList<ActuadorAvance>();
 	private boolean editando=false;
 	private String nombreBoton= "Registrar";
+	private List<Posicion> posicionesGrupoActuadorAvanceSeleccionado = new ArrayList<Posicion>();
+	private Posicion posicion = new Posicion();
+	private int posActual; 
+	private String mostrarModificar = "mostrar";
+	private String mostrarEstado = "mostrar";
+	private boolean estado;
 	
 	@Inject
 	private RegistroActuador registroActuador;
@@ -76,9 +84,6 @@ public class GrupoActuadoresBean {
 		this.ga = ga;
 	}
 	
-	/**
-	 * @param placa the placa to set
-	 */
 	public void setPlacaBean(PlacaBean placaBean) {
 		this.placaBean = placaBean;
 	}
@@ -106,6 +111,69 @@ public class GrupoActuadoresBean {
 
 	public void setActuadores(List<Actuador> actuadores) {
 		this.actuadores = actuadores;
+	}
+	
+	public void getActuadoresId(long id){
+		actuadoresSelecconados = registroGrupoActuadores.getListaActuadoresId(id);
+		
+	}
+
+	public String getNombreBoton() {
+		return nombreBoton;
+	}
+
+	public void setNombreBoton(String nombreBoton) {
+		this.nombreBoton = nombreBoton;
+	}
+
+	public Posicion getPosicion() {
+		return posicion;
+	}
+
+	public void setPosicion(Posicion posicion) {
+		this.posicion = posicion;
+	}
+
+	public List<Posicion> getPosicionesGrupoActuadorAvanceSeleccionado() {
+		return posicionesGrupoActuadorAvanceSeleccionado;
+	}
+
+	public void setPosicionesGrupoActuadorAvanceSeleccionado(
+			List<Posicion> posicionesGrupoActuadorAvanceSeleccionado) {
+		this.posicionesGrupoActuadorAvanceSeleccionado = posicionesGrupoActuadorAvanceSeleccionado;
+	}
+	
+	public int getPosActual() {
+		return posActual;
+	}
+
+	public void setPosActual(int posActual) {
+		this.posActual = posActual;
+	}
+	
+	public String getMostrarModificar() {
+		return mostrarModificar;
+	}
+
+	public void setMostrarModificar(String mostrarModificar) {
+		this.mostrarModificar = mostrarModificar;
+	}
+	
+
+	public String getMostrarEstado() {
+		return mostrarEstado;
+	}
+
+	public void setMostrarEstado(String mostrarEstado) {
+		this.mostrarEstado = mostrarEstado;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 	public void registrar() {
@@ -277,23 +345,116 @@ public class GrupoActuadoresBean {
 		}
 
 	}
+
+	public void getActuadoresAvanceId(long id){
+		actuadoresDeAvanceSelecconados = registroGrupoActuadores.getListaActuadoresAvanceId(id);	
+	}
 	
-	public void getActuadoresId(long id){
-		actuadoresSelecconados = registroGrupoActuadores.getListaActuadoresId(id);
+	public void getPosicionId(long id){
+		posicion = registroGrupoActuadores.obtenerPosicionId(id);	
+	}
+	
+	public void obtenerListaPosiciones(long id){
+		setGa(registroGrupoActuadores.obtenerGrupoPorId(id));
+		getActuadoresAvanceId(id); 
+		posicionesGrupoActuadorAvanceSeleccionado.clear();
+		posActual = actuadoresDeAvanceSelecconados.get(0).getPosicion();
+		getPosicionId(actuadoresDeAvanceSelecconados.get(0).getId());
+		for (Posicion p : actuadoresDeAvanceSelecconados.get(0).getListaPosiciones()){
+			posicionesGrupoActuadorAvanceSeleccionado.add(p);
+		}
+	}
+	
+	public void cambiarEstado (long idGrupo){
+		ga = registroGrupoActuadores.obtenerGrupoPorId(idGrupo);
+		System.out.println("estado que vien para ejecutar la accion " + estado );
+		System.out.println("grupo sobre el que va a prender o apagar " + ga.getNombre());
+		ResultadoAccion resultado = new ResultadoAccion();
+		if(estado == false){
+			resultado =	registroGrupoActuadores.apagarGrupo(ga);
+		}
+		else{
+			resultado =	registroGrupoActuadores.encenderGrupo(ga);
+		}
+		Mensaje mensaje= resultado.getMensaje();
+		System.out.println("El texto del mensaje obtenido es: " + mensaje.getTexto());
+		if (mensaje.getTipo().equals("Error"))
+		{
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else
+		{
+			if (mensaje.getTipo().equals("Advertencia"))
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			else
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
 		
 	}
-
-	/**
-	 * @return the nombreBoton
-	 */
-	public String getNombreBoton() {
-		return nombreBoton;
+	
+	public void cambiarPosicion (){
+		ResultadoAccion resultado =	registroGrupoActuadores.cambiarPosicionAvance(ga, posActual);
+		Mensaje mensaje= resultado.getMensaje();
+		if (mensaje.getTipo().equals("Error"))
+		{
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		else
+		{
+			if (mensaje.getTipo().equals("Advertencia"))
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+			else
+			{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		System.out.println("cambiando la posicion");
+	}
+	
+	public void cambiaMostrarModificar(){
+		if(mostrarModificar == "mostrar"){
+			mostrarModificar = "modificar";
+		}
+		else{ 
+			mostrarModificar = "mostrar";
+		}
+		System.out.println("estado actual del mm: " + mostrarModificar);
+	}
+	
+	public void cambiaMostrarEstado(){
+		if(mostrarEstado == "mostrar"){
+			mostrarEstado = "modificar";
+		}
+		else{ 
+			mostrarEstado = "mostrar";
+		}
+		System.out.println("estado actual del mm: " + mostrarEstado);
 	}
 
-	/**
-	 * @param nombreBoton the nombreBoton to set
-	 */
-	public void setNombreBoton(String nombreBoton) {
-		this.nombreBoton = nombreBoton;
+	public void setEstadoGrupo(char e){
+		if (e == 'E'){
+			estado = true;
+		}
+		else{
+			estado = false;
+		}
 	}
 }
