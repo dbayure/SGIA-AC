@@ -63,6 +63,8 @@ public class RegistroPlaca {
 	public Placa obtenerPlacaPorId(long id) {
 		return em.find(Placa.class, id);
 	}
+	
+
 
 	public boolean existePlaca(String nroSerie)
 	{
@@ -79,6 +81,26 @@ public class RegistroPlaca {
 	    	  i++;
 	      }
 	      return existe;
+	   }
+	
+	public Long obtenerIdPlacaNroSerie(String nroSerie)
+	{
+		  CriteriaBuilder cb = em.getCriteriaBuilder();
+	      CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
+	      Root<Placa> placa = criteria.from(Placa.class);
+	      criteria.select(placa).orderBy(cb.asc(placa.get("id")));
+	      List<Placa> placas = em.createQuery(criteria).getResultList();
+	      long id=0;
+	      boolean existe= false;
+	      int i= 0;
+	      while (!existe && i < placas.size() )
+	      {
+	    	  existe= placas.get(i).getNroSerie().equals(nroSerie);
+	    	  if (existe)
+	    		  id=placas.get(i).getId();
+	    	  i++;
+	      }
+	      return id;
 	   }
 
 	public Placa conectarWs(String ip, int puerto)
