@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -16,9 +15,6 @@ import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
 public class RegistroPlacaAuxiliar {
-	
-	@Inject
-	   private Logger log;
 
 	   @Inject
 	   private EntityManager em;
@@ -43,10 +39,17 @@ public class RegistroPlacaAuxiliar {
 		   return resultado;
 	   }
 	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
+	   public Mensaje eliminar(Long id) throws Exception {
 		   PlacaAuxiliar placaAux = em.find(PlacaAuxiliar.class, id);
-		   em.remove(placaAux);
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje resultado= ws.actualizarPlacaAuxiliar(placaAux);
+		   if (resultado.getTipo().equals("Informativo"))
+		   {
+			   placaAux.setActivoSistema('N');
+			   em.merge(placaAux);
+		   }
+		   placaAuxiliarEventSrc.fire(placaAux);
+		   return resultado;
 	   }
 	  
 	   public ArrayList<Dispositivo> getListaDispositivosId(long id){

@@ -43,6 +43,7 @@ public class GrupoActuadoresListProducer {
       CriteriaQuery<GrupoActuadores> criteria = cb.createQuery(GrupoActuadores.class);
       Root<GrupoActuadores> grupoActuador = criteria.from(GrupoActuadores.class);
       criteria.select(grupoActuador).orderBy(cb.asc(grupoActuador.get("id")));
+      criteria.where(cb.equal(grupoActuador.get("activoSistema"), 'S'));
       grupoActuadores = em.createQuery(criteria).getResultList();
    }
 }

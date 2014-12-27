@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -23,8 +22,6 @@ import uy.com.ceyphoibe.SGIA.exception.rangoNivelException;
 @Stateless
 public class RegistroNivelSeveridad {
 
-	@Inject
-	private Logger log;
 
 	@Inject
 	private EntityManager em;
@@ -134,6 +131,7 @@ public class RegistroNivelSeveridad {
 	      CriteriaQuery<NivelSeveridad> criteria = cb.createQuery(NivelSeveridad.class);
 	      Root<NivelSeveridad> nivelT = criteria.from(NivelSeveridad.class);
 	      criteria.select(nivelT).orderBy(cb.asc(nivelT.get("id")));
+	      criteria.where(cb.equal(nivelT.get("activoSistema"), "S"));
 	      List<NivelSeveridad>listaNiveles = em.createQuery(criteria).getResultList();
 		
 	    if (nivel.getId() == null)
@@ -197,10 +195,16 @@ public class RegistroNivelSeveridad {
 		return resultado;
 	}
 
-	public void eliminar(Long id) throws Exception {
-		log.info("Elimino " + id);
+	public Mensaje eliminar(Long id) throws Exception {
 		NivelSeveridad nivel = em.find(NivelSeveridad.class, id);
-		em.remove(nivel);
+		FachadaWS ws= new FachadaWS();
+		Mensaje resultado= ws.eliminarNivelSeveridad(nivel);
+		if (resultado.getTipo().equals("Informativo"))
+		{
+			nivel.setActivoSistema("N");
+			em.merge(nivel);
+		}
 		nivelSeveridadEventSrc.fire(nivel);
+		return resultado;
 	}
 }

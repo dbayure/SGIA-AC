@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -17,9 +16,7 @@ import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
 public class RegistroFactor {
-	
-	@Inject
-	   private Logger log;
+
 
 	   @Inject
 	   private EntityManager em;
@@ -50,11 +47,17 @@ public class RegistroFactor {
 		   return resultado;
 	   }
 	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
+	   public Mensaje eliminar(Long id) throws Exception {
 		   Factor factor = em.find(Factor.class, id);
-		   em.remove(factor);
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje resultado= ws.eliminarFactor(factor);
+		   if (resultado.getTipo().equals("Informativo"))
+		   {
+			   factor.setActivoSistema('N');
+			   em.merge(factor);
+		   }
 		   factorEventSrc.fire(factor);
+		   return resultado;
 	   }
 	  
 	   public List<Sensor> getListaSensoresId(long id){

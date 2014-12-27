@@ -1,7 +1,5 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
-import java.util.logging.Logger;
-
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -15,8 +13,6 @@ import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 @Stateless
 public class RegistroActuador {
 	
-	@Inject
-	   private Logger log;
 
 	   @Inject
 	   private EntityManager em;
@@ -45,11 +41,17 @@ public class RegistroActuador {
 		   return resultado;
 	   }
 	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
-		   Actuador actudaror = em.find(Actuador.class, id);
-		   em.remove(actudaror);
-		   actuadoresSrc.fire(actudaror);
+	   public Mensaje eliminar(Long id) throws Exception {
+		   Actuador actuador = em.find(Actuador.class, id);
+		   FachadaWS wsClient = new FachadaWS();
+		   Mensaje resultado=wsClient.eliminarActuador(actuador);
+		   if (resultado.getTipo().equals("Informativo"))
+		   {
+			   actuador.setActivoSistema('N');
+			   em.merge(actuador);
+		   }
+		   actuadoresSrc.fire(actuador);
+		   return resultado;
 	   }
 
 }

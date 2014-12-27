@@ -39,6 +39,7 @@ public class ObjectFactory {
     private final static QName _WsApagarGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsApagarGrupoActuadoresResponse");
     private final static QName _ResultadoLecturaWS_QNAME = new QName("Comunicacion.Comunicacion", "ResultadoLecturaWS");
     private final static QName _WsEncenderGrupoActuadoresResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEncenderGrupoActuadoresResponse");
+    private final static QName _WsEliminarDestinatario_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarDestinatario");
     private final static QName _WsCrearSensorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearSensorResponse");
     private final static QName _WsActualizarSensorResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarSensorResponse");
     private final static QName _WsAgregarFilaPerfilActivacionResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarFilaPerfilActivacionResponse");
@@ -63,6 +64,7 @@ public class ObjectFactory {
     private final static QName _WsAsociarDestinatarioTipoLogEventoResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsAsociarDestinatarioTipoLogEventoResponse");
     private final static QName _WsActualizarTipoPlaca_QNAME = new QName("Comunicacion.Comunicacion", "wsActualizarTipoPlaca");
     private final static QName _WsLecturaFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsLecturaFactor");
+    private final static QName _WsEliminarDestinatarioResponse_QNAME = new QName("Comunicacion.Comunicacion", "wsEliminarDestinatarioResponse");
     private final static QName _WsAgregarPosicionActuadorAvance_QNAME = new QName("Comunicacion.Comunicacion", "wsAgregarPosicionActuadorAvance");
     private final static QName _Mensaje_QNAME = new QName("Comunicacion.Comunicacion", "Mensaje");
     private final static QName _WsCrearFactor_QNAME = new QName("Comunicacion.Comunicacion", "wsCrearFactor");
@@ -211,6 +213,14 @@ public class ObjectFactory {
      */
     public WsCrearTipoActuadorResponse createWsCrearTipoActuadorResponse() {
         return new WsCrearTipoActuadorResponse();
+    }
+
+    /**
+     * Create an instance of {@link WsEliminarDestinatarioResponse }
+     * 
+     */
+    public WsEliminarDestinatarioResponse createWsEliminarDestinatarioResponse() {
+        return new WsEliminarDestinatarioResponse();
     }
 
     /**
@@ -371,6 +381,14 @@ public class ObjectFactory {
      */
     public WsCrearGrupoActuadores createWsCrearGrupoActuadores() {
         return new WsCrearGrupoActuadores();
+    }
+
+    /**
+     * Create an instance of {@link WsEliminarDestinatario }
+     * 
+     */
+    public WsEliminarDestinatario createWsEliminarDestinatario() {
+        return new WsEliminarDestinatario();
     }
 
     /**
@@ -1005,6 +1023,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsEliminarDestinatario }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsEliminarDestinatario")
+    public JAXBElement<WsEliminarDestinatario> createWsEliminarDestinatario(WsEliminarDestinatario value) {
+        return new JAXBElement<WsEliminarDestinatario>(_WsEliminarDestinatario_QNAME, WsEliminarDestinatario.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WsCrearSensorResponse }{@code >}}
      * 
      */
@@ -1218,6 +1245,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsLecturaFactor")
     public JAXBElement<WsLecturaFactor> createWsLecturaFactor(WsLecturaFactor value) {
         return new JAXBElement<WsLecturaFactor>(_WsLecturaFactor_QNAME, WsLecturaFactor.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link WsEliminarDestinatarioResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "Comunicacion.Comunicacion", name = "wsEliminarDestinatarioResponse")
+    public JAXBElement<WsEliminarDestinatarioResponse> createWsEliminarDestinatarioResponse(WsEliminarDestinatarioResponse value) {
+        return new JAXBElement<WsEliminarDestinatarioResponse>(_WsEliminarDestinatarioResponse_QNAME, WsEliminarDestinatarioResponse.class, null, value);
     }
 
     /**

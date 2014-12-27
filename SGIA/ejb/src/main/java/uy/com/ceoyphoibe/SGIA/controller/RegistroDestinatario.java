@@ -1,7 +1,5 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
-import java.util.logging.Logger;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -16,9 +14,6 @@ import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
 public class RegistroDestinatario {
-
-	@Inject
-	private Logger log;
 
 	@Inject
 	private EntityManager em;
@@ -50,11 +45,18 @@ public class RegistroDestinatario {
 		return mensaje;
 	}
 
-	public void eliminar(Long id) throws Exception {
-		log.info("Elimino " + id);
+	public Mensaje eliminar(Long id) throws Exception {
+		
 		Destinatario destinatario = em.find(Destinatario.class, id);
-		em.remove(destinatario);
-		destinatarioEventSrc.fire(newDestinatario);
+		FachadaWS ws = new FachadaWS();
+		Mensaje mensaje = ws.eliminarDestinatario(destinatario);
+		if (mensaje.getTipo().equals("Informativo"))
+		{
+			destinatario.setActivoSistema('N');
+			em.merge(destinatario);
+		}
+		destinatarioEventSrc.fire(destinatario);
+		return mensaje;
 	}
 
 	@PostConstruct

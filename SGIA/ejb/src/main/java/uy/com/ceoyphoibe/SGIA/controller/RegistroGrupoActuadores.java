@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -17,8 +16,6 @@ import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 @Stateless
 public class RegistroGrupoActuadores {
 	
-	@Inject
-	   private Logger log;
 
 	   @Inject
 	   private EntityManager em;
@@ -48,10 +45,17 @@ public class RegistroGrupoActuadores {
 		   return resultado;
 	   }
 	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
+	   public Mensaje eliminar(Long id) throws Exception {
 		   GrupoActuadores grupoActuadores = em.find(GrupoActuadores.class, id);
-		   em.remove(grupoActuadores);
+		   FachadaWS ws= new FachadaWS();
+		   Mensaje resultado= ws.eliminarGrupoActuadores(grupoActuadores);
+		   if (resultado.getTipo().equals("Informativo"))
+		   {
+			   grupoActuadores.setActivoSistema('N');
+			   em.merge(grupoActuadores);
+		   }
+		   grupoActuadoresSrc.fire(grupoActuadores);
+		   return resultado;
 	   }
 	  
 	   public ArrayList<Actuador> getListaActuadoresId(long id){

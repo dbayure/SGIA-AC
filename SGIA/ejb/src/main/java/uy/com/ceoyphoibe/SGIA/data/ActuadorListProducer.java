@@ -43,6 +43,7 @@ public class ActuadorListProducer {
       CriteriaQuery<Actuador> criteria = cb.createQuery(Actuador.class);
       Root<Actuador> actuador = criteria.from(Actuador.class);
       criteria.select(actuador).orderBy(cb.asc(actuador.get("id")));
+      criteria.where(cb.equal(actuador.get("activoSistema"), 'S'));
       actuadores = em.createQuery(criteria).getResultList();
    }
 }

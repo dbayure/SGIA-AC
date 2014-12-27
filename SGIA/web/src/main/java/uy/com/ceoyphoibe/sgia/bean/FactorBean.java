@@ -296,7 +296,6 @@ public class FactorBean {
 	
 	public void desvincularSensor(UnselectEvent event) {
 		try {
-			System.out.println("+++++++++++++++++++++++entra a desvincular sensor");
 			Sensor sensor= (Sensor) event.getObject();
 			sensor.setFactor(null);
 			registroSensor.modificar(sensor);
@@ -321,9 +320,17 @@ public class FactorBean {
 			
 			factorAEliminar.setSensores(sensoresSelecconados);
 			registroFactor.modificar(factorAEliminar);
-			registroFactor.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			Mensaje mensaje=registroFactor.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo"))
+        	{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
+        	else
+        	{
+        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesMessage msg = new FacesMessage("Error al eliminar",

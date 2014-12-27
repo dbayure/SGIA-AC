@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 
@@ -88,9 +89,17 @@ public class SensorBean {
 			Sensor s= registroSensor.obtenerSensorPorId(id);
 			s.setFactor(null);
 			registroSensor.modificar(s);
-			registroSensor.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+			Mensaje mensaje=registroSensor.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo"))
+        	{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
+        	else
+        	{
+        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
 		}
 		catch(Exception e) {
 			FacesMessage msg = new FacesMessage("Error al eliminar", id.toString());  

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
@@ -622,6 +623,233 @@ public class FachadaWS {
 		BigInteger periodicidadNiveles= BigInteger.valueOf(placa.getPeriodicidadNiveles());
         uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsActualizarPlaca(periodicidadLecturas, periodicidadNiveles);
         Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarDestinatario(Destinatario destinatario)
+	{
+		Comunicacion clienteWS= iniciarConexion(destinatario.getPlaca().getIpPlaca(), destinatario.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDestinatario= BigInteger.valueOf(destinatario.getIdDestinatario());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarDestinatario(idDestinatario);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarSensor(Sensor sensor)
+	{
+		Comunicacion clienteWS= iniciarConexion(sensor.getPlaca().getIpPlaca(), sensor.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(sensor.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarActuadorAvance(ActuadorAvance actuadorAvance)
+	{
+		Comunicacion clienteWS= iniciarConexion(actuadorAvance.getPlaca().getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(actuadorAvance.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarActuador(Actuador actuador)
+	{
+		Comunicacion clienteWS= iniciarConexion(actuador.getPlaca().getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(actuador.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarGrupoActuadores(GrupoActuadores grupoActuadores)
+	{
+		Comunicacion clienteWS= iniciarConexion(grupoActuadores.getPlaca().getIpPlaca(), grupoActuadores.getPlaca().getPuetroPlaca());
+        
+		BigInteger idGrupo= BigInteger.valueOf(grupoActuadores.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarGrupoActuadores(idGrupo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarFactor(Factor factor)
+	{
+		Comunicacion clienteWS= iniciarConexion(factor.getPlaca().getIpPlaca(), factor.getPlaca().getPuetroPlaca());
+        
+		BigInteger idFactor= BigInteger.valueOf(factor.getIdFactor());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarFactor(idFactor);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar)
+	{
+		Comunicacion clienteWS= iniciarConexion(placaAuxiliar.getPlaca().getIpPlaca(), placaAuxiliar.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(placaAuxiliar.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje eliminarNivelSeveridad(NivelSeveridad nivelSeveridad)
+	{
+		Comunicacion clienteWS= iniciarConexion(nivelSeveridad.getPlaca().getIpPlaca(), nivelSeveridad.getPlaca().getPuetroPlaca());
+        
+		BigInteger idNivelSeveridad= BigInteger.valueOf(nivelSeveridad.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsEliminarNivelSeveridad(idNivelSeveridad);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public ResultadoAccion encenderGrupoActuadores(GrupoActuadores grupo)
+	{
+		Comunicacion clienteWS= iniciarConexion(grupo.getPlaca().getIpPlaca(), grupo.getPlaca().getPuetroPlaca());
+        
+		BigInteger idGrupoActuadores= BigInteger.valueOf(grupo.getId());
+		ResultadoAccionWS resultadoWS= clienteWS.wsEncenderGrupoActuadores(idGrupoActuadores);
+		
+		ResultadoAccion resultado= new ResultadoAccion();
+		Timestamp fechaHora= new Timestamp(resultadoWS.getFecha().toGregorianCalendar().getTimeInMillis());
+		String accion= resultadoWS.getTipoAccion();
+
+		Mensaje mensaje= new Mensaje();
+		mensaje.setTexto(resultadoWS.getMensaje().getTexto());
+		mensaje.setTipo(resultadoWS.getMensaje().getTipo());
+		mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
+		
+		resultado.setMensaje(mensaje);
+		resultado.setFecha(fechaHora);
+		resultado.setAccion(accion);
+		
+		return resultado;
+	}
+	
+	public ResultadoAccion apagarGrupoActuadores(GrupoActuadores grupo)
+	{
+		Comunicacion clienteWS= iniciarConexion(grupo.getPlaca().getIpPlaca(), grupo.getPlaca().getPuetroPlaca());
+        
+		BigInteger idGrupoActuadores= BigInteger.valueOf(grupo.getId());
+		ResultadoAccionWS resultadoWS= clienteWS.wsApagarGrupoActuadores(idGrupoActuadores);
+		
+		ResultadoAccion resultado= new ResultadoAccion();
+		Timestamp fechaHora= new Timestamp(resultadoWS.getFecha().toGregorianCalendar().getTimeInMillis());
+		String accion= resultadoWS.getTipoAccion();
+
+		Mensaje mensaje= new Mensaje();
+		mensaje.setTexto(resultadoWS.getMensaje().getTexto());
+		mensaje.setTipo(resultadoWS.getMensaje().getTipo());
+		mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
+		
+		resultado.setMensaje(mensaje);
+		resultado.setFecha(fechaHora);
+		resultado.setAccion(accion);
+		
+		return resultado;
+	}
+	
+	public ResultadoAccion cambiarPosicionGrupoActuadores(GrupoActuadores grupo, int nroPosicion)
+	{
+		Comunicacion clienteWS= iniciarConexion(grupo.getPlaca().getIpPlaca(), grupo.getPlaca().getPuetroPlaca());
+        
+		BigInteger idGrupoActuadores= BigInteger.valueOf(grupo.getId());
+		BigInteger posicion= BigInteger.valueOf(nroPosicion);
+		ResultadoAccionWS resultadoWS= clienteWS.wsCambiarPosicionGrupoActuadores(idGrupoActuadores, posicion);
+		
+		ResultadoAccion resultado= new ResultadoAccion();
+		Timestamp fechaHora= new Timestamp(resultadoWS.getFecha().toGregorianCalendar().getTimeInMillis());
+		String accion= resultadoWS.getTipoAccion();
+
+		Mensaje mensaje= new Mensaje();
+		mensaje.setTexto(resultadoWS.getMensaje().getTexto());
+		mensaje.setTipo(resultadoWS.getMensaje().getTipo());
+		mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
+		
+		resultado.setMensaje(mensaje);
+		resultado.setFecha(fechaHora);
+		resultado.setAccion(accion);
+		
+		return resultado;
+	}
+	
+	public Mensaje reestablecerActuadorAvance(ActuadorAvance actuadorAvance, int nroPosicion)
+	{
+		Comunicacion clienteWS= iniciarConexion(actuadorAvance.getPlaca().getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(actuadorAvance.getId());
+		BigInteger posicion= BigInteger.valueOf(nroPosicion);
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsReestablecerActuadorAvance(idDispositivo, posicion);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje reestablecerSensor(Sensor sensor)
+	{
+		Comunicacion clienteWS= iniciarConexion(sensor.getPlaca().getIpPlaca(), sensor.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(sensor.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsReestablecerEstadoAlertaDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje reestablecerActuador(Actuador actuador)
+	{
+		Comunicacion clienteWS= iniciarConexion(actuador.getPlaca().getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(actuador.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsReestablecerEstadoAlertaDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
+	public Mensaje reestablecerPlacaAuxiliar(PlacaAuxiliar placaAuxiliar)
+	{
+		Comunicacion clienteWS= iniciarConexion(placaAuxiliar.getPlaca().getIpPlaca(), placaAuxiliar.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(placaAuxiliar.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsReestablecerEstadoAlertaDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
         mensaje.setId(resultadoWS.getIdMensaje().longValue());
         mensaje.setTexto(resultadoWS.getTexto());
         mensaje.setTipo(resultadoWS.getTipo());

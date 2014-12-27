@@ -65,6 +65,15 @@
 				<p:outputLabel for="modelo" value="Modelo:" />
 				<p:inputText id="modelo" value="#{actuadorBean.actuador.modelo}"
 					label="modelo" required="false" />
+					
+				<p:outputLabel for="dispPadre" value="Dispositivo Padre:" />
+				<p:selectOneMenu id="dispPadre"
+					value="#{actuadorBean.actuador.padre}">
+					<f:converter converterId="placaAuxiliarConverter" />
+					<f:selectItem itemLabel="Seleccione..." itemValue="" />
+					<f:selectItems value="#{placasAuxiliares}" var="placaAux"
+						itemLabel="#{placaAux.nombre}" itemValue="#{placaAux}" />
+				</p:selectOneMenu>
 
 				<p:outputLabel for="numPuerto" value="Numero de puerto:" />
 				<p:inputText id="numPuerto"
@@ -139,6 +148,23 @@
 						<f:facet name="input">
 							<p:inputText id="modelInputModelo" value="#{_actuador.modelo}"
 								style="width:950%" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Dispositivo Padre" style="width:20%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_actuador.padre.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu id="dispPadre"
+								value="#{_actuador.padre}">
+								<f:converter converterId="placaAuxiliarConverter" />
+								<f:selectItem itemLabel="Seleccione..." itemValue="" />
+								<f:selectItems value="#{placasAuxiliares}" var="placaAux"
+									itemLabel="#{placaAux.nombre}" itemValue="#{placaAux}" />
+							</p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>

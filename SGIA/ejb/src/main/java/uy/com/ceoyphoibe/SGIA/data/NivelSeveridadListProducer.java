@@ -43,6 +43,7 @@ public class NivelSeveridadListProducer {
       CriteriaQuery<NivelSeveridad> criteria = cb.createQuery(NivelSeveridad.class);
       Root<NivelSeveridad> nivel = criteria.from(NivelSeveridad.class);
       criteria.select(nivel).orderBy(cb.asc(nivel.get("id")));
+      criteria.where(cb.equal(nivel.get("activoSistema"), "S"));
       nivelesSeveridad = em.createQuery(criteria).getResultList();
    }
 }

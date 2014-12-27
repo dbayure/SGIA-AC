@@ -49,20 +49,27 @@
 
 			</p:panel>
 
-<!-- 			<p:panel id="panelElementos"> -->
+				
 
 				<p:panel id="gridFactores"
 					rendered="#{placaBean.seleccion == 'factores'}">
 					
-					<p:dataScroller value="#{factores}" var="_factores" chunkSize="5">
-					<f:facet name="header">     
-					<h:outputText value="Factores" />
-					<p:commandLink
-									style="display: block; margin-left: auto; margin-right: auto;">
+
+				<p:panel style="border:none;">
+				<p:commandLink
+									style="display: block; float:right; margin-left: auto; margin-right: auto;" update=":form">
 									
 									<h:graphicImage value="/resources/gfx/Recargar.png"
 										alt="recargar" height="25px" />
 								</p:commandLink>
+				</p:panel>
+				<p></p>
+				<p:spacer height="15"></p:spacer>
+					
+					<p:dataScroller value="#{factores}" var="_factores" chunkSize="5">
+					<f:facet name="header">     
+					<h:outputText value="Factores" />
+					
 					</f:facet>
 <!-- 						<p:panel> -->
 							<h:panelGrid columns="5"

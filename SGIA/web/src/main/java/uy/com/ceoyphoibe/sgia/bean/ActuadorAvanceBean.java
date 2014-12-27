@@ -274,9 +274,17 @@ public class ActuadorAvanceBean {
 
 	public void eliminar(Long id) {
 		try {
-			registroActuadorAvance.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			Mensaje mensaje=registroActuadorAvance.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo"))
+        	{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
+        	else
+        	{
+        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Error al eliminar",
 					id.toString());

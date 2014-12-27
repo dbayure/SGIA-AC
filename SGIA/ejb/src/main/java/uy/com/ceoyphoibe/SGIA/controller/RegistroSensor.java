@@ -54,11 +54,17 @@ public class RegistroSensor {
 		   sensorEventSrc.fire(sensor);
 	   }
 	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
+	   public Mensaje eliminar(Long id) throws Exception {
 		   Sensor sensor = em.find(Sensor.class, id);
-		   em.remove(sensor);
+		   FachadaWS wsClient = new FachadaWS();
+		   Mensaje resultado=wsClient.eliminarSensor(sensor);
+		   if (resultado.getTipo().equals("Informativo"))
+		   {
+			   sensor.setActivoSistema('N');
+			   em.merge(sensor);
+		   }
 		   sensorEventSrc.fire(sensor);
+		   return resultado;
 	   }
 	   
 	   public Sensor obtenerSensorPorId (Long id)

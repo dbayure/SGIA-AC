@@ -42,6 +42,7 @@ public class DestinatarioListProducer {
       CriteriaQuery<Destinatario> criteria = cb.createQuery(Destinatario.class);
       Root<Destinatario> destinatario = criteria.from(Destinatario.class);
       criteria.select(destinatario).orderBy(cb.asc(destinatario.get("nombre")));
+      criteria.where(cb.equal(destinatario.get("activoSistema"), 'S'));
       destinatarios = em.createQuery(criteria).getResultList();
    }
 }

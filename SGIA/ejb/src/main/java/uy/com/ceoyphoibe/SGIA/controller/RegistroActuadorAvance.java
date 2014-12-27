@@ -1,8 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.Set;
-import java.util.logging.Logger;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -18,9 +16,6 @@ import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
 
 @Stateless
 public class RegistroActuadorAvance {
-
-	@Inject
-	private Logger log;
 
 	@Inject
 	private EntityManager em;
@@ -55,11 +50,17 @@ public class RegistroActuadorAvance {
 		return resultado;
 	}
 
-	public void eliminar(Long id) throws Exception {
-		log.info("Elimino " + id);
+	public Mensaje eliminar(Long id) throws Exception {
 		ActuadorAvance actuadorAvance = em.find(ActuadorAvance.class, id);
-		em.remove(actuadorAvance);
-		actuadorAvanceEventSrc.fire(newActuadorAvance);
+		FachadaWS wsClient = new FachadaWS();
+		Mensaje resultado=wsClient.eliminarActuadorAvance(actuadorAvance);
+		if (resultado.getTipo().equals("Informativo"))
+		{
+			actuadorAvance.setActivoSistema('N');
+			em.merge(actuadorAvance);
+		}
+		actuadorAvanceEventSrc.fire(actuadorAvance);
+		return resultado;
 	}
 
 	public ActuadorAvance obtenerActuadorAvance(Long id) {

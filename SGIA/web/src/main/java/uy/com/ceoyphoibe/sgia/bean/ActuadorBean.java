@@ -161,13 +161,20 @@ public class ActuadorBean {
 
 	public void eliminar(Long id) {
 		try {
-			System.out.println("El valor del id que tiene al actuador a eliminar : " + id);
 			Actuador a =  regActuador.obtenerActuadorPorId(id);
 			a.setGrupoActuadores(null);
 			regActuador.modificar(a);
-			regActuador.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			Mensaje mensaje=regActuador.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo"))
+        	{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
+        	else
+        	{
+        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Error al eliminar",
 					id.toString());

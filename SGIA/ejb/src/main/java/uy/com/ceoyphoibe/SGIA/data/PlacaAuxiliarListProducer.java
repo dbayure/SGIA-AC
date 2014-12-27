@@ -43,6 +43,7 @@ public class PlacaAuxiliarListProducer {
       CriteriaQuery<PlacaAuxiliar> criteria = cb.createQuery(PlacaAuxiliar.class);
       Root<PlacaAuxiliar> placaAux = criteria.from(PlacaAuxiliar.class);
       criteria.select(placaAux).orderBy(cb.asc(placaAux.get("id")));
+      criteria.where(cb.equal(placaAux.get("activoSistema"), 'S'));
       placasAuxiliares = em.createQuery(criteria).getResultList();
    }
 }

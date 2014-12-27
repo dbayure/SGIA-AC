@@ -43,6 +43,7 @@ public class SensorListProducer {
       CriteriaQuery<Sensor> criteria = cb.createQuery(Sensor.class);
       Root<Sensor> sensor = criteria.from(Sensor.class);
       criteria.select(sensor).orderBy(cb.asc(sensor.get("nombre")));
+      criteria.where(cb.equal(sensor.get("activoSistema"), 'S'));
       sensores = em.createQuery(criteria).getResultList();
    }
 }

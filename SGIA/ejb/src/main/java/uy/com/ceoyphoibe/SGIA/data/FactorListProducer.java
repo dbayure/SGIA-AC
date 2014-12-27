@@ -43,6 +43,7 @@ public class FactorListProducer {
       CriteriaQuery<Factor> criteria = cb.createQuery(Factor.class);
       Root<Factor> factor = criteria.from(Factor.class);
       criteria.select(factor).orderBy(cb.asc(factor.get("idFactor")));
+      criteria.where(cb.equal(factor.get("activoSistema"), 'S'));
       factores = em.createQuery(criteria).getResultList();
    }
 }

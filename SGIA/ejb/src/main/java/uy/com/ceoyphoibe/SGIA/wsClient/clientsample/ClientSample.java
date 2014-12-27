@@ -71,6 +71,9 @@ public class ClientSample {
 	        System.out.println("Server said: " + port1.wsActualizarSensor(null,null,null,null,null,null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
+	        System.out.println("Server said: " + port1.wsEliminarDestinatario(null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
 	        System.out.println("Server said: " + port1.wsAgregarFilaPerfilActivacion(null,null,null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
@@ -204,6 +207,9 @@ public class ClientSample {
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsActualizarSensor(null,null,null,null,null,null,null,null));
+	        //Please input the parameters instead of 'null' for the upper method!
+	
+	        System.out.println("Server said: " + port2.wsEliminarDestinatario(null));
 	        //Please input the parameters instead of 'null' for the upper method!
 	
 	        System.out.println("Server said: " + port2.wsAgregarFilaPerfilActivacion(null,null,null));

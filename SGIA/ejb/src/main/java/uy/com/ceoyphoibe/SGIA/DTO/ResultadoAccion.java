@@ -15,6 +15,7 @@ public class ResultadoAccion implements Serializable{
 	private Mensaje mensaje;
 	private Date fecha;
 	private String accion;
+	
 	public Mensaje getMensaje() {
 		return mensaje;
 	}

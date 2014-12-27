@@ -41,6 +41,7 @@ public class ActuadorAvanceListProducer {
       CriteriaQuery<ActuadorAvance> criteria = cb.createQuery(ActuadorAvance.class);
       Root<ActuadorAvance> actuadorAvance = criteria.from(ActuadorAvance.class);
       criteria.select(actuadorAvance).orderBy(cb.asc(actuadorAvance.get("nombre")));
+      criteria.where(cb.equal(actuadorAvance.get("activoSistema"), 'S'));
       actuadoresAvance = em.createQuery(criteria).getResultList();
    }
 }

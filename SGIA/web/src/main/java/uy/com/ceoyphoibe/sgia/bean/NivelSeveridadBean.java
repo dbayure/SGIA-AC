@@ -239,9 +239,17 @@ public class NivelSeveridadBean {
 
 	public void eliminar(Long id) {
 		try {
-			registroNivelSeveridad.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			Mensaje mensaje=registroNivelSeveridad.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo"))
+        	{
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
+        	else
+        	{
+        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+        	}
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Error al eliminar",
 					id.toString());
@@ -256,8 +264,6 @@ public class NivelSeveridadBean {
 			NivelSeveridad nivelTemp= registroNivelSeveridad.obtenerNivelSeveridadPorId(id);
 			nivelSeveridadSeleccionado.setActivoSistema("S");
 			factorTemp= nivelTemp.getFactor();
-//			System.out.println("'''''''''''''''''''Con el factor: "+nivelTemp.getFactor().getNombre());
-//			nivelSeveridadSeleccionado.setFactor(factorTemp);
 			nivelSeveridadSeleccionado.setPrioridad(nivelTemp.getPrioridad());
 			perfilActivacion= new HashSet<FilaPerfilActivacion>();
 			Iterator<FilaPerfilActivacion> perfiltemp= nivelTemp.getPerfilActivacion().iterator();
