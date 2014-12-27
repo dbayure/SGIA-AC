@@ -173,6 +173,16 @@ public class PlacaBean {
 		return "/paginas/placas/accionesPlaca.xhtml?faces-redirect=true";
 	}
 	
+	public String niveles()
+	{
+		return "/paginas/nivelesSeveridad/nivelSeveridad.xhtml?faces-redirect=true";
+	}
+	
+	public String grupos()
+	{
+		return "/paginas/grupoActuadores/grupoActuadores.xhtml?faces-redirect=true";
+	}
+	
 	public void setFactores(){
 		seleccion = "factores";
 	}
