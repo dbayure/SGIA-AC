@@ -183,6 +183,11 @@ public class PlacaBean {
 		return "/paginas/grupoActuadores/grupoActuadores.xhtml?faces-redirect=true";
 	}
 	
+	public String graficas()
+	{
+		return "/paginas/graficas/grafica.xhtml?faces-redirect=true";
+	}
+	
 	public void setFactores(){
 		seleccion = "factores";
 	}
