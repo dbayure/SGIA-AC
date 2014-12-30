@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,16 +9,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
-
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
@@ -89,7 +84,7 @@ public class FactorBean {
         	float valor=lecturas.get(i).getValor();
         	if (valor >= 0 && i%10 == 0)
         	{
-        		int temp= (int)valor;
+//        		int temp= (int)valor;
         		series1.set(i, valor );
         	}
         		
