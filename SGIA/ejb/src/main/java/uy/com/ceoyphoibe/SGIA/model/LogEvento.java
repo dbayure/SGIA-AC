@@ -1,11 +1,14 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,8 +24,9 @@ public class LogEvento implements Serializable {
 	private static final long serialVersionUID = 4371102659328973422L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idLogEvento;
-	private Date fecha;
+	private Timestamp fecha;
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private TipoLogEvento tipoLogEvento;
@@ -45,11 +49,11 @@ public class LogEvento implements Serializable {
 		this.idLogEvento = idLogEvento;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 

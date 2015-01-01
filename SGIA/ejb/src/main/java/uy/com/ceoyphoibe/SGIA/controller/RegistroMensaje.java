@@ -56,7 +56,7 @@ public class RegistroMensaje {
 		   mensajeEventSrc.fire(newMensaje);
 	   }
 	   
-	   public Mensaje obtenerMensajeId(Long id) {
+	   public Mensaje obtenerMensajeId(long id) {
 		   return em.find(Mensaje.class, id);
 		}
 
