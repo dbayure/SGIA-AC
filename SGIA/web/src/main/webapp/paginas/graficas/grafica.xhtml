@@ -7,8 +7,6 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-
-
 		<style type="text/css">
 .placaRowSelected {
 	background-color: #dbffb8 !important;
@@ -18,8 +16,6 @@
 </style>
 
 		<h:form id="form" prependId="false">
-
-
 
 			<p:panel id="p1">
 				<h:panelGrid id="gridImg" columns="10">
@@ -45,6 +41,7 @@
 						update="form" icon="ui-icon-gear" />
 
 				</h:panelGrid>
+
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
 					<p:selectOneButton value="#{placaBean.estadoPlaca}">
@@ -58,71 +55,116 @@
 				</h:panelGrid>
 
 			</p:panel>
+			
+			<p:panel>
+				<h:panelGrid id="gridSelFactorSensor" columns="2">
+					<p:selectOneButton value="#{graficaBean.opcionVisualizacion}">
+						<f:selectItem itemLabel="Factores" itemValue="F" />
+						<f:selectItem itemLabel="Sensores" itemValue="S" />
+					</p:selectOneButton>
+					<p:commandButton action="#{graficaBean.mostrarFactorSensor}"
+						update="form" icon="ui-icon-transferthick-e-w" />
+				</h:panelGrid>
+				
+				<h:panelGrid id="gridFactores" rendered="#{graficaBean.opcionVisualizacion == 'F'}">
+				<p:carousel value="#{factores}" headerText="Factores" itemStyle="width: 270px;"
+					var="_factor" style="width: 100% !important;">
+					<h:panelGrid columns="2" style="width:100%" cellpadding="5"
+						columnClasses="label,value">
+						<f:facet name="header">
+						<p:commandLink	style="display: block; float:center; margin-left: auto; margin-right: auto;"
+							update=":form" action="#{graficaBean.definirFactorGrafica(_factor.nombre)}">
+							<h:graphicImage value="/resources/gfx/#{_factor.nombre}.png" alt="factor" height="25px" />
+						</p:commandLink>
+						</f:facet>
 
+						<h:outputText value="Nombre:" />
+						<h:outputText value="#{_factor.nombre}" style="font-weight: bold;" />
 
+						<h:outputText value="Minimo" />
+						<h:outputText value="#{_factor.valorMin}" style="font-weight: bold;"/>
+
+						<h:outputText value="Maximo:" />
+						<h:outputText value="#{_factor.valorMax}" style="font-weight: bold;"/>
+
+						<h:outputText value="Unidad" />
+						<h:outputText value="#{_factor.unidad}" style="font-weight: bold;"/>
+					</h:panelGrid>
+
+				</p:carousel>
+				</h:panelGrid>
+				
+				<h:panelGrid id="gridSensores" rendered="#{graficaBean.opcionVisualizacion == 'S'}">
+				<p:carousel value="#{sensores}" headerText="Sensores" itemStyle="width: 270px;"
+					var="_sensor" style="width: 100% !important;">
+					<h:panelGrid columns="2" style="width:100%" cellpadding="5"
+						columnClasses="label,value">
+						<f:facet name="header">
+						<p:commandLink	style="display: block; float:center; margin-left: auto; margin-right: auto;"
+							update=":form" action="#{graficaBean.definirSensorGrafica(_sensor.nombre)}">
+							<h:graphicImage value="/resources/gfx/Luminosidad.png" alt="factor" height="25px" />
+						</p:commandLink>
+						</f:facet>
+
+						<h:outputText value="Nombre:" />
+						<h:outputText value="#{_sensor.nombre}" style="font-weight: bold;"/>
+
+						<h:outputText value="Modelo" />
+						<h:outputText value="#{_sensor.modelo}" style="font-weight: bold;"/>
+
+						<h:outputText value="Estado:" />
+						<h:outputText value="#{_sensor.estadoAlerta}" style="font-weight: bold;"/>
+
+						<h:outputText value="Puerto" />
+						<h:outputText value="#{_sensor.numeroPuerto}" style="font-weight: bold;"/>
+					</h:panelGrid>
+
+				</p:carousel>
+				</h:panelGrid>
+				
+						
+			</p:panel>
+			
+			<p:panel rendered="#{graficaBean.nombreFactorGraficar == 'Temperatura'}" >
+				<p:panelGrid>
+					<p:chart type="line" model="#{graficaBean.lineModel1}" style="height:300px;"/>
+					<p:outputLabel value="Temperatura"/>
+				</p:panelGrid>
+				
+			</p:panel>
+			
+			<p:panel rendered="#{graficaBean.nombreFactorGraficar == 'Humedad'}" >
+				<p:panelGrid>
+					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
+					<p:outputLabel value="Humedad"/>
+				</p:panelGrid>
+			</p:panel>
+
+			<p:panel rendered="#{graficaBean.nombreSensorGraficar == 'sensor temperatura 1'}" >
+				<p:panelGrid>
+					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
+					<p:outputLabel value="Temperatura 1"/>
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel rendered="#{graficaBean.nombreSensorGraficar == 'sensor temperatura 2'}" >
+				<p:panelGrid>
+					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
+					<p:outputLabel value="Temperatura 2"/>
+				</p:panelGrid>
+			</p:panel>
+			
+			<p:panel rendered="#{graficaBean.nombreSensorGraficar == 'sensor humedad 1'}" >
+				<p:panelGrid>
+					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
+					<p:outputLabel value="Humedad 1"/>
+				</p:panelGrid>
+			</p:panel>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
-			
-			<p></p>
-			<h1 style="text-align: center;">Administración de Placas</h1>
-			<p:panel id="panelSBC">
-				
 
-				<h:panelGrid columns="2">
 
-					<p:outputLabel for="estado" value="Estado :" />
-					<h:outputText id="estado" value="#{placaBean.placa.estado}"
-						label="Estado"/>
-
-					<p:outputLabel for="serie" value="Serie :" />
-					<h:outputText id="serie" value="#{placaBean.placa.nroSerie}"
-						label="serie"/>
-
-					<p:outputLabel for="descripcion" value="Descripcion :" />
-					<p:inputText id="descripcion"
-						value="#{placaBean.placa.descripcion}" label="Descripcion"
-						required="false" />
-
-					<p:outputLabel for="nroPuertosAnalogicos"
-						value="Puertos Analogicos :" />
-					<p:spinner id="nroPuertosAnalogicos"
-						value="#{placaBean.placa.numPuertosAnalogicos}" label="analogicos"
-						required="false" />
-
-					<p:outputLabel for="nroPuertosSDigitales"
-						value="Puertos Salida Digitales :" />
-					<p:spinner id="nroPuertosSDigitales"
-						value="#{placaBean.placa.numPuertosSDigitales}" label="sDigitales"
-						required="false" />
-
-					<p:outputLabel for="nroPuertosEDigitales"
-						value="Puertos Entrada Digitales :" />
-					<p:spinner id="nroPuertosEDigitales"
-						value="#{placaBean.placa.numPuertosEDigitales}" label="eDigitales"
-						required="false" />
-
-					<p:outputLabel for="estadoAlerta" value="Estado Alerta :" />
-					<h:outputText id="estadoAlerta"
-						value="#{placaBean.placa.estadoAlerta}" label="estadoAlerta"
-						required="false" />
-
-					<p:outputLabel for="perLecturas" value="Periodicidad Lecturas :" />
-					<p:inputText id="perLecturas"
-						value="#{placaBean.placa.periodicidadLecturas}" label="pLecturas"
-						required="false" />
-
-					<p:outputLabel for="perNiveles" value="Periodicidad Niveles :" />
-					<p:inputText id="perNiveles"
-						value="#{placaBean.placa.periodicidadNiveles}" label="pNiveles"
-						required="false" />
-
-				</h:panelGrid>
-				<p>
-					<p:commandButton id="actualizar" action="#{placaBean.registrar}"
-						value="Actualizar" style="margin-left: 400px;" update=":form" />
-				</p>
-			</p:panel>
 
 		</h:form>
 	</ui:define>

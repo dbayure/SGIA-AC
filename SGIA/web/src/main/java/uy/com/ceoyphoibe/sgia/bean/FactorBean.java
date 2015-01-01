@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -10,16 +9,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
-
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
@@ -55,7 +50,6 @@ public class FactorBean {
 	
 	
     private LineChartModel animatedModel1;
-//    private BarChartModel animatedModel2;
  
     @PostConstruct
     public void init() {
@@ -66,9 +60,6 @@ public class FactorBean {
         return animatedModel1;
     }
  
-//    public BarChartModel getAnimatedModel2() {
-//        return animatedModel2;
-//    }
  
     private void createAnimatedModels() {
         animatedModel1 = initLinearModel();
@@ -78,41 +69,9 @@ public class FactorBean {
         Axis yAxis = animatedModel1.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(50);
-         
-//        animatedModel2 = initBarModel();
-//        animatedModel2.setTitle("Bar Charts");
-//        animatedModel2.setAnimate(true);
-//        animatedModel2.setLegendPosition("ne");
-//        yAxis = animatedModel2.getAxis(AxisType.Y);
-//        yAxis.setMin(0);
-//        yAxis.setMax(200);
     }
      
-//    private BarChartModel initBarModel() {
-//        BarChartModel model = new BarChartModel();
-// 
-//        ChartSeries boys = new ChartSeries();
-//        boys.setLabel("Boys");
-//        boys.set("2004", 120);
-//        boys.set("2005", 100);
-//        boys.set("2006", 44);
-//        boys.set("2007", 150);
-//        boys.set("2008", 25);
-// 
-//        ChartSeries girls = new ChartSeries();
-//        girls.setLabel("Girls");
-//        girls.set("2004", 52);
-//        girls.set("2005", 60);
-//        girls.set("2006", 110);
-//        girls.set("2007", 135);
-//        girls.set("2008", 120);
-// 
-//        model.addSeries(boys);
-//        model.addSeries(girls);
-//         
-//        return model;
-//    }
-     
+
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
  
@@ -125,29 +84,15 @@ public class FactorBean {
         	float valor=lecturas.get(i).getValor();
         	if (valor >= 0 && i%10 == 0)
         	{
-        		int temp= (int)valor;
+//        		int temp= (int)valor;
         		series1.set(i, valor );
         	}
         		
         	System.out.println("Agrega para graficar: "+ lecturas.get(i).getValor());
         }
-//        series1.set(1, 5);
-//        series1.set(2, 7);
-//        series1.set(3, 3);
-//        series1.set(4, 2);
-//        series1.set(5, 2);
-//// 
-//        LineChartSeries series2 = new LineChartSeries();
-//        series2.setLabel("Series 2");
-// 
-//        series2.set(1, 6);
-//        series2.set(2, 3);
-//        series2.set(3, 2);
-//        series2.set(4, 7);
-//        series2.set(5, 9);
+
  
         model.addSeries(series1);
-  //      model.addSeries(series2);
          
         return model;
     }
