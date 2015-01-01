@@ -26,17 +26,17 @@ public class LogEventoBean {
 	private Mensaje mensaje;
 	private Dispositivo dispositivo;
 	
-	public void registrar() {
-		try {
-			registroLogEvento.registro();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		catch (Exception e) {
-		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
-        FacesContext.getCurrentInstance().addMessage(null, msg); 
-		}
-	}
+//	public void registrar() {
+//		try {
+//			registroLogEvento.registro();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
+//	        FacesContext.getCurrentInstance().addMessage(null, msg);
+//		}
+//		catch (Exception e) {
+//		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
+//        FacesContext.getCurrentInstance().addMessage(null, msg); 
+//		}
+//	}
 	
 	
 	
