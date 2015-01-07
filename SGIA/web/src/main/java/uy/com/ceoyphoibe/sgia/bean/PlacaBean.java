@@ -187,6 +187,10 @@ public class PlacaBean {
 	{
 		return "/paginas/graficas/grafica.xhtml?faces-redirect=true";
 	}
+	public String inicio()
+	{
+		return "/paginas/principal/principal.jsf?faces-redirect=true";
+	}
 	
 	public void setFactores(){
 		seleccion = "factores";
