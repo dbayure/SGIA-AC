@@ -36,11 +36,9 @@ public class RegistroLogEvento {
 	   }
 	   
 	   
-	   public void registro() throws Exception {
-	      log.info("Registro " + newLogEvento.toString());
-	      em.persist(newLogEvento);
-	      logEventoEventSrc.fire(newLogEvento);
-	      initNewLogEvento();
+	   public void registro(LogEvento logEvento) throws Exception {
+	      em.persist(logEvento);
+	      logEventoEventSrc.fire(logEvento);
 	   }
 	   
 	   public void modificar(LogEvento logEvento) throws Exception {

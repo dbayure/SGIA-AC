@@ -66,6 +66,10 @@ public class RegistroTipoLogEvento {
 		   em.remove(tipoLogEvento);
 		   tipoLogEventoEventSrc.fire(newTipoLogEvento);
 	   }
+	   
+	   public TipoLogEvento obtenerTipoLogEventoPorId(long id) {
+			return em.find(TipoLogEvento.class, id);
+		}
 
 	   @PostConstruct
 	   public void initNewTipoLogEvento() {

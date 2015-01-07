@@ -10,13 +10,23 @@ import javax.jws.WebService;
 
 import uy.com.ceoyphoibe.SGIA.DTO.AccionWS;
 import uy.com.ceoyphoibe.SGIA.DTO.LecturaWS;
+import uy.com.ceoyphoibe.SGIA.DTO.LogEventoWS;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroAccion;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroLecturaFactor;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroLogEvento;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.model.Accion;
+import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Lectura;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
+import uy.com.ceoyphoibe.SGIA.model.LogEvento;
+import uy.com.ceoyphoibe.SGIA.model.Mensaje;
+import uy.com.ceoyphoibe.SGIA.model.Placa;
+import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
 @WebService
 public class sgia_AC_ws implements Serializable{
@@ -33,7 +43,19 @@ public class sgia_AC_ws implements Serializable{
 	private RegistroLecturaFactor rLecturaFactor;
 	
 	@Inject
+	private RegistroLogEvento rLogEvento;
+	
+	@Inject
 	private RegistroAccion rAcciones;
+	
+	@Inject
+	private  RegistroDispositivo rDispositivo;
+	
+	@Inject
+	private  RegistroTipoLogEvento rTipoLogEvento;
+	
+	@Inject
+	private  RegistroMensaje rMensaje;
 	
 	@WebMethod
 	public boolean inLecturas(String nroSerie, List<LecturaWS> listaLecturas)
@@ -112,6 +134,32 @@ public class sgia_AC_ws implements Serializable{
 				e.printStackTrace();
 			}
 		}
+		return true;
+	}
+	
+	@WebMethod
+	public boolean inLogEvento(String nroSerie, LogEventoWS logEventoWS)
+	{
+		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+		
+		LogEvento logEvento= new LogEvento();
+		Timestamp fechaHora= Timestamp.valueOf(logEventoWS.getFecha());
+		logEvento.setFecha(fechaHora);
+		Placa placaTemp= rPlaca.obtenerPlacaPorId(idPlaca);
+		logEvento.setPlaca(placaTemp);
+		Dispositivo dispositivoTemp= rDispositivo.obtenerDispositivoPorId(logEventoWS.getIdDispositivo());
+		logEvento.setDispositivo(dispositivoTemp);
+		TipoLogEvento tipoLogEventoTemp= rTipoLogEvento.obtenerTipoLogEventoPorId(logEventoWS.getTipoLog()); 
+		logEvento.setTipoLogEvento(tipoLogEventoTemp);
+		Mensaje mensajeTemp= rMensaje.obtenerMensajeId(logEventoWS.getIdMensaje());
+		logEvento.setMensaje(mensajeTemp);
+		
+		try {
+			rLogEvento.registro(logEvento);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return true;
 	}
 }
