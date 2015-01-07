@@ -18,7 +18,7 @@
 		<h:form id="form" prependId="false">
 
 			<p:panel id="p1">
-				<h:panelGrid id="gridImg" columns="10">
+				<h:panelGrid id="gridImg" columns="10" >
 					<h:graphicImage value="/resources/gfx/circuito.png" alt="placa"
 						height="50px" />
 					<p>
@@ -44,9 +44,13 @@
 
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I" />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
+						<f:selectItem itemLabel="Manual" itemValue="M" />
+						<f:selectItem itemLabel="Automatico" itemValue="A" />
+					</p:selectOneButton>
+					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>

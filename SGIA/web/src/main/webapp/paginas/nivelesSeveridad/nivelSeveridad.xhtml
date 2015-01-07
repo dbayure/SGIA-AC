@@ -62,7 +62,7 @@
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
-			<p:panel id="panelIng">
+			<p:panel id="panelIng" rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
 			
 				<p:focus context="panelIng"/>
 				
@@ -277,7 +277,7 @@
 		
 						</p:panel>
 					</h:panelGrid>
-					<p:panel style="border:none; width:100%;">
+					<p:panel style="border:none; width:100%;" rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
 								<p:commandLink id="eliminar" style="float:right;" ajax="true"
 									update="@form"
 									actionListener="#{nivelSeveridadBean.eliminar(_nivel.id)}">

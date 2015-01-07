@@ -22,26 +22,28 @@
 	    <p:menuitem value="Inicio" url="/paginas/principal/principal.jsf" icon="ui-icon-home" />
 
         <p:submenu label="Usuarios" icon="ui-icon-person" rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}" >
-	        <p:menuitem value="Usuarios" url="/paginas/usuario/usuario.jsf" icon="ui-icon-document" />
-	        <p:menuitem value="Roles" url="/paginas/rol/rol.jsf" icon="ui-icon-document" />
+	        <p:menuitem value="Usuarios" url="/paginas/usuario/usuario.jsf"  />
+	        <p:menuitem value="Roles" url="/paginas/rol/rol.jsf"  />
         </p:submenu>
         
-        <p:submenu label="Actividades" icon="ui-icon-gear">
-        	<p:menuitem value="Tipo Log Eventos" url="/paginas/tipoLogEventos/tipoLogEventos.jsf" />
+        <p:submenu label="Acciones" icon="ui-icon-lightbulb">
+        	<p:menuitem value="Vista General" url="/paginas/placas/accionesPlaca.jsf" />
+        	<p:menuitem value="Reestablecer Alerta" url="/paginas/actuadoresAvance/detalleActuador.jsf" />       	
+        </p:submenu>  
+        
+        <p:submenu label="Informes" icon="ui-icon-clipboard">
+        	<p:menuitem value="Eventos" url="/paginas/LogEventos/LogEventos.jsf" />
+        	<p:menuitem value="Acciones" url="/paginas/acciones/acciones.jsf" />
+        	<p:menuitem value="Lecturas" url="/paginas/lecturas/lecturas.jsf" />
         	<p:menuitem value="Graficas" url="/paginas/graficas/grafica.jsf" />
-        	<p:menuitem value="Informes" url="/paginas/informes/informe.jsf" />
         </p:submenu>  
         
-        <p:submenu label="Eventos" icon="ui-icon-gear">
-        	<p:menuitem value="Log Eventos" url="/paginas/LogEventos/LogEventos.jsf" />
-        </p:submenu>  
-        
-        <p:submenu label="Administración Sistema" icon="ui-icon-gear">
-        	<p:menuitem value="Mensajes" url="/paginas/mensajes/mensajes.jsf" icon="ui-icon-document" />
-        	<p:menuitem value="Destinatarios" url="/paginas/destinatarios/destinatarios.jsf" icon="ui-icon-document" />
-        	<p:menuitem value="Sensores" url="/paginas/sensores/sensores.jsf" icon="ui-icon-document" />
-        	<p:menuitem value="Actuadores de Avance" url="/paginas/actuadoresAvance/actuadoresAvance.jsf" icon="ui-icon-document" />
-        	<p:menuitem value="Detalle Actuador de Avance" url="/paginas/actuadoresAvance/detalleActuador.jsf" icon="ui-icon-document" />
+        <p:submenu label="Administración Sistema" icon="ui-icon-gear" rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
+        	<p:menuitem value="Mensajes" url="/paginas/mensajes/mensajes.jsf"  />
+        	<p:menuitem value="Destinatarios" url="/paginas/destinatarios/destinatarios.jsf"  />
+        	<p:menuitem value="Sensores" url="/paginas/sensores/sensores.jsf" />
+        	<p:menuitem value="Actuadores de Avance" url="/paginas/actuadoresAvance/actuadoresAvance.jsf"  />
+        	<p:menuitem value="Detalle Actuador de Avance" url="/paginas/actuadoresAvance/detalleActuador.jsf" />
         	<p:menuitem value="Actuador" url="/paginas/actuador/actuador.jsf" />
 			<p:menuitem value="GrupoActuadores" url="/paginas/grupoActuadores/grupoActuadores.jsf" />
         	<p:menuitem value="Tipo Puerto" url="/paginas/tipoPuerto/" />
@@ -52,8 +54,6 @@
 			<p:menuitem value="Placas Auxiliares" url="/paginas/placasAuxiliares/placaAuxiliar.jsf" />
 			<p:menuitem value="Niveles de Severidad" url="/paginas/nivelesSeveridad/nivelSeveridad.jsf" />
 			<p:menuitem value="Placas" url="/paginas/placas/placa.jsf" />
-			
-			
         </p:submenu>  
 
         <f:facet name="options">
