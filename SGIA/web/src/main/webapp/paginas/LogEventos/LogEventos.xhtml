@@ -44,17 +44,70 @@
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 				
-			<p:dataTable id="logEventos" var="_logEvento" value="#{logEventos}"
-				editable="false">
+				
+			<p:panel>
+				<h:panelGrid columns="2">
+			
+					<h:panelGrid columns="2">
+					
+						<p:outputLabel for="fechaMin" value="Fecha Min:" />
+	       				<p:calendar id="fechaMin" value="#{logEventoBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+					
+			            <p:outputLabel for="fechaMax" value="Fecha Max:" />
+	       				<p:calendar id="fechaMax" value="#{logEventoBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+			            
+					</h:panelGrid>
+					
+					<p:panel style="border:none;">
+						<p:commandLink
+							style="display: block; float:right; margin-left: auto; margin-right: auto;"
+							update=":form" action="#{logEventoBean.obtenerLogEventos}" >
+	
+							<h:graphicImage value="/resources/gfx/Recargar.png" alt="recargar"
+								height="25px" />
+						</p:commandLink>
+					</p:panel>
+				</h:panelGrid>
+			</p:panel>
+			
+			<p:panel style="border:none;" >
+				<h:commandLink style="float:right;">
+	                <h:graphicImage value="/resources/gfx/xls.png" width="24"/>
+	                <p:dataExporter type="xls" target="TlogEventos" fileName="logEventos" />
+	            </h:commandLink>
+	 			
+	 			<h:outputText value="&#160;&#160;" style="float:right;" />
+	 			
+	            <h:commandLink style="float:right;" >
+	                <h:graphicImage value="/resources/gfx/pdf.png" width="24"/>
+	                <p:dataExporter  type="pdf" target="TlogEventos" fileName="logEventos" pageOnly="true" preProcessor="#{logEventoBean.preProcessPDF}"/>
+	            </h:commandLink>
+			</p:panel>
+
+			
+			
+			<p:spacer height="20"/>
+				
+			<p:dataTable id="TlogEventos" var="_logEvento" value="#{logEventoBean.logEventos}" widgetVar="tablaLogs"
+				emptyMessage="No hay logs que coincidan con los filtros establecidos"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                 paginator="true" rows="15">
 				<f:facet name="header">  
-            	Log de Eventos
+            	Log de Eventos 
         	</f:facet>
+	
 
 				<p:column headerText="Fecha" style="width:15%">
 					<h:outputText value="#{_logEvento.fecha}" />
 				</p:column>
 
-				<p:column headerText="Tipo Log" style="width:30%">
+				<p:column headerText="Tipo Log" style="width:30%" filterBy="#{_logEvento.tipoLogEvento.nombre}" filterMatchMode="in">
+					<f:facet name="filter">
+		                <p:selectCheckboxMenu label="Filtrar" onchange="PF('tablaLogs').filter()" panelStyle="width:300px" scrollHeight="300">
+		                    <f:selectItems value="#{tipoLogEventos}" var="_log"
+									itemLabel="#{_log.nombre}" itemValue="#{_log.nombre}"/>
+		                </p:selectCheckboxMenu>
+		            </f:facet>
 					<p:commandLink update=":form:dialogoTipoLog"
 						styleClass="ui-icon ui-icon-search"
 						oncomplete="PF('dialogoTipoLog').show()" title="Ver Detalle"
@@ -65,7 +118,13 @@
 					<h:outputText value="#{_logEvento.tipoLogEvento.nombre}" />
 				</p:column>
 
-				<p:column headerText="Mensaje" style="width:15%">
+				<p:column headerText="Mensaje" style="width:15%" filterBy="#{_logEvento.mensaje.texto}" filterMatchMode="in">
+					<f:facet name="filter">
+		                <p:selectCheckboxMenu label="Filtrar" onchange="PF('tablaLogs').filter()" panelStyle="width:300px" scrollHeight="300">
+		                    <f:selectItems value="#{mensajes}" var="_men"
+									itemLabel="#{_men.texto}" itemValue="#{_men.texto}"/>
+		                </p:selectCheckboxMenu>
+		            </f:facet>
 					<p:commandLink update=":form:dialogoMensaje"
 						styleClass="ui-icon ui-icon-search"
 						oncomplete="PF('dialogoMensaje').show()" title="Ver Detalle"
@@ -76,7 +135,13 @@
 					<h:outputText value="#{_logEvento.mensaje.id}, #{_logEvento.mensaje.tipo}" />
 				</p:column>
 
-				<p:column headerText="Dispositivo" style="width:15%">
+				<p:column headerText="Dispositivo" style="width:15%" filterBy="#{_logEvento.dispositivo.nombre}" filterMatchMode="in">
+					<f:facet name="filter">
+		                <p:selectCheckboxMenu label="Filtrar" onchange="PF('tablaLogs').filter()" panelStyle="width:300px" scrollHeight="300">
+		                    <f:selectItems value="#{dispositivos}" var="_disp"
+									itemLabel="#{_disp.nombre}" itemValue="#{_disp.nombre}"/>
+		                </p:selectCheckboxMenu>
+		            </f:facet>
 					<p:commandLink update=":form:dialogoDispositivo"
 						styleClass="ui-icon ui-icon-search"
 						oncomplete="PF('dialogoDispositivo').show()" title="Ver Detalle"
@@ -86,7 +151,33 @@
 					</p:commandLink>
 					<h:outputText value="#{_logEvento.dispositivo.nombre}" />
 				</p:column>
+				
 			</p:dataTable>
+			
+			<p:dataTable id="logEventosExp" var="_logEvento" value="#{logEventoBean.aExportar}" rendered="false">
+				
+
+				<p:column headerText="Fecha" style="width:15%">
+					<h:outputText value="#{_logEvento.fecha}" />
+				</p:column>
+
+				<p:column headerText="Tipo Log" style="width:30%" filterBy="#{_logEvento.tipoLogEvento.nombre}" filterMatchMode="in">
+					
+					<h:outputText value="#{_logEvento.tipoLogEvento.nombre}" />
+				</p:column>
+
+				<p:column headerText="Mensaje" style="width:15%" filterBy="#{_logEvento.mensaje.texto}" filterMatchMode="in">
+					
+					<h:outputText value="#{_logEvento.mensaje.id}, #{_logEvento.mensaje.tipo}" />
+				</p:column>
+
+				<p:column headerText="Dispositivo" style="width:15%" filterBy="#{_logEvento.dispositivo.nombre}" filterMatchMode="in">
+					
+					<h:outputText value="#{_logEvento.dispositivo.nombre}" />
+				</p:column>
+				
+			</p:dataTable>
+			
 
 			<br />
 			<br />
