@@ -303,7 +303,7 @@ public class ActuadorAvanceBean {
 		}
 	}
 	
-	public boolean esDeAvance(Long id){
+	public boolean esDeAvance(long id){
 		boolean es = registroActuadorAvance.esDeAvance(id);
 		return es;
 	}

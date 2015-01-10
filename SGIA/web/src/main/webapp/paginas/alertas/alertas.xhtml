@@ -68,14 +68,14 @@
 					<h:outputText value="#{_disp.estadoAlerta}" />
 				</p:column>
 				
-<!-- 				<p:column headerText="Reestablecer" style="width:20%"> -->
-<!-- 					<p:commandLink 	styleClass="ui-icon ui-icon-search" -->
-<!-- 						style="float:right;" rendered="#{actuadorAvanceBean.esDeAvance(_disp.id)}"> -->
-<!-- 					</p:commandLink> -->
-<!-- 					<p:commandLink 	styleClass="ui-icon ui-icon-search" -->
-<!-- 						style="float:right;" rendered="#{!actuadorAvanceBean.esDeAvance(_disp.id)}"> -->
-<!-- 					</p:commandLink> -->
-<!-- 				</p:column> -->
+				<p:column headerText="Reestablecer" style="width:20%">
+					<p:commandLink 	style="float:right;" rendered="#{actuadorAvanceBean.esDeAvance(_disp.id)}">
+						<h:graphicImage value="/resources/gfx/Recargar.png" alt="actuadores" height="20px" />
+					</p:commandLink>
+					<p:commandLink 	style="float:right;" rendered="#{!actuadorAvanceBean.esDeAvance(_disp.id)}">
+						<h:graphicImage value="/resources/gfx/ver.png" alt="actuadores" height="20px" />
+					</p:commandLink>
+				</p:column>
 				
 			</p:dataTable>
 			

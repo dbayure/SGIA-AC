@@ -1,6 +1,9 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.Set;
+
+import javassist.expr.Instanceof;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -10,6 +13,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
@@ -71,10 +75,10 @@ public class RegistroActuadorAvance {
 		return actuadorAvance;
 	}
 
-	public boolean esDeAvance(Long id) {
+	public boolean esDeAvance(long id) {
 		boolean es = false;
-		ActuadorAvance aa = em.find(ActuadorAvance.class, id);
-		if (aa != null){
+		ActuadorAvance actuadorAvance = em.find(ActuadorAvance.class, id);
+		if (actuadorAvance != null){
 			es = true;
 		}
 		return es;
