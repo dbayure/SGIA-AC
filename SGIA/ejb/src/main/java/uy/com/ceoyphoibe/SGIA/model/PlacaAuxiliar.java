@@ -12,9 +12,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @XmlRootElement
 @Table(name = "placaAuxiliar")
+@JsonIgnoreProperties({"placa", "listaDispositivos"})
 public class PlacaAuxiliar extends Dispositivo implements Serializable {
 	
 	/**

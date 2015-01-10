@@ -16,7 +16,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity
 @XmlRootElement
 @Table(name = "actuador")
-@JsonIgnoreProperties({"grupoActuadores"})
+@JsonIgnoreProperties({"grupoActuadores", "placa"})
 public class Actuador extends Dispositivo implements Serializable {
 	
 	/**
