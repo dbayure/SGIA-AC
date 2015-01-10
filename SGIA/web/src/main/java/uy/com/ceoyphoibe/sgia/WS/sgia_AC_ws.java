@@ -138,7 +138,36 @@ public class sgia_AC_ws implements Serializable{
 	}
 	
 	@WebMethod
-	public boolean inLogEvento(String nroSerie, LogEventoWS logEventoWS)
+	public boolean inLogEventosPendientes(String nroSerie, List<LogEventoWS> listaLogEventoWS)
+	{
+		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+		
+		for (LogEventoWS logEventoWS : listaLogEventoWS)
+		{
+			LogEvento logEvento= new LogEvento();
+			Timestamp fechaHora= Timestamp.valueOf(logEventoWS.getFecha());
+			logEvento.setFecha(fechaHora);
+			Placa placaTemp= rPlaca.obtenerPlacaPorId(idPlaca);
+			logEvento.setPlaca(placaTemp);
+			Dispositivo dispositivoTemp= rDispositivo.obtenerDispositivoPorId(logEventoWS.getIdDispositivo());
+			logEvento.setDispositivo(dispositivoTemp);
+			TipoLogEvento tipoLogEventoTemp= rTipoLogEvento.obtenerTipoLogEventoPorId(logEventoWS.getTipoLog()); 
+			logEvento.setTipoLogEvento(tipoLogEventoTemp);
+			Mensaje mensajeTemp= rMensaje.obtenerMensajeId(logEventoWS.getIdMensaje());
+			logEvento.setMensaje(mensajeTemp);
+			
+			try {
+				rLogEvento.registro(logEvento);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return true;
+	}
+	
+	@WebMethod
+	public boolean inLogEvento (String nroSerie, LogEventoWS logEventoWS)
 	{
 		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
 		
