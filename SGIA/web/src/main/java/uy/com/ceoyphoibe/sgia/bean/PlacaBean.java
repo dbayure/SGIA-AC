@@ -192,6 +192,11 @@ public class PlacaBean {
 		return "/paginas/principal/principal.jsf?faces-redirect=true";
 	}
 	
+	public String alertas()
+	{
+		return "/paginas/alertas/alertas.jsf?faces-redirect=true";
+	}
+	
 	public void setFactores(){
 		seleccion = "factores";
 	}

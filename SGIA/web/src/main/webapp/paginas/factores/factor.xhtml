@@ -16,46 +16,37 @@
 }
 </style>
 
-
 		<h:form id="form" prependId="false">
-			<p:panel id="p1">
+			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<h:graphicImage value="/resources/gfx/circuito.png" alt="placa"
-						height="50px" />
-					<p>
-					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
-					</p>
-					<p:spacer width="20" height="10" />
-					<p>
-					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
-					</p>
-					<p:spacer width="20" height="10" />
-					<p>
-					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
-					</p>
-					<p:spacer width="20" height="10" />
-					<p>
-					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
-					</p>
-					<p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
-						update="form" icon="ui-icon-gear" />
-
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
+						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					</p:commandLink>
+					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
+					
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I" />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
+						<f:selectItem itemLabel="Manual" itemValue="M" />
+						<f:selectItem itemLabel="Automatico" itemValue="A" />
+					</p:selectOneButton>
+					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-
+				
 			</p:panel>
-			
+			<p:separator/>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 				

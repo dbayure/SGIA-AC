@@ -46,7 +46,7 @@ public class Placa implements Serializable {
 	private String hostWSSMS;
 	private int puertoWSSMS;
 	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER )
     private Set<Dispositivo> listaDispositivos;
 	
 	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
