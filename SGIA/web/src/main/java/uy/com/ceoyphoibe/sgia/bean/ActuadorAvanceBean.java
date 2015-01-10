@@ -302,4 +302,9 @@ public class ActuadorAvanceBean {
 			return event.getNewStep();
 		}
 	}
+	
+	public boolean esDeAvance(Long id){
+		boolean es = registroActuadorAvance.esDeAvance(id);
+		return es;
+	}
 }

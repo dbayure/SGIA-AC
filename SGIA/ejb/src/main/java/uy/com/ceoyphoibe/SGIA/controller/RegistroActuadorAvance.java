@@ -71,6 +71,15 @@ public class RegistroActuadorAvance {
 		return actuadorAvance;
 	}
 
+	public boolean esDeAvance(Long id) {
+		boolean es = false;
+		ActuadorAvance aa = em.find(ActuadorAvance.class, id);
+		if (aa != null){
+			es = true;
+		}
+		return es;
+	}
+	
 	@PostConstruct
 	public void initNewActuadorAvance() {
 		newActuadorAvance = new ActuadorAvance();
