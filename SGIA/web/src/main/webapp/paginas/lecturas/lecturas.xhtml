@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form id="form" prependId="false">
+			<p:panel id="p1" style="border: none;">
+				<h:panelGrid id="gridImg" columns="10">
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
+						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					</p:commandLink>
+					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
+					
+				</h:panelGrid>
+				<h:panelGrid id="gridEstado"
+					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+						<f:selectItem itemLabel="Configuracion" itemValue="C" />
+						<f:selectItem itemLabel="Manual" itemValue="M" />
+						<f:selectItem itemLabel="Automatico" itemValue="A" />
+					</p:selectOneButton>
+					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Manual" itemValue="M" />
+						<f:selectItem itemLabel="Automatico" itemValue="A" />
+					</p:selectOneButton>
+					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
+						update="form" icon="ui-icon-transferthick-e-w" />
+				</h:panelGrid>
+				
+			</p:panel>
+
+			<h1 style="text-align: center;">Visualización de Lecturas</h1>
+			<p:separator/>
+			
+			<h1 style="text-align: center;">Visualización de Acciones</h1>
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<p></p>
+			<h:panelGrid columns="2">
+				<p:outputLabel for="switch" value="Obtener lecturas según: " />
+				<p:selectBooleanButton id="switch" value="#{lecturasFactorBean.verFactores}" onLabel="Factores" offLabel="Sensores" style="width:100px">
+					<p:ajax event="change" process="@this" update=":form"/>
+				</p:selectBooleanButton>
+				
+			</h:panelGrid>
+			
+			<p:panel id="segFactores" rendered="#{lecturasFactorBean.verFactores}">
+				<h:panelGrid columns="3">
+					<p:panel style="border:none;">
+						<p:outputLabel for="factorSel"
+							value="Factor: " />
+						<p:selectOneMenu id="factorSel"
+							value="#{lecturasFactorBean.factorTemp}">
+							<f:converter converterId="factorConverter" />
+							<f:selectItem itemLabel="Seleccione ..." itemValue="" />
+							<f:selectItems value="#{factores}" var="fact"
+								itemLabel="#{fact.nombre}" itemValue="#{fact}" />
+							<p:ajax event="change" process="@this" update=":form"/>
+						</p:selectOneMenu>
+					</p:panel>
+				
+					
+					<h:panelGrid columns="2">
+					
+						<p:outputLabel for="fechaMinF" value="Fecha Min:" />
+        				<p:calendar id="fechaMinF" value="#{lecturasFactorBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+					
+			            <p:outputLabel for="fechaMaxF" value="Fecha Min:" />
+        				<p:calendar id="fechaMaxF" value="#{lecturasFactorBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+			            
+					</h:panelGrid>
+					
+					<p:panel style="border:none;">
+						<p:commandLink
+							style="display: block; float:right; margin-left: auto; margin-right: auto;"
+							update=":form" action="#{lecturasFactorBean.obtenerLecturasFactor()}" >
+	
+							<h:graphicImage value="/resources/gfx/Recargar.png" alt="recargar"
+								height="25px" />
+						</p:commandLink>
+					</p:panel>
+
+				</h:panelGrid>
+			</p:panel>
+			
+			<p:panel id="segSensores" rendered="#{!lecturasFactorBean.verFactores}">
+				<h:panelGrid columns="3">
+					<p:panel style="border:none;">
+						<p:outputLabel for="sensorSel"
+							value="Sensor: " />
+						<p:selectOneMenu id="sensorSel"
+							value="#{lecturasFactorBean.sensorTemp}">
+							<f:converter converterId="sensorConverter" />
+							<f:selectItem itemLabel="Seleccione ..." itemValue="" />
+							<f:selectItems value="#{sensores}" var="sens"
+								itemLabel="#{sens.nombre}" itemValue="#{sens}" />
+							<p:ajax event="change" process="@this" update=":form"/>
+						</p:selectOneMenu>
+					</p:panel>
+				
+					
+					<h:panelGrid columns="2">
+					
+						<p:outputLabel for="fechaMinS" value="Fecha Min:" />
+        				<p:calendar id="fechaMinS" value="#{lecturasFactorBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+					
+			            <p:outputLabel for="fechaMaxS" value="Fecha Min:" />
+        				<p:calendar id="fechaMaxS" value="#{lecturasFactorBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+			            
+					</h:panelGrid>
+					
+					<p:panel style="border:none;">
+						<p:commandLink
+							style="display: block; float:right; margin-left: auto; margin-right: auto;"
+							update=":form" action="#{lecturasFactorBean.obtenerLecturasSensor()}" >
+	
+							<h:graphicImage value="/resources/gfx/Recargar.png" alt="recargar"
+								height="25px" />
+						</p:commandLink>
+					</p:panel>
+
+				</h:panelGrid>
+			</p:panel>
+			
+			<p:panel id="exporterFactor" style="border:none;" rendered="#{lecturasFactorBean.verFactores}">
+				<h:commandLink style="float:right;">
+	                <h:graphicImage value="/resources/gfx/xls.png" width="24"/>
+	                <p:dataExporter type="xls" target="lecturasSel" fileName="acciones" />
+	            </h:commandLink>
+	 			
+	 			<h:outputText value="&#160;&#160;" style="float:right;" />
+	 			
+	            <h:commandLink style="float:right;">
+	                <h:graphicImage value="/resources/gfx/pdf.png" width="24"/>
+	                <p:dataExporter type="pdf" target="lecturasSel" fileName="acciones" preProcessor="#{lecturasFactorBean.preProcessPDF}"/>
+	            </h:commandLink>
+			
+			</p:panel>
+			
+			<p:panel id="exporterSensor" style="border:none;" rendered="#{!lecturasFactorBean.verFactores}">
+				<h:commandLink style="float:right;">
+	                <h:graphicImage value="/resources/gfx/xls.png" width="24"/>
+	                <p:dataExporter type="xls" target="lecturasSensSel" fileName="acciones" />
+	            </h:commandLink>
+	 			
+	 			<h:outputText value="&#160;&#160;" style="float:right;" />
+	 			
+	            <h:commandLink style="float:right;">
+	                <h:graphicImage value="/resources/gfx/pdf.png" width="24"/>
+	                <p:dataExporter type="pdf" target="lecturasSensSel" fileName="acciones" preProcessor="#{lecturasFactorBean.preProcessPDF_Sens}"/>
+	            </h:commandLink>
+			
+			</p:panel>
+			
+			<p:spacer height="20"/>
+
+			
+			<p:dataTable id="lecturasSel" var="_lec" value="#{lecturasFactorBean.listaLecturas}" rendered="#{lecturasFactorBean.verFactores}"
+				editable="false"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                 paginator="true" rows="15" style="margin-bottom:20px">
+
+				<p:column headerText="Fecha" style="width:20%">
+					<h:outputText value="#{_lec.fechaHora}" />
+				</p:column>
+				
+				
+				<p:column headerText="Valor" style="width:20%">
+					<h:outputText value="#{_lec.valor}" />
+				</p:column>
+			</p:dataTable>
+			
+			<p:dataTable id="lecturasSensSel" var="_lec" value="#{lecturasFactorBean.listaLecturasSensor}" rendered="#{!lecturasFactorBean.verFactores}"
+				editable="false"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+                 paginator="true" rows="15" style="margin-bottom:20px">
+
+				<p:column headerText="Fecha" style="width:20%">
+					<h:outputText value="#{_lec.fechaHora}" />
+				</p:column>
+				
+				
+				<p:column headerText="Valor" style="width:20%">
+					<h:outputText value="#{_lec.valor}" />
+				</p:column>
+			</p:dataTable>
+			
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
