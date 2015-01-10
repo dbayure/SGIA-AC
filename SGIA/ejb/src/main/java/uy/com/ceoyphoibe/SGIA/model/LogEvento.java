@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,9 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @XmlRootElement
 @Table(name = "logEventos")
+@JsonIgnoreProperties({"placa"})
 public class LogEvento implements Serializable {
 
 

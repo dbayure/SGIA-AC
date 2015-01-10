@@ -10,9 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @Entity
 @XmlRootElement
 @Table(name = "tipoPlacaAuxiliar")
+@JsonIgnoreProperties({"placa"})
 public class TipoPlacaAuxiliar implements Serializable {
 
 	/**

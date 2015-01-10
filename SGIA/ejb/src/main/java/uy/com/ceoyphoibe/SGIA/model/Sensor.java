@@ -15,7 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity
 @XmlRootElement
 @Table(name = "sensores")
-@JsonIgnoreProperties({"factor"})
+@JsonIgnoreProperties({"factor", "placa"})
 public class Sensor extends Dispositivo implements Serializable {
 
 	/**

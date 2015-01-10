@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @Entity
 @XmlRootElement
 @Table(name = "actuadoresAvance")
-@JsonIgnoreProperties({"grupoActuadores"})
+@JsonIgnoreProperties({"grupoActuadores", "placa"})
 public class ActuadorAvance extends Dispositivo implements Serializable {
 	
 	private static final long serialVersionUID = -4807811365963928429L;
