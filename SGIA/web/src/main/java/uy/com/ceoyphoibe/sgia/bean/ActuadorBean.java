@@ -97,7 +97,7 @@ public class ActuadorBean {
 				
 				actuador.setPlaca(placa);
 				actuador.setEstado('A');
-				actuador.setEstadoAlerta('N');
+				actuador.setEstadoAlerta("N");
 				actuador.setActivoSistema('S');
 				ga.setId(actuador.getGrupoActuadores().getId());
 				ga.setActivoSistema(actuador.getGrupoActuadores().getActivoSistema());
@@ -113,7 +113,7 @@ public class ActuadorBean {
 			else{
 				actuador.setPlaca(placa);
 				actuador.setEstado('A');
-				actuador.setEstadoAlerta('N');
+				actuador.setEstadoAlerta("N");
 				actuador.setActivoSistema('S');
 				
 				regActuador.registro(actuador);
@@ -181,5 +181,25 @@ public class ActuadorBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 
+	}
+	
+	public void reestablecerActuador(long id){
+		actuador = regActuador.obtenerActuadorId(id);
+		System.out.println("Parametro a pasar para restablecer el actuador " + actuador.getNombre());
+		try {
+		Mensaje mensaje = regActuador.reestablecerActuador(actuador);
+			if (mensaje.getTipo().equals("Informativo")){
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+	    	else{
+	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+		} 
+		catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 }

@@ -53,5 +53,19 @@ public class RegistroActuador {
 		   actuadoresSrc.fire(actuador);
 		   return resultado;
 	   }
+	   
+	   public Actuador obtenerActuadorId(long id){
+		   Actuador actuador = em.find(Actuador.class, id);
+		   System.out.println("actuador encontrado " + actuador.getNombre());
+		   return actuador;
+	   }
+	   
+		public Mensaje reestablecerActuador(Actuador actuador){
+			FachadaWS wsClient = new FachadaWS();
+			Mensaje resultado = wsClient.reestablecerActuador(actuador);
+			if (resultado.getTipo().equals("Informativo"))
+				em.merge(actuador);
+			return resultado;
+		}
 
 }

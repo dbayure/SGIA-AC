@@ -3,6 +3,7 @@ package uy.com.ceoyphoibe.SGIA.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -128,6 +129,68 @@ public class Posicion implements Serializable {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result
+//				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+//		result = prime * result
+//				+ ((idPosicion == null) ? 0 : idPosicion.hashCode());
+//		result = prime * result
+//				+ ((listaSensores == null) ? 0 : listaSensores.hashCode());
+//		result = prime * result + nroPosicion;
+//		result = prime * result + valor;
+//		return result;
+//	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Posicion other = (Posicion) obj;
+//		if (descripcion == null) {
+//			if (other.descripcion != null)
+//				return false;
+//		} else if (!descripcion.equals(other.descripcion))
+//			return false;
+//		if (idPosicion == null) {
+//			if (other.idPosicion != null)
+//				return false;
+//		} else if (!idPosicion.equals(other.idPosicion))
+//			return false;
+//		if (listaSensores == null) {
+//			if (other.listaSensores != null)
+//				return false;
+//		} else if (!listaSensores.equals(other.listaSensores))
+//			return false;
+//		if (nroPosicion != other.nroPosicion)
+//			return false;
+//		if (valor != other.valor)
+//			return false;
+//		return true;
+//	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Posicion [idPosicion=" + idPosicion + ", nroPosicion="
+				+ nroPosicion + ", descripcion=" + descripcion + ", valor="
+				+ valor + ", listaSensores=" + listaSensores + "]";
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,17 +199,12 @@ public class Posicion implements Serializable {
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result
 				+ ((idPosicion == null) ? 0 : idPosicion.hashCode());
-		result = prime * result
-				+ ((listaSensores == null) ? 0 : listaSensores.hashCode());
 		result = prime * result + nroPosicion;
 		result = prime * result + valor;
 		return result;
 	}
 
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -166,27 +224,11 @@ public class Posicion implements Serializable {
 				return false;
 		} else if (!idPosicion.equals(other.idPosicion))
 			return false;
-		if (listaSensores == null) {
-			if (other.listaSensores != null)
-				return false;
-		} else if (!listaSensores.equals(other.listaSensores))
-			return false;
 		if (nroPosicion != other.nroPosicion)
 			return false;
 		if (valor != other.valor)
 			return false;
 		return true;
-	}
-
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Posicion [idPosicion=" + idPosicion + ", nroPosicion="
-				+ nroPosicion + ", descripcion=" + descripcion + ", valor="
-				+ valor + ", listaSensores=" + listaSensores + "]";
 	}
 	
 }

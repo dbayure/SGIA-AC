@@ -39,6 +39,10 @@ public class ActuadorAvanceBean {
 	private Posicion posicionTemp = new Posicion();
 
 	private boolean skip;
+	
+	private char posicionRes;
+	
+	private boolean btnActualizar = true;
 
 
 	/**
@@ -148,14 +152,29 @@ public class ActuadorAvanceBean {
 		this.listaPosiciones = listaPosiciones;
 	}
 
+	public char getPosicionRes() {
+		return posicionRes;
+	}
+
+	public void setPosicionRes(char posicionRes) {
+		this.posicionRes = posicionRes;
+	}
+
 	
+	public boolean isBtnActualizar() {
+		return btnActualizar;
+	}
+
+	public void setBtnActualizar(boolean btnActualizar) {
+		this.btnActualizar = btnActualizar;
+	}
 
 	public void guardar() {
 		try {
 			if (!skip)
 				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
 			actuadorAvanceSeleccionado.setActivoSistema('S');
-			actuadorAvanceSeleccionado.setEstadoAlerta('N');
+			actuadorAvanceSeleccionado.setEstadoAlerta("N");
 			actuadorAvanceSeleccionado.setPlaca(placaBean.getPlaca());
 			registroActuadorAvance.guardar(actuadorAvanceSeleccionado);
 			actuadorAvanceSeleccionado = new ActuadorAvance();
@@ -303,8 +322,34 @@ public class ActuadorAvanceBean {
 		}
 	}
 	
-	public boolean esDeAvance(Long id){
+	public boolean esDeAvance(long id){
 		boolean es = registroActuadorAvance.esDeAvance(id);
 		return es;
 	}
+	
+	public void reestablecerPosicion(){
+		System.out.println("Parametros a pasar para restablecer la posicion " + actuadorAvanceSeleccionado.getNombre() + posicionRes);
+		try {
+		Mensaje mensaje=registroActuadorAvance.reestablecerPosicionActuadorAvance(actuadorAvanceSeleccionado, posicionRes);
+			if (mensaje.getTipo().equals("Informativo")){
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+	    	else{
+	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+		} 
+		catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
+	
+	public void seleccionar(long id){
+		seleccionarActuadorAvanceSeleccionado(id);
+		System.out.println("actuador avance seleccionado " + actuadorAvanceSeleccionado.getNombre());
+		System.out.println("cantidad de posiciones del actuador " + listaPosiciones.size());
+	}
+
 }

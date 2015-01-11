@@ -1,6 +1,9 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -9,7 +12,9 @@ import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 
+import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
+import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
@@ -19,6 +24,9 @@ public class PlacaBean {
 
 	@Inject
 	private RegistroPlaca registroPlaca;
+	
+	@Inject
+	private RegistroDispositivo regDispositivo;
 	
 	private Placa placa;
 	private boolean mostrar = false;
@@ -194,6 +202,7 @@ public class PlacaBean {
 	
 	public String alertas()
 	{
+		actualizarListaAlertas();
 		return "/paginas/alertas/alertas.jsf?faces-redirect=true";
 	}
 	
@@ -241,5 +250,12 @@ public class PlacaBean {
 			}
 		}
 	
+	}
+	
+	public void actualizarListaAlertas(){
+		Set<Dispositivo> listaDispositivos = placa.getListaDispositivos();
+		for (Dispositivo d : listaDispositivos){
+			regDispositivo.pedirEstadoDispositivo(d);
+		}
 	}
 }
