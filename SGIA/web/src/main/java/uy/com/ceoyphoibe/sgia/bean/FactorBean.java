@@ -1,7 +1,10 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -9,12 +12,15 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
@@ -49,49 +55,55 @@ public class FactorBean {
 	private String nombreBoton= "Registrar";
 	
 	
-    private LineChartModel animatedModel1;
- 
+    private LineChartModel animatedModel1= new LineChartModel();
+
     @PostConstruct
-    public void init() {
-        createAnimatedModels();
-    }
+	public void init() {
+    	animatedModel1= new LineChartModel();
+     	 
+        LineChartSeries series1 = new LineChartSeries();
+        series1.setLabel("Series Temp");
  
+        series1.set(1, 2);
+        series1.set(2, 1);
+        series1.set(3, 3);
+        series1.set(4, 6);
+        series1.set(5, 8);
+        animatedModel1.addSeries(series1);
+
+	}
+    
     public LineChartModel getAnimatedModel1() {
         return animatedModel1;
     }
- 
- 
-    private void createAnimatedModels() {
-        animatedModel1 = initLinearModel();
-        animatedModel1.setTitle("Line Chart");
-        animatedModel1.setAnimate(true);
-        animatedModel1.setLegendPosition("se");
-        Axis yAxis = animatedModel1.getAxis(AxisType.Y);
-        yAxis.setMin(0);
-        yAxis.setMax(50);
-    }
-     
 
-    private LineChartModel initLinearModel() {
+    private LineChartModel initLinearModel(Factor temp) {
         LineChartModel model = new LineChartModel();
  
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Temperatura");
+        series1.setLabel(temp.getNombre());
  
-        List<LecturaFactor> lecturas= lecturasFactorList.getLecturasFactores();
+        Date ahora= new Date();
+        Timestamp max=new Timestamp(ahora.getTime());
+        Timestamp min=new Timestamp(ahora.getTime()-86400000);
+        List<LecturaFactor> lecturas= lecturasFactorList.getLecturasFactorIdFactorEntreFechas(temp.getIdFactor(), min, max);
+        int j= lecturas.size() / 15;
+        if (j == 0)
+        	j= 1;
+        model.getAxes().put(AxisType.X, new CategoryAxis("Hora"));
+        System.out.println("OBTIENE LAS LECTURAS");
         for (int i=0; i<lecturas.size(); i++)
         {
         	float valor=lecturas.get(i).getValor();
-        	if (valor >= 0 && i%10 == 0)
+        	System.out.println(lecturas.get(i).getFechaHora().toString());
+        	String hora= lecturas.get(i).getFechaHora().toString().substring(11, 16);
+        	if (valor >= 0 && i%j == 0)
         	{
-//        		int temp= (int)valor;
-        		series1.set(i, valor );
+        		System.out.println("Agrega para graficar: "+ valor);
+        		series1.set(hora, valor );
         	}
-        		
-        	System.out.println("Agrega para graficar: "+ lecturas.get(i).getValor());
         }
 
- 
         model.addSeries(series1);
          
         return model;
@@ -349,5 +361,19 @@ public class FactorBean {
 	 */
 	public void setNombreBoton(String nombreBoton) {
 		this.nombreBoton = nombreBoton;
+	}
+	
+	public void graficarFactor(Long idFactor)
+	{
+		System.out.println("ENTRA A GRAFICAR");
+		Factor temp= registroFactor.obtenerFactorPorId(idFactor);
+		animatedModel1 = initLinearModel(temp);
+        animatedModel1.setTitle(temp.getNombre());
+        animatedModel1.setAnimate(true);
+        animatedModel1.setLegendPosition("se");
+        Axis yAxis = animatedModel1.getAxis(AxisType.Y);
+        yAxis.setMin(temp.getValorMin());
+        yAxis.setMax(temp.getValorMax());
+        System.out.println("AL FINAL DE GRAFICAR");
 	}
 }
