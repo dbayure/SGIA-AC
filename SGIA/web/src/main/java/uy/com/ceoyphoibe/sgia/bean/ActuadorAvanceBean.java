@@ -39,6 +39,11 @@ public class ActuadorAvanceBean {
 	private Posicion posicionTemp = new Posicion();
 
 	private boolean skip;
+	
+	private char posicionRes;
+	
+	private boolean btnActualizar = true;
+	private long idSeleccionado;
 
 
 	/**
@@ -148,7 +153,22 @@ public class ActuadorAvanceBean {
 		this.listaPosiciones = listaPosiciones;
 	}
 
+	public char getPosicionRes() {
+		return posicionRes;
+	}
+
+	public void setPosicionRes(char posicionRes) {
+		this.posicionRes = posicionRes;
+	}
+
 	
+	public boolean isBtnActualizar() {
+		return btnActualizar;
+	}
+
+	public void setBtnActualizar(boolean btnActualizar) {
+		this.btnActualizar = btnActualizar;
+	}
 
 	public void guardar() {
 		try {
@@ -305,6 +325,48 @@ public class ActuadorAvanceBean {
 	
 	public boolean esDeAvance(long id){
 		boolean es = registroActuadorAvance.esDeAvance(id);
+		return es;
+	}
+	
+	public void reestablecerPosicion(){
+		System.out.println("Parametros a pasar para restablecer la posicion " + actuadorAvanceSeleccionado.getNombre() + posicionRes);
+		try {
+		Mensaje mensaje=registroActuadorAvance.reestablecerPosicionActuadorAvance(actuadorAvanceSeleccionado, posicionRes);
+			if (mensaje.getTipo().equals("Informativo")){
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+	    	else{
+	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+		} 
+		catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
+	
+	public void cambiarBoton(long id){
+//		if(btnActualizar == true){
+//			btnActualizar = false;
+//			System.out.println("estado actual del boton" + btnActualizar);
+//		}
+//		else{
+//			btnActualizar = true;
+//			System.out.println("estado actual del boton" + btnActualizar);
+//		}
+//		idSeleccionado = id;
+		seleccionarActuadorAvanceSeleccionado(id);
+		System.out.println("actuador avance seleccionado " + actuadorAvanceSeleccionado.getNombre());
+		System.out.println("cantidad de posiciones del actuador " + listaPosiciones.size());
+	}
+	
+	public boolean filaIdSeleccionado(long id){
+		boolean es =  false;
+		if(id == idSeleccionado){
+			es = true;
+		}
 		return es;
 	}
 }

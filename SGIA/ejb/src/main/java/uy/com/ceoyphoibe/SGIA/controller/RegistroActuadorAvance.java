@@ -1,9 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.Set;
-
-import javassist.expr.Instanceof;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -11,9 +8,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
-import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
@@ -87,6 +82,14 @@ public class RegistroActuadorAvance {
 	@PostConstruct
 	public void initNewActuadorAvance() {
 		newActuadorAvance = new ActuadorAvance();
+	}
+	
+	public Mensaje reestablecerPosicionActuadorAvance(ActuadorAvance actuadorAvance, char nroPosicion){
+		FachadaWS wsClient = new FachadaWS();
+		Mensaje resultado = wsClient.reestablecerActuadorAvance(actuadorAvance, nroPosicion);
+		if (resultado.getTipo().equals("Informativo"))
+			em.merge(actuadorAvance);
+		return resultado;
 	}
 
 }

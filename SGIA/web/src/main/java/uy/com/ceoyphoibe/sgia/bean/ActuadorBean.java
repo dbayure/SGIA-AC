@@ -182,4 +182,23 @@ public class ActuadorBean {
 		}
 
 	}
+	
+	public void reestablecerActuador(long id){
+		System.out.println("Parametro a pasar para restablecer el actuador " + actuador.getNombre());
+		try {
+		Mensaje mensaje = regActuador.reestablecerActuador(actuador);
+			if (mensaje.getTipo().equals("Informativo")){
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+	    	else{
+	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+		} 
+		catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
 }
