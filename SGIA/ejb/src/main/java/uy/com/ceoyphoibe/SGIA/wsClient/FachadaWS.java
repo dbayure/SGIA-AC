@@ -818,6 +818,19 @@ public class FachadaWS {
 		return mensaje;
 	}
 	
+	public Mensaje reestablecerDispositivo(Dispositivo dispositivo)
+	{
+		Comunicacion clienteWS= iniciarConexion(dispositivo.getPlaca().getIpPlaca(), dispositivo.getPlaca().getPuetroPlaca());
+        
+		BigInteger idDispositivo= BigInteger.valueOf(dispositivo.getId());
+		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS= clienteWS.wsReestablecerEstadoAlertaDispositivo(idDispositivo);
+		Mensaje mensaje= new Mensaje();
+        mensaje.setId(resultadoWS.getIdMensaje().longValue());
+        mensaje.setTexto(resultadoWS.getTexto());
+        mensaje.setTipo(resultadoWS.getTipo());
+		return mensaje;
+	}
+	
 	public Mensaje reestablecerSensor(Sensor sensor)
 	{
 		Comunicacion clienteWS= iniciarConexion(sensor.getPlaca().getIpPlaca(), sensor.getPlaca().getPuetroPlaca());

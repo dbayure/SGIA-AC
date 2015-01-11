@@ -51,12 +51,12 @@
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
-			<p:commandLink 	style="float:right;" action="#{placaBean.actualizarListaAlertas}" update=":form">
+			<p:commandLink 	style="float:right;" action="#{placaBean.alertas}" update=":form" immediate="true">
 				<h:graphicImage value="/resources/gfx/Recargar.png" alt="actualizar" height="30px" />
 			</p:commandLink>
 			<p> <p:spacer height="20px"/></p>
 			
-			<p:dataTable id="dispAlerta" var="_disp" value="#{placaBean.placa.listaDispositivos}"
+			<p:dataTable id="dispAlerta" var="_disp" value="#{dispositivos}"
 				editable="false"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
                  paginator="true" rows="15" style="margin-bottom:20px" rowStyleClass="#{_disp.estadoAlerta == 'S' ? 'indicadorEstadoAlerta' :null}">
 
@@ -79,7 +79,7 @@
 					</p:commandLink>
 					
 					<p:commandLink 	style="float:center; margin-left: 50%;" rendered="#{!actuadorAvanceBean.esDeAvance(_disp.id)}"
-									action="#{actuadorBean.reestablecerActuador(_disp.id)}" update=":form">
+									action="#{placaBean.reestablecerDispositivo(_disp.id)}" update=":form:dispAlerta">
 						<h:graphicImage value="/resources/gfx/ok.png" alt="actuador" height="20px" />
 					</p:commandLink>
 			

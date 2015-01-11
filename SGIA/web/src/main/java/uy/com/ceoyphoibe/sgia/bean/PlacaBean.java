@@ -2,6 +2,7 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
@@ -14,6 +15,7 @@ import org.primefaces.event.RowEditEvent;
 
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
+import uy.com.ceoyphoibe.SGIA.data.DispositivoListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -27,6 +29,9 @@ public class PlacaBean {
 	
 	@Inject
 	private RegistroDispositivo regDispositivo;
+	
+	@Inject
+	private DispositivoListProducer dispositivoListProducer;
 	
 	private Placa placa;
 	private boolean mostrar = false;
@@ -253,9 +258,29 @@ public class PlacaBean {
 	}
 	
 	public void actualizarListaAlertas(){
-		Set<Dispositivo> listaDispositivos = placa.getListaDispositivos();
+		List<Dispositivo> listaDispositivos = dispositivoListProducer.getDispositivos();
 		for (Dispositivo d : listaDispositivos){
 			regDispositivo.pedirEstadoDispositivo(d);
+		}
+	}
+	
+	public void reestablecerDispositivo(long id){
+		Dispositivo dispositivo = regDispositivo.obtenerDispositivoId(id);
+		
+		try {
+		Mensaje mensaje = regDispositivo.reestablecerDispositivo(dispositivo);
+			if (mensaje.getTipo().equals("Informativo")){
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+	    	else{
+	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
+	            FacesContext.getCurrentInstance().addMessage(null, msg); 
+	    	}
+		} 
+		catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 }
