@@ -9,6 +9,19 @@
 
 		<h:form id="form" prependId="false">
 		
+			<p:dialog id="dlg" header="Lecturas" widgetVar="dlgGrafica" modal="true"
+				height="400">
+				<p:panel id="dialogPanel" style="border: none;">
+					
+						<p:chart type="line" model="#{factorBean.animatedModel1}"
+							style="width:800px;" />
+					
+					<p:commandLink action="#{placaBean.graficas}" immediate="true">
+						<h:graphicImage value="/resources/gfx/Graficas.png" alt="graficas" height="30px" />
+					</p:commandLink>
+				</p:panel>
+			</p:dialog>
+		
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
@@ -110,7 +123,7 @@
 							<h:panelGrid columns="3">
 								<p:commandLink
 									style="display: block; margin-left: 50px; margin-right: auto;"
-									onclick="PF('dlgGrafica').show()">
+									action="#{factorBean.graficarFactor(_factores.idFactor)}" oncomplete="PF('dlgGrafica').show()" update=":form:dlg">
 									<h:graphicImage value="/resources/gfx/Graficar.png"
 										alt="niveles" height="30px" />
 								</p:commandLink>
@@ -195,18 +208,10 @@
 					</h:panelGrid>
 				</p:dataScroller>
 			</p:panel>
+			
+			
 
 		</h:form>
-		<p:dialog header="Lecturas" widgetVar="dlgGrafica" modal="true"
-			height="500">
-			<h:panelGrid columns="2" columnClasses="left,right"
-				style="width:100%">
-				<p:chart type="line" model="#{factorBean.animatedModel1}"
-					style="width:400px;" />
-			</h:panelGrid>
-			<p:commandLink action="#{placaBean.graficas}" immediate="true">
-				<h:graphicImage value="/resources/gfx/Graficas.png" alt="graficas" height="30px" />
-			</p:commandLink>
-		</p:dialog>
+		
 	</ui:define>
 </ui:composition>
