@@ -12,6 +12,7 @@ import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
+import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
@@ -854,6 +855,21 @@ public class FachadaWS {
         mensaje.setTexto(resultadoWS.getTexto());
         mensaje.setTipo(resultadoWS.getTipo());
 		return mensaje;
+	}
+	
+	public String obtenerEstadoAlertaPlaca(Placa placa)
+	{
+		Comunicacion clienteWS= iniciarConexion(placa.getIpPlaca(), placa.getPuetroPlaca());
+        String resultadoWS= clienteWS.wsObtenerEstadoAlertaPlaca(placa.getNroSerie());
+		return resultadoWS;
+	}
+	
+	public String obtenerEstadoAlertaDispositivo(Dispositivo dispositivo)
+	{
+		Comunicacion clienteWS= iniciarConexion(dispositivo.getPlaca().getIpPlaca(), dispositivo.getPlaca().getPuetroPlaca());
+		BigInteger idDispositivo= BigInteger.valueOf(dispositivo.getId());
+		String resultadoWS= clienteWS.wsObtenerEstadoAlertaDispositivo(idDispositivo);
+		return resultadoWS;
 	}
 
 }
