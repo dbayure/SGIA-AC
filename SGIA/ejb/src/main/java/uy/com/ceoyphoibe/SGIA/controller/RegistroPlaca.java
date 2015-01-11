@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import uy.com.ceoyphoibe.SGIA.data.PlacaListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -31,6 +32,9 @@ public class RegistroPlaca {
 
 	@Inject
 	private Event<Placa> placaEventSrc;
+	
+	@Inject
+	private PlacaListProducer placaListProducer;
 
 	public void registro(Placa placa) throws Exception {
 		em.merge(placa);
@@ -133,6 +137,22 @@ public class RegistroPlaca {
 			em.merge(placa);
 		}
 		return msg;
+	}
+	
+	public void obtenerEstadoAlertaPlacas()
+	{
+		FachadaWS ws= new FachadaWS();
+		List<Placa> listaPlacas= placaListProducer.getPlacas();
+		for (Placa placa : listaPlacas)
+		{
+			String estado=ws.obtenerEstadoAlertaPlaca(placa);
+			if (placa.getEstadoAlerta() != estado.charAt(0))
+			{
+				placa.setEstadoAlerta(estado.charAt(0));
+				em.merge(placa);
+			}
+			
+		}
 	}
 	
 }
