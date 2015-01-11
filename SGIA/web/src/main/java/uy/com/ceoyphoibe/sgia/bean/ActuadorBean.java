@@ -97,7 +97,7 @@ public class ActuadorBean {
 				
 				actuador.setPlaca(placa);
 				actuador.setEstado('A');
-				actuador.setEstadoAlerta('N');
+				actuador.setEstadoAlerta("N");
 				actuador.setActivoSistema('S');
 				ga.setId(actuador.getGrupoActuadores().getId());
 				ga.setActivoSistema(actuador.getGrupoActuadores().getActivoSistema());
@@ -113,7 +113,7 @@ public class ActuadorBean {
 			else{
 				actuador.setPlaca(placa);
 				actuador.setEstado('A');
-				actuador.setEstadoAlerta('N');
+				actuador.setEstadoAlerta("N");
 				actuador.setActivoSistema('S');
 				
 				regActuador.registro(actuador);
@@ -184,6 +184,7 @@ public class ActuadorBean {
 	}
 	
 	public void reestablecerActuador(long id){
+		actuador = regActuador.obtenerActuadorId(id);
 		System.out.println("Parametro a pasar para restablecer el actuador " + actuador.getNombre());
 		try {
 		Mensaje mensaje = regActuador.reestablecerActuador(actuador);

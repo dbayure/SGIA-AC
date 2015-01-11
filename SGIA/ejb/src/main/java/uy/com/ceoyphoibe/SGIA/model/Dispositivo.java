@@ -30,7 +30,7 @@ public class Dispositivo implements Serializable {
 	private String modelo;
 	private int numeroPuerto;
 	private char activoSistema;
-	private char estadoAlerta;
+	private String estadoAlerta;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn ( name = "padre_id",  referencedColumnName = "id")
@@ -80,11 +80,11 @@ public class Dispositivo implements Serializable {
 		this.activoSistema = activoSistema;
 	}
 
-	public char getEstadoAlerta() {
+	public String getEstadoAlerta() {
 		return estadoAlerta;
 	}
 
-	public void setEstadoAlerta(char estadoAlerta) {
+	public void setEstadoAlerta(String estadoAlerta) {
 		this.estadoAlerta = estadoAlerta;
 	}
 
@@ -108,18 +108,18 @@ public class Dispositivo implements Serializable {
 		return serialVersionUID;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + activoSistema;
-		result = prime * result + estadoAlerta;
+		result = prime * result
+				+ ((estadoAlerta == null) ? 0 : estadoAlerta.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + numeroPuerto;
-		result = prime * result + ((padre == null) ? 0 : padre.hashCode());
-		result = prime * result + ((placa == null) ? 0 : placa.hashCode());
 		return result;
 	}
 
@@ -134,7 +134,10 @@ public class Dispositivo implements Serializable {
 		Dispositivo other = (Dispositivo) obj;
 		if (activoSistema != other.activoSistema)
 			return false;
-		if (estadoAlerta != other.estadoAlerta)
+		if (estadoAlerta == null) {
+			if (other.estadoAlerta != null)
+				return false;
+		} else if (!estadoAlerta.equals(other.estadoAlerta))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -152,16 +155,6 @@ public class Dispositivo implements Serializable {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		if (numeroPuerto != other.numeroPuerto)
-			return false;
-		if (padre == null) {
-			if (other.padre != null)
-				return false;
-		} else if (!padre.equals(other.padre))
-			return false;
-		if (placa == null) {
-			if (other.placa != null)
-				return false;
-		} else if (!placa.equals(other.placa))
 			return false;
 		return true;
 	}

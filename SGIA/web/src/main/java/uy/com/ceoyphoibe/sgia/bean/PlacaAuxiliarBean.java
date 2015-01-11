@@ -67,7 +67,7 @@ public class PlacaAuxiliarBean {
 	public void registrar() {
 		
 		try {
-			placaAuxiliarTemp.setEstadoAlerta('N');
+			placaAuxiliarTemp.setEstadoAlerta("N");
 			placaAuxiliarTemp.setActivoSistema('S');
 			placaAuxiliarTemp.setPlaca(placa);
 			registroPlacaAuxiliar.registro(placaAuxiliarTemp);

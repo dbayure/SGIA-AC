@@ -32,7 +32,7 @@ public class SensorBean {
 		try {
 			sensorTemp.setPlaca(placa);
 			sensorTemp.setActivoSistema('S');
-			sensorTemp.setEstadoAlerta('N');
+			sensorTemp.setEstadoAlerta("N");
 			registroSensor.registro(sensorTemp);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);

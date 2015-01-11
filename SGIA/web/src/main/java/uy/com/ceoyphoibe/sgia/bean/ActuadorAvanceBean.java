@@ -43,7 +43,6 @@ public class ActuadorAvanceBean {
 	private char posicionRes;
 	
 	private boolean btnActualizar = true;
-	private long idSeleccionado;
 
 
 	/**
@@ -175,7 +174,7 @@ public class ActuadorAvanceBean {
 			if (!skip)
 				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
 			actuadorAvanceSeleccionado.setActivoSistema('S');
-			actuadorAvanceSeleccionado.setEstadoAlerta('N');
+			actuadorAvanceSeleccionado.setEstadoAlerta("N");
 			actuadorAvanceSeleccionado.setPlaca(placaBean.getPlaca());
 			registroActuadorAvance.guardar(actuadorAvanceSeleccionado);
 			actuadorAvanceSeleccionado = new ActuadorAvance();
@@ -347,26 +346,10 @@ public class ActuadorAvanceBean {
 		}
 	}
 	
-	public void cambiarBoton(long id){
-//		if(btnActualizar == true){
-//			btnActualizar = false;
-//			System.out.println("estado actual del boton" + btnActualizar);
-//		}
-//		else{
-//			btnActualizar = true;
-//			System.out.println("estado actual del boton" + btnActualizar);
-//		}
-//		idSeleccionado = id;
+	public void seleccionar(long id){
 		seleccionarActuadorAvanceSeleccionado(id);
 		System.out.println("actuador avance seleccionado " + actuadorAvanceSeleccionado.getNombre());
 		System.out.println("cantidad de posiciones del actuador " + listaPosiciones.size());
 	}
-	
-	public boolean filaIdSeleccionado(long id){
-		boolean es =  false;
-		if(id == idSeleccionado){
-			es = true;
-		}
-		return es;
-	}
+
 }
