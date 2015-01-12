@@ -6,51 +6,69 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		
+
 
 		<style type="text/css">
-.actuadorRowSelected {
-	background-color: #dbffb8 !important;
-	background-image: none !important;
-	color: #000000 !important;
-}
-</style>
+			.actuadorRowSelected {
+				background-color: #dbffb8 !important;
+				background-image: none !important;
+				color: #000000 !important;
+			}
+		</style>
 
 		<h:form id="form" prependId="false">
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
-			
+			<p:separator />
+
 			<h1 style="text-align: center;">Administración de Grupo de
-			Actuadores</h1>
-			
+				Actuadores</h1>
+
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
@@ -104,7 +122,6 @@
 
 					</p:dataTable>
 
-
 					<p:dataTable id="panel2" var="actAvance"
 						value="#{actuadoresAvance}"
 						selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
@@ -131,18 +148,18 @@
 
 					</p:dataTable>
 
-					
 				</p:tab>
 			</p:accordionPanel>
-			
+
 			<p></p>
 			<h:panelGrid columns="2">
-						<p>
-							<p:commandButton id="register"
-								action="#{grupoActuadoresBean.registrar}" value="#{grupoActuadoresBean.nombreBoton}"
-								style="margin-left: 400px;" update=":form" />
-						</p>
-					</h:panelGrid>
+				<p>
+					<p:commandButton id="register"
+						action="#{grupoActuadoresBean.registrar}"
+						value="#{grupoActuadoresBean.nombreBoton}"
+						style="margin-left: 400px;" update=":form" />
+				</p>
+			</h:panelGrid>
 
 			<p:dataTable id="gactuadores" var="_gactuadores"
 				value="#{grupoActuadores}" editable="true">

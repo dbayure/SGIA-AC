@@ -14,31 +14,40 @@ import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 @FacesConverter(forClass = Mensaje.class, value = "mensajeConverter")
 public class MensajeConverter implements Converter {
 
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+	public Object getAsObject(FacesContext context, UIComponent component,
+			String value) {
 		if (value.trim().equals("")) {
-			value = ((HttpServletRequest) context.getExternalContext().getRequest()).getParameter(component.getClientId()+"_input");
-//			return null;
+			value = ((HttpServletRequest) context.getExternalContext()
+					.getRequest()).getParameter(component.getClientId()
+					+ "_input");
+			// return null;
 		}
 		Mensaje mensaje = null;
 		try {
-			ObjectMapper mapper = new ObjectMapper();	
-			mensaje = mapper.readValue(new URL( context.getExternalContext().getRequestScheme() + "://" + context.getExternalContext().getRequestServerName()
-					+ ":"  + context.getExternalContext().getRequestServerPort() + context.getExternalContext().getRequestContextPath() 
+			ObjectMapper mapper = new ObjectMapper();
+			mensaje = mapper.readValue(new URL(context.getExternalContext()
+					.getRequestScheme()
+					+ "://"
+					+ context.getExternalContext().getRequestServerName()
+					+ ":"
+					+ context.getExternalContext().getRequestServerPort()
+					+ context.getExternalContext().getRequestContextPath()
 					+ "/rest/mensajes/" + value), Mensaje.class);
-		}
-		catch(Exception e) {
-			throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de Conversion", "Mensaje no válido"));
+		} catch (Exception e) {
+			throw new ConverterException(new FacesMessage(
+					FacesMessage.SEVERITY_ERROR, "Error de Conversion",
+					"Mensaje no válido"));
 		}
 		return mensaje;
 	}
 
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
+	public String getAsString(FacesContext context, UIComponent component,
+			Object value) {
 		if (value == null || value.equals("")) {
-            return "";
-        } else {
-        	return String.valueOf( ((Mensaje)value).getId());
-        }
+			return "";
+		} else {
+			return String.valueOf(((Mensaje) value).getId());
+		}
 	}
 
-	
 }

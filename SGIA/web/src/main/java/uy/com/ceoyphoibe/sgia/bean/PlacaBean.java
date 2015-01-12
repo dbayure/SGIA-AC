@@ -1,18 +1,12 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import org.primefaces.event.RowEditEvent;
-
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
 import uy.com.ceoyphoibe.SGIA.data.DispositivoListProducer;
@@ -20,19 +14,19 @@ import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
-@ManagedBean(name= "placaBean")
+@ManagedBean(name = "placaBean")
 @SessionScoped
 public class PlacaBean {
 
 	@Inject
 	private RegistroPlaca registroPlaca;
-	
+
 	@Inject
 	private RegistroDispositivo regDispositivo;
-	
+
 	@Inject
 	private DispositivoListProducer dispositivoListProducer;
-	
+
 	private Placa placa;
 	private boolean mostrar = false;
 	private boolean mostrarCambiarEstadoPlaca = false;
@@ -40,8 +34,7 @@ public class PlacaBean {
 	private int puerto;
 	private String seleccion;
 	private String estadoPlaca;
-	
-	
+
 	public boolean isMostrarCambiarEstadoPlaca() {
 		return mostrarCambiarEstadoPlaca;
 	}
@@ -97,11 +90,9 @@ public class PlacaBean {
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}
-	
-	
-	public void seleccionarPlaca( Placa placa)
-	{
-		this.placa= placa;
+
+	public void seleccionarPlaca(Placa placa) {
+		this.placa = placa;
 	}
 
 	public boolean isMostrar() {
@@ -113,27 +104,25 @@ public class PlacaBean {
 	}
 
 	public void registrar() {
-		
+
 		try {
-			Mensaje mensaje=registroPlaca.modificar(placa);
-			if (mensaje.getTipo().equals("Informativo"))
-        	{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
-        	else
-        	{
-        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
-			
+			Mensaje mensaje = registroPlaca.modificar(placa);
+			if (mensaje.getTipo().equals("Informativo")) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al actualizar la placa controladora.", "");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Error al actualizar la placa controladora.", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
-	
 
 	public void onEdit(RowEditEvent event) {
 		Placa placa = ((Placa) event.getObject());
@@ -167,119 +156,110 @@ public class PlacaBean {
 		}
 
 	}
-	
-	public boolean conectar(){
-		try{
-			System.out.println("conectando al servidor mediante el ws ...  \n");
-			placa= registroPlaca.conectarWs(ip, puerto);
-		}
-		catch (Exception e){
+
+	public boolean conectar() {
+		try {
+			placa = registroPlaca.conectarWs(ip, puerto);
+		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		return mostrar;
 	}
-	
-	public String acciones()
-	{
+
+	public String acciones() {
 		return "/paginas/placas/accionesPlaca.xhtml?faces-redirect=true";
 	}
-	
-	public String niveles()
-	{
+
+	public String niveles() {
 		return "/paginas/nivelesSeveridad/nivelSeveridad.xhtml?faces-redirect=true";
 	}
-	
-	public String grupos()
-	{
+
+	public String grupos() {
 		return "/paginas/grupoActuadores/grupoActuadores.xhtml?faces-redirect=true";
 	}
-	
-	public String graficas()
-	{
+
+	public String graficas() {
 		return "/paginas/graficas/grafica.xhtml?faces-redirect=true";
 	}
-	public String inicio()
-	{
+
+	public String inicio() {
 		return "/paginas/principal/principal.jsf?faces-redirect=true";
 	}
-	
-	public String alertas()
-	{
+
+	public String alertas() {
 		actualizarListaAlertas();
 		return "/paginas/alertas/alertas.jsf?faces-redirect=true";
 	}
-	
-	public void setFactores(){
+
+	public void setFactores() {
 		seleccion = "factores";
 	}
-	
-	public void setActuadores(){
+
+	public void setActuadores() {
 		seleccion = "actuadores";
 	}
-	
-	public void setNiveles(){
+
+	public void setNiveles() {
 		seleccion = "niveles";
 	}
-	
-	public void mostrarCambioEstadoPlaca(){
-		if (mostrarCambiarEstadoPlaca == false){
+
+	public void mostrarCambioEstadoPlaca() {
+		if (mostrarCambiarEstadoPlaca == false) {
 			mostrarCambiarEstadoPlaca = true;
-		}
-		else {
+		} else {
 			mostrarCambiarEstadoPlaca = false;
 		}
-		
+
 	}
-	
-	
-	public void cambiarEstadoPlaca (){
-		System.out.println("entra a cambiarEstadoPlaca en el BEAN");
+
+	public void cambiarEstadoPlaca() {
 		Mensaje mensaje = registroPlaca.cambiarEstadoPlaca(placa, estadoPlaca);
-		if (mensaje.getTipo() == "Error"){
+		if (mensaje.getTipo() == "Error") {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		else{
-			if (mensaje.getTipo() == "Advertencia"){
+		} else {
+			if (mensaje.getTipo() == "Advertencia") {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
 						mensaje.getTexto(), "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-			}
-			else{
+			} else {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						mensaje.getTexto(), "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		}
-	
+
 	}
-	
-	public void actualizarListaAlertas(){
-		List<Dispositivo> listaDispositivos = dispositivoListProducer.getDispositivos();
-		for (Dispositivo d : listaDispositivos){
+
+	public void actualizarListaAlertas() {
+		List<Dispositivo> listaDispositivos = dispositivoListProducer
+				.getDispositivos();
+		for (Dispositivo d : listaDispositivos) {
 			regDispositivo.pedirEstadoDispositivo(d);
 		}
 	}
-	
-	public void reestablecerDispositivo(long id){
+
+	public void reestablecerDispositivo(long id) {
 		Dispositivo dispositivo = regDispositivo.obtenerDispositivoId(id);
-		
+
 		try {
-		Mensaje mensaje = regDispositivo.reestablecerDispositivo(dispositivo);
-			if (mensaje.getTipo().equals("Informativo")){
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-	    	}
-	    	else{
-	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-	    	}
-		} 
-		catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			Mensaje mensaje = regDispositivo
+					.reestablecerDispositivo(dispositivo);
+			if (mensaje.getTipo().equals("Informativo")) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(
+					"Error al restablecer la posicion ");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}

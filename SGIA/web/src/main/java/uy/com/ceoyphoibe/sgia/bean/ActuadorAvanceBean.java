@@ -2,17 +2,14 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
-
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
@@ -23,10 +20,9 @@ import uy.com.ceoyphoibe.SGIA.model.Sensor;
 @SessionScoped
 public class ActuadorAvanceBean {
 
-
 	@ManagedProperty("#{placaBean}")
-    private PlacaBean placaBean; 
-	
+	private PlacaBean placaBean;
+
 	@Inject
 	private RegistroActuadorAvance registroActuadorAvance;
 
@@ -39,11 +35,10 @@ public class ActuadorAvanceBean {
 	private Posicion posicionTemp = new Posicion();
 
 	private boolean skip;
-	
-	private char posicionRes;
-	
-	private boolean btnActualizar = true;
 
+	private char posicionRes;
+
+	private boolean btnActualizar = true;
 
 	/**
 	 * @return the skip
@@ -58,7 +53,6 @@ public class ActuadorAvanceBean {
 	public Posicion getPosicionTemp() {
 		return posicionTemp;
 	}
-
 
 	/**
 	 * @param posicionTemp
@@ -82,9 +76,10 @@ public class ActuadorAvanceBean {
 	public RegistroActuadorAvance getRegistroActuadorAvance() {
 		return registroActuadorAvance;
 	}
-	
+
 	/**
-	 * @param placa the placa to set
+	 * @param placa
+	 *            the placa to set
 	 */
 	public void setPlacaBean(PlacaBean placaBean) {
 		this.placaBean = placaBean;
@@ -116,16 +111,16 @@ public class ActuadorAvanceBean {
 	 * @param actuadorAvanceSeleccionado
 	 *            the actuadorAvanceSeleccionado to set
 	 */
-	public void setActuadorAvanceSeleccionado(ActuadorAvance actuadorAvanceSeleccionado) {
+	public void setActuadorAvanceSeleccionado(
+			ActuadorAvance actuadorAvanceSeleccionado) {
 		this.actuadorAvanceSeleccionado = actuadorAvanceSeleccionado;
-		listaPosiciones= actuadorAvanceSeleccionado.getListaPosiciones();
-		System.out.println(actuadorAvanceSeleccionado.getListaPosiciones().size());
+		listaPosiciones = actuadorAvanceSeleccionado.getListaPosiciones();
 	}
-	
+
 	public void seleccionarActuadorAvanceSeleccionado(Long id) {
-		actuadorAvanceSeleccionado= registroActuadorAvance.obtenerActuadorAvance(id);
-		listaPosiciones= actuadorAvanceSeleccionado.getListaPosiciones();
-		System.out.println(actuadorAvanceSeleccionado.getListaPosiciones().size());
+		actuadorAvanceSeleccionado = registroActuadorAvance
+				.obtenerActuadorAvance(id);
+		listaPosiciones = actuadorAvanceSeleccionado.getListaPosiciones();
 	}
 
 	/**
@@ -160,7 +155,6 @@ public class ActuadorAvanceBean {
 		this.posicionRes = posicionRes;
 	}
 
-	
 	public boolean isBtnActualizar() {
 		return btnActualizar;
 	}
@@ -187,33 +181,31 @@ public class ActuadorAvanceBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
+
 	public void actualizar() {
 		try {
-			
+
 			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			Mensaje mensaje=registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
-			if (mensaje.getTipo().equals("Informativo"))
-			{
+			Mensaje mensaje = registroActuadorAvance
+					.modificar(actuadorAvanceSeleccionado);
+			if (mensaje.getTipo().equals("Informativo")) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						mensaje.getTexto(), "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				
-			}
-			else
-			{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						mensaje.getTexto(), "");
+
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-			
+
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Error al actualizar ", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
+
 	public void agregarPosicion() {
 		posicionTemp.setListaSensores(listaSensoresPosicion);
 		listaPosiciones.add(posicionTemp);
@@ -237,35 +229,37 @@ public class ActuadorAvanceBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
-	public void onEditPosicion(RowEditEvent event) {  
-        Posicion posicion = ((Posicion) event.getObject());
-       
-        try {
 
-        	posicion.setListaSensores(listaSensoresPosicion);
-        	actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-        	registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
+	public void onEditPosicion(RowEditEvent event) {
+		Posicion posicion = ((Posicion) event.getObject());
+
+		try {
+
+			posicion.setListaSensores(listaSensoresPosicion);
+			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+			registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al modificar ", posicion.getDescripcion());  
-            FacesContext.getCurrentInstance().addMessage(null, msg); 
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Error al modificar ", posicion.getDescripcion());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
+
 	public void eliminarPosicion(Posicion pos) {
 		try {
 			listaPosiciones.remove(pos);
 			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
 			registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
-			FacesMessage msg = new FacesMessage("Se eliminó la posición", pos.getDescripcion());  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage("Se eliminó la posición",
+					pos.getDescripcion());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(
+					"Error al eliminar la posición", pos.getDescripcion());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar la posición", pos.getDescripcion());  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		  
+
 	}
 
 	public void onEdit(RowEditEvent event) {
@@ -293,17 +287,16 @@ public class ActuadorAvanceBean {
 
 	public void eliminar(Long id) {
 		try {
-			Mensaje mensaje=registroActuadorAvance.eliminar(id);
-			if (mensaje.getTipo().equals("Informativo"))
-        	{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
-        	else
-        	{
-        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
+			Mensaje mensaje = registroActuadorAvance.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo")) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Error al eliminar",
 					id.toString());
@@ -317,39 +310,38 @@ public class ActuadorAvanceBean {
 			skip = false; // reset in case user goes back
 			return "confirmacion";
 		} else {
-			System.out.println(event.getOldStep());
 			return event.getNewStep();
 		}
 	}
-	
-	public boolean esDeAvance(long id){
+
+	public boolean esDeAvance(long id) {
 		boolean es = registroActuadorAvance.esDeAvance(id);
 		return es;
 	}
-	
-	public void reestablecerPosicion(){
-		System.out.println("Parametros a pasar para restablecer la posicion " + actuadorAvanceSeleccionado.getNombre() + posicionRes);
+
+	public void reestablecerPosicion() {
 		try {
-		Mensaje mensaje=registroActuadorAvance.reestablecerPosicionActuadorAvance(actuadorAvanceSeleccionado, posicionRes);
-			if (mensaje.getTipo().equals("Informativo")){
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-	    	}
-	    	else{
-	    		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-	    	}
-		} 
-		catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al restablecer la posicion ");
+			Mensaje mensaje = registroActuadorAvance
+					.reestablecerPosicionActuadorAvance(
+							actuadorAvanceSeleccionado, posicionRes);
+			if (mensaje.getTipo().equals("Informativo")) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(
+					"Error al restablecer la posicion ");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
-	
-	public void seleccionar(long id){
+
+	public void seleccionar(long id) {
 		seleccionarActuadorAvanceSeleccionado(id);
-		System.out.println("actuador avance seleccionado " + actuadorAvanceSeleccionado.getNombre());
-		System.out.println("cantidad de posiciones del actuador " + listaPosiciones.size());
 	}
 
 }

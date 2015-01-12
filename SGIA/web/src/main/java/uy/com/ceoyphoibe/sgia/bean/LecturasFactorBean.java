@@ -33,63 +33,60 @@ public class LecturasFactorBean {
 
 	private Factor factorTemp;
 	private Sensor sensorTemp;
-	private List<LecturaFactor> listaLecturas= new ArrayList<LecturaFactor>();
-	private List<Lectura> listaLecturasSensor= new ArrayList<Lectura>();
+	private List<LecturaFactor> listaLecturas = new ArrayList<LecturaFactor>();
+	private List<Lectura> listaLecturasSensor = new ArrayList<Lectura>();
 	private Date fechaMin;
 	private Date fechaMax;
-	private boolean verFactores=true;
-	//private Dispositivo dispositivoTemp;
+	private boolean verFactores = true;
+	// private Dispositivo dispositivoTemp;
 
-	
 	@Inject
-	private  LecturaFactorListProducer lecturasFactorListProducer;
-	
+	private LecturaFactorListProducer lecturasFactorListProducer;
+
 	@Inject
-	private  LecturaListProducer lecturasSensorListProducer;
-	
+	private LecturaListProducer lecturasSensorListProducer;
 
-
-	public void obtenerLecturasFactor()
-	{
-		listaLecturas= new ArrayList<LecturaFactor>();
+	@SuppressWarnings("deprecation")
+	public void obtenerLecturasFactor() {
+		listaLecturas = new ArrayList<LecturaFactor>();
 		if (fechaMin == null && fechaMax == null)
-			listaLecturas= lecturasFactorListProducer.getLecturasIdFactor(factorTemp.getIdFactor());
-		else
-		{
+			listaLecturas = lecturasFactorListProducer
+					.getLecturasIdFactor(factorTemp.getIdFactor());
+		else {
 			if (fechaMax == null)
-				fechaMax= new Date();
-			if (fechaMin == null)
-			{
-				fechaMin= new Date();
-				fechaMin.setYear(fechaMin.getYear()-1);
+				fechaMax = new Date();
+			if (fechaMin == null) {
+				fechaMin = new Date();
+				fechaMin.setYear(fechaMin.getYear() - 1);
 			}
-			Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-			listaLecturas= lecturasFactorListProducer.getLecturasFactorIdFactorEntreFechas(factorTemp.getIdFactor(), min, max);
-		}
-	}
-	
-	public void obtenerLecturasSensor()
-	{
-		listaLecturasSensor= new ArrayList<Lectura>();
-		if (fechaMin == null && fechaMax == null)
-			listaLecturasSensor= lecturasSensorListProducer.getLecturasIdSensor(sensorTemp.getId());
-		else
-		{
-			if (fechaMax == null)
-				fechaMax= new Date();
-			if (fechaMin == null)
-			{
-				fechaMin= new Date();
-				fechaMin.setYear(fechaMin.getYear()-1);
-			}
-			Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-			listaLecturasSensor= lecturasSensorListProducer.getLecturasIdSensorEntreFechas(sensorTemp.getId(), min, max);
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			listaLecturas = lecturasFactorListProducer
+					.getLecturasFactorIdFactorEntreFechas(
+							factorTemp.getIdFactor(), min, max);
 		}
 	}
 
-	
+	@SuppressWarnings("deprecation")
+	public void obtenerLecturasSensor() {
+		listaLecturasSensor = new ArrayList<Lectura>();
+		if (fechaMin == null && fechaMax == null)
+			listaLecturasSensor = lecturasSensorListProducer
+					.getLecturasIdSensor(sensorTemp.getId());
+		else {
+			if (fechaMax == null)
+				fechaMax = new Date();
+			if (fechaMin == null) {
+				fechaMin = new Date();
+				fechaMin.setYear(fechaMin.getYear() - 1);
+			}
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			listaLecturasSensor = lecturasSensorListProducer
+					.getLecturasIdSensorEntreFechas(sensorTemp.getId(), min,
+							max);
+		}
+	}
 
 	/**
 	 * @return the fechaMin
@@ -99,7 +96,8 @@ public class LecturasFactorBean {
 	}
 
 	/**
-	 * @param fechaMin the fechaMin to set
+	 * @param fechaMin
+	 *            the fechaMin to set
 	 */
 	public void setFechaMin(Date fechaMin) {
 		this.fechaMin = fechaMin;
@@ -113,62 +111,64 @@ public class LecturasFactorBean {
 	}
 
 	/**
-	 * @param fechaMax the fechaMax to set
+	 * @param fechaMax
+	 *            the fechaMax to set
 	 */
 	public void setFechaMax(Date fechaMax) {
 		this.fechaMax = fechaMax;
 	}
 
-	
-	
-	
-	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
-        Document pdf = (Document) document;
-        pdf.open();
-        pdf.setPageSize(PageSize.A4);
- 
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "gfx" + File.separator + "C&P2.png";
-         
-        pdf.add(Image.getInstance(logo));
-        pdf.addTitle("Lecturas");
-        pdf.add(new Paragraph("Factor: "+ factorTemp.getNombre()));
-        
-        if (fechaMin != null && fechaMax != null)
-        {
-        	Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-        	pdf.add(new Paragraph("Período: "+ min + " - "+ max));
-        }
-        pdf.add(new Paragraph(" "));
-        pdf.add(new Paragraph(" "));
-	
-    }
-	
-	public void preProcessPDF_Sens(Object document) throws IOException, BadElementException, DocumentException {
-        Document pdf = (Document) document;
-        pdf.open();
-        pdf.setPageSize(PageSize.A4);
- 
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "gfx" + File.separator + "C&P2.png";
-         
-        pdf.add(Image.getInstance(logo));
-        pdf.addTitle("Lecturas");
-        pdf.add(new Paragraph("Sensor: "+ sensorTemp.getNombre()));
-        
-        if (fechaMin != null && fechaMax != null)
-        {
-        	Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-        	pdf.add(new Paragraph("Período: "+ min + " - "+ max));
-        }
-        pdf.add(new Paragraph(" "));
-        pdf.add(new Paragraph(" "));
-	
-    }
+	public void preProcessPDF(Object document) throws IOException,
+			BadElementException, DocumentException {
+		Document pdf = (Document) document;
+		pdf.open();
+		pdf.setPageSize(PageSize.A4);
 
+		ServletContext servletContext = (ServletContext) FacesContext
+				.getCurrentInstance().getExternalContext().getContext();
+		String logo = servletContext.getRealPath("") + File.separator
+				+ "resources" + File.separator + "gfx" + File.separator
+				+ "C&P2.png";
 
+		pdf.add(Image.getInstance(logo));
+		pdf.addTitle("Lecturas");
+		pdf.add(new Paragraph("Factor: " + factorTemp.getNombre()));
+
+		if (fechaMin != null && fechaMax != null) {
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			pdf.add(new Paragraph("Período: " + min + " - " + max));
+		}
+		pdf.add(new Paragraph(" "));
+		pdf.add(new Paragraph(" "));
+
+	}
+
+	public void preProcessPDF_Sens(Object document) throws IOException,
+			BadElementException, DocumentException {
+		Document pdf = (Document) document;
+		pdf.open();
+		pdf.setPageSize(PageSize.A4);
+
+		ServletContext servletContext = (ServletContext) FacesContext
+				.getCurrentInstance().getExternalContext().getContext();
+		String logo = servletContext.getRealPath("") + File.separator
+				+ "resources" + File.separator + "gfx" + File.separator
+				+ "C&P2.png";
+
+		pdf.add(Image.getInstance(logo));
+		pdf.addTitle("Lecturas");
+		pdf.add(new Paragraph("Sensor: " + sensorTemp.getNombre()));
+
+		if (fechaMin != null && fechaMax != null) {
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			pdf.add(new Paragraph("Período: " + min + " - " + max));
+		}
+		pdf.add(new Paragraph(" "));
+		pdf.add(new Paragraph(" "));
+
+	}
 
 	/**
 	 * @return the factorTemp
@@ -177,16 +177,13 @@ public class LecturasFactorBean {
 		return factorTemp;
 	}
 
-
-
 	/**
-	 * @param factorTemp the factorTemp to set
+	 * @param factorTemp
+	 *            the factorTemp to set
 	 */
 	public void setFactorTemp(Factor factorTemp) {
 		this.factorTemp = factorTemp;
 	}
-
-
 
 	/**
 	 * @return the listaLecturas
@@ -195,16 +192,13 @@ public class LecturasFactorBean {
 		return listaLecturas;
 	}
 
-
-
 	/**
-	 * @param listaLecturas the listaLecturas to set
+	 * @param listaLecturas
+	 *            the listaLecturas to set
 	 */
 	public void setListaLecturas(List<LecturaFactor> listaLecturas) {
 		this.listaLecturas = listaLecturas;
 	}
-
-
 
 	/**
 	 * @return the verFactores
@@ -213,16 +207,13 @@ public class LecturasFactorBean {
 		return verFactores;
 	}
 
-
-
 	/**
-	 * @param verFactores the verFactores to set
+	 * @param verFactores
+	 *            the verFactores to set
 	 */
 	public void setVerFactores(boolean verFactores) {
 		this.verFactores = verFactores;
 	}
-
-
 
 	/**
 	 * @return the sensorTemp
@@ -231,16 +222,13 @@ public class LecturasFactorBean {
 		return sensorTemp;
 	}
 
-
-
 	/**
-	 * @param sensorTemp the sensorTemp to set
+	 * @param sensorTemp
+	 *            the sensorTemp to set
 	 */
 	public void setSensorTemp(Sensor sensorTemp) {
 		this.sensorTemp = sensorTemp;
 	}
-
-
 
 	/**
 	 * @return the listaLecturasSensor
@@ -249,13 +237,12 @@ public class LecturasFactorBean {
 		return listaLecturasSensor;
 	}
 
-
-
 	/**
-	 * @param listaLecturasSensor the listaLecturasSensor to set
+	 * @param listaLecturasSensor
+	 *            the listaLecturasSensor to set
 	 */
 	public void setListaLecturasSensor(List<Lectura> listaLecturasSensor) {
 		this.listaLecturasSensor = listaLecturasSensor;
 	}
-	
+
 }

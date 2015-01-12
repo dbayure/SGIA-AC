@@ -8,106 +8,129 @@
 	<ui:define name="content">
 
 		<h:form id="form" prependId="false">
-			
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
-			
+			<p:separator />
+
 			<h1 style="text-align: center;">Logs de Eventos</h1>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
-				
-				
+
 			<p:panel>
 				<h:panelGrid columns="2">
-			
+
 					<h:panelGrid columns="2">
-					
+
 						<p:outputLabel for="fechaMin" value="Fecha Min:" />
-	       				<p:calendar id="fechaMin" value="#{logEventoBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
-					
-			            <p:outputLabel for="fechaMax" value="Fecha Max:" />
-	       				<p:calendar id="fechaMax" value="#{logEventoBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
-			            
+						<p:calendar id="fechaMin" value="#{logEventoBean.fechaMin}"
+							pattern="dd/MM/yyyy HH:mm:ss" />
+
+						<p:outputLabel for="fechaMax" value="Fecha Max:" />
+						<p:calendar id="fechaMax" value="#{logEventoBean.fechaMax}"
+							pattern="dd/MM/yyyy HH:mm:ss" />
+
 					</h:panelGrid>
-					
+
 					<p:panel style="border:none;">
 						<p:commandLink
 							style="display: block; float:right; margin-left: auto; margin-right: auto;"
-							update=":form" action="#{logEventoBean.obtenerLogEventos}" >
-	
-							<h:graphicImage value="/resources/gfx/Recargar.png" alt="recargar"
-								height="25px" />
+							update=":form" action="#{logEventoBean.obtenerLogEventos}">
+
+							<h:graphicImage value="/resources/gfx/Recargar.png"
+								alt="recargar" height="25px" />
 						</p:commandLink>
 					</p:panel>
 				</h:panelGrid>
 			</p:panel>
-			
-			<p:panel style="border:none;" >
+
+			<p:panel style="border:none;">
 				<h:commandLink style="float:right;">
-	                <h:graphicImage value="/resources/gfx/xls.png" width="24"/>
-	                <p:dataExporter type="xls" target="TlogEventos" fileName="logEventos" />
-	            </h:commandLink>
-	 			
-	 			<h:outputText value="&#160;&#160;" style="float:right;" />
-	 			
-	            <h:commandLink style="float:right;" >
-	                <h:graphicImage value="/resources/gfx/pdf.png" width="24"/>
-	                <p:dataExporter  type="pdf" target="TlogEventos" fileName="logEventos" pageOnly="true" preProcessor="#{logEventoBean.preProcessPDF}"/>
-	            </h:commandLink>
+					<h:graphicImage value="/resources/gfx/xls.png" width="24" />
+					<p:dataExporter type="xls" target="TlogEventos"
+						fileName="logEventos" />
+				</h:commandLink>
+
+				<h:outputText value="&#160;&#160;" style="float:right;" />
+
+				<h:commandLink style="float:right;">
+					<h:graphicImage value="/resources/gfx/pdf.png" width="24" />
+					<p:dataExporter type="pdf" target="TlogEventos"
+						fileName="logEventos" pageOnly="true"
+						preProcessor="#{logEventoBean.preProcessPDF}" />
+				</h:commandLink>
 			</p:panel>
 
-			
-			
-			<p:spacer height="20"/>
-				
-			<p:dataTable id="TlogEventos" var="_logEvento" value="#{logEventoBean.logEventos}" widgetVar="tablaLogs"
+			<p:spacer height="20" />
+
+			<p:dataTable id="TlogEventos" var="_logEvento"
+				value="#{logEventoBean.logEventos}" widgetVar="tablaLogs"
 				emptyMessage="No hay logs que coincidan con los filtros establecidos"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                 paginator="true" rows="15">
+				paginator="true" rows="15">
 				<f:facet name="header">  
             	Log de Eventos 
         	</f:facet>
-	
 
 				<p:column headerText="Fecha" style="width:15%">
 					<h:outputText value="#{_logEvento.fecha}" />
 				</p:column>
 
-				<p:column headerText="Tipo Log" style="width:30%" filterBy="#{_logEvento.tipoLogEvento.nombre}" filterMatchMode="in">
+				<p:column headerText="Tipo Log" style="width:30%"
+					filterBy="#{_logEvento.tipoLogEvento.nombre}" filterMatchMode="in">
 					<f:facet name="filter">
-		                <p:selectCheckboxMenu label="Filtrar" onchange="PF('tablaLogs').filter()" panelStyle="width:300px" scrollHeight="300">
-		                    <f:selectItems value="#{tipoLogEventos}" var="_log"
-									itemLabel="#{_log.nombre}" itemValue="#{_log.nombre}"/>
-		                </p:selectCheckboxMenu>
-		            </f:facet>
+						<p:selectCheckboxMenu label="Filtrar"
+							onchange="PF('tablaLogs').filter()" panelStyle="width:300px"
+							scrollHeight="300">
+							<f:selectItems value="#{tipoLogEventos}" var="_log"
+								itemLabel="#{_log.nombre}" itemValue="#{_log.nombre}" />
+						</p:selectCheckboxMenu>
+					</f:facet>
 					<p:commandLink update=":form:dialogoTipoLog"
 						styleClass="ui-icon ui-icon-search"
 						oncomplete="PF('dialogoTipoLog').show()" title="Ver Detalle"
@@ -118,13 +141,16 @@
 					<h:outputText value="#{_logEvento.tipoLogEvento.nombre}" />
 				</p:column>
 
-				<p:column headerText="Mensaje" style="width:15%" filterBy="#{_logEvento.mensaje.texto}" filterMatchMode="in">
+				<p:column headerText="Mensaje" style="width:15%"
+					filterBy="#{_logEvento.mensaje.texto}" filterMatchMode="in">
 					<f:facet name="filter">
-		                <p:selectCheckboxMenu label="Filtrar" onchange="PF('tablaLogs').filter()" panelStyle="width:300px" scrollHeight="300">
-		                    <f:selectItems value="#{mensajes}" var="_men"
-									itemLabel="#{_men.texto}" itemValue="#{_men.texto}"/>
-		                </p:selectCheckboxMenu>
-		            </f:facet>
+						<p:selectCheckboxMenu label="Filtrar"
+							onchange="PF('tablaLogs').filter()" panelStyle="width:300px"
+							scrollHeight="300">
+							<f:selectItems value="#{mensajes}" var="_men"
+								itemLabel="#{_men.texto}" itemValue="#{_men.texto}" />
+						</p:selectCheckboxMenu>
+					</f:facet>
 					<p:commandLink update=":form:dialogoMensaje"
 						styleClass="ui-icon ui-icon-search"
 						oncomplete="PF('dialogoMensaje').show()" title="Ver Detalle"
@@ -132,16 +158,20 @@
 						<f:setPropertyActionListener value="#{_logEvento.mensaje}"
 							target="#{logEventoBean.mensaje}" />
 					</p:commandLink>
-					<h:outputText value="#{_logEvento.mensaje.id}, #{_logEvento.mensaje.tipo}" />
+					<h:outputText
+						value="#{_logEvento.mensaje.id}, #{_logEvento.mensaje.tipo}" />
 				</p:column>
 
-				<p:column headerText="Dispositivo" style="width:15%" filterBy="#{_logEvento.dispositivo.nombre}" filterMatchMode="in">
+				<p:column headerText="Dispositivo" style="width:15%"
+					filterBy="#{_logEvento.dispositivo.nombre}" filterMatchMode="in">
 					<f:facet name="filter">
-		                <p:selectCheckboxMenu label="Filtrar" onchange="PF('tablaLogs').filter()" panelStyle="width:300px" scrollHeight="300">
-		                    <f:selectItems value="#{dispositivos}" var="_disp"
-									itemLabel="#{_disp.nombre}" itemValue="#{_disp.nombre}"/>
-		                </p:selectCheckboxMenu>
-		            </f:facet>
+						<p:selectCheckboxMenu label="Filtrar"
+							onchange="PF('tablaLogs').filter()" panelStyle="width:300px"
+							scrollHeight="300">
+							<f:selectItems value="#{dispositivos}" var="_disp"
+								itemLabel="#{_disp.nombre}" itemValue="#{_disp.nombre}" />
+						</p:selectCheckboxMenu>
+					</f:facet>
 					<p:commandLink update=":form:dialogoDispositivo"
 						styleClass="ui-icon ui-icon-search"
 						oncomplete="PF('dialogoDispositivo').show()" title="Ver Detalle"
@@ -151,38 +181,9 @@
 					</p:commandLink>
 					<h:outputText value="#{_logEvento.dispositivo.nombre}" />
 				</p:column>
-				
+
 			</p:dataTable>
-			
-			<p:dataTable id="logEventosExp" var="_logEvento" value="#{logEventoBean.aExportar}" rendered="false">
-				
-
-				<p:column headerText="Fecha" style="width:15%">
-					<h:outputText value="#{_logEvento.fecha}" />
-				</p:column>
-
-				<p:column headerText="Tipo Log" style="width:30%" filterBy="#{_logEvento.tipoLogEvento.nombre}" filterMatchMode="in">
-					
-					<h:outputText value="#{_logEvento.tipoLogEvento.nombre}" />
-				</p:column>
-
-				<p:column headerText="Mensaje" style="width:15%" filterBy="#{_logEvento.mensaje.texto}" filterMatchMode="in">
-					
-					<h:outputText value="#{_logEvento.mensaje.id}, #{_logEvento.mensaje.tipo}" />
-				</p:column>
-
-				<p:column headerText="Dispositivo" style="width:15%" filterBy="#{_logEvento.dispositivo.nombre}" filterMatchMode="in">
-					
-					<h:outputText value="#{_logEvento.dispositivo.nombre}" />
-				</p:column>
-				
-			</p:dataTable>
-			
-
-			<br />
-			<br />
-
-
+	
 			<p:dialog header="Detalle Tipo Log" widgetVar="dialogoTipoLog"
 				modal="true" showEffect="blind" resizable="false">
 				<p:outputPanel id="dialogoTipoLog" style="text-align:center;">
@@ -214,13 +215,14 @@
 				<p:outputPanel id="dialogoMensaje" style="text-align:center;">
 					<h:panelGrid columns="1">
 						<f:facet name="header">
-							<h:outputText value="#{logEventoBean.mensaje.id}, #{logEventoBean.mensaje.tipo}" />
+							<h:outputText
+								value="#{logEventoBean.mensaje.id}, #{logEventoBean.mensaje.tipo}" />
 						</f:facet>
 						<h:outputText value="#{logEventoBean.mensaje.texto}" />
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
-			
+
 			<p:dialog header="Detalle Dispositivo" widgetVar="dialogoDispositivo"
 				modal="true" showEffect="blind" resizable="false">
 				<p:outputPanel id="dialogoDispositivo" style="text-align:center;">
@@ -230,13 +232,13 @@
 						</f:facet>
 						<h:outputText value="Modelo" />
 						<h:outputText value="#{logEventoBean.dispositivo.modelo}" />
-						
+
 						<h:outputText value="Número de puerto" />
 						<h:outputText value="#{logEventoBean.dispositivo.numeroPuerto}" />
-						
+
 						<h:outputText value="Activo Sistema" />
 						<h:outputText value="#{logEventoBean.dispositivo.activoSistema}" />
-						
+
 						<h:outputText value="Estado Alerta" />
 						<h:outputText value="#{logEventoBean.dispositivo.estadoAlerta}" />
 					</h:panelGrid>

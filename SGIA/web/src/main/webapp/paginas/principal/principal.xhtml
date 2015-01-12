@@ -1,98 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui"
-   template="/WEB-INF/templates/default.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-				
+
 		<h:form prependId="false" id="form">
-			
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
-			
+			<p:separator />
+
 			<p:panel id="p2" style="border: none;">
 				<h:panelGrid id="gridContenedor" columns="2">
 					<h:panelGrid id="gridConectar" columns="2">
-						
-						<p:outputLabel for="ip" value="IP: "/>
-						<p:inputText id="ip" value="#{placaBean.ip}"/>
-						<p:outputLabel for="puerto" value="Puerto: "/>
-						<p:inputText id="puerto" value="#{placaBean.puerto}"/>
+
+						<p:outputLabel for="ip" value="IP: " />
+						<p:inputText id="ip" value="#{placaBean.ip}" />
+						<p:outputLabel for="puerto" value="Puerto: " />
+						<p:inputText id="puerto" value="#{placaBean.puerto}" />
 					</h:panelGrid>
-							
-					<p:commandLink id="conectar" update=":form" actionListener="#{placaBean.conectar}">
-	        			<h:graphicImage value="/resources/gfx/connectar.png" alt="conectar" height="50px"/>
-	    			</p:commandLink>
-				
+
+					<p:commandLink id="conectar" update=":form"
+						actionListener="#{placaBean.conectar}">
+						<h:graphicImage value="/resources/gfx/connectar.png"
+							alt="conectar" height="50px" />
+					</p:commandLink>
+
 				</h:panelGrid>
-			
+
 			</p:panel>
-			
+
 			<p:panel id="p3" style="border: none;">
-			
-			    <p:dataScroller value="#{placas}" var="_placa" chunkSize="5" mode="inline" scrollHeight="100">
-			        <f:facet name="header">
+
+				<p:dataScroller value="#{placas}" var="_placa" chunkSize="5"
+					mode="inline" scrollHeight="100">
+					<f:facet name="header">
 			            Placas Disponibles
 			        </f:facet>
-			 
-			        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
-			        	
-			        	<p:commandLink id="selPlaca" style="float:left;" ajax="true" 
-									update=":form" actionListener="#{placaBean.seleccionarPlaca(_placa)}">
-									<p:graphicImage value="/resources/gfx/motherboard_icon.jpg" height="50px" />
+
+					<h:panelGrid columns="3" style="width:100%"
+						columnClasses="logo,detail">
+
+						<p:commandLink id="selPlaca" style="float:left;" ajax="true"
+							update=":form"
+							actionListener="#{placaBean.seleccionarPlaca(_placa)}">
+							<p:graphicImage value="/resources/gfx/motherboard_icon.jpg"
+								height="50px" />
 						</p:commandLink>
-			 
-			            <p:outputPanel>
-			                <h:panelGrid columns="2" cellpadding="5">
-			                    <h:outputText value="Id:" />
-			                    <h:outputText value="#{_placa.id}" style="font-weight: bold"/>
-			 
-			                    <h:outputText value="Descripcion:" />
-			                    <h:outputText value="#{_placa.descripcion}" style="font-weight: bold"/>
-			 
-			                    <h:outputText value="Serie:" />
-			                    <h:outputText value="#{_placa.nroSerie}" style="font-weight: bold"/>
-			                </h:panelGrid>
-			            </p:outputPanel>
-			            
-			            <p:commandLink id="acctiones" action="#{placaBean.acciones}">
-	        				<h:graphicImage value="/resources/gfx/ver.png" alt="acciones" height="50px"/>
-	    				</p:commandLink>
-			        </h:panelGrid>
-			    </p:dataScroller>	
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Id:" />
+								<h:outputText value="#{_placa.id}" style="font-weight: bold" />
+
+								<h:outputText value="Descripcion:" />
+								<h:outputText value="#{_placa.descripcion}"
+									style="font-weight: bold" />
+
+								<h:outputText value="Serie:" />
+								<h:outputText value="#{_placa.nroSerie}"
+									style="font-weight: bold" />
+							</h:panelGrid>
+						</p:outputPanel>
+
+						<p:commandLink id="acctiones" action="#{placaBean.acciones}">
+							<h:graphicImage value="/resources/gfx/ver.png" alt="acciones"
+								height="50px" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:dataScroller>
 			</p:panel>
-					
-				
+
 		</h:form>
 	</ui:define>
 </ui:composition>

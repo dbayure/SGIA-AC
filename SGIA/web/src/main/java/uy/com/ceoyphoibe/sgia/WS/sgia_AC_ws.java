@@ -3,11 +3,9 @@ package uy.com.ceoyphoibe.sgia.WS;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-
 import uy.com.ceoyphoibe.SGIA.DTO.AccionWS;
 import uy.com.ceoyphoibe.SGIA.DTO.LecturaWS;
 import uy.com.ceoyphoibe.SGIA.DTO.LogEventoWS;
@@ -29,50 +27,43 @@ import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
 @WebService
-public class sgia_AC_ws implements Serializable{
+public class sgia_AC_ws implements Serializable {
 
 	private static final long serialVersionUID = 2953071844666719795L;
-	
+
 	@Inject
 	private RegistroPlaca rPlaca;
-	
+
 	@Inject
 	private RegistroLectura rLectura;
-	
+
 	@Inject
 	private RegistroLecturaFactor rLecturaFactor;
-	
+
 	@Inject
 	private RegistroLogEvento rLogEvento;
-	
+
 	@Inject
 	private RegistroAccion rAcciones;
-	
+
 	@Inject
-	private  RegistroDispositivo rDispositivo;
-	
+	private RegistroDispositivo rDispositivo;
+
 	@Inject
-	private  RegistroTipoLogEvento rTipoLogEvento;
-	
+	private RegistroTipoLogEvento rTipoLogEvento;
+
 	@Inject
-	private  RegistroMensaje rMensaje;
-	
+	private RegistroMensaje rMensaje;
+
 	@WebMethod
-	public boolean inLecturas(String nroSerie, List<LecturaWS> listaLecturas)
-	{
-		System.out.println("****************entra al ws");
-		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
-		for (LecturaWS lectura : listaLecturas)
-		{
-			System.out.println("lectura recibida: ");
-			System.out.println("Fecha: "+lectura.getFecha());
-			System.out.println("Valor: "+lectura.getLectura());
-			System.out.println("Dispositivio: "+lectura.getIdDispositivo());
-			Lectura l= new Lectura();
+	public boolean inLecturas(String nroSerie, List<LecturaWS> listaLecturas) {
+		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+		for (LecturaWS lectura : listaLecturas) {
+			Lectura l = new Lectura();
 			l.setIdPlaca(idPlaca);
-			Timestamp fechaHora= Timestamp.valueOf(lectura.getFecha());
+			Timestamp fechaHora = Timestamp.valueOf(lectura.getFecha());
 			l.setFechaHora(fechaHora);
-			Long idDispositivo= new Long(lectura.getIdDispositivo());
+			Long idDispositivo = new Long(lectura.getIdDispositivo());
 			l.setIdSensor(idDispositivo);
 			l.setValor(lectura.getLectura());
 			try {
@@ -80,26 +71,21 @@ public class sgia_AC_ws implements Serializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return true;
 	}
-	
+
 	@WebMethod
-	public boolean inLecturasFactor(String nroSerie, List<LecturaWS> listaLecturas)
-	{
-		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
-		for (LecturaWS lectura : listaLecturas)
-		{
-			System.out.println("lectura recibida: ");
-			System.out.println("Fecha: "+lectura.getFecha());
-			System.out.println("Valor: "+lectura.getLectura());
-			System.out.println("Dispositivio: "+lectura.getIdDispositivo());
-			LecturaFactor l= new LecturaFactor();
+	public boolean inLecturasFactor(String nroSerie,
+			List<LecturaWS> listaLecturas) {
+		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+		for (LecturaWS lectura : listaLecturas) {
+			LecturaFactor l = new LecturaFactor();
 			l.setIdPlaca(idPlaca);
-			Timestamp fechaHora= Timestamp.valueOf(lectura.getFecha());
+			Timestamp fechaHora = Timestamp.valueOf(lectura.getFecha());
 			l.setFechaHora(fechaHora);
-			Long idFactor= new Long(lectura.getIdDispositivo());
+			Long idFactor = new Long(lectura.getIdDispositivo());
 			l.setIdFactor(idFactor);
 			l.setValor(lectura.getLectura());
 			try {
@@ -110,22 +96,16 @@ public class sgia_AC_ws implements Serializable{
 		}
 		return true;
 	}
-	
+
 	@WebMethod
-	public boolean inAcciones(String nroSerie, List<AccionWS> listaAcciones)
-	{
-		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
-		for (AccionWS accion : listaAcciones)
-		{
-			System.out.println("accion recibida: ");
-			System.out.println("Fecha: "+accion.getFecha());
-			System.out.println("Tipo Accion: "+accion.getTipoAccion());
-			System.out.println("Dispositivio: "+accion.getIdDispositivo());
-			Accion a= new Accion();
+	public boolean inAcciones(String nroSerie, List<AccionWS> listaAcciones) {
+		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+		for (AccionWS accion : listaAcciones) {
+			Accion a = new Accion();
 			a.setIdPlaca(idPlaca);
-			Timestamp fechaHora= Timestamp.valueOf(accion.getFecha());
+			Timestamp fechaHora = Timestamp.valueOf(accion.getFecha());
 			a.setFechaHora(fechaHora);
-			Long idActuador= new Long(accion.getIdDispositivo());
+			Long idActuador = new Long(accion.getIdDispositivo());
 			a.setIdDispositivo(idActuador);
 			a.setTipoAccion(accion.getTipoAccion());
 			try {
@@ -136,26 +116,28 @@ public class sgia_AC_ws implements Serializable{
 		}
 		return true;
 	}
-	
+
 	@WebMethod
-	public boolean inLogEventosPendientes(String nroSerie, List<LogEventoWS> listaLogEventoWS)
-	{
-		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
-		
-		for (LogEventoWS logEventoWS : listaLogEventoWS)
-		{
-			LogEvento logEvento= new LogEvento();
-			Timestamp fechaHora= Timestamp.valueOf(logEventoWS.getFecha());
+	public boolean inLogEventosPendientes(String nroSerie,
+			List<LogEventoWS> listaLogEventoWS) {
+		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+
+		for (LogEventoWS logEventoWS : listaLogEventoWS) {
+			LogEvento logEvento = new LogEvento();
+			Timestamp fechaHora = Timestamp.valueOf(logEventoWS.getFecha());
 			logEvento.setFecha(fechaHora);
-			Placa placaTemp= rPlaca.obtenerPlacaPorId(idPlaca);
+			Placa placaTemp = rPlaca.obtenerPlacaPorId(idPlaca);
 			logEvento.setPlaca(placaTemp);
-			Dispositivo dispositivoTemp= rDispositivo.obtenerDispositivoPorId(logEventoWS.getIdDispositivo());
+			Dispositivo dispositivoTemp = rDispositivo
+					.obtenerDispositivoPorId(logEventoWS.getIdDispositivo());
 			logEvento.setDispositivo(dispositivoTemp);
-			TipoLogEvento tipoLogEventoTemp= rTipoLogEvento.obtenerTipoLogEventoPorId(logEventoWS.getTipoLog()); 
+			TipoLogEvento tipoLogEventoTemp = rTipoLogEvento
+					.obtenerTipoLogEventoPorId(logEventoWS.getTipoLog());
 			logEvento.setTipoLogEvento(tipoLogEventoTemp);
-			Mensaje mensajeTemp= rMensaje.obtenerMensajeId(logEventoWS.getIdMensaje());
+			Mensaje mensajeTemp = rMensaje.obtenerMensajeId(logEventoWS
+					.getIdMensaje());
 			logEvento.setMensaje(mensajeTemp);
-			
+
 			try {
 				rLogEvento.registro(logEvento);
 			} catch (Exception e) {
@@ -165,24 +147,26 @@ public class sgia_AC_ws implements Serializable{
 
 		return true;
 	}
-	
+
 	@WebMethod
-	public boolean inLogEvento (String nroSerie, LogEventoWS logEventoWS)
-	{
-		Long idPlaca= rPlaca.obtenerIdPlacaNroSerie(nroSerie);
-		
-		LogEvento logEvento= new LogEvento();
-		Timestamp fechaHora= Timestamp.valueOf(logEventoWS.getFecha());
+	public boolean inLogEvento(String nroSerie, LogEventoWS logEventoWS) {
+		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
+
+		LogEvento logEvento = new LogEvento();
+		Timestamp fechaHora = Timestamp.valueOf(logEventoWS.getFecha());
 		logEvento.setFecha(fechaHora);
-		Placa placaTemp= rPlaca.obtenerPlacaPorId(idPlaca);
+		Placa placaTemp = rPlaca.obtenerPlacaPorId(idPlaca);
 		logEvento.setPlaca(placaTemp);
-		Dispositivo dispositivoTemp= rDispositivo.obtenerDispositivoPorId(logEventoWS.getIdDispositivo());
+		Dispositivo dispositivoTemp = rDispositivo
+				.obtenerDispositivoPorId(logEventoWS.getIdDispositivo());
 		logEvento.setDispositivo(dispositivoTemp);
-		TipoLogEvento tipoLogEventoTemp= rTipoLogEvento.obtenerTipoLogEventoPorId(logEventoWS.getTipoLog()); 
+		TipoLogEvento tipoLogEventoTemp = rTipoLogEvento
+				.obtenerTipoLogEventoPorId(logEventoWS.getTipoLog());
 		logEvento.setTipoLogEvento(tipoLogEventoTemp);
-		Mensaje mensajeTemp= rMensaje.obtenerMensajeId(logEventoWS.getIdMensaje());
+		Mensaje mensajeTemp = rMensaje.obtenerMensajeId(logEventoWS
+				.getIdMensaje());
 		logEvento.setMensaje(mensajeTemp);
-		
+
 		try {
 			rLogEvento.registro(logEvento);
 		} catch (Exception e) {
