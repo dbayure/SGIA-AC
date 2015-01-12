@@ -7,16 +7,15 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-@ManagedBean(name="sessionBean")
+@ManagedBean(name = "sessionBean")
 @SessionScoped
 public class SessionBean {
-	
-
 
 	public void logout() throws IOException {
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    ec.invalidateSession();
-	    ec.redirect(ec.getRequestContextPath() + "/paginas/principal/");
-    }
+		ExternalContext ec = FacesContext.getCurrentInstance()
+				.getExternalContext();
+		ec.invalidateSession();
+		ec.redirect(ec.getRequestContextPath() + "/paginas/principal/");
+	}
 
 }

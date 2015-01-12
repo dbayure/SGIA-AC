@@ -6,56 +6,71 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		
+
 
 		<style type="text/css">
-.sensorRowSelected {
-	background-color: #dbffb8 !important;
-	background-image: none !important;
-	color: #000000 !important;
-}
-</style>
+			.sensorRowSelected {
+				background-color: #dbffb8 !important;
+				background-image: none !important;
+				color: #000000 !important;
+			}
+		</style>
 
 		<h:form id="form" prependId="false">
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
+			<p:separator />
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
-				
+
 			<h1 style="text-align: center;">Administración de Factores</h1>
 
 			<h:panelGrid columns="2" id="gridFactor">
-
-				<!-- 				<p:outputLabel for="id" value="Id:" /> -->
-				<!-- 				<p:inputText id="id" value="#{factorBean.factorTemp.idFactor}" label="Id" required="false" /> -->
 
 				<p:outputLabel for="nombre" value="Nombre:" />
 				<p:inputText id="nombre" value="#{factorBean.factorTemp.nombre}"
@@ -78,7 +93,6 @@
 					label="Umbral" required="false" />
 
 			</h:panelGrid>
-
 
 			<p:accordionPanel activeIndex="-1">
 				<p:tab title="Asoiar Sensores...">
@@ -111,14 +125,10 @@
 
 			</p:accordionPanel>
 
-
-
-			<!-- 			<p:commandButton process="checkboxSens"  -->
-			<!-- 				icon="ui-icon-search" value="View"	oncomplete="PF('dialogoSensor').show()" style="float:left" /> -->
-
 			<p>
 				<p:commandButton id="register" action="#{factorBean.registrar()}"
-					value="#{factorBean.nombreBoton}" style="margin-left: 400px;" update=":form" />
+					value="#{factorBean.nombreBoton}" style="margin-left: 400px;"
+					update=":form" />
 			</p>
 
 
@@ -164,36 +174,6 @@
 				</p:column>
 
 			</p:dataTable>
-
-			<!-- 			<p:dialog header="Sensor Seleccionado" widgetVar="dialogoSensor" -->
-			<!-- 				modal="true" showEffect="fade" hideEffect="fade" resizable="false" -->
-			<!-- 				> -->
-
-			<!-- 				<p:dataList value="#{factorBean.sensoresSelecconados}" -->
-			<!-- 					var="_sensor" type="ordered"> -->
-
-			<!-- 					<h:panelGrid columns="2"> -->
-			<!-- 						<h:outputText value="Id:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.id}" /> -->
-			<!-- 						<h:outputText value="Nombre:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.nombre}" /> -->
-			<!-- 						<h:outputText value="Modelo:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.modelo}" /> -->
-			<!-- 						<h:outputText value="Numero de puerto:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.numeroPuerto}" /> -->
-			<!-- 						<h:outputText value="Activo:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.activoSistema}" /> -->
-
-			<!-- 						<h:outputText value="Unidad:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.formulaConversion}" /> -->
-
-			<!-- 						<h:outputText value="Tipo de puerto:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.tipoPuerto.nombre}" /> -->
-			<!-- 						<h:outputText value="Factor asignado:" /> -->
-			<!-- 						<h:outputText value="#{_sensor.factor.nombre}" /> -->
-			<!-- 					</h:panelGrid> -->
-			<!-- 				</p:dataList> -->
-			<!-- 			</p:dialog> -->
 
 		</h:form>
 

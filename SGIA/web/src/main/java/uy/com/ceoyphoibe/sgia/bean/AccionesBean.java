@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
-
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.data.AccionListProducer;
@@ -18,18 +16,14 @@ import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
-
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
-
 import javax.servlet.ServletContext;
 import javax.faces.context.FacesContext;
 
@@ -41,20 +35,19 @@ public class AccionesBean {
 	private List<Long> listaIdActuadores;
 	private int idActuadorSeleccionado;
 	private long idGrupo;
-	private List<Accion> listaAcciones= new ArrayList<Accion>();
+	private List<Accion> listaAcciones = new ArrayList<Accion>();
 	private Date fechaMin;
 	private Date fechaMax;
 	private Dispositivo dispositivoTemp;
 
-	
 	@Inject
-	private  AccionListProducer accionListProducer;
-	
+	private AccionListProducer accionListProducer;
+
 	@Inject
-	private  RegistroGrupoActuadores registroGrupoActuadores;
-	
+	private RegistroGrupoActuadores registroGrupoActuadores;
+
 	@Inject
-	private  RegistroDispositivo registroDispositivo;
+	private RegistroDispositivo registroDispositivo;
 
 	/**
 	 * @return the grupoActuadoresTemp
@@ -64,7 +57,8 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param grupoActuadoresTemp the grupoActuadoresTemp to set
+	 * @param grupoActuadoresTemp
+	 *            the grupoActuadoresTemp to set
 	 */
 	public void setGrupoActuadoresTemp(GrupoActuadores grupoActuadoresTemp) {
 		this.grupoActuadoresTemp = grupoActuadoresTemp;
@@ -78,15 +72,16 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param idActuadorSeleccionado the idActuadorSeleccionado to set
+	 * @param idActuadorSeleccionado
+	 *            the idActuadorSeleccionado to set
 	 */
 	public void setIdActuadorSeleccionado(int idActuadorSeleccionado) {
 		this.idActuadorSeleccionado = idActuadorSeleccionado;
 	}
-	
-	public void cambioGrupoActuadores ()
-	{
-		grupoActuadoresTemp= registroGrupoActuadores.obtenerGrupoPorId(idGrupo);
+
+	public void cambioGrupoActuadores() {
+		grupoActuadoresTemp = registroGrupoActuadores
+				.obtenerGrupoPorId(idGrupo);
 	}
 
 	/**
@@ -97,73 +92,66 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param idGrupo the idGrupo to set
+	 * @param idGrupo
+	 *            the idGrupo to set
 	 */
 	public void setIdGrupo(long idGrupo) {
 		this.idGrupo = idGrupo;
 	}
-	
-	public void obtenerAcciones()
-	{
-		listaAcciones= new ArrayList<Accion>();
-		if (idActuadorSeleccionado != 0)
-		{
-			Long idAct= (long) idActuadorSeleccionado;
+
+	@SuppressWarnings("deprecation")
+	public void obtenerAcciones() {
+		listaAcciones = new ArrayList<Accion>();
+		if (idActuadorSeleccionado != 0) {
+			Long idAct = (long) idActuadorSeleccionado;
 			if (fechaMin == null && fechaMax == null)
-				listaAcciones= accionListProducer.getAccionesIdDispositivo(idAct);
-			else
-			{
+				listaAcciones = accionListProducer
+						.getAccionesIdDispositivo(idAct);
+			else {
 				if (fechaMax == null)
-					fechaMax= new Date();
-				if (fechaMin == null)
-				{
-					fechaMin= new Date();
-					fechaMin.setYear(fechaMin.getYear()-1);
+					fechaMax = new Date();
+				if (fechaMin == null) {
+					fechaMin = new Date();
+					fechaMin.setYear(fechaMin.getYear() - 1);
 				}
-				Timestamp min= new Timestamp(fechaMin.getTime());
-				Timestamp max= new Timestamp(fechaMax.getTime());
-				listaAcciones= accionListProducer.getAccionesIdDispositivoEntreFechas(idAct, min, max);
+				Timestamp min = new Timestamp(fechaMin.getTime());
+				Timestamp max = new Timestamp(fechaMax.getTime());
+				listaAcciones = accionListProducer
+						.getAccionesIdDispositivoEntreFechas(idAct, min, max);
 			}
-		}
-		else
-		{
-			listaIdActuadores= new ArrayList<Long>();
-			if (grupoActuadoresTemp.getDeAvance().equals("N"))
-			{
-				List<Actuador> listaActuadores= grupoActuadoresTemp.getActuadores(); 
-				for (Actuador a : listaActuadores)
-				{
+		} else {
+			listaIdActuadores = new ArrayList<Long>();
+			if (grupoActuadoresTemp.getDeAvance().equals("N")) {
+				List<Actuador> listaActuadores = grupoActuadoresTemp
+						.getActuadores();
+				for (Actuador a : listaActuadores) {
+					listaIdActuadores.add(a.getId());
+				}
+			} else {
+				Set<ActuadorAvance> listaActuadoresAvance = grupoActuadoresTemp
+						.getActuadoresAvance();
+				for (ActuadorAvance a : listaActuadoresAvance) {
 					listaIdActuadores.add(a.getId());
 				}
 			}
-			else
-			{
-				Set<ActuadorAvance> listaActuadoresAvance= grupoActuadoresTemp.getActuadoresAvance();
-				for (ActuadorAvance a: listaActuadoresAvance)
-				{
-					listaIdActuadores.add(a.getId());
-				}
-			}
-			for (Long i : listaIdActuadores)
-			{
-				List<Accion> accionesTemp= new ArrayList<Accion>();
+			for (Long i : listaIdActuadores) {
+				List<Accion> accionesTemp = new ArrayList<Accion>();
 				if (fechaMin == null && fechaMax == null)
-					accionesTemp= accionListProducer.getAccionesIdDispositivo(i);
-				else
-				{
+					accionesTemp = accionListProducer
+							.getAccionesIdDispositivo(i);
+				else {
 					if (fechaMax == null)
-						fechaMax= new Date();
-					if (fechaMin == null)
-					{
-						fechaMin= new Date();
-						fechaMin.setYear(fechaMin.getYear()-1);
+						fechaMax = new Date();
+					if (fechaMin == null) {
+						fechaMin = new Date();
+						fechaMin.setYear(fechaMin.getYear() - 1);
 					}
-					Timestamp min= new Timestamp(fechaMin.getTime());
-					Timestamp max= new Timestamp(fechaMax.getTime());
-					accionesTemp= accionListProducer.getAccionesIdDispositivoEntreFechas(i, min, max);
+					Timestamp min = new Timestamp(fechaMin.getTime());
+					Timestamp max = new Timestamp(fechaMax.getTime());
+					accionesTemp = accionListProducer
+							.getAccionesIdDispositivoEntreFechas(i, min, max);
 				}
-				for (Accion acc : accionesTemp)
-				{
+				for (Accion acc : accionesTemp) {
 					listaAcciones.add(acc);
 				}
 			}
@@ -178,7 +166,8 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param listaAcciones the listaAcciones to set
+	 * @param listaAcciones
+	 *            the listaAcciones to set
 	 */
 	public void setListaAcciones(List<Accion> listaAcciones) {
 		this.listaAcciones = listaAcciones;
@@ -192,7 +181,8 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param listaIdActuadores the listaIdActuadores to set
+	 * @param listaIdActuadores
+	 *            the listaIdActuadores to set
 	 */
 	public void setListaIdActuadores(List<Long> listaIdActuadores) {
 		this.listaIdActuadores = listaIdActuadores;
@@ -206,7 +196,8 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param fechaMin the fechaMin to set
+	 * @param fechaMin
+	 *            the fechaMin to set
 	 */
 	public void setFechaMin(Date fechaMin) {
 		this.fechaMin = fechaMin;
@@ -220,7 +211,8 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param fechaMax the fechaMax to set
+	 * @param fechaMax
+	 *            the fechaMax to set
 	 */
 	public void setFechaMax(Date fechaMax) {
 		this.fechaMax = fechaMax;
@@ -234,44 +226,48 @@ public class AccionesBean {
 	}
 
 	/**
-	 * @param dispositivoTemp the dispositivoTemp to set
+	 * @param dispositivoTemp
+	 *            the dispositivoTemp to set
 	 */
 	public void setDispositivoTemp(Dispositivo dispositivoTemp) {
 		this.dispositivoTemp = dispositivoTemp;
 	}
-	
-	public void obtenerDispositivo(Long id)
-	{
-		dispositivoTemp= registroDispositivo.obtenerDispositivoPorId(id);
+
+	public void obtenerDispositivo(Long id) {
+		dispositivoTemp = registroDispositivo.obtenerDispositivoPorId(id);
 	}
-	
-	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
-        Document pdf = (Document) document;
-        pdf.open();
-        pdf.setPageSize(PageSize.A4);
- 
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "gfx" + File.separator + "C&P2.png";
-         
-        pdf.add(Image.getInstance(logo));
-        pdf.addTitle("Acciones");
-        pdf.add(new Paragraph("Grupo de Actuadores: "+ grupoActuadoresTemp.getNombre()));
-        if (idActuadorSeleccionado == 0)
-        	pdf.add(new Paragraph("Actuadores: Todos"));
-        else
-        {
-        	Dispositivo dispositivo= registroDispositivo.obtenerDispositivoPorId(idActuadorSeleccionado);
-        	pdf.add(new Paragraph("Actuador: "+ dispositivo.getNombre()));
-        }
-        if (fechaMin != null && fechaMax != null)
-        {
-        	Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-        	pdf.add(new Paragraph("Período: "+ min + " - "+ max));
-        }
-        pdf.add(new Paragraph(" "));
-        pdf.add(new Paragraph(" "));
-	
-    }
-	
+
+	public void preProcessPDF(Object document) throws IOException,
+			BadElementException, DocumentException {
+		Document pdf = (Document) document;
+		pdf.open();
+		pdf.setPageSize(PageSize.A4);
+
+		ServletContext servletContext = (ServletContext) FacesContext
+				.getCurrentInstance().getExternalContext().getContext();
+		String logo = servletContext.getRealPath("") + File.separator
+				+ "resources" + File.separator + "gfx" + File.separator
+				+ "C&P2.png";
+
+		pdf.add(Image.getInstance(logo));
+		pdf.addTitle("Acciones");
+		pdf.add(new Paragraph("Grupo de Actuadores: "
+				+ grupoActuadoresTemp.getNombre()));
+		if (idActuadorSeleccionado == 0)
+			pdf.add(new Paragraph("Actuadores: Todos"));
+		else {
+			Dispositivo dispositivo = registroDispositivo
+					.obtenerDispositivoPorId(idActuadorSeleccionado);
+			pdf.add(new Paragraph("Actuador: " + dispositivo.getNombre()));
+		}
+		if (fechaMin != null && fechaMax != null) {
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			pdf.add(new Paragraph("Período: " + min + " - " + max));
+		}
+		pdf.add(new Paragraph(" "));
+		pdf.add(new Paragraph(" "));
+
+	}
+
 }

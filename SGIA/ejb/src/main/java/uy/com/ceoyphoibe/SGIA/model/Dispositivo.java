@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "dispositivo")
 public class Dispositivo implements Serializable {
 
@@ -25,19 +24,18 @@ public class Dispositivo implements Serializable {
 
 	@Id
 	private Long id;
-	
 	private String nombre;
 	private String modelo;
 	private int numeroPuerto;
 	private char activoSistema;
 	private String estadoAlerta;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "padre_id",  referencedColumnName = "id")
+	@JoinColumn(name = "padre_id", referencedColumnName = "id")
 	private PlacaAuxiliar padre;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
 
 	public Long getId() {
@@ -108,7 +106,6 @@ public class Dispositivo implements Serializable {
 		return serialVersionUID;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -166,5 +163,5 @@ public class Dispositivo implements Serializable {
 				+ ", activoSistema=" + activoSistema + ", estadoAlerta="
 				+ estadoAlerta + ", padre=" + padre + ", placa=" + placa + "]";
 	}
-	
+
 }

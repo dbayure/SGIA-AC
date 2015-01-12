@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsCrearTipoActuadorResponse complex type.
+ * <p>
+ * Java class for wsCrearTipoActuadorResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsCrearTipoActuadorResponse">
@@ -27,36 +28,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsCrearTipoActuadorResponse", propOrder = {
-    "wsCrearTipoActuadorResult"
-})
+@XmlType(name = "wsCrearTipoActuadorResponse", propOrder = { "wsCrearTipoActuadorResult" })
 public class WsCrearTipoActuadorResponse {
 
-    @XmlElement(required = true)
-    protected ResultadoCreacionWS wsCrearTipoActuadorResult;
+	@XmlElement(required = true)
+	protected ResultadoCreacionWS wsCrearTipoActuadorResult;
 
-    /**
-     * Gets the value of the wsCrearTipoActuadorResult property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ResultadoCreacionWS }
-     *     
-     */
-    public ResultadoCreacionWS getWsCrearTipoActuadorResult() {
-        return wsCrearTipoActuadorResult;
-    }
+	/**
+	 * Gets the value of the wsCrearTipoActuadorResult property.
+	 * 
+	 * @return possible object is {@link ResultadoCreacionWS }
+	 * 
+	 */
+	public ResultadoCreacionWS getWsCrearTipoActuadorResult() {
+		return wsCrearTipoActuadorResult;
+	}
 
-    /**
-     * Sets the value of the wsCrearTipoActuadorResult property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ResultadoCreacionWS }
-     *     
-     */
-    public void setWsCrearTipoActuadorResult(ResultadoCreacionWS value) {
-        this.wsCrearTipoActuadorResult = value;
-    }
+	/**
+	 * Sets the value of the wsCrearTipoActuadorResult property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ResultadoCreacionWS }
+	 * 
+	 */
+	public void setWsCrearTipoActuadorResult(ResultadoCreacionWS value) {
+		this.wsCrearTipoActuadorResult = value;
+	}
 
 }

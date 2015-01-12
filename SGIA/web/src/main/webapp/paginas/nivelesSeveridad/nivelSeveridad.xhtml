@@ -6,56 +6,75 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-	
+
 		<style type="text/css">
-.sensorRowSelected {
-	background-color: #dbffb8 !important;
-	background-image: none !important;
-	color: #000000 !important;
-}
-</style>
+		.sensorRowSelected {
+			background-color: #dbffb8 !important;
+			background-image: none !important;
+			color: #000000 !important;
+			}
+		</style>
 
 		<h:form id="form" prependId="false">
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			
+
 			<h1 style="text-align: center;">Administración de Niveles
-			Severidad</h1>
-			
+				Severidad</h1>
+
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
-			<p:panel id="panelIng" rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
-			
-				<p:focus context="panelIng"/>
-				
+			<p:panel id="panelIng"
+				rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
+
+				<p:focus context="panelIng" />
+
 				<h:panelGrid columns="2" columnClasses="label, value"
 					style="width:100%;">
 
@@ -73,8 +92,7 @@
 
 						<h:outputText value="Factor" />
 						<p:selectOneMenu id="factor"
-							value="#{nivelSeveridadBean.factorTemp}"
-							required="false">
+							value="#{nivelSeveridadBean.factorTemp}" required="false">
 							<f:converter converterId="factorConverter" />
 							<f:selectItem itemLabel="Seleccione..." itemValue="" />
 							<f:selectItems value="#{factores}" var="fact"
@@ -123,11 +141,9 @@
 								</p:selectOneMenu>
 
 								<h:outputText value="Estado" />
-								<!-- 								para grupo de actuadores comunes -->
 								<p:inputSwitch id="estado1"
 									value="#{nivelSeveridadBean.estadoTemp}"
 									rendered="#{nivelSeveridadBean.grupoTemp.deAvance == 'N'}" />
-								<!-- 								para actuadores de avance -->
 								<p:selectOneMenu id="posiciones"
 									value="#{nivelSeveridadBean.posicionTemp}" required="false"
 									rendered="#{nivelSeveridadBean.grupoTemp.deAvance == 'S'}">
@@ -165,8 +181,6 @@
 									<h:outputText value="#{_fila.grupoActuadores.nombre}" />
 								</p:column>
 
-
-
 								<p:column style="width:40%">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -177,7 +191,6 @@
 												style="width:15%" required="true" />
 										</f:facet>
 									</p:cellEditor>
-
 
 								</p:column>
 
@@ -198,18 +211,17 @@
 				</h:panelGrid>
 				<p:panel style="border:none;">
 					<p:commandLink id="aplicar" style="float:right;" ajax="true"
-						update=":form" 
-						actionListener="#{nivelSeveridadBean.registrar()}">
-						<p:graphicImage value="#{nivelSeveridadBean.nombreIcono}" height="24"/>
+						update=":form" actionListener="#{nivelSeveridadBean.registrar()}">
+						<p:graphicImage value="#{nivelSeveridadBean.nombreIcono}"
+							height="24" />
 					</p:commandLink>
 					<p:spacer height="12" />
 
 				</p:panel>
 
 			</p:panel>
-			
-			<p:spacer height="15"/>
 
+			<p:spacer height="15" />
 
 			<p:dataScroller value="#{nivelesSeveridad}" var="_nivel"
 				chunkSize="5">
@@ -218,25 +230,28 @@
 				<p:panel>
 					<h:panelGrid columns="2" columnClasses="label, value"
 						style="width:100%;">
-						
-						<p:outputLabel for="nombreLista" value="Nombre:" />
-						<h:outputText id="nombreLista" value="#{_nivel.nombre}" style="font-weight: bold;" />
-					</h:panelGrid>
 
+						<p:outputLabel for="nombreLista" value="Nombre:" />
+						<h:outputText id="nombreLista" value="#{_nivel.nombre}"
+							style="font-weight: bold;" />
+					</h:panelGrid>
 
 					<h:panelGrid columns="2" columnClasses="grid,grid"
 						style="width:100%;">
 						<h:panelGrid columns="2" columnClasses="label, value"
 							style="width:120%;">
 
-							<h:outputText value="Factor: " style="width:120%; font-weight: bold;" />
-							<h:outputText value="#{_nivel.factor.nombre}" style="width:120%;"/>
+							<h:outputText value="Factor: "
+								style="width:120%; font-weight: bold;" />
+							<h:outputText value="#{_nivel.factor.nombre}" style="width:120%;" />
 
 							<h:outputText value="&#160;" />
 							<h:outputText value="&#160;" />
 
-							<h:outputText value="Rango Mínimo:" style="width:120%; font-weight: bold;"/>
-							<h:outputText value="Rango Máximo:" style="width:120%; font-weight: bold;"/>
+							<h:outputText value="Rango Mínimo:"
+								style="width:120%; font-weight: bold;" />
+							<h:outputText value="Rango Máximo:"
+								style="width:120%; font-weight: bold;" />
 							<h:outputText value="#{_nivel.rangoMin}" style="width:120%;" />
 
 							<h:outputText value="#{_nivel.rangoMax}" style="width:120%;" />
@@ -244,55 +259,55 @@
 							<h:outputText value="&#160;" />
 							<h:outputText value="&#160;" />
 
-							<h:outputText value="Prioridad:" style="width:120%; font-weight: bold;"/>
+							<h:outputText value="Prioridad:"
+								style="width:120%; font-weight: bold;" />
 							<h:outputText value="#{_nivel.prioridad}" style="width:120%;" />
-
 
 						</h:panelGrid>
 						<p:panel style="width:75%; float:right;">
-							
-								<p:dataTable id="perfilTabLista" var="_fila" style="width:100%;"
-									value="#{_nivel.perfilActivacion}" editable="true">
-									<f:facet name="header"> Perfil de Activacion 	</f:facet>
 
-									<p:column style="width:60%">
-										<h:outputText value="#{_fila.grupoActuadores.nombre}" />
-									</p:column>
+							<p:dataTable id="perfilTabLista" var="_fila" style="width:100%;"
+								value="#{_nivel.perfilActivacion}" editable="true">
+								<f:facet name="header"> Perfil de Activacion 	</f:facet>
 
-									<p:column style="width:40%">
-										<h:outputText value="#{_fila.estado}" />
-									</p:column>
-									
-								</p:dataTable>
-		
+								<p:column style="width:60%">
+									<h:outputText value="#{_fila.grupoActuadores.nombre}" />
+								</p:column>
+
+								<p:column style="width:40%">
+									<h:outputText value="#{_fila.estado}" />
+								</p:column>
+
+							</p:dataTable>
+
 						</p:panel>
 					</h:panelGrid>
-					<p:panel style="border:none; width:100%;" rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
-								<p:commandLink id="eliminar" style="float:right;" ajax="true"
-									update="@form"
-									actionListener="#{nivelSeveridadBean.eliminar(_nivel.id)}">
-									<p:graphicImage value="/resources/gfx/redTrash_ico.png" />
-								</p:commandLink>
-								<p:commandLink id="clonar" style="float:right;" ajax="true"
-									update="@form"
-									actionListener="#{nivelSeveridadBean.clonar(_nivel.id)}">
-									<p:graphicImage value="/resources/gfx/clone_ico.png" />
-								</p:commandLink>
-								<p:spacer height="12" />
-								<p:commandLink id="editar" style="float:right;" ajax="true"
-									update="@form"
-									actionListener="#{nivelSeveridadBean.onEdit(_nivel.id)}">
-									<p:graphicImage value="/resources/gfx/edit_ico.png" />
-								</p:commandLink>
-								<p:spacer height="12" />
+					<p:panel style="border:none; width:100%;"
+						rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
+						<p:commandLink id="eliminar" style="float:right;" ajax="true"
+							update="@form"
+							actionListener="#{nivelSeveridadBean.eliminar(_nivel.id)}">
+							<p:graphicImage value="/resources/gfx/redTrash_ico.png" />
+						</p:commandLink>
+						<p:commandLink id="clonar" style="float:right;" ajax="true"
+							update="@form"
+							actionListener="#{nivelSeveridadBean.clonar(_nivel.id)}">
+							<p:graphicImage value="/resources/gfx/clone_ico.png" />
+						</p:commandLink>
+						<p:spacer height="12" />
+						<p:commandLink id="editar" style="float:right;" ajax="true"
+							update="@form"
+							actionListener="#{nivelSeveridadBean.onEdit(_nivel.id)}">
+							<p:graphicImage value="/resources/gfx/edit_ico.png" />
+						</p:commandLink>
+						<p:spacer height="12" />
+
+					</p:panel>
+					<p:spacer height="10" />
 
 				</p:panel>
-				<p:spacer height="10"/>
-					
-				</p:panel>
-				
+
 			</p:dataScroller>
-
 
 		</h:form>
 

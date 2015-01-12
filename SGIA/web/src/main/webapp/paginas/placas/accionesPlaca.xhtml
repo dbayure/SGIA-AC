@@ -8,51 +8,70 @@
 	<ui:define name="content">
 
 		<h:form id="form" prependId="false">
-		
-			<p:dialog id="dlg" header="Lecturas" widgetVar="dlgGrafica" modal="true"
-				height="400">
+
+			<p:dialog id="dlg" header="Lecturas" widgetVar="dlgGrafica"
+				modal="true" height="400">
 				<p:panel id="dialogPanel" style="border: none;">
-					
-						<p:chart type="line" model="#{factorBean.animatedModel1}"
-							style="width:800px;" />
-					
+
+					<p:chart type="line" model="#{factorBean.animatedModel1}"
+						style="width:800px;" />
+
 					<p:commandLink action="#{placaBean.graficas}" immediate="true">
-						<h:graphicImage value="/resources/gfx/Graficas.png" alt="graficas" height="30px" />
+						<h:graphicImage value="/resources/gfx/Graficas.png" alt="graficas"
+							height="30px" />
 					</p:commandLink>
 				</p:panel>
 			</p:dialog>
-		
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
-			
+			<p:separator />
+
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 			<p:panel id="panelBotones" style="border:none;">
@@ -71,7 +90,7 @@
 							height="150px" />
 					</p:commandLink>
 					<p:spacer width="100" />
-							
+
 					<p:commandLink action="#{placaBean.niveles}" immediate="true">
 						<h:graphicImage value="/resources/gfx/niveles.png" alt="niveles"
 							height="150px" />
@@ -89,9 +108,10 @@
 
 				</h:panelGrid>
 
-			</p:panel>	
+			</p:panel>
 
-			<p:panel id="gridFactores" style="border:none;"	rendered="#{placaBean.seleccion == 'factores'}">
+			<p:panel id="gridFactores" style="border:none;"
+				rendered="#{placaBean.seleccion == 'factores'}">
 
 				<p:panel style="border:none;">
 					<p:commandLink
@@ -123,7 +143,8 @@
 							<h:panelGrid columns="3">
 								<p:commandLink
 									style="display: block; margin-left: 50px; margin-right: auto;"
-									action="#{factorBean.graficarFactor(_factores.idFactor)}" oncomplete="PF('dlgGrafica').show()" update=":form:dlg">
+									action="#{factorBean.graficarFactor(_factores.idFactor)}"
+									oncomplete="PF('dlgGrafica').show()" update=":form:dlg">
 									<h:graphicImage value="/resources/gfx/Graficar.png"
 										alt="niveles" height="30px" />
 								</p:commandLink>
@@ -144,74 +165,105 @@
 				</p:dataScroller>
 			</p:panel>
 
-			<p:panel id="gridGrupoActuadores" style=" border: none;"  rendered="#{placaBean.seleccion == 'actuadores'}">
-					<p:dataScroller value="#{grupoActuadores}" var="_gruposActuadores" chunkSize="5"  >
+			<p:panel id="gridGrupoActuadores" style=" border: none;"
+				rendered="#{placaBean.seleccion == 'actuadores'}">
+				<p:dataScroller value="#{grupoActuadores}" var="_gruposActuadores"
+					chunkSize="5">
 					<f:facet name="header">
 						<h:outputText value="Grupos" />
 					</f:facet>
-					<h:panelGrid columns="5" style=" margin-left: 130px; margin-right: inherit;" >
+					<h:panelGrid columns="5"
+						style=" margin-left: 130px; margin-right: inherit;">
 						<h:graphicImage value="/resources/gfx/GrupoActuadores.png"
 							alt="niveles" height="50px" width="50px"
 							style=" margin-left: 30px; margin-right: inherit; vertical-align:middle;" />
 						<p:spacer width="100" />
 						<p:panel style="border:none;" id="panelValoresPuerto">
 							<h3 style="text-align: center; vertical-align: bottom;">#{_gruposActuadores.nombre}</h3>
-							<h:panelGrid id="panelPosiciones" rendered="#{_gruposActuadores.deAvance == 'S'}" >
-								
-								<h:panelGrid id="gridMostrarPosiciones" rendered="#{grupoActuadoresBean.mostrarModificar == 'mostrar'}" columns="4" >
-									<h:outputText value="Posicion Actual: "	style="font-weight: bold;" />
-									<h:outputText value="#{_gruposActuadores.estado}"	style="font-weight: bold;" />
+							<h:panelGrid id="panelPosiciones"
+								rendered="#{_gruposActuadores.deAvance == 'S'}">
+
+								<h:panelGrid id="gridMostrarPosiciones"
+									rendered="#{grupoActuadoresBean.mostrarModificar == 'mostrar'}"
+									columns="4">
+									<h:outputText value="Posicion Actual: "
+										style="font-weight: bold;" />
+									<h:outputText value="#{_gruposActuadores.estado}"
+										style="font-weight: bold;" />
 									<p:spacer width="10" />
-									<p:commandButton id="editarPosiciones" update=":form" icon="ui-icon-pencil" rendered="#{grupoActuadoresBean.mostrarModificar == 'mostrar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarModificar}" actionListener="#{grupoActuadoresBean.obtenerListaPosiciones(_gruposActuadores.id)}"/>
+									<p:commandButton id="editarPosiciones" update=":form"
+										icon="ui-icon-pencil"
+										rendered="#{grupoActuadoresBean.mostrarModificar == 'mostrar'}"
+										action="#{grupoActuadoresBean.cambiaMostrarModificar}"
+										actionListener="#{grupoActuadoresBean.obtenerListaPosiciones(_gruposActuadores.id)}" />
 								</h:panelGrid>
-								
-								<h:panelGrid id="gridCambiarPosiciones" rendered="#{grupoActuadoresBean.mostrarModificar == 'modificar'}" columns="3" >
+
+								<h:panelGrid id="gridCambiarPosiciones"
+									rendered="#{grupoActuadoresBean.mostrarModificar == 'modificar'}"
+									columns="3">
 									<h:outputText value="Posiciones: " style="font-weight: bold;" />
 									<p:spacer width="10" />
-									<p:selectOneMenu id="tipoActuador" widgetVar="posicionesList" value="#{grupoActuadoresBean.posActual}" required="false" >
-										<f:selectItems value="#{grupoActuadoresBean.posicionesGrupoActuadorAvanceSeleccionado}"
-										var="_posicion" itemLabel="#{_posicion.descripcion}" itemValue="#{_posicion.nroPosicion}"/>
+									<p:selectOneMenu id="tipoActuador" widgetVar="posicionesList"
+										value="#{grupoActuadoresBean.posActual}" required="false">
+										<f:selectItems
+											value="#{grupoActuadoresBean.posicionesGrupoActuadorAvanceSeleccionado}"
+											var="_posicion" itemLabel="#{_posicion.descripcion}"
+											itemValue="#{_posicion.nroPosicion}" />
 									</p:selectOneMenu>
-									<p:commandButton id="modificar" update=":form" icon="ui-icon-check" rendered="#{grupoActuadoresBean.mostrarModificar == 'modificar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarModificar}" actionListener="#{grupoActuadoresBean.cambiarPosicion}"/>
-								</h:panelGrid>								
-								
-							</h:panelGrid>
-							
-							<h:panelGrid columns="5" rendered="#{_gruposActuadores.deAvance == 'N'}" >
-							
-								<h:panelGrid id="gridMostrarEstado" rendered="#{grupoActuadoresBean.mostrarEstado == 'mostrar'}" columns="4" >
-									<h:outputText value="Estado Actual: "	style="font-weight: bold;" />
-									<h:outputText value="#{_gruposActuadores.estado}"	style="font-weight: bold;" />
-									<p:spacer width="10" />
-									<p:commandButton id="refrescarValor" update=":form" icon="ui-icon-pencil" rendered="#{grupoActuadoresBean.mostrarEstado == 'mostrar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarEstado}" actionListener="#{grupoActuadoresBean.setEstadoGrupo(_gruposActuadores.estado)}"/>
+									<p:commandButton id="modificar" update=":form"
+										icon="ui-icon-check"
+										rendered="#{grupoActuadoresBean.mostrarModificar == 'modificar'}"
+										action="#{grupoActuadoresBean.cambiaMostrarModificar}"
+										actionListener="#{grupoActuadoresBean.cambiarPosicion}" />
 								</h:panelGrid>
-								
-								<h:panelGrid id="gridCambiarEstado" rendered="#{grupoActuadoresBean.mostrarEstado == 'modificar'}" columns="3">
+
+							</h:panelGrid>
+
+							<h:panelGrid columns="5"
+								rendered="#{_gruposActuadores.deAvance == 'N'}">
+
+								<h:panelGrid id="gridMostrarEstado"
+									rendered="#{grupoActuadoresBean.mostrarEstado == 'mostrar'}"
+									columns="4">
+									<h:outputText value="Estado Actual: "
+										style="font-weight: bold;" />
+									<h:outputText value="#{_gruposActuadores.estado}"
+										style="font-weight: bold;" />
+									<p:spacer width="10" />
+									<p:commandButton id="refrescarValor" update=":form"
+										icon="ui-icon-pencil"
+										rendered="#{grupoActuadoresBean.mostrarEstado == 'mostrar'}"
+										action="#{grupoActuadoresBean.cambiaMostrarEstado}"
+										actionListener="#{grupoActuadoresBean.setEstadoGrupo(_gruposActuadores.estado)}" />
+								</h:panelGrid>
+
+								<h:panelGrid id="gridCambiarEstado"
+									rendered="#{grupoActuadoresBean.mostrarEstado == 'modificar'}"
+									columns="3">
 									<h:outputText value="Estados: " style="font-weight: bold;" />
 									<p:spacer width="10" />
 									<p:inputSwitch value="#{grupoActuadoresBean.estado}" />
-									<p:commandButton id="modificarValor" update=":form" icon="ui-icon-check" rendered="#{grupoActuadoresBean.mostrarEstado == 'modificar'}"
-										 action="#{grupoActuadoresBean.cambiaMostrarEstado}"  actionListener="#{grupoActuadoresBean.cambiarEstado(_gruposActuadores.id)}"/>
-								</h:panelGrid>	
-							
+									<p:commandButton id="modificarValor" update=":form"
+										icon="ui-icon-check"
+										rendered="#{grupoActuadoresBean.mostrarEstado == 'modificar'}"
+										action="#{grupoActuadoresBean.cambiaMostrarEstado}"
+										actionListener="#{grupoActuadoresBean.cambiarEstado(_gruposActuadores.id)}" />
+								</h:panelGrid>
+
 							</h:panelGrid>
-							
+
 						</p:panel>
 						<p:spacer width="100" />
 						<p:commandLink action="#{placaBean.grupos}" immediate="true">
-							<h:graphicImage value="/resources/gfx/Modificar.png" alt="grupos" height="30px" />
+							<h:graphicImage value="/resources/gfx/Modificar.png" alt="grupos"
+								height="30px" />
 						</p:commandLink>
 						<h3 style="text-align: center;">#{_gruposActuadores.nombre}</h3>
 					</h:panelGrid>
 				</p:dataScroller>
 			</p:panel>
-			
-			
 
 		</h:form>
-		
+
 	</ui:define>
 </ui:composition>

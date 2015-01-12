@@ -1,100 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   xmlns:p="http://primefaces.org/ui"
-   template="/WEB-INF/templates/default.xhtml">
-   <ui:define name="content">
-      
-      <h:form id="form" prependId="false">
-      		        
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form id="form" prependId="false">
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
-			
+			<p:separator />
+
 			<h1 style="text-align: center;">Administración Rol</h1>
-         	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
-         <h:panelGrid columns="2" >
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<h:panelGrid columns="2">
 
-			<p:outputLabel for="nombre" value="Nombre:" />
-			<p:inputText id="nombre" value="#{rolBean.rolTemp.rol}" label="nombre" required="true" />
-			
-			<p:outputLabel for="desc" value="Descripcion:" />
-			<p:inputText id="desc" value="#{rolBean.rolTemp.descripcion}" label="descripcion" required="false" />
+				<p:outputLabel for="nombre" value="Nombre:" />
+				<p:inputText id="nombre" value="#{rolBean.rolTemp.rol}"
+					label="nombre" required="true" />
 
-		</h:panelGrid>
-         
-         <p>            
-            <p:commandButton id="register" 
-            	action="#{rolBean.registrar}" 
-            	value="Registrar" 
-            	style="margin-left: 400px;" 
-            	update=":form:roles, form"/>
-         </p>      
-     
-       <p:dataTable id="roles" var="_rol" value="#{roles}" editable="true">
-       		<f:facet name="header">  Roles 	</f:facet>
-        	
-        	<p:ajax event="rowEdit" listener="#{rolBean.onEdit}" update=":form:messages" />  
-        	<p:ajax event="rowEditCancel" listener="#{rolBean.onCancel}" update=":form:messages" />  
-        	 
-        	 <p:column headerText="Id" style="width:5%">
-        	 	<h:outputText value="#{_rol.id}" />
-        	 </p:column>
-        	 
-        	 <p:column headerText="Nombre" style="width:25%">  
-               <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_rol.rol}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputRol" value="#{_rol.rol}" style="width:96%" required="true"/></f:facet>  
-               </p:cellEditor>  
-           	 </p:column>  
-           	 
-        	 <p:column headerText="Descripcion" style="width:25%">  
-               <p:cellEditor>  
-                   <f:facet name="output"><h:outputText value="#{_rol.descripcion}" /></f:facet>  
-                   <f:facet name="input"><p:inputText id="modelInputDesc" value="#{_rol.descripcion}" style="width:96%" required="true"/></f:facet>  
-               </p:cellEditor>  
-           	 </p:column>  
-           	            	 
-           	 <p:column style="width:3%">           	 
-	            <p:rowEditor />	         	           
-	        </p:column>
-	       <!--  -->
-	        <p:column style="width:3%">
-	        	<p:commandLink  id="deleteLink" update=":form" immediate="true" ajax="true"
-	        		styleClass="ui-icon ui-icon-trash" actionListener="#{rolBean.eliminar(_rol.id)}">
-	        	</p:commandLink>	        	
-	        </p:column>
-	        
-       </p:dataTable>       
-		</h:form>     
-   </ui:define>
+				<p:outputLabel for="desc" value="Descripcion:" />
+				<p:inputText id="desc" value="#{rolBean.rolTemp.descripcion}"
+					label="descripcion" required="false" />
+
+			</h:panelGrid>
+
+			<p>
+				<p:commandButton id="register" action="#{rolBean.registrar}"
+					value="Registrar" style="margin-left: 400px;"
+					update=":form:roles, form" />
+			</p>
+
+			<p:dataTable id="roles" var="_rol" value="#{roles}" editable="true">
+				<f:facet name="header">  Roles 	</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{rolBean.onEdit}"
+					update=":form:messages" />
+				<p:ajax event="rowEditCancel" listener="#{rolBean.onCancel}"
+					update=":form:messages" />
+
+				<p:column headerText="Id" style="width:5%">
+					<h:outputText value="#{_rol.id}" />
+				</p:column>
+
+				<p:column headerText="Nombre" style="width:25%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_rol.rol}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputRol" value="#{_rol.rol}"
+								style="width:96%" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Descripcion" style="width:25%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{_rol.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInputDesc" value="#{_rol.descripcion}"
+								style="width:96%" required="true" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:3%">
+					<p:rowEditor />
+				</p:column>
+				<p:column style="width:3%">
+					<p:commandLink id="deleteLink" update=":form" immediate="true"
+						ajax="true" styleClass="ui-icon ui-icon-trash"
+						actionListener="#{rolBean.eliminar(_rol.id)}">
+					</p:commandLink>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
 </ui:composition>

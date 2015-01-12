@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,34 +12,32 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @XmlRootElement
 @Table(name = "logEventos")
-@JsonIgnoreProperties({"placa"})
+@JsonIgnoreProperties({ "placa" })
 public class LogEvento implements Serializable {
 
-
 	private static final long serialVersionUID = 4371102659328973422L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idLogEvento;
 	private Timestamp fecha;
-	
-	@ManyToOne (fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TipoLogEvento tipoLogEvento;
-	
-	@ManyToOne (fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Mensaje mensaje;
-	
-	@ManyToOne (fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Dispositivo dispositivo;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
 
 	public Long getIdLogEvento() {

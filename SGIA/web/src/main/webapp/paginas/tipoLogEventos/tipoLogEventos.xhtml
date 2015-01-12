@@ -6,49 +6,70 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		
+
 
 		<h:form id="form" prependId="false">
-			
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
-			</p:panel>
-			<p:separator/>
 
-			<h1 style="text-align: center;">Administración de Tipos de Logs	de Eventos</h1>
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-			
+			</p:panel>
+			<p:separator />
+
+			<h1 style="text-align: center;">Administración de Tipos de Logs
+				de Eventos</h1>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
 			<p:dataTable id="tipoLogEventos" var="_tipoLogEventos"
 				value="#{tipoLogEventos}" editable="true">
 				<f:facet name="header">  Tipos de Log de Eventos 	</f:facet>
 
-				<p:ajax event="rowEdit" listener="#{tipoLogEventoBean.onEdit}" update=":form:messages"/>
+				<p:ajax event="rowEdit" listener="#{tipoLogEventoBean.onEdit}"
+					update=":form:messages" />
 
 				<p:ajax event="rowEditCancel"
 					listener="#{tipoLogEventoBean.onCancel}" update=":form:messages" />
@@ -91,10 +112,9 @@
 					<p:cellEditor>
 						<f:facet name="output">
 							<p:dataList id="destinatariosTab"
-								value="#{_tipoLogEventos.listaDestinatarios}"
-								var="desti" type="unordered" itemType="none" paginator="false"
-								rows="10">
-								
+								value="#{_tipoLogEventos.listaDestinatarios}" var="desti"
+								type="unordered" itemType="none" paginator="false" rows="10">
+
 								<h:outputText value="#{desti.nombre}" />
 							</p:dataList>
 						</f:facet>
@@ -117,168 +137,94 @@
 				<p:column style="width:3%">
 					<p:rowEditor />
 				</p:column>
-				<!--  -->
-<!-- 				<p:column style="width:3%"> -->
-<!-- 					<p:commandLink id="deleteLink" update=":form" immediate="true" -->
-<!-- 						ajax="true" styleClass="ui-icon ui-icon-trash" -->
-<!-- 						actionListener="#{tipoLogEventoBean.eliminar(_tipoLogEventos.idTipoLogEvento)}"> -->
-<!-- 					</p:commandLink> -->
-<!-- 				</p:column> -->
 
 				<p:column style="width:3%">
 					<p:commandButton id="detalle" update=":form:tipoLog"
-						icon="ui-icon-search" title="View"
-						onclick="PF('tipoLog').show()">
+						icon="ui-icon-search" title="View" onclick="PF('tipoLog').show()">
 						<f:setPropertyActionListener value="#{_tipoLogEventos}"
 							target="#{tipoLogEventoBean.tipoLogEventoSeleccionado}" />
 					</p:commandButton>
 
 				</p:column>
 
-
 			</p:dataTable>
 
 			<br />
 			<br />
 
-<!-- rendered="#{not empty tipoLogEventoBean.tipoLogEventoSeleccionado}" -->
-						<p:panel id="tipoLog" header="Detalle Log de Eventos" toggleable="true" 
-							rendered="#{tipoLogEventoBean.control > 0}"
-							footer="Destinatarios Asociados" style="margin-bottom:20px">
-							<h:panelGrid columns="2" layout="grid">
+			<p:panel id="tipoLog" header="Detalle Log de Eventos"
+				toggleable="true" rendered="#{tipoLogEventoBean.control > 0}"
+				footer="Destinatarios Asociados" style="margin-bottom:20px">
+				<h:panelGrid columns="2" layout="grid">
 
-								<p:outputLabel for="nombre" value="Nombre:" />
+					<p:outputLabel for="nombre" value="Nombre:" />
 
-								<h:outputText id="nombre"
-									value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.nombre}"
-									label="Nombre" />
+					<h:outputText id="nombre"
+						value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.nombre}"
+						label="Nombre" />
 
-								<p:outputLabel for="enviarSMS" value="Enviar SMS?:" />
-								<h:outputText id="enviarSMS"
-									value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.enviarSMS}"
-									label="Enviar SMS?" />
+					<p:outputLabel for="enviarSMS" value="Enviar SMS?:" />
+					<h:outputText id="enviarSMS"
+						value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.enviarSMS}"
+						label="Enviar SMS?" />
 
 
-								<p:outputLabel for="enviarMail" value="Enviar E-Mail?:" />
-								<h:outputText id="enviarMail"
-									value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.enviarMail}"
-									label="Enviar Mail?" />
+					<p:outputLabel for="enviarMail" value="Enviar E-Mail?:" />
+					<h:outputText id="enviarMail"
+						value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.enviarMail}"
+						label="Enviar Mail?" />
 
-								<p:outputLabel for="destinatarios" value="Destinatarios::" />
-								<p:dataList id="destinatarios"
-									value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.listaDestinatarios}"
-									var="desti" type="unordered" itemType="none" paginator="false"
-									rows="10">
+					<p:outputLabel for="destinatarios" value="Destinatarios::" />
+					<p:dataList id="destinatarios"
+						value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.listaDestinatarios}"
+						var="desti" type="unordered" itemType="none" paginator="false"
+						rows="10">
 
-									<p:commandLink update=":form:destDetail"
-										styleClass="ui-icon ui-icon-search"
-										oncomplete="PF('destDialog').show()" title="Ver Detalle"
-										style="float:left;">
-										<f:setPropertyActionListener value="#{desti}"
-											target="#{tipoLogEventoBean.destinatarioSeleccionado}" />
-										<h:outputText value="#{desti.idDestinatario}"
-											style="text-align:left;" />
-									</p:commandLink>
-									<h:outputText value="#{desti.nombre}" />
-								</p:dataList>
-							</h:panelGrid>
-							
-<!-- 							<p:commandButton id="detalle" update=":form:tipoLog" -->
-<!-- 								icon="ui-icon-circle-triangle-n" title="View"> -->
-<!-- 								<f:setPropertyActionListener value="0" -->
-<!-- 											target="#{tipoLogEventoBean.control}" /> -->
-<!-- 							</p:commandButton> -->
-						</p:panel>
-					
+						<p:commandLink update=":form:destDetail"
+							styleClass="ui-icon ui-icon-search"
+							oncomplete="PF('destDialog').show()" title="Ver Detalle"
+							style="float:left;">
+							<f:setPropertyActionListener value="#{desti}"
+								target="#{tipoLogEventoBean.destinatarioSeleccionado}" />
+							<h:outputText value="#{desti.idDestinatario}"
+								style="text-align:left;" />
+						</p:commandLink>
+						<h:outputText value="#{desti.nombre}" />
+					</p:dataList>
+				</h:panelGrid>
+			
+			</p:panel>
 
 			<p:dialog header="Destinatario Info" widgetVar="destDialog"
 				modal="true" showEffect="blind" resizable="false">
 				<p:outputPanel id="destDetail" style="text-align:center;">
-						<h:panelGrid columns="2">
+					<h:panelGrid columns="2">
 
-							<f:facet name="header">
-								<h:outputText
-									value="#{tipoLogEventoBean.destinatarioSeleccionado.nombre}" />
-							</f:facet>
-
-							<h:outputText value="Celular:" />
+						<f:facet name="header">
 							<h:outputText
-								value="#{tipoLogEventoBean.destinatarioSeleccionado.celular}" />
+								value="#{tipoLogEventoBean.destinatarioSeleccionado.nombre}" />
+						</f:facet>
 
-							<h:outputText value="Mail" />
-							<h:outputText
-								value="#{tipoLogEventoBean.destinatarioSeleccionado.mail}" />
+						<h:outputText value="Celular:" />
+						<h:outputText
+							value="#{tipoLogEventoBean.destinatarioSeleccionado.celular}" />
 
-							<h:outputText value="Hora Mínima" />
-							<h:outputText
-								value="#{tipoLogEventoBean.destinatarioSeleccionado.horaMin}" />
+						<h:outputText value="Mail" />
+						<h:outputText
+							value="#{tipoLogEventoBean.destinatarioSeleccionado.mail}" />
 
-							<h:outputText value="Hora Máxima" />
-							<h:outputText
-								value="#{tipoLogEventoBean.destinatarioSeleccionado.horaMax}" />
+						<h:outputText value="Hora Mínima" />
+						<h:outputText
+							value="#{tipoLogEventoBean.destinatarioSeleccionado.horaMin}" />
 
-						</h:panelGrid>
+						<h:outputText value="Hora Máxima" />
+						<h:outputText
+							value="#{tipoLogEventoBean.destinatarioSeleccionado.horaMax}" />
+
+					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
 
-
-
-							
-<!-- 			<p:panel id="modificar" header="Modificar Log de Eventos" -->
-<!-- 				rendered="#{tipoLogEventoBean.control > 0}"> -->
-
-
-<!-- 			<h:panelGrid columns="2"> -->
-
-<!-- 				<p:outputLabel for="nombre_Mod" value="Nombre:" /> -->
-<!-- 				<p:inputText id="nombre_Mod" -->
-<!-- 					value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.nombre}" -->
-<!-- 					label="Nombre" required="true" /> -->
-
-<!-- 				<p:outputLabel for="enviarSMS_Mod" value="Enviar SMS?:" /> -->
-<!-- 				<p:selectOneMenu id="enviarSMS_Mod" -->
-<!-- 					value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.enviarSMS}"> -->
-<!-- 					<f:selectItem itemLabel="Si" itemValue="S" /> -->
-<!-- 					<f:selectItem itemLabel="No" itemValue="N" /> -->
-<!-- 				</p:selectOneMenu> -->
-
-<!-- 				<p:outputLabel for="enviarMail_Mod" value="Enviar E-Mail?:" /> -->
-<!-- 				<p:selectOneMenu id="enviarMail_Mod" -->
-<!-- 					value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.enviarMail}"> -->
-<!-- 					<f:selectItem itemLabel="Si" itemValue="S" /> -->
-<!-- 					<f:selectItem itemLabel="No" itemValue="N" /> -->
-<!-- 				</p:selectOneMenu> -->
-
-
-<!-- 				<p:outputLabel for="listaDestinatarios_Mod" -->
-<!-- 					value="Lista Destinatarios:" /> -->
-<!-- 				<p:selectManyMenu id="listaDestinatarios_Mod" -->
-<!-- 					value="#{tipoLogEventoBean.listaDestinatarios}" -->
-<!-- 					converter="destinatarioConverter" showCheckbox="true"> -->
-<!-- 					<f:selectItems value="#{destinatarios}" var="dest" -->
-<!-- 						itemLabel="#{dest.nombre}" itemValue="#{dest}" /> -->
-
-<!-- 					<p:column> -->
-<!-- 						<h:outputText value="#{dest.nombre}" /> -->
-<!-- 					</p:column> -->
-<!-- 				</p:selectManyMenu> -->
-
-				
-
-<!-- 			</h:panelGrid> -->
-			
-<!-- 			<p> -->
-<!-- 					<h:commandButton id="botMod" update=":form:tipoLogEventos" -->
-<!-- 						action="#{tipoLogEventoBean.modificar()}" value="Modificar" -->
-						
-<!-- 						style="margin-left: 400px;" > -->
-<!-- 						<f:setPropertyActionListener value="0" -->
-<!-- 										target="#{tipoLogEventoBean.control}" /> -->
-<!-- 					</h:commandButton> -->
-<!-- 				</p> -->
-
-
-<!-- 			</p:panel> -->
 		</h:form>
 	</ui:define>
 </ui:composition>

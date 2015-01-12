@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -7,11 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsAgregarFilaPerfilActivacion complex type.
+ * <p>
+ * Java class for wsAgregarFilaPerfilActivacion complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsAgregarFilaPerfilActivacion">
@@ -31,89 +32,77 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "wsAgregarFilaPerfilActivacion", propOrder = {
-    "idPerfilActivacion",
-    "idGrupoActuadores",
-    "estado"
-})
+		"idPerfilActivacion", "idGrupoActuadores", "estado" })
 public class WsAgregarFilaPerfilActivacion {
 
-    @XmlElement(required = true)
-    protected BigInteger idPerfilActivacion;
-    @XmlElement(required = true)
-    protected BigInteger idGrupoActuadores;
-    @XmlElement(required = true)
-    protected String estado;
+	@XmlElement(required = true)
+	protected BigInteger idPerfilActivacion;
+	@XmlElement(required = true)
+	protected BigInteger idGrupoActuadores;
+	@XmlElement(required = true)
+	protected String estado;
 
-    /**
-     * Gets the value of the idPerfilActivacion property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdPerfilActivacion() {
-        return idPerfilActivacion;
-    }
+	/**
+	 * Gets the value of the idPerfilActivacion property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdPerfilActivacion() {
+		return idPerfilActivacion;
+	}
 
-    /**
-     * Sets the value of the idPerfilActivacion property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdPerfilActivacion(BigInteger value) {
-        this.idPerfilActivacion = value;
-    }
+	/**
+	 * Sets the value of the idPerfilActivacion property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdPerfilActivacion(BigInteger value) {
+		this.idPerfilActivacion = value;
+	}
 
-    /**
-     * Gets the value of the idGrupoActuadores property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdGrupoActuadores() {
-        return idGrupoActuadores;
-    }
+	/**
+	 * Gets the value of the idGrupoActuadores property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdGrupoActuadores() {
+		return idGrupoActuadores;
+	}
 
-    /**
-     * Sets the value of the idGrupoActuadores property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdGrupoActuadores(BigInteger value) {
-        this.idGrupoActuadores = value;
-    }
+	/**
+	 * Sets the value of the idGrupoActuadores property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdGrupoActuadores(BigInteger value) {
+		this.idGrupoActuadores = value;
+	}
 
-    /**
-     * Gets the value of the estado property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEstado() {
-        return estado;
-    }
+	/**
+	 * Gets the value of the estado property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getEstado() {
+		return estado;
+	}
 
-    /**
-     * Sets the value of the estado property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEstado(String value) {
-        this.estado = value;
-    }
+	/**
+	 * Sets the value of the estado property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setEstado(String value) {
+		this.estado = value;
+	}
 
 }

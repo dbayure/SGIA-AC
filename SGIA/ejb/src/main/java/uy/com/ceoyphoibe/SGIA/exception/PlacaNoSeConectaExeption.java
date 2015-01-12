@@ -1,17 +1,16 @@
-package uy.com.ceyphoibe.SGIA.exception;
+package uy.com.ceoyphoibe.SGIA.exception;
 
 import java.io.Serializable;
 
-public class PlacaNoSeConectaExeption extends Exception implements Serializable{
-	
+public class PlacaNoSeConectaExeption extends Exception implements Serializable {
+
 	private static final long serialVersionUID = 8255003128146901408L;
 
 	public PlacaNoSeConectaExeption(String mensaje) {
 		super(mensaje);
-	} 
-	
-	public PlacaNoSeConectaExeption(){}
-		
+	}
 
+	public PlacaNoSeConectaExeption() {
+	}
 
 }

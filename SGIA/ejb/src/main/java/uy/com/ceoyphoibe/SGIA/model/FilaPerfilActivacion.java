@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,54 +24,67 @@ public class FilaPerfilActivacion implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
+	@JoinColumn(name = "grupoActuadores_id", referencedColumnName = "id")
 	private GrupoActuadores grupoActuadores;
 	private String estado;
+
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
+
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the grupoActuadores
 	 */
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
 	}
+
 	/**
-	 * @param grupoActuadores the grupoActuadores to set
+	 * @param grupoActuadores
+	 *            the grupoActuadores to set
 	 */
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}
+
 	/**
 	 * @return the estado
 	 */
 	public String getEstado() {
 		return estado;
 	}
+
 	/**
-	 * @param estado the estado to set
+	 * @param estado
+	 *            the estado to set
 	 */
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	/**
 	 * @return the serialversionuid
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -85,7 +97,10 @@ public class FilaPerfilActivacion implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -114,7 +129,10 @@ public class FilaPerfilActivacion implements Serializable {
 			return false;
 		return true;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -122,6 +140,5 @@ public class FilaPerfilActivacion implements Serializable {
 		return "FilaPerfilActivacion [id=" + id + ", grupoActuadores="
 				+ grupoActuadores + ", estado=" + estado + "]";
 	}
-	
-	
+
 }

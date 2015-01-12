@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsApagarGrupoActuadoresResponse complex type.
+ * <p>
+ * Java class for wsApagarGrupoActuadoresResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsApagarGrupoActuadoresResponse">
@@ -27,36 +28,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsApagarGrupoActuadoresResponse", propOrder = {
-    "wsApagarGrupoActuadoresResult"
-})
+@XmlType(name = "wsApagarGrupoActuadoresResponse", propOrder = { "wsApagarGrupoActuadoresResult" })
 public class WsApagarGrupoActuadoresResponse {
 
-    @XmlElement(required = true)
-    protected ResultadoAccionWS wsApagarGrupoActuadoresResult;
+	@XmlElement(required = true)
+	protected ResultadoAccionWS wsApagarGrupoActuadoresResult;
 
-    /**
-     * Gets the value of the wsApagarGrupoActuadoresResult property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ResultadoAccionWS }
-     *     
-     */
-    public ResultadoAccionWS getWsApagarGrupoActuadoresResult() {
-        return wsApagarGrupoActuadoresResult;
-    }
+	/**
+	 * Gets the value of the wsApagarGrupoActuadoresResult property.
+	 * 
+	 * @return possible object is {@link ResultadoAccionWS }
+	 * 
+	 */
+	public ResultadoAccionWS getWsApagarGrupoActuadoresResult() {
+		return wsApagarGrupoActuadoresResult;
+	}
 
-    /**
-     * Sets the value of the wsApagarGrupoActuadoresResult property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ResultadoAccionWS }
-     *     
-     */
-    public void setWsApagarGrupoActuadoresResult(ResultadoAccionWS value) {
-        this.wsApagarGrupoActuadoresResult = value;
-    }
+	/**
+	 * Sets the value of the wsApagarGrupoActuadoresResult property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link ResultadoAccionWS }
+	 * 
+	 */
+	public void setWsApagarGrupoActuadoresResult(ResultadoAccionWS value) {
+		this.wsApagarGrupoActuadoresResult = value;
+	}
 
 }

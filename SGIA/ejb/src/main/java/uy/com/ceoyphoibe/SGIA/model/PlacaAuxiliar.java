@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,89 +10,99 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @XmlRootElement
 @Table(name = "placaAuxiliar")
-@JsonIgnoreProperties({"placa", "listaDispositivos"})
+@JsonIgnoreProperties({ "placa", "listaDispositivos" })
 public class PlacaAuxiliar extends Dispositivo implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1207751157271188774L;
-	
+
 	private String numeroSerie;
 	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "tipoPlacaAuxiliar_id" , unique = false)
+	@JoinColumn(name = "tipoPlacaAuxiliar_id", unique = false)
 	private TipoPlacaAuxiliar tipoPlacaAuxiliar;
 	private int numeroPuertoAnal;
 	private int numeroPuertoEDig;
 	private int numeroPuertoSdig;
-	
-	@OneToMany( mappedBy = "padre", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER )
-    private List<Dispositivo> listaDispositivos;
-	
-	
-	
-	
+
+	@OneToMany(mappedBy = "padre", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
+	private List<Dispositivo> listaDispositivos;
+
 	/**
 	 * @return the listaDispositivos
 	 */
 	public List<Dispositivo> getListaDispositivos() {
 		return listaDispositivos;
 	}
+
 	/**
-	 * @param listaDispositivos the listaDispositivos to set
+	 * @param listaDispositivos
+	 *            the listaDispositivos to set
 	 */
 	public void setListaDispositivos(List<Dispositivo> listaDispositivos) {
 		this.listaDispositivos = listaDispositivos;
 	}
+
 	public String getNumeroSerie() {
 		return numeroSerie;
 	}
+
 	public void setNumeroSerie(String numeroSerie) {
 		this.numeroSerie = numeroSerie;
 	}
-	
-	
-	
+
 	/**
 	 * @return the tipoPlacaAuxiliar
 	 */
 	public TipoPlacaAuxiliar getTipoPlacaAuxiliar() {
 		return tipoPlacaAuxiliar;
 	}
+
 	/**
-	 * @param tipoPlacaAuxiliar the tipoPlacaAuxiliar to set
+	 * @param tipoPlacaAuxiliar
+	 *            the tipoPlacaAuxiliar to set
 	 */
 	public void setTipoPlacaAuxiliar(TipoPlacaAuxiliar tipoPlacaAuxiliar) {
 		this.tipoPlacaAuxiliar = tipoPlacaAuxiliar;
 	}
+
 	public int getNumeroPuertoAnal() {
 		return numeroPuertoAnal;
 	}
+
 	public void setNumeroPuertoAnal(int numeroPuertoAnal) {
 		this.numeroPuertoAnal = numeroPuertoAnal;
 	}
+
 	public int getNumeroPuertoEDig() {
 		return numeroPuertoEDig;
 	}
+
 	public void setNumeroPuertoEDig(int numeroPuertoEDig) {
 		this.numeroPuertoEDig = numeroPuertoEDig;
 	}
+
 	public int getNumeroPuertoSdig() {
 		return numeroPuertoSdig;
 	}
+
 	public void setNumeroPuertoSdig(int numeroPuertoSdig) {
 		this.numeroPuertoSdig = numeroPuertoSdig;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -111,7 +120,10 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 						.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -141,7 +153,10 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 			return false;
 		return true;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -152,7 +167,5 @@ public class PlacaAuxiliar extends Dispositivo implements Serializable {
 				+ ", numeroPuertoEDig=" + numeroPuertoEDig
 				+ ", numeroPuertoSdig=" + numeroPuertoSdig + "]";
 	}
-	
-	
-	
+
 }

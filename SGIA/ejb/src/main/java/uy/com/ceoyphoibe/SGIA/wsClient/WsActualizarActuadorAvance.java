@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -7,11 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsActualizarActuadorAvance complex type.
+ * <p>
+ * Java class for wsActualizarActuadorAvance complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsActualizarActuadorAvance">
@@ -38,306 +39,264 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsActualizarActuadorAvance", propOrder = {
-    "nombre",
-    "modelo",
-    "nroPuerto",
-    "posicion",
-    "idTipoPuerto",
-    "idTipoActuador",
-    "idPlacaPadre",
-    "nroPuertoRetroceso",
-    "tiempoEntrePosiciones",
-    "idGrupoActuadores",
-    "idDispositivo"
-})
+@XmlType(name = "wsActualizarActuadorAvance", propOrder = { "nombre", "modelo",
+		"nroPuerto", "posicion", "idTipoPuerto", "idTipoActuador",
+		"idPlacaPadre", "nroPuertoRetroceso", "tiempoEntrePosiciones",
+		"idGrupoActuadores", "idDispositivo" })
 public class WsActualizarActuadorAvance {
 
-    @XmlElement(required = true)
-    protected String nombre;
-    @XmlElement(required = true)
-    protected String modelo;
-    @XmlElement(required = true)
-    protected BigInteger nroPuerto;
-    @XmlElement(required = true)
-    protected BigInteger posicion;
-    @XmlElement(required = true)
-    protected BigInteger idTipoPuerto;
-    @XmlElement(required = true)
-    protected BigInteger idTipoActuador;
-    @XmlElement(required = true)
-    protected BigInteger idPlacaPadre;
-    @XmlElement(required = true)
-    protected BigInteger nroPuertoRetroceso;
-    @XmlElement(required = true)
-    protected BigInteger tiempoEntrePosiciones;
-    @XmlElement(required = true)
-    protected BigInteger idGrupoActuadores;
-    @XmlElement(required = true)
-    protected BigInteger idDispositivo;
+	@XmlElement(required = true)
+	protected String nombre;
+	@XmlElement(required = true)
+	protected String modelo;
+	@XmlElement(required = true)
+	protected BigInteger nroPuerto;
+	@XmlElement(required = true)
+	protected BigInteger posicion;
+	@XmlElement(required = true)
+	protected BigInteger idTipoPuerto;
+	@XmlElement(required = true)
+	protected BigInteger idTipoActuador;
+	@XmlElement(required = true)
+	protected BigInteger idPlacaPadre;
+	@XmlElement(required = true)
+	protected BigInteger nroPuertoRetroceso;
+	@XmlElement(required = true)
+	protected BigInteger tiempoEntrePosiciones;
+	@XmlElement(required = true)
+	protected BigInteger idGrupoActuadores;
+	@XmlElement(required = true)
+	protected BigInteger idDispositivo;
 
-    /**
-     * Gets the value of the nombre property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNombre() {
-        return nombre;
-    }
+	/**
+	 * Gets the value of the nombre property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getNombre() {
+		return nombre;
+	}
 
-    /**
-     * Sets the value of the nombre property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNombre(String value) {
-        this.nombre = value;
-    }
+	/**
+	 * Sets the value of the nombre property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setNombre(String value) {
+		this.nombre = value;
+	}
 
-    /**
-     * Gets the value of the modelo property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getModelo() {
-        return modelo;
-    }
+	/**
+	 * Gets the value of the modelo property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getModelo() {
+		return modelo;
+	}
 
-    /**
-     * Sets the value of the modelo property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setModelo(String value) {
-        this.modelo = value;
-    }
+	/**
+	 * Sets the value of the modelo property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setModelo(String value) {
+		this.modelo = value;
+	}
 
-    /**
-     * Gets the value of the nroPuerto property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getNroPuerto() {
-        return nroPuerto;
-    }
+	/**
+	 * Gets the value of the nroPuerto property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getNroPuerto() {
+		return nroPuerto;
+	}
 
-    /**
-     * Sets the value of the nroPuerto property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setNroPuerto(BigInteger value) {
-        this.nroPuerto = value;
-    }
+	/**
+	 * Sets the value of the nroPuerto property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setNroPuerto(BigInteger value) {
+		this.nroPuerto = value;
+	}
 
-    /**
-     * Gets the value of the posicion property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getPosicion() {
-        return posicion;
-    }
+	/**
+	 * Gets the value of the posicion property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getPosicion() {
+		return posicion;
+	}
 
-    /**
-     * Sets the value of the posicion property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setPosicion(BigInteger value) {
-        this.posicion = value;
-    }
+	/**
+	 * Sets the value of the posicion property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setPosicion(BigInteger value) {
+		this.posicion = value;
+	}
 
-    /**
-     * Gets the value of the idTipoPuerto property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdTipoPuerto() {
-        return idTipoPuerto;
-    }
+	/**
+	 * Gets the value of the idTipoPuerto property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdTipoPuerto() {
+		return idTipoPuerto;
+	}
 
-    /**
-     * Sets the value of the idTipoPuerto property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdTipoPuerto(BigInteger value) {
-        this.idTipoPuerto = value;
-    }
+	/**
+	 * Sets the value of the idTipoPuerto property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdTipoPuerto(BigInteger value) {
+		this.idTipoPuerto = value;
+	}
 
-    /**
-     * Gets the value of the idTipoActuador property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdTipoActuador() {
-        return idTipoActuador;
-    }
+	/**
+	 * Gets the value of the idTipoActuador property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdTipoActuador() {
+		return idTipoActuador;
+	}
 
-    /**
-     * Sets the value of the idTipoActuador property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdTipoActuador(BigInteger value) {
-        this.idTipoActuador = value;
-    }
+	/**
+	 * Sets the value of the idTipoActuador property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdTipoActuador(BigInteger value) {
+		this.idTipoActuador = value;
+	}
 
-    /**
-     * Gets the value of the idPlacaPadre property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdPlacaPadre() {
-        return idPlacaPadre;
-    }
+	/**
+	 * Gets the value of the idPlacaPadre property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdPlacaPadre() {
+		return idPlacaPadre;
+	}
 
-    /**
-     * Sets the value of the idPlacaPadre property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdPlacaPadre(BigInteger value) {
-        this.idPlacaPadre = value;
-    }
+	/**
+	 * Sets the value of the idPlacaPadre property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdPlacaPadre(BigInteger value) {
+		this.idPlacaPadre = value;
+	}
 
-    /**
-     * Gets the value of the nroPuertoRetroceso property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getNroPuertoRetroceso() {
-        return nroPuertoRetroceso;
-    }
+	/**
+	 * Gets the value of the nroPuertoRetroceso property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getNroPuertoRetroceso() {
+		return nroPuertoRetroceso;
+	}
 
-    /**
-     * Sets the value of the nroPuertoRetroceso property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setNroPuertoRetroceso(BigInteger value) {
-        this.nroPuertoRetroceso = value;
-    }
+	/**
+	 * Sets the value of the nroPuertoRetroceso property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setNroPuertoRetroceso(BigInteger value) {
+		this.nroPuertoRetroceso = value;
+	}
 
-    /**
-     * Gets the value of the tiempoEntrePosiciones property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getTiempoEntrePosiciones() {
-        return tiempoEntrePosiciones;
-    }
+	/**
+	 * Gets the value of the tiempoEntrePosiciones property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getTiempoEntrePosiciones() {
+		return tiempoEntrePosiciones;
+	}
 
-    /**
-     * Sets the value of the tiempoEntrePosiciones property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setTiempoEntrePosiciones(BigInteger value) {
-        this.tiempoEntrePosiciones = value;
-    }
+	/**
+	 * Sets the value of the tiempoEntrePosiciones property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setTiempoEntrePosiciones(BigInteger value) {
+		this.tiempoEntrePosiciones = value;
+	}
 
-    /**
-     * Gets the value of the idGrupoActuadores property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdGrupoActuadores() {
-        return idGrupoActuadores;
-    }
+	/**
+	 * Gets the value of the idGrupoActuadores property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdGrupoActuadores() {
+		return idGrupoActuadores;
+	}
 
-    /**
-     * Sets the value of the idGrupoActuadores property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdGrupoActuadores(BigInteger value) {
-        this.idGrupoActuadores = value;
-    }
+	/**
+	 * Sets the value of the idGrupoActuadores property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdGrupoActuadores(BigInteger value) {
+		this.idGrupoActuadores = value;
+	}
 
-    /**
-     * Gets the value of the idDispositivo property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdDispositivo() {
-        return idDispositivo;
-    }
+	/**
+	 * Gets the value of the idDispositivo property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdDispositivo() {
+		return idDispositivo;
+	}
 
-    /**
-     * Sets the value of the idDispositivo property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdDispositivo(BigInteger value) {
-        this.idDispositivo = value;
-    }
+	/**
+	 * Sets the value of the idDispositivo property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdDispositivo(BigInteger value) {
+		this.idDispositivo = value;
+	}
 
 }

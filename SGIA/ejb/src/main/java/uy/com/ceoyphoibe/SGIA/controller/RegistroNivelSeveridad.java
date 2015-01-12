@@ -11,182 +11,187 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import uy.com.ceoyphoibe.SGIA.exception.contradiccionPrioridadException;
+import uy.com.ceoyphoibe.SGIA.exception.perfilContradictorioFactorException;
+import uy.com.ceoyphoibe.SGIA.exception.rangoNivelException;
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-import uy.com.ceyphoibe.SGIA.exception.contradiccionPrioridadException;
-import uy.com.ceyphoibe.SGIA.exception.perfilContradictorioFactorException;
-import uy.com.ceyphoibe.SGIA.exception.rangoNivelException;
 
 @Stateless
 public class RegistroNivelSeveridad {
-
 
 	@Inject
 	private EntityManager em;
 
 	@Inject
 	private Event<NivelSeveridad> nivelSeveridadEventSrc;
-	
-	
-	
-	private boolean validarRangoFactor( List<NivelSeveridad> listaNiveles, NivelSeveridad nivel)
-	{
-		System.out.println("entra a validar el rango según el factor del nivel de severidad");
-		boolean ok= true;
-		if (nivel.getRangoMin()==nivel.getRangoMax())
-			ok= false;
-		int i=0;
-		while (ok && i<listaNiveles.size())
-		{
-			NivelSeveridad nivelTemp= listaNiveles.get(i);
-			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor().getIdFactor() && nivelTemp.getId() != nivel.getId())
-			{
-				if ( (nivel.getRangoMin() >= nivelTemp.getRangoMin() && nivel.getRangoMin() < nivelTemp.getRangoMax()) || (nivel.getRangoMax() > nivelTemp.getRangoMin() && nivel.getRangoMax() <= nivelTemp.getRangoMax()) )
+
+	private boolean validarRangoFactor(List<NivelSeveridad> listaNiveles,
+			NivelSeveridad nivel) {
+		System.out
+				.println("entra a validar el rango según el factor del nivel de severidad");
+		boolean ok = true;
+		if (nivel.getRangoMin() == nivel.getRangoMax())
+			ok = false;
+		int i = 0;
+		while (ok && i < listaNiveles.size()) {
+			NivelSeveridad nivelTemp = listaNiveles.get(i);
+			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor()
+					.getIdFactor() && nivelTemp.getId() != nivel.getId()) {
+				if ((nivel.getRangoMin() >= nivelTemp.getRangoMin() && nivel
+						.getRangoMin() < nivelTemp.getRangoMax())
+						|| (nivel.getRangoMax() > nivelTemp.getRangoMin() && nivel
+								.getRangoMax() <= nivelTemp.getRangoMax()))
 					ok = false;
-				else
-				{
-					if (nivel.getRangoMin() <= nivelTemp.getRangoMin() && nivel.getRangoMax() >= nivelTemp.getRangoMax())
-						ok= false;
+				else {
+					if (nivel.getRangoMin() <= nivelTemp.getRangoMin()
+							&& nivel.getRangoMax() >= nivelTemp.getRangoMax())
+						ok = false;
 					else
-						ok= true;
+						ok = true;
 				}
-				
+
 			}
 			i++;
 		}
 		return ok;
 	}
-	
-	private boolean validarContradiccionPrioridad( List<NivelSeveridad> listaNiveles, NivelSeveridad nivel)
-	{
-		System.out.println("entra a validar contradicciones de activacion segun la prioridad del nivel de severidad");
-		boolean ok= true;
-		
-		int i=0;
-		while (ok && i<listaNiveles.size())
-		{
-			NivelSeveridad nivelTemp= listaNiveles.get(i);
-			if ((nivel.getFactor().getIdFactor() != nivelTemp.getFactor().getIdFactor()) && (nivel.getPrioridad() == nivelTemp.getPrioridad()) && nivelTemp.getId() != nivel.getId())
-			{
-				Iterator<FilaPerfilActivacion> perfilTemp= nivelTemp.getPerfilActivacion().iterator();
-				while(ok && perfilTemp.hasNext())
-				{
-					FilaPerfilActivacion filaTemp= perfilTemp.next();
-					Iterator<FilaPerfilActivacion> perfilNuevo= nivel.getPerfilActivacion().iterator();
-					while (ok && perfilNuevo.hasNext())
-					{
-						FilaPerfilActivacion filaNueva= perfilNuevo.next();
-						if (filaTemp.getGrupoActuadores().getId() == filaNueva.getGrupoActuadores().getId())
-							ok= filaTemp.getEstado().equals(filaNueva.getEstado());
+
+	private boolean validarContradiccionPrioridad(
+			List<NivelSeveridad> listaNiveles, NivelSeveridad nivel) {
+		System.out
+				.println("entra a validar contradicciones de activacion segun la prioridad del nivel de severidad");
+		boolean ok = true;
+
+		int i = 0;
+		while (ok && i < listaNiveles.size()) {
+			NivelSeveridad nivelTemp = listaNiveles.get(i);
+			if ((nivel.getFactor().getIdFactor() != nivelTemp.getFactor()
+					.getIdFactor())
+					&& (nivel.getPrioridad() == nivelTemp.getPrioridad())
+					&& nivelTemp.getId() != nivel.getId()) {
+				Iterator<FilaPerfilActivacion> perfilTemp = nivelTemp
+						.getPerfilActivacion().iterator();
+				while (ok && perfilTemp.hasNext()) {
+					FilaPerfilActivacion filaTemp = perfilTemp.next();
+					Iterator<FilaPerfilActivacion> perfilNuevo = nivel
+							.getPerfilActivacion().iterator();
+					while (ok && perfilNuevo.hasNext()) {
+						FilaPerfilActivacion filaNueva = perfilNuevo.next();
+						if (filaTemp.getGrupoActuadores().getId() == filaNueva
+								.getGrupoActuadores().getId())
+							ok = filaTemp.getEstado().equals(
+									filaNueva.getEstado());
 					}
-					
+
 				}
-				
+
 			}
 			i++;
 		}
 		return ok;
 	}
-	
-	private boolean validarPerfilActivacionFactor( List<NivelSeveridad> listaNiveles, NivelSeveridad nivel)
-	{
-		System.out.println("entra a validar el el conjunto de grupos de actuadores del perfil de activación según el factor del nivel de severidad");
-		boolean ok= true;
-		
-		int i=0;
-		while (ok && i<listaNiveles.size())
-		{
-			NivelSeveridad nivelTemp= listaNiveles.get(i);
-			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor().getIdFactor() && nivelTemp.getId() != nivel.getId())
-			{
-				ok= nivel.getPerfilActivacion().size() == nivelTemp.getPerfilActivacion().size();
-				
-				Iterator<FilaPerfilActivacion> perfilTemp= nivelTemp.getPerfilActivacion().iterator();
-				while(ok && perfilTemp.hasNext())
-				{
-					FilaPerfilActivacion filaTemp= perfilTemp.next();
-					Iterator<FilaPerfilActivacion> perfilNuevo= nivel.getPerfilActivacion().iterator();
-					boolean estaGrupo= false;
-					while (!estaGrupo && perfilNuevo.hasNext())
-					{
-						FilaPerfilActivacion filaNueva= perfilNuevo.next();
-						estaGrupo= (filaTemp.getGrupoActuadores().getId() == filaNueva.getGrupoActuadores().getId());
+
+	private boolean validarPerfilActivacionFactor(
+			List<NivelSeveridad> listaNiveles, NivelSeveridad nivel) {
+		System.out
+				.println("entra a validar el el conjunto de grupos de actuadores del perfil de activación según el factor del nivel de severidad");
+		boolean ok = true;
+
+		int i = 0;
+		while (ok && i < listaNiveles.size()) {
+			NivelSeveridad nivelTemp = listaNiveles.get(i);
+			if (nivel.getFactor().getIdFactor() == nivelTemp.getFactor()
+					.getIdFactor() && nivelTemp.getId() != nivel.getId()) {
+				ok = nivel.getPerfilActivacion().size() == nivelTemp
+						.getPerfilActivacion().size();
+
+				Iterator<FilaPerfilActivacion> perfilTemp = nivelTemp
+						.getPerfilActivacion().iterator();
+				while (ok && perfilTemp.hasNext()) {
+					FilaPerfilActivacion filaTemp = perfilTemp.next();
+					Iterator<FilaPerfilActivacion> perfilNuevo = nivel
+							.getPerfilActivacion().iterator();
+					boolean estaGrupo = false;
+					while (!estaGrupo && perfilNuevo.hasNext()) {
+						FilaPerfilActivacion filaNueva = perfilNuevo.next();
+						estaGrupo = (filaTemp.getGrupoActuadores().getId() == filaNueva
+								.getGrupoActuadores().getId());
 					}
-					ok= estaGrupo;
+					ok = estaGrupo;
 				}
-				
+
 			}
 			i++;
 		}
 		return ok;
 	}
-	
-	private boolean validarNivelSeveridad(NivelSeveridad nivel) throws rangoNivelException, contradiccionPrioridadException, perfilContradictorioFactorException
-	{
-		boolean control= true;
-		
+
+	private boolean validarNivelSeveridad(NivelSeveridad nivel)
+			throws rangoNivelException, contradiccionPrioridadException,
+			perfilContradictorioFactorException {
+		boolean control = true;
+
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-	      CriteriaQuery<NivelSeveridad> criteria = cb.createQuery(NivelSeveridad.class);
-	      Root<NivelSeveridad> nivelT = criteria.from(NivelSeveridad.class);
-	      criteria.select(nivelT).orderBy(cb.asc(nivelT.get("id")));
-	      criteria.where(cb.equal(nivelT.get("activoSistema"), "S"));
-	      List<NivelSeveridad>listaNiveles = em.createQuery(criteria).getResultList();
-		
-	    if (nivel.getId() == null)
-	    	nivel.setId(Long.valueOf(0));
-		if (listaNiveles.size() > 0)
-		{
-			control= validarRangoFactor(listaNiveles, nivel);
+		CriteriaQuery<NivelSeveridad> criteria = cb
+				.createQuery(NivelSeveridad.class);
+		Root<NivelSeveridad> nivelT = criteria.from(NivelSeveridad.class);
+		criteria.select(nivelT).orderBy(cb.asc(nivelT.get("id")));
+		criteria.where(cb.equal(nivelT.get("activoSistema"), "S"));
+		List<NivelSeveridad> listaNiveles = em.createQuery(criteria)
+				.getResultList();
+
+		if (nivel.getId() == null)
+			nivel.setId(Long.valueOf(0));
+		if (listaNiveles.size() > 0) {
+			control = validarRangoFactor(listaNiveles, nivel);
 			if (!control)
-				throw new rangoNivelException("Rango no válido para el Factor seleccionado");
-			else
-			{
-				control= validarContradiccionPrioridad(listaNiveles, nivel);
+				throw new rangoNivelException(
+						"Rango no válido para el Factor seleccionado");
+			else {
+				control = validarContradiccionPrioridad(listaNiveles, nivel);
 				if (!control)
-					throw new contradiccionPrioridadException("Perfil de activación contradictorio para la prioridad definida.");
-				else
-				{
-					control= validarPerfilActivacionFactor(listaNiveles, nivel);
+					throw new contradiccionPrioridadException(
+							"Perfil de activación contradictorio para la prioridad definida.");
+				else {
+					control = validarPerfilActivacionFactor(listaNiveles, nivel);
 					if (!control)
-						throw new perfilContradictorioFactorException("Los perfiles de activación de niveles de un mismo factor deben actuar sobre exactamente el mismo conjunto de grupos de actuadores");
-					
+						throw new perfilContradictorioFactorException(
+								"Los perfiles de activación de niveles de un mismo factor deben actuar sobre exactamente el mismo conjunto de grupos de actuadores");
+
 				}
 			}
 		}
 		return control;
 	}
-	
 
 	public NivelSeveridad obtenerNivelSeveridadPorId(long id) {
-		NivelSeveridad temp=em.find(NivelSeveridad.class, id);
+		NivelSeveridad temp = em.find(NivelSeveridad.class, id);
 		nivelSeveridadEventSrc.fire(temp);
 		return temp;
 	}
 
 	public void registro(NivelSeveridad n) throws Exception {
-		if (validarNivelSeveridad(n))
-		{	
-			FachadaWS ws= new FachadaWS();
-			n= ws.registroNivelSeveridad(n);
-			   
+		if (validarNivelSeveridad(n)) {
+			FachadaWS ws = new FachadaWS();
+			n = ws.registroNivelSeveridad(n);
+
 			em.merge(n);
 			nivelSeveridadEventSrc.fire(n);
-		}
-		else
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NO PASA EL CONTROL DE NIVELES");
+		} else
+			System.out
+					.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NO PASA EL CONTROL DE NIVELES");
 	}
 
 	public Mensaje modificar(NivelSeveridad nivel) throws Exception {
-		Mensaje resultado= null;
-		if (validarNivelSeveridad(nivel))
-		{	
-			FachadaWS ws= new FachadaWS();
-			resultado= ws.eliminarPerfilActivacion(nivel);
-			if (resultado.getTipo().equals("Informativo"))
-			{
-				resultado= ws.actualizarNivelSeveridad(nivel);
+		Mensaje resultado = null;
+		if (validarNivelSeveridad(nivel)) {
+			FachadaWS ws = new FachadaWS();
+			resultado = ws.eliminarPerfilActivacion(nivel);
+			if (resultado.getTipo().equals("Informativo")) {
+				resultado = ws.actualizarNivelSeveridad(nivel);
 				if (resultado.getTipo().equals("Informativo"))
 					em.merge(nivel);
 			}
@@ -197,10 +202,9 @@ public class RegistroNivelSeveridad {
 
 	public Mensaje eliminar(Long id) throws Exception {
 		NivelSeveridad nivel = em.find(NivelSeveridad.class, id);
-		FachadaWS ws= new FachadaWS();
-		Mensaje resultado= ws.eliminarNivelSeveridad(nivel);
-		if (resultado.getTipo().equals("Informativo"))
-		{
+		FachadaWS ws = new FachadaWS();
+		Mensaje resultado = ws.eliminarNivelSeveridad(nivel);
+		if (resultado.getTipo().equals("Informativo")) {
 			nivel.setActivoSistema("N");
 			em.merge(nivel);
 		}

@@ -3,7 +3,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,13 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @XmlRootElement
 @Table(name = "nivelesSeveridad")
-@JsonIgnoreProperties({"placa"})
+@JsonIgnoreProperties({ "placa" })
 public class NivelSeveridad implements Serializable {
 
 	/**
@@ -30,28 +28,28 @@ public class NivelSeveridad implements Serializable {
 
 	@Id
 	private Long id;
-	
+
 	private String nombre;
 	private int prioridad;
 	private int rangoMin;
 	private int rangoMax;
-	
-	@ManyToOne(cascade = {CascadeType.MERGE})
-	@JoinColumn ( name = "factor_id",  referencedColumnName = "idFactor")
+
+	@ManyToOne(cascade = { CascadeType.MERGE })
+	@JoinColumn(name = "factor_id", referencedColumnName = "idFactor")
 	private Factor factor;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name="perfilesActivacion", joinColumns={@JoinColumn(name= "idNivelSeveridad", referencedColumnName= "id")}, inverseJoinColumns= {@JoinColumn(name= "idFilaPerfilActivacion", referencedColumnName= "id")}	)
-    private Set<FilaPerfilActivacion> perfilActivacion;
-	
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "perfilesActivacion", joinColumns = { @JoinColumn(name = "idNivelSeveridad", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "idFilaPerfilActivacion", referencedColumnName = "id") })
+	private Set<FilaPerfilActivacion> perfilActivacion;
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
-	
+
 	private String activoSistema;
 
 	public NivelSeveridad() {
-		perfilActivacion= new HashSet<FilaPerfilActivacion>();
+		perfilActivacion = new HashSet<FilaPerfilActivacion>();
 	}
 
 	public Long getId() {
@@ -196,5 +194,5 @@ public class NivelSeveridad implements Serializable {
 				+ ", rangoMax=" + rangoMax + ", factor=" + factor + ", placa="
 				+ placa + ", activoSistema=" + activoSistema + "]";
 	}
-	
+
 }

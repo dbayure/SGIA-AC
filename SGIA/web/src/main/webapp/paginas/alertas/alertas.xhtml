@@ -7,97 +7,135 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-<style type="text/css">
-.indicadorEstadoAlerta {
-	background-color:#FF9999 !important;
-	background-image: none !important;
-	color: #000000 !important;
-}
-</style>
+		<style type="text/css">
+			.indicadorEstadoAlerta {
+				background-color: #FF9999 !important;
+				background-image: none !important;
+				color: #000000 !important;
+			}
+		</style>
 
 		<h:form id="form" prependId="false">
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
+			<p:separator />
 
 			<h1 style="text-align: center;">Visualización de Alertas</h1>
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
-			<p:commandLink 	style="float:right;" action="#{placaBean.alertas}" update=":form" immediate="true">
-				<h:graphicImage value="/resources/gfx/Recargar.png" alt="actualizar" height="30px" />
+			<p:commandLink style="float:right;" action="#{placaBean.alertas}"
+				update=":form" immediate="true">
+				<h:graphicImage value="/resources/gfx/Recargar.png" alt="actualizar"
+					height="30px" />
 			</p:commandLink>
-			<p> <p:spacer height="20px"/></p>
-			
+			<p>
+				<p:spacer height="20px" />
+			</p>
+
 			<p:dataTable id="dispAlerta" var="_disp" value="#{dispositivos}"
-				editable="false"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                 paginator="true" rows="15" style="margin-bottom:20px" rowStyleClass="#{_disp.estadoAlerta == 'S' ? 'indicadorEstadoAlerta' :null}">
+				editable="false"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+				paginator="true" rows="15" style="margin-bottom:20px"
+				rowStyleClass="#{_disp.estadoAlerta == 'S' ? 'indicadorEstadoAlerta' :null}">
 
 				<p:column headerText="Nombre" style="width:20%">
 					<h:outputText value="#{_disp.nombre}" />
 				</p:column>
-				
+
 				<p:column headerText="Id Dispositivo" style="width:20%">
 					<h:outputText value="#{_disp.id}" />
 				</p:column>
-				
+
 				<p:column headerText="Alerta" style="width:20%">
 					<h:outputText value="#{_disp.estadoAlerta}" />
 				</p:column>
-				
-				<p:column headerText="Reestablecer" style="width:10%;" id="colRestablecer">
-					<p:commandLink 	style="float:middle; margin-left: 50%" rendered="#{actuadorAvanceBean.esDeAvance(_disp.id)}" oncomplete="PF('dlgPosicion').show()"
-									action="#{actuadorAvanceBean.seleccionar(_disp.id)}" update=":form:dlg">
-						<h:graphicImage value="/resources/gfx/adelante.png" alt="actuador de avance" height="20px"/>
+
+				<p:column headerText="Reestablecer" style="width:10%;"
+					id="colRestablecer">
+					<p:commandLink style="float:middle; margin-left: 50%"
+						rendered="#{actuadorAvanceBean.esDeAvance(_disp.id)}"
+						oncomplete="PF('dlgPosicion').show()"
+						action="#{actuadorAvanceBean.seleccionar(_disp.id)}"
+						update=":form:dlg">
+						<h:graphicImage value="/resources/gfx/adelante.png"
+							alt="actuador de avance" height="20px" />
 					</p:commandLink>
-					
-					<p:commandLink 	style="float:center; margin-left: 50%;" rendered="#{!actuadorAvanceBean.esDeAvance(_disp.id)}"
-									action="#{placaBean.reestablecerDispositivo(_disp.id)}" update=":form:dispAlerta">
-						<h:graphicImage value="/resources/gfx/ok.png" alt="actuador" height="20px" />
+
+					<p:commandLink style="float:center; margin-left: 50%;"
+						rendered="#{!actuadorAvanceBean.esDeAvance(_disp.id)}"
+						action="#{placaBean.reestablecerDispositivo(_disp.id)}"
+						update=":form:dispAlerta">
+						<h:graphicImage value="/resources/gfx/ok.png" alt="actuador"
+							height="20px" />
 					</p:commandLink>
-			
+
 				</p:column>
-				
+
 			</p:dataTable>
-			
-			<p:dialog id="dlg" header="Seleccionar posicion" widgetVar="dlgPosicion" modal="true" height="100">
-			<p:panel id="Restablecer" style="border: none;"> 
-				<p:commandLink 	style="float:right;" action="#{actuadorAvanceBean.reestablecerPosicion}" oncomplete="PF('dlgPosicion').hide()">
-					<h:graphicImage value="/resources/gfx/ok.png" alt="actuadores" height="20px"/>
-				</p:commandLink>
-				<p:selectOneMenu id="posiciones" value="#{actuadorAvanceBean.posicionRes}">
-					<f:selectItem itemLabel="Seleccione..." itemValue="" />
-					<f:selectItems value="#{actuadorAvanceBean.listaPosiciones}" var="_pos"	itemLabel="#{_pos.descripcion}" itemValue="#{_pos}" />
-				</p:selectOneMenu>					
-			</p:panel>
-		</p:dialog>
+
+			<p:dialog id="dlg" header="Seleccionar posicion"
+				widgetVar="dlgPosicion" modal="true" height="100">
+				<p:panel id="Restablecer" style="border: none;">
+					<p:commandLink style="float:right;"
+						action="#{actuadorAvanceBean.reestablecerPosicion}"
+						oncomplete="PF('dlgPosicion').hide()">
+						<h:graphicImage value="/resources/gfx/ok.png" alt="actuadores"
+							height="20px" />
+					</p:commandLink>
+					<p:selectOneMenu id="posiciones"
+						value="#{actuadorAvanceBean.posicionRes}">
+						<f:selectItem itemLabel="Seleccione..." itemValue="" />
+						<f:selectItems value="#{actuadorAvanceBean.listaPosiciones}"
+							var="_pos" itemLabel="#{_pos.descripcion}" itemValue="#{_pos}" />
+					</p:selectOneMenu>
+				</p:panel>
+			</p:dialog>
 
 		</h:form>
 	</ui:define>

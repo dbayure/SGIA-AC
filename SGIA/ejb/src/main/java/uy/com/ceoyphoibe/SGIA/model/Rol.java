@@ -17,19 +17,19 @@ public class Rol implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5815809470148059527L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String rol;
-	
+
 	private String descripcion;
 
 	public Rol() {
 		super();
 	}
-	
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -87,6 +87,7 @@ public class Rol implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Rol [id=" + id + ", rol=" + rol + ", descripcion=" + descripcion + "]";
+		return "Rol [id=" + id + ", rol=" + rol + ", descripcion="
+				+ descripcion + "]";
 	}
 }

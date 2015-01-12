@@ -3,7 +3,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,13 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @XmlRootElement
 @Table(name = "placas")
-@JsonIgnoreProperties({"listaDispositivos", "logsEventos", "niveles", "factores", "gruposActuadores", "tiposActuadores", "destinatarios" })
+@JsonIgnoreProperties({ "listaDispositivos", "logsEventos", "niveles",
+		"factores", "gruposActuadores", "tiposActuadores", "destinatarios" })
 public class Placa implements Serializable {
 
 	/**
@@ -45,35 +44,35 @@ public class Placa implements Serializable {
 	private int puertoCentralizadora;
 	private String hostWSSMS;
 	private int puertoWSSMS;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER )
-    private Set<Dispositivo> listaDispositivos;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
+	private Set<Dispositivo> listaDispositivos;
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY)
 	private Set<LogEvento> logsEventos;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY)
 	private Set<NivelSeveridad> niveles;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY)
 	private Set<Factor> factores;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY)
 	private Set<GrupoActuadores> gruposActuadores;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY)
 	private Set<TipoActuador> tiposActuadores;
-	
-	@OneToMany( mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY )
+
+	@OneToMany(mappedBy = "placa", cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.LAZY)
 	private Set<Destinatario> destinatarios;
-	
+
 	public Placa() {
 		super();
 		listaDispositivos = new HashSet<Dispositivo>();
 		logsEventos = new HashSet<LogEvento>();
 		niveles = new HashSet<NivelSeveridad>();
 		factores = new HashSet<Factor>();
-		gruposActuadores =  new HashSet<GrupoActuadores>();
+		gruposActuadores = new HashSet<GrupoActuadores>();
 
 	}
 

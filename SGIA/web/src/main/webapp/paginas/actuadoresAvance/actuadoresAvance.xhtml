@@ -10,43 +10,63 @@
 		<h:form id="form" prependId="false">
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
-			<p:separator/>
-			
-					<h1 style="text-align: center;">Administración de Actuadores de Avance</h1>
+			<p:separator />
+
+			<h1 style="text-align: center;">Administración de Actuadores de
+				Avance</h1>
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
 			<p:growl id="growl" sticky="true" showDetail="true" />
 
-			<p:wizard flowListener="#{actuadorAvanceBean.onFlowProcess}" widgetVar="wiz">
+			<p:wizard flowListener="#{actuadorAvanceBean.onFlowProcess}"
+				widgetVar="wiz">
 				<p:tab id="datosBasicos" title="Datos Actuador">
 
 					<p:panel header="Datos Actuador de Avance">
@@ -54,16 +74,14 @@
 
 						<h:panelGrid columns="2">
 
-<!-- 							<p:outputLabel for="id" value="Id Dispositivo:" /> -->
-<!-- 							<p:inputText id="id" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}" -->
-<!-- 								label="Id Dispositivo" required="true" /> -->
-
 							<p:outputLabel for="nombre" value="Nombre:" />
-							<p:inputText id="nombre" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
+							<p:inputText id="nombre"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
 								label="Nombre" required="true" />
 
 							<p:outputLabel for="modelo" value="Modelo:" />
-							<p:inputText id="modelo" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.modelo}"
+							<p:inputText id="modelo"
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.modelo}"
 								label="Modelo" required="false" />
 
 							<p:outputLabel for="tipoActuador" value="Tipo de Actuador:" />
@@ -104,16 +122,16 @@
 
 							<p:outputLabel for="posicionIni" value="Posición Inicial:" />
 							<p:inputText id="posicionIni"
-								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.posicion}" label="Posición Inicial"
-								required="false" />
-								
+								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.posicion}"
+								label="Posición Inicial" required="false" />
+
 							<p:outputLabel for="tiempoPos" value="Tiempo entre posiciones:" />
 							<p:inputText id="tiempoPos"
 								value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tiempoEntrePosiciones}"
 								label="Tiempo entre posiciones" required="true" />
 
 							<h:outputText value="No ingresar posiciones: " />
-                    		<h:selectBooleanCheckbox value="#{actuadorAvanceBean.skip}" />
+							<h:selectBooleanCheckbox value="#{actuadorAvanceBean.skip}" />
 
 						</h:panelGrid>
 					</p:panel>
@@ -126,116 +144,138 @@
 
 
 							<p:outputLabel for="nroPosicion" value="Nro Posicion:" />
-							<p:inputText id="nroPosicion" value="#{actuadorAvanceBean.posicionTemp.nroPosicion}"
+							<p:inputText id="nroPosicion"
+								value="#{actuadorAvanceBean.posicionTemp.nroPosicion}"
 								label="Nro Posicion" required="true" />
 
 							<p:outputLabel for="descPosicion" value="Descripción:" />
-							<p:inputText id="descPosicion" value="#{actuadorAvanceBean.posicionTemp.descripcion}"
+							<p:inputText id="descPosicion"
+								value="#{actuadorAvanceBean.posicionTemp.descripcion}"
 								label="Descripción" />
 
 							<p:outputLabel for="valorPos" value="Valor cumplimiento:" />
-							<p:inputText id="valorPos" value="#{actuadorAvanceBean.posicionTemp.valor}"
+							<p:inputText id="valorPos"
+								value="#{actuadorAvanceBean.posicionTemp.valor}"
 								label="Valor cumplimiento" required="true" />
 
 							<p:outputLabel for="sensoresPos" value="Lista de Sensores:" />
 							<p:selectManyMenu id="sensoresPos"
 								value="#{actuadorAvanceBean.listaSensoresPosicion}"
-								style="width:100%;"
-								converter="sensorConverter" showCheckbox="true">
+								style="width:100%;" converter="sensorConverter"
+								showCheckbox="true">
 								<f:selectItems value="#{sensores}" var="sens"
 									itemLabel="#{sens.nombre}" itemValue="#{sens}" />
 								<p:column>
 									<h:outputText value="#{sens.nombre}" />
 								</p:column>
 							</p:selectManyMenu>
-							
+
 						</h:panelGrid>
 
-						<h:panelGrid columns="1" >
+						<h:panelGrid columns="1">
 							<p:commandButton id="registerPosicion"
 								action="#{actuadorAvanceBean.agregarPosicion()}"
-								value="Agregar Posición" update=":form:posiciones1, form:ingPosicion"
-								 />
+								value="Agregar Posición"
+								update=":form:posiciones1, form:ingPosicion" />
 						</h:panelGrid>
-						
 
-							<p:dataTable id="posiciones1" var="_posicion"
-								value="#{actuadorAvanceBean.listaPosiciones}" editable="false">
-								<f:facet name="header">  
+
+						<p:dataTable id="posiciones1" var="_posicion"
+							value="#{actuadorAvanceBean.listaPosiciones}" editable="false">
+							<f:facet name="header">  
 					            	Lista de Posiciones
 					        	</f:facet>
 
-								<p:column headerText="Id Posicion" style="width:10%">
-									<h:outputText value="#{_posicion.idPosicion}" />
-								</p:column>
-								
-								<p:column headerText="Nro Posicion" style="width:10%">
-									<h:outputText value="#{_posicion.nroPosicion}" />
-								</p:column>
-	
-								<p:column headerText="Descripcion" style="width:10%">
-									<h:outputText value="#{_posicion.descripcion}" />
-								</p:column>
-	
-								<p:column headerText="Valor" style="width:10%">
-									<h:outputText value="#{_posicion.valor}" />
-								</p:column>
-							</p:dataTable>
-						
+							<p:column headerText="Id Posicion" style="width:10%">
+								<h:outputText value="#{_posicion.idPosicion}" />
+							</p:column>
+
+							<p:column headerText="Nro Posicion" style="width:10%">
+								<h:outputText value="#{_posicion.nroPosicion}" />
+							</p:column>
+
+							<p:column headerText="Descripcion" style="width:10%">
+								<h:outputText value="#{_posicion.descripcion}" />
+							</p:column>
+
+							<p:column headerText="Valor" style="width:10%">
+								<h:outputText value="#{_posicion.valor}" />
+							</p:column>
+						</p:dataTable>
+
 					</p:panel>
 				</p:tab>
 
 				<p:tab id="confirmacion" title="Confirmación">
 					<p:panel header="Confirmación">
-						<h:panelGrid id="confirmation" columns="2"	columnClasses="grid,grid" style="width:100%;" >
-							<h:panelGrid columns="2" columnClasses="label, value" style="width:50%;">
-								
-								<p:outputLabel for="idOut" value="Id Dispositivo:" style="width:50%; font-weight: bold;"/>
-								<h:outputText id="idOut" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}"
-									label="Id Dispositivo" style="width:50%;"  />
+						<h:panelGrid id="confirmation" columns="2"
+							columnClasses="grid,grid" style="width:100%;">
+							<h:panelGrid columns="2" columnClasses="label, value"
+								style="width:50%;">
 
-								<p:outputLabel for="nombreOut" value="Nombre:" style="width:50%; font-weight: bold;" />
-								<h:outputText id="nombreOut" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
+								<p:outputLabel for="idOut" value="Id Dispositivo:"
+									style="width:50%; font-weight: bold;" />
+								<h:outputText id="idOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.id}"
+									label="Id Dispositivo" style="width:50%;" />
+
+								<p:outputLabel for="nombreOut" value="Nombre:"
+									style="width:50%; font-weight: bold;" />
+								<h:outputText id="nombreOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.nombre}"
 									label="Nombre" style="width:50%;" />
 
-								<p:outputLabel for="modeloOut" value="Modelo:" style="width:50%; font-weight: bold;" />
-								<h:outputText id="modeloOut" value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.modelo}"
-									label="Modelo" style="width:50%;"  />
+								<p:outputLabel for="modeloOut" value="Modelo:"
+									style="width:50%; font-weight: bold;" />
+								<h:outputText id="modeloOut"
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.modelo}"
+									label="Modelo" style="width:50%;" />
 
-								<p:outputLabel for="tipoActuadorOut" value="Tipo de Actuador:" style="width:50%; font-weight: bold;" />
+								<p:outputLabel for="tipoActuadorOut" value="Tipo de Actuador:"
+									style="width:50%; font-weight: bold;" />
 								<h:outputText id="tipoActuadorOut"
 									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoActuador.descripcion}"
 									label="Tipo Actuador" style="width:50%;" />
 
-								<p:outputLabel for="tipoPuertoOut" value="Tipo de Puerto:" style="width:50%; font-weight: bold;" />
+								<p:outputLabel for="tipoPuertoOut" value="Tipo de Puerto:"
+									style="width:50%; font-weight: bold;" />
 								<h:outputText id="tipoPuertoOut"
 									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tipoPuerto.nombre}"
 									label="Tipo Puerto" style="width:50%;" />
 
 							</h:panelGrid>
 
-							<h:panelGrid columns="2" columnClasses="label, value" style="width:50%;">
-								<p:outputLabel for="numPuertoOut" value="Número de Puerto Avance:" style="width:50%; font-weight: bold;" />
+							<h:panelGrid columns="2" columnClasses="label, value"
+								style="width:50%;">
+								<p:outputLabel for="numPuertoOut"
+									value="Número de Puerto Avance:"
+									style="width:50%; font-weight: bold;" />
 								<h:outputText id="numPuertoOut"
 									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.numeroPuerto}"
 									label="Número de Puerto Avance" style="width:50%;" />
 
-								<p:outputLabel for="numPuertoRetOut" value="Número de Puerto Retroceso:" style="width:50%; font-weight: bold;" />
+								<p:outputLabel for="numPuertoRetOut"
+									value="Número de Puerto Retroceso:"
+									style="width:50%; font-weight: bold;" />
 								<h:outputText id="numPuertoRetOut"
 									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.numeroPuertoRetroceso}"
 									label="Número de Puerto Retroceso" style="width:50%;" />
 
-								<p:outputLabel for="posicionIniOut" value="Posición Inicial:" style="width:50%; font-weight: bold;" />
+								<p:outputLabel for="posicionIniOut" value="Posición Inicial:"
+									style="width:50%; font-weight: bold;" />
 								<h:outputText id="posicionIniOut"
-									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.posicion}" label="Posición Inicial" style="width:50%;" />
-								
-								<p:outputLabel for="tiempoPosOut" value="Tiempo entre posiciones:" style="width:50%; font-weight: bold;" />
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.posicion}"
+									label="Posición Inicial" style="width:50%;" />
+
+								<p:outputLabel for="tiempoPosOut"
+									value="Tiempo entre posiciones:"
+									style="width:50%; font-weight: bold;" />
 								<h:outputText id="tiempoPosOut"
-									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tiempoEntrePosiciones}" label="Tiempo entre posiciones" style="width:50%;" />
-								
+									value="#{actuadorAvanceBean.actuadorAvanceSeleccionado.tiempoEntrePosiciones}"
+									label="Tiempo entre posiciones" style="width:50%;" />
+									
 							</h:panelGrid>
-
-
+							
 						</h:panelGrid>
 
 						<p:dataTable id="posicionesOut" var="_posicion"
@@ -244,11 +284,10 @@
 				            	Lista de Posiciones
 				        	</f:facet>
 
-
 							<p:column headerText="Id Posicion" style="width:10%">
 								<h:outputText value="#{_posicion.idPosicion}" />
 							</p:column>
-							
+
 							<p:column headerText="Id Posicion" style="width:10%">
 								<h:outputText value="#{_posicion.nroPosicion}" />
 							</p:column>
@@ -261,25 +300,23 @@
 								<h:outputText value="#{_posicion.valor}" />
 							</p:column>
 						</p:dataTable>
-						
+
 						<br />
-						
+
 						<p:commandButton value="Confirmar"
 							actionListener="#{actuadorAvanceBean.guardar}"
-							update=":form:actuadores" process="@this" oncomplete="PF('wiz').loadStep (PF('wiz').cfg.steps [0], true)" 
+							update=":form:actuadores" process="@this"
+							oncomplete="PF('wiz').loadStep (PF('wiz').cfg.steps [0], true)"
 							style="float:right;" />
 					</p:panel>
 				</p:tab>
 			</p:wizard>
 
-			<p:spacer height="10"/> 
+			<p:spacer height="10" />
 
 			<h:panelGroup rendered="#{empty actuadoresAvance}">
 				<em>No hay Actuadores de Avance registrados.</em>
 			</h:panelGroup>
-
-
-
 
 			<p:dataTable id="actuadores" var="_actuador"
 				value="#{actuadoresAvance}" editable="true">
@@ -389,15 +426,16 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				
+
 				<p:column headerText="Tiempo entre Posiciones" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_actuador.tiempoEntrePosiciones}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText id="tiempoPosIn" value="#{_actuador.tiempoEntrePosiciones}"
-								style="width:96%" required="true" />
+							<p:inputText id="tiempoPosIn"
+								value="#{_actuador.tiempoEntrePosiciones}" style="width:96%"
+								required="true" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -412,16 +450,14 @@
 						actionListener="#{actuadorAvanceBean.eliminar(_actuador.id)}">
 					</p:commandLink>
 				</p:column>
-				
+
 				<p:column style="width:3%">
-					<p:commandLink id="detalle" 
-						styleClass="ui-icon ui-icon-search" 
-						action="detalleActuador?faces-redirect=true" 
-						
+					<p:commandLink id="detalle" styleClass="ui-icon ui-icon-search"
+						action="detalleActuador?faces-redirect=true"
 						actionListener="#{actuadorAvanceBean.seleccionarActuadorAvanceSeleccionado(_actuador.id)}"
 						immediate="true">
 
-					</p:commandLink>	
+					</p:commandLink>
 				</p:column>
 
 			</p:dataTable>

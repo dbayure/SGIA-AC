@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -7,11 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsActualizarGrupoActuadores complex type.
+ * <p>
+ * Java class for wsActualizarGrupoActuadores complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsActualizarGrupoActuadores">
@@ -30,90 +31,78 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsActualizarGrupoActuadores", propOrder = {
-    "nombre",
-    "deAvance",
-    "idGrupoActuadores"
-})
+@XmlType(name = "wsActualizarGrupoActuadores", propOrder = { "nombre",
+		"deAvance", "idGrupoActuadores" })
 public class WsActualizarGrupoActuadores {
 
-    @XmlElement(required = true)
-    protected String nombre;
-    @XmlElement(required = true)
-    protected String deAvance;
-    @XmlElement(required = true)
-    protected BigInteger idGrupoActuadores;
+	@XmlElement(required = true)
+	protected String nombre;
+	@XmlElement(required = true)
+	protected String deAvance;
+	@XmlElement(required = true)
+	protected BigInteger idGrupoActuadores;
 
-    /**
-     * Gets the value of the nombre property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNombre() {
-        return nombre;
-    }
+	/**
+	 * Gets the value of the nombre property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getNombre() {
+		return nombre;
+	}
 
-    /**
-     * Sets the value of the nombre property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNombre(String value) {
-        this.nombre = value;
-    }
+	/**
+	 * Sets the value of the nombre property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setNombre(String value) {
+		this.nombre = value;
+	}
 
-    /**
-     * Gets the value of the deAvance property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDeAvance() {
-        return deAvance;
-    }
+	/**
+	 * Gets the value of the deAvance property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDeAvance() {
+		return deAvance;
+	}
 
-    /**
-     * Sets the value of the deAvance property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDeAvance(String value) {
-        this.deAvance = value;
-    }
+	/**
+	 * Sets the value of the deAvance property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDeAvance(String value) {
+		this.deAvance = value;
+	}
 
-    /**
-     * Gets the value of the idGrupoActuadores property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdGrupoActuadores() {
-        return idGrupoActuadores;
-    }
+	/**
+	 * Gets the value of the idGrupoActuadores property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdGrupoActuadores() {
+		return idGrupoActuadores;
+	}
 
-    /**
-     * Sets the value of the idGrupoActuadores property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdGrupoActuadores(BigInteger value) {
-        this.idGrupoActuadores = value;
-    }
+	/**
+	 * Sets the value of the idGrupoActuadores property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdGrupoActuadores(BigInteger value) {
+		this.idGrupoActuadores = value;
+	}
 
 }

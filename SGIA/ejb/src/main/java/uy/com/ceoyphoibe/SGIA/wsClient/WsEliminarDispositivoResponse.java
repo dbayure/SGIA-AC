@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsEliminarDispositivoResponse complex type.
+ * <p>
+ * Java class for wsEliminarDispositivoResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsEliminarDispositivoResponse">
@@ -27,36 +28,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsEliminarDispositivoResponse", propOrder = {
-    "wsEliminarDispositivoResult"
-})
+@XmlType(name = "wsEliminarDispositivoResponse", propOrder = { "wsEliminarDispositivoResult" })
 public class WsEliminarDispositivoResponse {
 
-    @XmlElement(required = true)
-    protected Mensaje wsEliminarDispositivoResult;
+	@XmlElement(required = true)
+	protected Mensaje wsEliminarDispositivoResult;
 
-    /**
-     * Gets the value of the wsEliminarDispositivoResult property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Mensaje }
-     *     
-     */
-    public Mensaje getWsEliminarDispositivoResult() {
-        return wsEliminarDispositivoResult;
-    }
+	/**
+	 * Gets the value of the wsEliminarDispositivoResult property.
+	 * 
+	 * @return possible object is {@link Mensaje }
+	 * 
+	 */
+	public Mensaje getWsEliminarDispositivoResult() {
+		return wsEliminarDispositivoResult;
+	}
 
-    /**
-     * Sets the value of the wsEliminarDispositivoResult property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Mensaje }
-     *     
-     */
-    public void setWsEliminarDispositivoResult(Mensaje value) {
-        this.wsEliminarDispositivoResult = value;
-    }
+	/**
+	 * Sets the value of the wsEliminarDispositivoResult property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Mensaje }
+	 * 
+	 */
+	public void setWsEliminarDispositivoResult(Mensaje value) {
+		this.wsEliminarDispositivoResult = value;
+	}
 
 }

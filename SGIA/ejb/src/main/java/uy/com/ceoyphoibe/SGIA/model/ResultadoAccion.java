@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,25 +14,30 @@ public class ResultadoAccion extends Resultado implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 775955751298424556L;
-	
+
 	private String tipoAccion;
 	private GrupoActuadores grupoActuadores;
-	
+
 	public String getTipoAccion() {
 		return tipoAccion;
 	}
+
 	public void setTipoAccion(String tipoAccion) {
 		this.tipoAccion = tipoAccion;
 	}
+
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
 	}
+
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +48,7 @@ public class ResultadoAccion extends Resultado implements Serializable {
 				+ ((tipoAccion == null) ? 0 : tipoAccion.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,10 +70,11 @@ public class ResultadoAccion extends Resultado implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "ResultadoAccion [tipoAccion=" + tipoAccion
 				+ ", grupoActuadores=" + grupoActuadores + "]";
 	}
-	
+
 }

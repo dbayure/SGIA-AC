@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsAsociarDestinatarioTipoLogEventoResponse complex type.
+ * <p>
+ * Java class for wsAsociarDestinatarioTipoLogEventoResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsAsociarDestinatarioTipoLogEventoResponse">
@@ -27,36 +28,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsAsociarDestinatarioTipoLogEventoResponse", propOrder = {
-    "wsAsociarDestinatarioTipoLogEventoResult"
-})
+@XmlType(name = "wsAsociarDestinatarioTipoLogEventoResponse", propOrder = { "wsAsociarDestinatarioTipoLogEventoResult" })
 public class WsAsociarDestinatarioTipoLogEventoResponse {
 
-    @XmlElement(required = true)
-    protected Mensaje wsAsociarDestinatarioTipoLogEventoResult;
+	@XmlElement(required = true)
+	protected Mensaje wsAsociarDestinatarioTipoLogEventoResult;
 
-    /**
-     * Gets the value of the wsAsociarDestinatarioTipoLogEventoResult property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Mensaje }
-     *     
-     */
-    public Mensaje getWsAsociarDestinatarioTipoLogEventoResult() {
-        return wsAsociarDestinatarioTipoLogEventoResult;
-    }
+	/**
+	 * Gets the value of the wsAsociarDestinatarioTipoLogEventoResult property.
+	 * 
+	 * @return possible object is {@link Mensaje }
+	 * 
+	 */
+	public Mensaje getWsAsociarDestinatarioTipoLogEventoResult() {
+		return wsAsociarDestinatarioTipoLogEventoResult;
+	}
 
-    /**
-     * Sets the value of the wsAsociarDestinatarioTipoLogEventoResult property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Mensaje }
-     *     
-     */
-    public void setWsAsociarDestinatarioTipoLogEventoResult(Mensaje value) {
-        this.wsAsociarDestinatarioTipoLogEventoResult = value;
-    }
+	/**
+	 * Sets the value of the wsAsociarDestinatarioTipoLogEventoResult property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Mensaje }
+	 * 
+	 */
+	public void setWsAsociarDestinatarioTipoLogEventoResult(Mensaje value) {
+		this.wsAsociarDestinatarioTipoLogEventoResult = value;
+	}
 
 }

@@ -7,7 +7,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
@@ -46,12 +45,11 @@ public class RegistroDestinatario {
 	}
 
 	public Mensaje eliminar(Long id) throws Exception {
-		
+
 		Destinatario destinatario = em.find(Destinatario.class, id);
 		FachadaWS ws = new FachadaWS();
 		Mensaje mensaje = ws.eliminarDestinatario(destinatario);
-		if (mensaje.getTipo().equals("Informativo"))
-		{
+		if (mensaje.getTipo().equals("Informativo")) {
 			destinatario.setActivoSistema('N');
 			em.merge(destinatario);
 		}

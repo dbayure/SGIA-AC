@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for ResultadoCreacionWS complex type.
+ * <p>
+ * Java class for ResultadoCreacionWS complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ResultadoCreacionWS">
@@ -28,61 +29,52 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ResultadoCreacionWS", propOrder = {
-    "idObjeto",
-    "mensaje"
-})
+@XmlType(name = "ResultadoCreacionWS", propOrder = { "idObjeto", "mensaje" })
 public class ResultadoCreacionWS {
 
-    protected BigInteger idObjeto;
-    protected Mensaje mensaje;
+	protected BigInteger idObjeto;
+	protected Mensaje mensaje;
 
-    /**
-     * Gets the value of the idObjeto property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdObjeto() {
-        return idObjeto;
-    }
+	/**
+	 * Gets the value of the idObjeto property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdObjeto() {
+		return idObjeto;
+	}
 
-    /**
-     * Sets the value of the idObjeto property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdObjeto(BigInteger value) {
-        this.idObjeto = value;
-    }
+	/**
+	 * Sets the value of the idObjeto property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdObjeto(BigInteger value) {
+		this.idObjeto = value;
+	}
 
-    /**
-     * Gets the value of the mensaje property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Mensaje }
-     *     
-     */
-    public Mensaje getMensaje() {
-        return mensaje;
-    }
+	/**
+	 * Gets the value of the mensaje property.
+	 * 
+	 * @return possible object is {@link Mensaje }
+	 * 
+	 */
+	public Mensaje getMensaje() {
+		return mensaje;
+	}
 
-    /**
-     * Sets the value of the mensaje property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Mensaje }
-     *     
-     */
-    public void setMensaje(Mensaje value) {
-        this.mensaje = value;
-    }
+	/**
+	 * Sets the value of the mensaje property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Mensaje }
+	 * 
+	 */
+	public void setMensaje(Mensaje value) {
+		this.mensaje = value;
+	}
 
 }

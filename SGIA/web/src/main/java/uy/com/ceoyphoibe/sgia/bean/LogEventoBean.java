@@ -6,18 +6,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
-import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.RowEditEvent;
 
 import com.lowagie.text.BadElementException;
@@ -34,42 +31,30 @@ import uy.com.ceoyphoibe.SGIA.model.LogEvento;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
-
 @ManagedBean
 @RequestScoped
 public class LogEventoBean {
 
 	@Inject
 	private RegistroLogEvento registroLogEvento;
-	
+
 	@Inject
 	private LogEventoListProducer logEventosListProducer;
-	
+
 	private TipoLogEvento tipoLogEvento;
 	private Mensaje mensaje;
 	private Dispositivo dispositivo;
 	private List<LogEvento> logEventos;
 	private Date fechaMin;
 	private Date fechaMax;
-	
-//	public void registrar() {
-//		try {
-//			registroLogEvento.registro();
-//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se registró ", "con éxito!");  
-//	        FacesContext.getCurrentInstance().addMessage(null, msg);
-//		}
-//		catch (Exception e) {
-//		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");  
-//        FacesContext.getCurrentInstance().addMessage(null, msg); 
-//		}
-//	}
-	
+
+
 	@PostConstruct
-    public void init() {
-        logEventos = logEventosListProducer.getLogEventos();
-  //      logEventosSeleccionados = logEventosListProducer.getLogEventos();
-    }
-	
+	public void init() {
+		logEventos = logEventosListProducer.getLogEventos();
+		// logEventosSeleccionados = logEventosListProducer.getLogEventos();
+	}
+
 	/**
 	 * @return the tipoLogEvento
 	 */
@@ -77,16 +62,13 @@ public class LogEventoBean {
 		return tipoLogEvento;
 	}
 
-
-
 	/**
-	 * @param tipoLogEvento the tipoLogEvento to set
+	 * @param tipoLogEvento
+	 *            the tipoLogEvento to set
 	 */
 	public void setTipoLogEvento(TipoLogEvento tipoLogEvento) {
 		this.tipoLogEvento = tipoLogEvento;
 	}
-
-
 
 	/**
 	 * @return the mensaje
@@ -95,16 +77,13 @@ public class LogEventoBean {
 		return mensaje;
 	}
 
-
-
 	/**
-	 * @param mensaje the mensaje to set
+	 * @param mensaje
+	 *            the mensaje to set
 	 */
 	public void setMensaje(Mensaje mensaje) {
 		this.mensaje = mensaje;
 	}
-
-
 
 	/**
 	 * @return the dispositivo
@@ -113,48 +92,48 @@ public class LogEventoBean {
 		return dispositivo;
 	}
 
-
-
 	/**
-	 * @param dispositivo the dispositivo to set
+	 * @param dispositivo
+	 *            the dispositivo to set
 	 */
 	public void setDispositivo(Dispositivo dispositivo) {
 		this.dispositivo = dispositivo;
 	}
 
+	public void onEdit(RowEditEvent event) {
+		LogEvento logEvento = ((LogEvento) event.getObject());
 
+		try {
+			registroLogEvento.modificar(logEvento);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Se modificó ", logEvento.getIdLogEvento().toString());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Error al modificar ", logEvento.getIdLogEvento()
+							.toString());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
 
-	public void onEdit(RowEditEvent event) {  
-            LogEvento logEvento = ((LogEvento) event.getObject());
-           
-            try {
-            	registroLogEvento.modificar(logEvento);
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Se modificó ", logEvento.getIdLogEvento().toString());  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-			} catch (Exception e) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al modificar ", logEvento.getIdLogEvento().toString());  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-			}
-    }
-	
-	public void onCancel(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Se canceló modificar ", ((LogEvento) event.getObject()).getIdLogEvento().toString());  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-    }  
-	
+	public void onCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Se canceló modificar ",
+				((LogEvento) event.getObject()).getIdLogEvento().toString());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
 	public void eliminar(Long id) {
 		try {
 			registroLogEvento.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Error al eliminar",
+					id.toString());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar", id.toString());  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-		  
-	}
 
+	}
 
 	/**
 	 * @return the logEventos
@@ -163,10 +142,9 @@ public class LogEventoBean {
 		return logEventos;
 	}
 
-
-
 	/**
-	 * @param logEventos the logEventos to set
+	 * @param logEventos
+	 *            the logEventos to set
 	 */
 	public void setLogEventos(List<LogEvento> logEventos) {
 		this.logEventos = logEventos;
@@ -180,7 +158,8 @@ public class LogEventoBean {
 	}
 
 	/**
-	 * @param fechaMin the fechaMin to set
+	 * @param fechaMin
+	 *            the fechaMin to set
 	 */
 	public void setFechaMin(Date fechaMin) {
 		this.fechaMin = fechaMin;
@@ -194,57 +173,56 @@ public class LogEventoBean {
 	}
 
 	/**
-	 * @param fechaMax the fechaMax to set
+	 * @param fechaMax
+	 *            the fechaMax to set
 	 */
 	public void setFechaMax(Date fechaMax) {
 		this.fechaMax = fechaMax;
 	}
-	
-	public void obtenerLogEventos()
-	{
-		logEventos= new ArrayList<LogEvento>();
+
+	@SuppressWarnings("deprecation")
+	public void obtenerLogEventos() {
+		logEventos = new ArrayList<LogEvento>();
 		if (fechaMin == null && fechaMax == null)
-			logEventos= logEventosListProducer.getLogEventos();
-		else
-		{
+			logEventos = logEventosListProducer.getLogEventos();
+		else {
 			if (fechaMax == null)
-				fechaMax= new Date();
-			if (fechaMin == null)
-			{
-				fechaMin= new Date();
-				fechaMin.setYear(fechaMin.getYear()-1);
+				fechaMax = new Date();
+			if (fechaMin == null) {
+				fechaMin = new Date();
+				fechaMin.setYear(fechaMin.getYear() - 1);
 			}
-			Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-			logEventos= logEventosListProducer.getLogEventosEntreFechas(min, max);
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			logEventos = logEventosListProducer.getLogEventosEntreFechas(min,
+					max);
 		}
 	}
-	
-	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
-		System.out.println("Tamaño de la lista de seleccionados: "+logEventos.size());
-		Document pdf = (Document) document;
-        pdf.open();
-        pdf.setPageSize(PageSize.A4);
- 
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "gfx" + File.separator + "C&P2.png";
-         
-        pdf.add(Image.getInstance(logo));
-        pdf.addTitle("Log de Eventos");
-        pdf.add(new Paragraph("Log de Eventos: "));
-        
-        if (fechaMin != null && fechaMax != null)
-        {
-        	Timestamp min= new Timestamp(fechaMin.getTime());
-			Timestamp max= new Timestamp(fechaMax.getTime());
-        	pdf.add(new Paragraph("Período: "+ min + " - "+ max));
-        }
-        pdf.add(new Paragraph(" "));
-        pdf.add(new Paragraph(" "));
-	
-    }
-	
 
-	
-	
+	public void preProcessPDF(Object document) throws IOException,
+			BadElementException, DocumentException {
+		Document pdf = (Document) document;
+		pdf.open();
+		pdf.setPageSize(PageSize.A4);
+
+		ServletContext servletContext = (ServletContext) FacesContext
+				.getCurrentInstance().getExternalContext().getContext();
+		String logo = servletContext.getRealPath("") + File.separator
+				+ "resources" + File.separator + "gfx" + File.separator
+				+ "C&P2.png";
+
+		pdf.add(Image.getInstance(logo));
+		pdf.addTitle("Log de Eventos");
+		pdf.add(new Paragraph("Log de Eventos: "));
+
+		if (fechaMin != null && fechaMax != null) {
+			Timestamp min = new Timestamp(fechaMin.getTime());
+			Timestamp max = new Timestamp(fechaMax.getTime());
+			pdf.add(new Paragraph("Período: " + min + " - " + max));
+		}
+		pdf.add(new Paragraph(" "));
+		pdf.add(new Paragraph(" "));
+
+	}
+
 }

@@ -5,50 +5,64 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
-	<ui:define name="content">		
+	<ui:define name="content">
 
 		<h:form id="form" prependId="false">
-		
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
-					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
-						<h:graphicImage value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png" alt="placa" height="30px"/>
+					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
+						action="#{placaBean.alertas}">
+						<h:graphicImage
+							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
+							alt="placa" height="30px" />
 					</p:commandLink>
-					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
-					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
-					
+					<p>
+					<h3>Ip: #{placaBean.placa.ipPlaca}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Serie: #{placaBean.placa.nroSerie}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p>
+					<h3>Estado Placa: #{placaBean.placa.estado}</h3>
+					</p>
+					<p:spacer width="20" height="10" />
+					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
+						update="form" icon="ui-icon-gear" />
+
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
 					rendered="#{placaBean.mostrarCambiarEstadoPlaca}" columns="2">
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{request.isUserInRole('SGIADMIN')}">
-						<f:selectItem itemLabel="Inactivo" itemValue="I"  />
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{request.isUserInRole('SGIADMIN')}">
+						<f:selectItem itemLabel="Inactivo" itemValue="I" />
 						<f:selectItem itemLabel="Configuracion" itemValue="C" />
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:selectOneButton value="#{placaBean.estadoPlaca}" rendered="#{!request.isUserInRole('SGIADMIN')}">
+					<p:selectOneButton value="#{placaBean.estadoPlaca}"
+						rendered="#{!request.isUserInRole('SGIADMIN')}">
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
 						update="form" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
-				
+
 			</p:panel>
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
-			
+
 			<h1 style="text-align: center;">Administración de Sensores</h1>
 
 			<h:panelGrid columns="2">
-
-<!-- 				<p:outputLabel for="id" value="Id Dispositivo:" /> -->
-<!-- 				<p:inputText id="id" value="#{sensorBean.sensorTemp.id}" -->
-<!-- 					label="Id Dispositivo" required="true" /> -->
 
 				<p:outputLabel for="nombre" value="Nombre:" />
 				<p:inputText id="nombre" value="#{sensorBean.sensorTemp.nombre}"
@@ -67,7 +81,6 @@
 						itemLabel="#{placaAux.nombre}" itemValue="#{placaAux}" />
 				</p:selectOneMenu>
 
-
 				<p:outputLabel for="tipoPuerto" value="Tipo de Puerto:" />
 				<p:selectOneMenu id="tipoPuerto"
 					value="#{sensorBean.sensorTemp.tipoPuerto}">
@@ -75,8 +88,6 @@
 					<f:selectItems value="#{tipoPuerto}" var="tPuerto"
 						itemLabel="#{tPuerto.nombre}" itemValue="#{tPuerto}" />
 				</p:selectOneMenu>
-
-
 
 				<p:outputLabel for="numPuerto" value="Número de Puerto:" />
 				<p:inputText id="numPuerto"
@@ -96,7 +107,6 @@
 					<f:selectItems value="#{factores}" var="fact"
 						itemLabel="#{fact.nombre}" itemValue="#{fact}" />
 				</p:selectOneMenu>
-
 
 			</h:panelGrid>
 
@@ -151,8 +161,7 @@
 							<h:outputText value="#{_sensor.padre.nombre}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:selectOneMenu id="dispPadre"
-								value="#{_sensor.padre}">
+							<p:selectOneMenu id="dispPadre" value="#{_sensor.padre}">
 								<f:converter converterId="placaAuxiliarConverter" />
 								<f:selectItem itemLabel="Seleccione..." itemValue="" />
 								<f:selectItems value="#{placasAuxiliares}" var="placaAux"
@@ -161,21 +170,6 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
-
-				<!--            	 <p:column headerText="Dispositivo Padre" style="width:20%">   -->
-				<!--                <p:cellEditor>   -->
-				<!--                    <f:facet name="output"><h:outputText value="#{_placaAux.padre.nombre}" /></f:facet>   -->
-				<!--                    <f:facet name="input"> -->
-				<!-- 	                   <p:selectOneMenu id="padreTab" value="#{_placaAux.padre}" style="width:100%"> -->
-				<!-- 	                   		<f:converter converterId="placaAuxiliarConverter" /> -->
-				<!-- 	                   		<f:selectItem itemLabel="Seleccione..." itemValue="" /> -->
-				<!-- 							<f:selectItems value="#{placasAuxiliares}" var="placaAux" -->
-				<!-- 												itemLabel="#{placaAux.nombre}" itemValue="#{placaAux}" /> -->
-				<!-- 				        </p:selectOneMenu>   -->
-				<!-- 				   </f:facet>  -->
-				<!--                </p:cellEditor>   -->
-				<!--            	 </p:column>  -->
 
 				<p:column headerText="Tipo de Puerto" style="width:15%">
 					<p:cellEditor>
@@ -217,31 +211,6 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
-<!-- 				<p:column headerText="Estado de Alerta" style="width:5%"> -->
-<!-- 					<p:cellEditor> -->
-<!-- 						<f:facet name="output"> -->
-<!-- 							<h:outputText value="#{_sensor.estadoAlerta}" /> -->
-<!-- 						</f:facet> -->
-<!-- 						<f:facet name="input"> -->
-<!-- 							<p:inputText id="modelInputEstAl" value="#{_sensor.estadoAlerta}" -->
-<!-- 								style="width:96%" required="true" /> -->
-<!-- 						</f:facet> -->
-<!-- 					</p:cellEditor> -->
-<!-- 				</p:column> -->
-
-<!-- 				<p:column headerText="Activo Sistema" style="width:5%"> -->
-<!-- 					<p:cellEditor> -->
-<!-- 						<f:facet name="output"> -->
-<!-- 							<h:outputText value="#{_sensor.activoSistema}" /> -->
-<!-- 						</f:facet> -->
-<!-- 						<f:facet name="input"> -->
-<!-- 							<p:inputText id="modelInputActSist" -->
-<!-- 								value="#{_sensor.activoSistema}" style="width:96%" -->
-<!-- 								required="true" /> -->
-<!-- 						</f:facet> -->
-<!-- 					</p:cellEditor> -->
-<!-- 				</p:column> -->
 
 				<p:column style="width:3%">
 					<p:rowEditor />

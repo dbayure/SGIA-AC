@@ -1,15 +1,12 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-
 import org.primefaces.event.RowEditEvent;
-
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -20,14 +17,12 @@ import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
 public class PlacaAuxiliarBean {
 
 	@ManagedProperty("#{placaBean.placa}")
-    private Placa placa; 
-	
+	private Placa placa;
+
 	@Inject
 	private RegistroPlacaAuxiliar registroPlacaAuxiliar;
-	
+
 	private PlacaAuxiliar placaAuxiliarTemp = new PlacaAuxiliar();
-	
-		
 
 	/**
 	 * @return the registroPlacaAuxiliar
@@ -37,9 +32,11 @@ public class PlacaAuxiliarBean {
 	}
 
 	/**
-	 * @param registroPlacaAuxiliar the registroPlacaAuxiliar to set
+	 * @param registroPlacaAuxiliar
+	 *            the registroPlacaAuxiliar to set
 	 */
-	public void setRegistroPlacaAuxiliar(RegistroPlacaAuxiliar registroPlacaAuxiliar) {
+	public void setRegistroPlacaAuxiliar(
+			RegistroPlacaAuxiliar registroPlacaAuxiliar) {
 		this.registroPlacaAuxiliar = registroPlacaAuxiliar;
 	}
 
@@ -51,32 +48,36 @@ public class PlacaAuxiliarBean {
 	}
 
 	/**
-	 * @param placaAuxiliarTemp the placaAuxiliarTemp to set
+	 * @param placaAuxiliarTemp
+	 *            the placaAuxiliarTemp to set
 	 */
 	public void setPlacaAuxiliarTemp(PlacaAuxiliar placaAuxiliarTemp) {
 		this.placaAuxiliarTemp = placaAuxiliarTemp;
 	}
-	
+
 	/**
-	 * @param placa the placa to set
+	 * @param placa
+	 *            the placa to set
 	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}
 
 	public void registrar() {
-		
+
 		try {
 			placaAuxiliarTemp.setEstadoAlerta("N");
 			placaAuxiliarTemp.setActivoSistema('S');
 			placaAuxiliarTemp.setPlaca(placa);
 			registroPlacaAuxiliar.registro(placaAuxiliarTemp);
-			placaAuxiliarTemp= new PlacaAuxiliar();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,	"Se registró ", "con éxito!");
+			placaAuxiliarTemp = new PlacaAuxiliar();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Se registró ", "con éxito!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			
+
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al registrar ", "");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Error al registrar ", "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -84,17 +85,16 @@ public class PlacaAuxiliarBean {
 	public void onEdit(RowEditEvent event) {
 		PlacaAuxiliar placaAux = ((PlacaAuxiliar) event.getObject());
 		try {
-			Mensaje mensaje=registroPlacaAuxiliar.modificar(placaAux);
-			if (mensaje.getTipo().equals("Informativo"))
-        	{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
-        	else
-        	{
-        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
+			Mensaje mensaje = registroPlacaAuxiliar.modificar(placaAux);
+			if (mensaje.getTipo().equals("Informativo")) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Error al modificar ", placaAux.getNombre());
@@ -110,17 +110,16 @@ public class PlacaAuxiliarBean {
 
 	public void eliminar(Long id) {
 		try {
-			Mensaje mensaje=registroPlacaAuxiliar.eliminar(id);
-			if (mensaje.getTipo().equals("Informativo"))
-        	{
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
-        	else
-        	{
-        		FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");  
-	            FacesContext.getCurrentInstance().addMessage(null, msg); 
-        	}
+			Mensaje mensaje = registroPlacaAuxiliar.eliminar(id);
+			if (mensaje.getTipo().equals("Informativo")) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} else {
+				FacesMessage msg = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage("Error al eliminar",
 					id.toString());

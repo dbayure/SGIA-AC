@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsObtenerEstadoAlertaPlaca complex type.
+ * <p>
+ * Java class for wsObtenerEstadoAlertaPlaca complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsObtenerEstadoAlertaPlaca">
@@ -27,36 +28,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsObtenerEstadoAlertaPlaca", propOrder = {
-    "nroSerie"
-})
+@XmlType(name = "wsObtenerEstadoAlertaPlaca", propOrder = { "nroSerie" })
 public class WsObtenerEstadoAlertaPlaca {
 
-    @XmlElement(required = true)
-    protected String nroSerie;
+	@XmlElement(required = true)
+	protected String nroSerie;
 
-    /**
-     * Gets the value of the nroSerie property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getNroSerie() {
-        return nroSerie;
-    }
+	/**
+	 * Gets the value of the nroSerie property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getNroSerie() {
+		return nroSerie;
+	}
 
-    /**
-     * Sets the value of the nroSerie property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setNroSerie(String value) {
-        this.nroSerie = value;
-    }
+	/**
+	 * Sets the value of the nroSerie property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setNroSerie(String value) {
+		this.nroSerie = value;
+	}
 
 }

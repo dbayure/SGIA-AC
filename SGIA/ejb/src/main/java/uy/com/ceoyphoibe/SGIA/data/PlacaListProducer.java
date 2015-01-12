@@ -14,33 +14,31 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 
-
-
 @RequestScoped
 public class PlacaListProducer {
-	
-   @Inject
-   private EntityManager em;
 
-   private List<Placa> placas;
+	@Inject
+	private EntityManager em;
 
+	private List<Placa> placas;
 
-   @Produces
-   @Named
-   public List<Placa> getPlacas() {
-      return placas;
-   }
+	@Produces
+	@Named
+	public List<Placa> getPlacas() {
+		return placas;
+	}
 
-   public void onListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Placa placa) {
-	      retrieveAllOrderedByName();
-   }
+	public void onListChanged(
+			@Observes(notifyObserver = Reception.IF_EXISTS) final Placa placa) {
+		retrieveAllOrderedByName();
+	}
 
-   @PostConstruct
-   public void retrieveAllOrderedByName() {
-      CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
-      Root<Placa> placa = criteria.from(Placa.class);
-      criteria.select(placa).orderBy(cb.asc(placa.get("id")));
-      placas = em.createQuery(criteria).getResultList();
-   }
+	@PostConstruct
+	public void retrieveAllOrderedByName() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Placa> criteria = cb.createQuery(Placa.class);
+		Root<Placa> placa = criteria.from(Placa.class);
+		criteria.select(placa).orderBy(cb.asc(placa.get("id")));
+		placas = em.createQuery(criteria).getResultList();
+	}
 }
