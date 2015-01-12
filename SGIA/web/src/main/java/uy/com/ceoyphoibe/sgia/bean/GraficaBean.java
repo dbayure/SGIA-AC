@@ -1,16 +1,24 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+
+import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
+import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
 
 @ManagedBean(name = "graficaBean")
 @SessionScoped
@@ -19,26 +27,36 @@ public class GraficaBean {
 	private String nombreFactorGraficar;
 	private String nombreSensorGraficar;
 	private LineChartModel graficaFactores;
-	private boolean mostrarFactorSensor = false;
+
 	private String opcionVisualizacion;
+	private Date fechaMin;
+	private Date fechaMax;
+	private Factor factorTemp;
+	private boolean mostrarGrafica=false;
 	
 	@Inject
 	private LecturaFactorListProducer lecturasFactorList;
 	
-	public boolean isMostrarFactorSensor() {
-		return mostrarFactorSensor;
-	}
-
-	public void setMostrarFactorSensor(boolean mostrarFactorSensor) {
-		this.mostrarFactorSensor = mostrarFactorSensor;
-	}
-
+	@Inject
+	private RegistroFactor registroFactor;
 	
-//	@PostConstruct
-//	public void init() {
-//		graficarFactores();
-//	}
+	@PostConstruct
+	public void init() {
+		graficaFactores= new LineChartModel();
+     	 
+        LineChartSeries series1 = new LineChartSeries();
+        series1.setLabel("Series Temp");
+ 
+        series1.set(1, 2);
+        series1.set(2, 1);
+        series1.set(3, 3);
+        series1.set(4, 6);
+        series1.set(5, 8);
+        graficaFactores.addSeries(series1);
 
+	}
+	
+	
 	public String getOpcionVisualizacion() {
 		return opcionVisualizacion;
 	}
@@ -47,9 +65,7 @@ public class GraficaBean {
 		this.opcionVisualizacion = opcionVisualizacion;
 	}
 
-	public LineChartModel getAnimatedModel1() {
-		return graficaFactores;
-	}
+	
 
 	public String getNombreSensorGraficar() {
 		return nombreSensorGraficar;
@@ -58,12 +74,21 @@ public class GraficaBean {
 	public void setNombreSensorGraficar(String nombreSensorGraficar) {
 		this.nombreSensorGraficar = nombreSensorGraficar;
 	}
-
-	public void definirSensorGrafica(String nombreSensor) {
-		nombreSensorGraficar = nombreSensor;
-		System.out.println("nombre del Sensor seleccionado para graficar "
-				+ nombreSensorGraficar);
+	
+	/**
+	 * @return the graficaFactores
+	 */
+	public LineChartModel getGraficaFactores() {
+		return graficaFactores;
 	}
+
+	/**
+	 * @param graficaFactores the graficaFactores to set
+	 */
+	public void setGraficaFactores(LineChartModel graficaFactores) {
+		this.graficaFactores = graficaFactores;
+	}
+
 	
 	public String getNombreFactorGraficar() {
 		return nombreFactorGraficar;
@@ -73,61 +98,17 @@ public class GraficaBean {
 		this.nombreFactorGraficar = nombreFactorGraficar;
 	}
 
-	public void definirFactorGrafica(String nombreFactor) {
-		nombreFactorGraficar = nombreFactor;
-		System.out.println("nombre del factor seleccionado para graficar "
-				+ nombreFactorGraficar);
-	}
-
-//	private void graficarFactores() {
-//		graficaFactores = initLinearModel();
-//		graficaFactores.setTitle("Line Chart");
-//		graficaFactores.setAnimate(true);
-//		graficaFactores.setLegendPosition("se");
-//		Axis yAxis = graficaFactores.getAxis(AxisType.Y);
-//		yAxis.setMin(0);
-//		yAxis.setMax(50);
-//	}
-
-//	private LineChartModel initLinearModel() {
-//		LineChartModel model = new LineChartModel();
-//		LineChartSeries series1 = new LineChartSeries();
-//		series1.setLabel("nombreFactorGraficar");
-//		List<LecturaFactor> lecturas = lecturasFactorList.getLecturasFactores();
-//		for (int i = 0; i < lecturas.size(); i++) {
-//			float valor = lecturas.get(i).getValor();
-//			if (valor >= 0 && i % 10 == 0) {
-//				// int temp= (int)valor;
-//				series1.set(i, valor);
-//			}
-//
-//			System.out.println("Agrega para graficar: "
-//					+ lecturas.get(i).getValor());
-//		}
-//		model.addSeries(series1);
-//		return model;
-//	}
-//	
-	public void mostrarFactorSensor (){
-		if (mostrarFactorSensor == false){
-			mostrarFactorSensor = true;
-		}
-		else {
-			mostrarFactorSensor = false;
-		}
+	public void definirFactorGrafica(Long idFactor) {
 		
+		factorTemp= registroFactor.obtenerFactorPorId(idFactor);
+		graficarFactor();
+		mostrarGrafica= true;
 	}
-	
-//#333333333#####################################
-	
+
 	
 	  private LineChartModel lineModel1;
 	    private LineChartModel lineModel2;
 	    
-	    @PostConstruct
-	    public void init() {
-	        createLineModels();
-	    }
 	 
 	    public LineChartModel getLineModel1() {
 	        return lineModel1;
@@ -137,76 +118,127 @@ public class GraficaBean {
 	        return lineModel2;
 	    }
 	     
-	    private void createLineModels() {
-	        lineModel1 = initLinearModel();
-	        lineModel1.setTitle("Linear Chart");
-	        lineModel1.setLegendPosition("e");
-	        Axis yAxis = lineModel1.getAxis(AxisType.Y);
-	        yAxis.setMin(0);
-	        yAxis.setMax(10);
-	         
-	        lineModel2 = initCategoryModel();
-	        lineModel2.setTitle("Category Chart");
-	        lineModel2.setLegendPosition("e");
-	        lineModel2.setShowPointLabels(true);
-	        lineModel2.getAxes().put(AxisType.X, new CategoryAxis("Years"));
-	        yAxis = lineModel2.getAxis(AxisType.Y);
-	        yAxis.setLabel("Births");
-	        yAxis.setMin(0);
-	        yAxis.setMax(200);
-	    }
 	     
-	    private LineChartModel initLinearModel() {
+		/**
+		 * @return the fechaMin
+		 */
+		public Date getFechaMin() {
+			return fechaMin;
+		}
+
+		/**
+		 * @param fechaMin the fechaMin to set
+		 */
+		public void setFechaMin(Date fechaMin) {
+			this.fechaMin = fechaMin;
+		}
+
+		/**
+		 * @return the fechaMax
+		 */
+		public Date getFechaMax() {
+			return fechaMax;
+		}
+
+		/**
+		 * @param fechaMax the fechaMax to set
+		 */
+		public void setFechaMax(Date fechaMax) {
+			this.fechaMax = fechaMax;
+		}
+		
+		public void graficarFactor()
+		{
+			graficaFactores = initLinearModel(factorTemp);
+			graficaFactores.setTitle(factorTemp.getNombre());
+			graficaFactores.setAnimate(true);
+			graficaFactores.setLegendPosition("se");
+	        Axis yAxis = graficaFactores.getAxis(AxisType.Y);
+	        yAxis.setMin(factorTemp.getValorMin());
+	        yAxis.setMax(factorTemp.getValorMax());
+		}
+		
+		@SuppressWarnings("deprecation")
+		private LineChartModel initLinearModel(Factor temp) {
 	        LineChartModel model = new LineChartModel();
 	 
 	        LineChartSeries series1 = new LineChartSeries();
-	        series1.setLabel("Series 1");
+	        series1.setLabel(temp.getNombre());
 	 
-	        series1.set(1, 2);
-	        series1.set(2, 1);
-	        series1.set(3, 3);
-	        series1.set(4, 6);
-	        series1.set(5, 8);
-	 
-	        LineChartSeries series2 = new LineChartSeries();
-	        series2.setLabel("Series 2");
-	 
-	        series2.set(1, 6);
-	        series2.set(2, 3);
-	        series2.set(3, 2);
-	        series2.set(4, 7);
-	        series2.set(5, 9);
-	 
+	        Timestamp min= null;
+	        Timestamp max= null;
+	        Date ahora= new Date();
+	        if (fechaMin == null && fechaMax == null)
+	        {
+	        	max=new Timestamp(ahora.getTime());
+		        min=new Timestamp(ahora.getTime()-86400000);
+	        }
+			else
+			{
+				if (fechaMax == null)
+					fechaMax= new Date();
+				if (fechaMin == null)
+				{
+					fechaMin= new Date();
+					fechaMin.setYear(fechaMin.getYear()-1);
+				}
+				min= new Timestamp(fechaMin.getTime());
+				max= new Timestamp(fechaMax.getTime());
+			}
+	        
+	        List<LecturaFactor> lecturas= lecturasFactorList.getLecturasFactorIdFactorEntreFechas(temp.getIdFactor(), min, max);
+	        int j= lecturas.size() / 12;
+	        if (j == 0)
+	        	j= 1;
+	        model.getAxes().put(AxisType.X, new CategoryAxis("Fecha y Hora"));
+	        model.getAxis(AxisType.X).setTickAngle(-50);
+	        System.out.println("OBTIENE LAS LECTURAS");
+	        for (int i=0; i<lecturas.size(); i++)
+	        {
+	        	float valor=lecturas.get(i).getValor();
+	        	System.out.println(lecturas.get(i).getFechaHora().toString());
+	        	String hora= lecturas.get(i).getFechaHora().toString().substring(0, 16);
+	        	if (valor >= 0 && i%j == 0)
+	        	{
+	        		System.out.println("Agrega para graficar: "+ valor);
+	        		series1.set(hora, valor );
+	        	}
+	        }
+
 	        model.addSeries(series1);
-	        model.addSeries(series2);
 	         
 	        return model;
 	    }
-	     
-	    private LineChartModel initCategoryModel() {
-	        LineChartModel model = new LineChartModel();
-	 
-	        ChartSeries boys = new ChartSeries();
-	        boys.setLabel("Boys");
-	        boys.set("2004", 120);
-	        boys.set("2005", 100);
-	        boys.set("2006", 44);
-	        boys.set("2007", 150);
-	        boys.set("2008", 25);
-	 
-	        ChartSeries girls = new ChartSeries();
-	        girls.setLabel("Girls");
-	        girls.set("2004", 52);
-	        girls.set("2005", 60);
-	        girls.set("2006", 110);
-	        girls.set("2007", 90);
-	        girls.set("2008", 120);
-	 
-	        model.addSeries(boys);
-	        model.addSeries(girls);
-	         
-	        return model;
-	    }
+
+		/**
+		 * @return the factorTemp
+		 */
+		public Factor getFactorTemp() {
+			return factorTemp;
+		}
+
+		/**
+		 * @param factorTemp the factorTemp to set
+		 */
+		public void setFactorTemp(Factor factorTemp) {
+			this.factorTemp = factorTemp;
+		}
+
+
+		/**
+		 * @return the mostrarGrafica
+		 */
+		public boolean isMostrarGrafica() {
+			return mostrarGrafica;
+		}
+
+
+		/**
+		 * @param mostrarGrafica the mostrarGrafica to set
+		 */
+		public void setMostrarGrafica(boolean mostrarGrafica) {
+			this.mostrarGrafica = mostrarGrafica;
+		}
 	
 
 }

@@ -15,8 +15,9 @@
 }
 </style>
 
-		<h:form id="form" prependId="false">
 
+		<h:form id="form" prependId="false">
+		
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
@@ -47,112 +48,66 @@
 				
 			</p:panel>
 			<p:separator/>
-			<p:panel style="border: none;">
-				<h:panelGrid id="gridSelFactorSensor" columns="2">
-					<p:selectOneButton value="#{graficaBean.opcionVisualizacion}">
-						<f:selectItem itemLabel="Factores" itemValue="F" />
-						<f:selectItem itemLabel="Sensores" itemValue="S" />
-					</p:selectOneButton>
-					<p:commandButton action="#{graficaBean.mostrarFactorSensor}"
-						update="form" icon="ui-icon-transferthick-e-w" />
-				</h:panelGrid>
-				
-				<h:panelGrid id="gridFactores" rendered="#{graficaBean.opcionVisualizacion == 'F'}">
-				<p:carousel value="#{factores}" headerText="Factores" itemStyle="width: 270px;"
-					var="_factor" style="width: 100% !important;">
-					<h:panelGrid columns="2" style="width:100%" cellpadding="5"
-						columnClasses="label,value">
-						<f:facet name="header">
-						<p:commandLink	style="display: block; float:center; margin-left: auto; margin-right: auto;"
-							update=":form" action="#{graficaBean.definirFactorGrafica(_factor.nombre)}">
-							<h:graphicImage value="/resources/gfx/#{_factor.nombre}.png" alt="factor" height="25px" />
-						</p:commandLink>
-						</f:facet>
-
-						<h:outputText value="Nombre:" />
-						<h:outputText value="#{_factor.nombre}" style="font-weight: bold;" />
-
-						<h:outputText value="Minimo" />
-						<h:outputText value="#{_factor.valorMin}" style="font-weight: bold;"/>
-
-						<h:outputText value="Maximo:" />
-						<h:outputText value="#{_factor.valorMax}" style="font-weight: bold;"/>
-
-						<h:outputText value="Unidad" />
-						<h:outputText value="#{_factor.unidad}" style="font-weight: bold;"/>
-					</h:panelGrid>
-
-				</p:carousel>
-				</h:panelGrid>
-				
-				<h:panelGrid id="gridSensores" rendered="#{graficaBean.opcionVisualizacion == 'S'}">
-				<p:carousel value="#{sensores}" headerText="Sensores" itemStyle="width: 270px;"
-					var="_sensor" style="width: 100% !important;">
-					<h:panelGrid columns="2" style="width:100%" cellpadding="5"
-						columnClasses="label,value">
-						<f:facet name="header">
-						<p:commandLink	style="display: block; float:center; margin-left: auto; margin-right: auto;"
-							update=":form" action="#{graficaBean.definirSensorGrafica(_sensor.nombre)}">
-							<h:graphicImage value="/resources/gfx/Luminosidad.png" alt="factor" height="25px" />
-						</p:commandLink>
-						</f:facet>
-
-						<h:outputText value="Nombre:" />
-						<h:outputText value="#{_sensor.nombre}" style="font-weight: bold;"/>
-
-						<h:outputText value="Modelo" />
-						<h:outputText value="#{_sensor.modelo}" style="font-weight: bold;"/>
-
-						<h:outputText value="Estado:" />
-						<h:outputText value="#{_sensor.estadoAlerta}" style="font-weight: bold;"/>
-
-						<h:outputText value="Puerto" />
-						<h:outputText value="#{_sensor.numeroPuerto}" style="font-weight: bold;"/>
-					</h:panelGrid>
-
-				</p:carousel>
-				</h:panelGrid>
-				
-						
-			</p:panel>
 			
-			<p:panel rendered="#{graficaBean.nombreFactorGraficar == 'Temperatura'}" >
-				<p:panelGrid>
-					<p:chart type="line" model="#{graficaBean.lineModel1}" style="height:300px;"/>
-					<p:outputLabel value="Temperatura"/>
-				</p:panelGrid>
-				
-			</p:panel>
-			
-			<p:panel rendered="#{graficaBean.nombreFactorGraficar == 'Humedad'}" >
-				<p:panelGrid>
-					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
-					<p:outputLabel value="Humedad"/>
-				</p:panelGrid>
-			</p:panel>
-
-			<p:panel rendered="#{graficaBean.nombreSensorGraficar == 'sensor temperatura 1'}" >
-				<p:panelGrid>
-					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
-					<p:outputLabel value="Temperatura 1"/>
-				</p:panelGrid>
-			</p:panel>
-			
-			<p:panel rendered="#{graficaBean.nombreSensorGraficar == 'sensor temperatura 2'}" >
-				<p:panelGrid>
-					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
-					<p:outputLabel value="Temperatura 2"/>
-				</p:panelGrid>
-			</p:panel>
-			
-			<p:panel rendered="#{graficaBean.nombreSensorGraficar == 'sensor humedad 1'}" >
-				<p:panelGrid>
-					<p:chart type="line" model="#{graficaBean.lineModel2}" style="height:300px;"/>
-					<p:outputLabel value="Humedad 1"/>
-				</p:panelGrid>
-			</p:panel>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
+			
+			<p:panel id="segFactores" rendered="#{lecturasFactorBean.verFactores}">
+										
+					<h:panelGrid columns="2">
+					
+						<p:outputLabel for="fechaMinF" value="Fecha Min:" />
+        				<p:calendar id="fechaMinF" value="#{graficaBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+					
+			            <p:outputLabel for="fechaMaxF" value="Fecha Max:" />
+        				<p:calendar id="fechaMaxF" value="#{graficaBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+			            
+					</h:panelGrid>
+			</p:panel>
+			
+			<p:panel style="border: none;">
+				
+				<h:panelGrid id="gridFactores" >
+					<p:carousel value="#{factores}" headerText="Factores" itemStyle="width: 270px;"
+						var="_factor" style="width: 100% !important;">
+						<h:panelGrid columns="2" style="width:100%" cellpadding="5"
+							columnClasses="label,value">
+							<f:facet name="header">
+							<p:commandLink	style="display: block; float:center; margin-left: auto; margin-right: auto;"
+								update=":form" action="#{graficaBean.definirFactorGrafica(_factor.idFactor)}"  >
+								<h:graphicImage value="/resources/gfx/#{_factor.nombre}.png" alt="factor" height="25px" />
+							</p:commandLink>
+							</f:facet>
+	
+							<h:outputText value="Nombre:" />
+							<h:outputText value="#{_factor.nombre}" style="font-weight: bold;" />
+	
+							<h:outputText value="Minimo" />
+							<h:outputText value="#{_factor.valorMin}" style="font-weight: bold;"/>
+	
+							<h:outputText value="Maximo:" />
+							<h:outputText value="#{_factor.valorMax}" style="font-weight: bold;"/>
+	
+							<h:outputText value="Unidad" />
+							<h:outputText value="#{_factor.unidad}" style="font-weight: bold;"/>
+						</h:panelGrid>
+	
+					</p:carousel>
+				</h:panelGrid>
+
+			</p:panel>
+			
+			<p:panel id="graficaPanel" style="border: none;" rendered="#{graficaBean.mostrarGrafica}" closable="true">
+					
+						<p:chart type="line" model="#{graficaBean.graficaFactores}"
+							style="width:800px; height:400px"  />
+					
+					<p:commandLink action="#{placaBean.graficas}" immediate="true">
+						<h:graphicImage value="/resources/gfx/Graficas.png" alt="graficas" height="30px" />
+					</p:commandLink>
+				</p:panel>
+			
+			
 
 
 
