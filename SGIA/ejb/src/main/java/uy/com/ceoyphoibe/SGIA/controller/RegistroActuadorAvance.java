@@ -30,11 +30,10 @@ public class RegistroActuadorAvance {
 		return newActuadorAvance;
 	}
 
-	
 	public ActuadorAvance guardar(ActuadorAvance actuadorAvance) {
-		FachadaWS ws= new FachadaWS();
-		actuadorAvance= ws.registroActuadorAvance(actuadorAvance);
-		
+		FachadaWS ws = new FachadaWS();
+		actuadorAvance = ws.registroActuadorAvance(actuadorAvance);
+
 		em.merge(actuadorAvance);
 		actuadorAvanceEventSrc.fire(actuadorAvance);
 		return actuadorAvance;
@@ -43,7 +42,7 @@ public class RegistroActuadorAvance {
 	public Mensaje modificar(ActuadorAvance actuadorAvance) throws Exception {
 		FachadaWS wsClient = new FachadaWS();
 		wsClient.asociarActuadorAvanceGrupoActuadores(actuadorAvance);
-		Mensaje resultado= wsClient.actualizarActuadorAvance(actuadorAvance);
+		Mensaje resultado = wsClient.actualizarActuadorAvance(actuadorAvance);
 		if (resultado.getTipo().equals("Informativo"))
 			em.merge(actuadorAvance);
 		return resultado;
@@ -52,9 +51,8 @@ public class RegistroActuadorAvance {
 	public Mensaje eliminar(Long id) throws Exception {
 		ActuadorAvance actuadorAvance = em.find(ActuadorAvance.class, id);
 		FachadaWS wsClient = new FachadaWS();
-		Mensaje resultado=wsClient.eliminarActuadorAvance(actuadorAvance);
-		if (resultado.getTipo().equals("Informativo"))
-		{
+		Mensaje resultado = wsClient.eliminarActuadorAvance(actuadorAvance);
+		if (resultado.getTipo().equals("Informativo")) {
 			actuadorAvance.setActivoSistema('N');
 			em.merge(actuadorAvance);
 		}
@@ -66,27 +64,28 @@ public class RegistroActuadorAvance {
 		ActuadorAvance actuadorAvance = em.find(ActuadorAvance.class, id);
 		Set<Posicion> listPos = actuadorAvance.getListaPosiciones();
 		System.out.println(listPos.size());
-
 		return actuadorAvance;
 	}
 
 	public boolean esDeAvance(long id) {
 		boolean es = false;
 		ActuadorAvance actuadorAvance = em.find(ActuadorAvance.class, id);
-		if (actuadorAvance != null){
+		if (actuadorAvance != null) {
 			es = true;
 		}
 		return es;
 	}
-	
+
 	@PostConstruct
 	public void initNewActuadorAvance() {
 		newActuadorAvance = new ActuadorAvance();
 	}
-	
-	public Mensaje reestablecerPosicionActuadorAvance(ActuadorAvance actuadorAvance, char nroPosicion){
+
+	public Mensaje reestablecerPosicionActuadorAvance(
+			ActuadorAvance actuadorAvance, char nroPosicion) {
 		FachadaWS wsClient = new FachadaWS();
-		Mensaje resultado = wsClient.reestablecerActuadorAvance(actuadorAvance, nroPosicion);
+		Mensaje resultado = wsClient.reestablecerActuadorAvance(actuadorAvance,
+				nroPosicion);
 		if (resultado.getTipo().equals("Informativo"))
 			em.merge(actuadorAvance);
 		return resultado;

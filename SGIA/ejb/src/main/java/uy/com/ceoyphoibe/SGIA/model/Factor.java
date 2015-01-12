@@ -1,10 +1,8 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @XmlRootElement
@@ -29,24 +25,20 @@ public class Factor implements Serializable {
 
 	@Id
 	private Long idFactor;
-	
 	private String nombre;
 	private String unidad;
 	private int valorMin;
 	private int valorMax;
 	private int umbral;
-	
-    
-    @OneToMany( mappedBy = "factor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
-    private List<Sensor> sensores;
-	
+
+	@OneToMany(mappedBy = "factor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Sensor> sensores;
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
-	
+
 	private char activoSistema;
-	
-	
 
 	public Factor() {
 		super();
@@ -192,5 +184,5 @@ public class Factor implements Serializable {
 				+ ", valorMax=" + valorMax + ", umbral=" + umbral + ", placa="
 				+ placa + ", activoSistema=" + activoSistema + "]";
 	}
-	
+
 }

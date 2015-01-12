@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,11 +24,10 @@ public class Destinatario implements Serializable {
 	private int horaMin;
 	private int horaMax;
 	private char activoSistema;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "placa_id",  referencedColumnName = "id")
+	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
-	
 
 	/**
 	 * @return the idDestinatario
@@ -39,7 +37,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param idDestinatario the idDestinatario to set
+	 * @param idDestinatario
+	 *            the idDestinatario to set
 	 */
 	public void setIdDestinatario(Long idDestinatario) {
 		this.idDestinatario = idDestinatario;
@@ -53,7 +52,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param nombre the nombre to set
+	 * @param nombre
+	 *            the nombre to set
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -67,7 +67,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param celular the celular to set
+	 * @param celular
+	 *            the celular to set
 	 */
 	public void setCelular(String celular) {
 		this.celular = celular;
@@ -81,7 +82,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param mail the mail to set
+	 * @param mail
+	 *            the mail to set
 	 */
 	public void setMail(String mail) {
 		this.mail = mail;
@@ -95,7 +97,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param horaMin the horaMin to set
+	 * @param horaMin
+	 *            the horaMin to set
 	 */
 	public void setHoraMin(int horaMin) {
 		this.horaMin = horaMin;
@@ -109,7 +112,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param horaMax the horaMax to set
+	 * @param horaMax
+	 *            the horaMax to set
 	 */
 	public void setHoraMax(int horaMax) {
 		this.horaMax = horaMax;
@@ -123,13 +127,12 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param activoSistema the activoSistema to set
+	 * @param activoSistema
+	 *            the activoSistema to set
 	 */
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
 	}
-	
-	
 
 	/**
 	 * @return the placa
@@ -139,7 +142,8 @@ public class Destinatario implements Serializable {
 	}
 
 	/**
-	 * @param placa the placa to set
+	 * @param placa
+	 *            the placa to set
 	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
@@ -152,7 +156,9 @@ public class Destinatario implements Serializable {
 		return serialVersionUID;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -169,7 +175,6 @@ public class Destinatario implements Serializable {
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -208,7 +213,6 @@ public class Destinatario implements Serializable {
 			return false;
 		return true;
 	}
-
 
 	@Override
 	public String toString() {

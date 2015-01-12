@@ -3,7 +3,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,38 +12,37 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @Entity
 @XmlRootElement
 @Table(name = "actuadoresAvance")
-@JsonIgnoreProperties({"grupoActuadores", "placa"})
+@JsonIgnoreProperties({ "grupoActuadores", "placa" })
 public class ActuadorAvance extends Dispositivo implements Serializable {
-	
+
 	private static final long serialVersionUID = -4807811365963928429L;
-	
+
 	private int posicion;
 	private int numeroPuertoRetroceso;
 
-	@ManyToOne (fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TipoActuador tipoActuador;
-	
-	@ManyToOne (fetch = FetchType.EAGER)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private TipoPuerto tipoPuerto;
-	
+
 	private int tiempoEntrePosiciones;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name="actuadoresAvancePosiciones", joinColumns={@JoinColumn(name= "idActuadorAvance", referencedColumnName= "id")}, inverseJoinColumns= {@JoinColumn(name= "idPosicion", referencedColumnName= "idPosicion")}	)
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "actuadoresAvancePosiciones", joinColumns = { @JoinColumn(name = "idActuadorAvance", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "idPosicion", referencedColumnName = "idPosicion") })
 	private Set<Posicion> listaPosiciones;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
+	@JoinColumn(name = "grupoActuadores_id", referencedColumnName = "id")
 	private GrupoActuadores grupoActuadores;
-	
-	public ActuadorAvance(){
-		listaPosiciones= new HashSet<Posicion>();
+
+	public ActuadorAvance() {
+		listaPosiciones = new HashSet<Posicion>();
 	}
 
 	/**
@@ -55,7 +53,8 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @param posicion the posicion to set
+	 * @param posicion
+	 *            the posicion to set
 	 */
 	public void setPosicion(int posicion) {
 		this.posicion = posicion;
@@ -69,7 +68,8 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @param numeroPuertoRetroceso the numeroPuertoRetroceso to set
+	 * @param numeroPuertoRetroceso
+	 *            the numeroPuertoRetroceso to set
 	 */
 	public void setNumeroPuertoRetroceso(int numeroPuertoRetroceso) {
 		this.numeroPuertoRetroceso = numeroPuertoRetroceso;
@@ -83,7 +83,8 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @param tipoActuador the tipoActuador to set
+	 * @param tipoActuador
+	 *            the tipoActuador to set
 	 */
 	public void setTipoActuador(TipoActuador tipoActuador) {
 		this.tipoActuador = tipoActuador;
@@ -97,7 +98,8 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @param tipoPuerto the tipoPuerto to set
+	 * @param tipoPuerto
+	 *            the tipoPuerto to set
 	 */
 	public void setTipoPuerto(TipoPuerto tipoPuerto) {
 		this.tipoPuerto = tipoPuerto;
@@ -109,8 +111,6 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	public Set<Posicion> getListaPosiciones() {
 		return listaPosiciones;
 	}
-	
-	
 
 	/**
 	 * @return the tiempoEntrePosiciones
@@ -120,14 +120,16 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @param tiempoEntrePosiciones the tiempoEntrePosiciones to set
+	 * @param tiempoEntrePosiciones
+	 *            the tiempoEntrePosiciones to set
 	 */
 	public void setTiempoEntrePosiciones(int tiempoEntrePosiciones) {
 		this.tiempoEntrePosiciones = tiempoEntrePosiciones;
 	}
 
 	/**
-	 * @param listaPosiciones the listaPosiciones to set
+	 * @param listaPosiciones
+	 *            the listaPosiciones to set
 	 */
 	public void setListaPosiciones(Set<Posicion> listaPosiciones) {
 		this.listaPosiciones = listaPosiciones;
@@ -139,7 +141,7 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
 	}
@@ -147,8 +149,10 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -165,7 +169,9 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -196,7 +202,9 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

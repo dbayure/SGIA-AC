@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -7,11 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsEliminarNivelSeveridad complex type.
+ * <p>
+ * Java class for wsEliminarNivelSeveridad complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsEliminarNivelSeveridad">
@@ -28,36 +29,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsEliminarNivelSeveridad", propOrder = {
-    "idNivelSeveridad"
-})
+@XmlType(name = "wsEliminarNivelSeveridad", propOrder = { "idNivelSeveridad" })
 public class WsEliminarNivelSeveridad {
 
-    @XmlElement(required = true)
-    protected BigInteger idNivelSeveridad;
+	@XmlElement(required = true)
+	protected BigInteger idNivelSeveridad;
 
-    /**
-     * Gets the value of the idNivelSeveridad property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdNivelSeveridad() {
-        return idNivelSeveridad;
-    }
+	/**
+	 * Gets the value of the idNivelSeveridad property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdNivelSeveridad() {
+		return idNivelSeveridad;
+	}
 
-    /**
-     * Sets the value of the idNivelSeveridad property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdNivelSeveridad(BigInteger value) {
-        this.idNivelSeveridad = value;
-    }
+	/**
+	 * Sets the value of the idNivelSeveridad property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdNivelSeveridad(BigInteger value) {
+		this.idNivelSeveridad = value;
+	}
 
 }

@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,13 +11,12 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
 @Entity
 @XmlRootElement
 @Table(name = "actuador")
-@JsonIgnoreProperties({"grupoActuadores", "placa"})
+@JsonIgnoreProperties({ "grupoActuadores", "placa" })
 public class Actuador extends Dispositivo implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -26,19 +24,17 @@ public class Actuador extends Dispositivo implements Serializable {
 
 	private char estado;
 	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "tipo_actuador_id" , unique = false)
+	@JoinColumn(name = "tipo_actuador_id", unique = false)
 	private TipoActuador tipoActuador;
-	
-	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "tipo_puerto_id" , unique = false)
-	private TipoPuerto tipoPuerto;
-	
-	
-	//@ManyToOne(cascade = CascadeType.ALL)
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn ( name = "grupoActuadores_id",  referencedColumnName = "id")
-	private GrupoActuadores grupoActuadores;
 
+	@OneToOne(cascade = CascadeType.MERGE, orphanRemoval = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipo_puerto_id", unique = false)
+	private TipoPuerto tipoPuerto;
+
+	// @ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "grupoActuadores_id", referencedColumnName = "id")
+	private GrupoActuadores grupoActuadores;
 
 	public char getEstado() {
 		return estado;
@@ -76,7 +72,6 @@ public class Actuador extends Dispositivo implements Serializable {
 		return serialVersionUID;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -119,7 +114,4 @@ public class Actuador extends Dispositivo implements Serializable {
 				+ ", tipoPuerto=" + tipoPuerto + "]";
 	}
 
-
-	
-	
 }

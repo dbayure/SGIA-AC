@@ -23,9 +23,9 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1329756096802348478L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	private String nombre;
 
 	private String usuario;
@@ -35,10 +35,10 @@ public class Usuario implements Serializable {
 	private Integer telefono;
 
 	private String correo;
-	
-    @OneToOne(orphanRemoval = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "rol_id", unique = false)
-    private Rol rol;
+
+	@OneToOne(orphanRemoval = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "rol_id", unique = false)
+	private Rol rol;
 
 	public Rol getRol() {
 		return rol;
@@ -80,7 +80,8 @@ public class Usuario implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		String passHash = Util.createPasswordHash("SHA-256", "base64", null, null, password);
+		String passHash = Util.createPasswordHash("SHA-256", "base64", null,
+				null, password);
 		this.password = passHash;
 	}
 

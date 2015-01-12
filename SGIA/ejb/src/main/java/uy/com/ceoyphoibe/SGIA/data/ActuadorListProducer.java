@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
@@ -13,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 
 

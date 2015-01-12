@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -6,11 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsEliminarGrupoActuadoresResponse complex type.
+ * <p>
+ * Java class for wsEliminarGrupoActuadoresResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsEliminarGrupoActuadoresResponse">
@@ -27,36 +28,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsEliminarGrupoActuadoresResponse", propOrder = {
-    "wsEliminarGrupoActuadoresResult"
-})
+@XmlType(name = "wsEliminarGrupoActuadoresResponse", propOrder = { "wsEliminarGrupoActuadoresResult" })
 public class WsEliminarGrupoActuadoresResponse {
 
-    @XmlElement(required = true)
-    protected Mensaje wsEliminarGrupoActuadoresResult;
+	@XmlElement(required = true)
+	protected Mensaje wsEliminarGrupoActuadoresResult;
 
-    /**
-     * Gets the value of the wsEliminarGrupoActuadoresResult property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Mensaje }
-     *     
-     */
-    public Mensaje getWsEliminarGrupoActuadoresResult() {
-        return wsEliminarGrupoActuadoresResult;
-    }
+	/**
+	 * Gets the value of the wsEliminarGrupoActuadoresResult property.
+	 * 
+	 * @return possible object is {@link Mensaje }
+	 * 
+	 */
+	public Mensaje getWsEliminarGrupoActuadoresResult() {
+		return wsEliminarGrupoActuadoresResult;
+	}
 
-    /**
-     * Sets the value of the wsEliminarGrupoActuadoresResult property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Mensaje }
-     *     
-     */
-    public void setWsEliminarGrupoActuadoresResult(Mensaje value) {
-        this.wsEliminarGrupoActuadoresResult = value;
-    }
+	/**
+	 * Sets the value of the wsEliminarGrupoActuadoresResult property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Mensaje }
+	 * 
+	 */
+	public void setWsEliminarGrupoActuadoresResult(Mensaje value) {
+		this.wsEliminarGrupoActuadoresResult = value;
+	}
 
 }

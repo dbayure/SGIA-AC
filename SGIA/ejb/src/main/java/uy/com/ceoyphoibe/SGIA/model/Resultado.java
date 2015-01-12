@@ -2,7 +2,6 @@ package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "resultado")
 public abstract class Resultado implements Serializable {
 
@@ -28,10 +27,10 @@ public abstract class Resultado implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
-	
+
 	private Mensaje mensaje;
 
 	public Long getId() {
@@ -104,6 +103,5 @@ public abstract class Resultado implements Serializable {
 		return "Resultado [id=" + id + ", fecha=" + fecha + ", mensaje="
 				+ mensaje + "]";
 	}
-	
-	
+
 }

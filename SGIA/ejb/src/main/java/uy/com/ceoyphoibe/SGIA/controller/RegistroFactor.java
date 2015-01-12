@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
@@ -71,10 +70,8 @@ public class RegistroFactor {
 	   }
 	   
 	   public ResultadoLectura lecturaFactor(long idFactor){
-		   System.out.println("Entra a pedir lectura del factor: "+idFactor);
 		   ResultadoLectura rl = new ResultadoLectura();
 		   Factor factor= obtenerFactorPorId(idFactor);
-		   System.out.println("Obtiene el factor: "+factor.getNombre());
 		   FachadaWS ws= new FachadaWS();
 		   rl = ws.lecturaFactor(factor);
 		   return rl;

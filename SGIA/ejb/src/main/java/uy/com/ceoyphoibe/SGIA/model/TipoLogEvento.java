@@ -17,91 +17,106 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tipoLogEventos")
 public class TipoLogEvento implements Serializable {
 
-
 	private static final long serialVersionUID = 6269429525368734305L;
-	
+
 	@Id
 	private Long idTipoLogEvento;
 	private String nombre;
 	private char enviarSMS;
 	private char enviarMail;
-	@ManyToMany (fetch = FetchType.EAGER)
-	@JoinTable(name="destinatariosTiposLog", joinColumns={@JoinColumn(name= "idTipoLogEvento", referencedColumnName= "idTipoLogEvento")}, inverseJoinColumns= {@JoinColumn(name= "idDestinatario", referencedColumnName= "idDestinatario")}	)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "destinatariosTiposLog", joinColumns = { @JoinColumn(name = "idTipoLogEvento", referencedColumnName = "idTipoLogEvento") }, inverseJoinColumns = { @JoinColumn(name = "idDestinatario", referencedColumnName = "idDestinatario") })
 	private List<Destinatario> listaDestinatarios;
-	
-	public TipoLogEvento(){
-		listaDestinatarios= new ArrayList<Destinatario>();
+
+	public TipoLogEvento() {
+		listaDestinatarios = new ArrayList<Destinatario>();
 	}
-	
-	
-	
+
 	/**
 	 * @return the idTipoLogEvento
 	 */
 	public Long getIdTipoLogEvento() {
 		return idTipoLogEvento;
 	}
+
 	/**
-	 * @param idTipoLogEvento the idTipoLogEvento to set
+	 * @param idTipoLogEvento
+	 *            the idTipoLogEvento to set
 	 */
 	public void setIdTipoLogEvento(Long idTipoLogEvento) {
 		this.idTipoLogEvento = idTipoLogEvento;
 	}
+
 	/**
 	 * @return the nombre
 	 */
 	public String getNombre() {
 		return nombre;
 	}
+
 	/**
-	 * @param nombre the nombre to set
+	 * @param nombre
+	 *            the nombre to set
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	/**
 	 * @return the enviarSMS
 	 */
 	public char getEnviarSMS() {
 		return enviarSMS;
 	}
+
 	/**
-	 * @param enviarSMS the enviarSMS to set
+	 * @param enviarSMS
+	 *            the enviarSMS to set
 	 */
 	public void setEnviarSMS(char enviarSMS) {
 		this.enviarSMS = enviarSMS;
 	}
+
 	/**
 	 * @return the enviarMail
 	 */
 	public char getEnviarMail() {
 		return enviarMail;
 	}
+
 	/**
-	 * @param enviarMail the enviarMail to set
+	 * @param enviarMail
+	 *            the enviarMail to set
 	 */
 	public void setEnviarMail(char enviarMail) {
 		this.enviarMail = enviarMail;
 	}
+
 	/**
 	 * @return the listaDestinatarios
 	 */
 	public List<Destinatario> getListaDestinatarios() {
 		return listaDestinatarios;
 	}
+
 	/**
-	 * @param listaDestinatarios the listaDestinatarios to set
+	 * @param listaDestinatarios
+	 *            the listaDestinatarios to set
 	 */
 	public void setListaDestinatarios(List<Destinatario> listaDestinatarios) {
 		this.listaDestinatarios = listaDestinatarios;
 	}
+
 	/**
 	 * @return the serialversionuid
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -119,7 +134,10 @@ public class TipoLogEvento implements Serializable {
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -152,7 +170,10 @@ public class TipoLogEvento implements Serializable {
 			return false;
 		return true;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

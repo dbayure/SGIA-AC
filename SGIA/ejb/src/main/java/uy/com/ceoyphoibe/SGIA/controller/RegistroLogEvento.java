@@ -9,53 +9,47 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
-
-
 
 @Stateless
 public class RegistroLogEvento {
-	
+
 	@Inject
-	   private Logger log;
+	private Logger log;
 
-	   @Inject
-	   private EntityManager em;
+	@Inject
+	private EntityManager em;
 
-	   @Inject
-	   private Event<LogEvento> logEventoEventSrc;
+	@Inject
+	private Event<LogEvento> logEventoEventSrc;
 
-	   private LogEvento newLogEvento;
+	private LogEvento newLogEvento;
 
+	@Produces
+	@Named
+	public LogEvento getNewLogEvento() {
+		return newLogEvento;
+	}
 
-	   @Produces
-	   @Named
-	   public LogEvento getNewLogEvento() {
-	      return newLogEvento;
-	   }
-	   
-	   
-	   public void registro(LogEvento logEvento) throws Exception {
-	      em.persist(logEvento);
-	      logEventoEventSrc.fire(logEvento);
-	   }
-	   
-	   public void modificar(LogEvento logEvento) throws Exception {
-		   log.info("Modifico " + logEvento);
-		   em.merge(logEvento);
-	   }
-	   
-	   	   
-	   public void eliminar(Long id) throws Exception {
-		   log.info("Elimino " + id);
-		   LogEvento logEvento = em.find(LogEvento.class, id);
-		   em.remove(logEvento);
-		   logEventoEventSrc.fire(newLogEvento);
-	   }
+	public void registro(LogEvento logEvento) throws Exception {
+		em.persist(logEvento);
+		logEventoEventSrc.fire(logEvento);
+	}
 
-	   @PostConstruct
-	   public void initNewLogEvento() {
-		   newLogEvento = new LogEvento();
-	   }
+	public void modificar(LogEvento logEvento) throws Exception {
+		log.info("Modifico " + logEvento);
+		em.merge(logEvento);
+	}
+
+	public void eliminar(Long id) throws Exception {
+		log.info("Elimino " + id);
+		LogEvento logEvento = em.find(LogEvento.class, id);
+		em.remove(logEvento);
+		logEventoEventSrc.fire(newLogEvento);
+	}
+
+	@PostConstruct
+	public void initNewLogEvento() {
+		newLogEvento = new LogEvento();
+	}
 }

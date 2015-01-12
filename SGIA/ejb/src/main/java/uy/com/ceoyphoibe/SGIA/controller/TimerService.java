@@ -6,12 +6,11 @@ import javax.inject.Inject;
 
 @Singleton
 public class TimerService {
-    @Inject
-    RegistroPlaca registroPlaca;
-  
-    @Schedule(minute="*/5",hour="*", persistent=false)
-    public void doWork(){
-    	System.out.println("*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*LLAMA A ACTUALIZAR LOS ESTADOS ALERTA");
-        registroPlaca.obtenerEstadoAlertaPlacas();
-    }
+	@Inject
+	RegistroPlaca registroPlaca;
+
+	@Schedule(minute = "*/5", hour = "*", persistent = false)
+	public void doWork() {
+		registroPlaca.obtenerEstadoAlertaPlacas();
+	}
 }

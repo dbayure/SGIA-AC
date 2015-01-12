@@ -1,7 +1,6 @@
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
@@ -13,33 +12,33 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 
 @RequestScoped
 public class MensajeListProducer {
-	
-   @Inject
-   private EntityManager em;
 
-   private List<Mensaje> mensajes;
+	@Inject
+	private EntityManager em;
 
-   @Produces
-   @Named
-   public List<Mensaje> getMensajes() {
-      return mensajes;
-   }
+	private List<Mensaje> mensajes;
 
-   public void onListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Mensaje mensaje) {
-	      retrieveAllOrderedByName();
-   }
+	@Produces
+	@Named
+	public List<Mensaje> getMensajes() {
+		return mensajes;
+	}
 
-   @PostConstruct
-   public void retrieveAllOrderedByName() {
-      CriteriaBuilder cb = em.getCriteriaBuilder();
-      CriteriaQuery<Mensaje> criteria = cb.createQuery(Mensaje.class);
-      Root<Mensaje> mensaje = criteria.from(Mensaje.class);
-      criteria.select(mensaje).orderBy(cb.asc(mensaje.get("tipo")));
-      mensajes = em.createQuery(criteria).getResultList();
-   }
+	public void onListChanged(
+			@Observes(notifyObserver = Reception.IF_EXISTS) final Mensaje mensaje) {
+		retrieveAllOrderedByName();
+	}
+
+	@PostConstruct
+	public void retrieveAllOrderedByName() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Mensaje> criteria = cb.createQuery(Mensaje.class);
+		Root<Mensaje> mensaje = criteria.from(Mensaje.class);
+		criteria.select(mensaje).orderBy(cb.asc(mensaje.get("tipo")));
+		mensajes = em.createQuery(criteria).getResultList();
+	}
 }

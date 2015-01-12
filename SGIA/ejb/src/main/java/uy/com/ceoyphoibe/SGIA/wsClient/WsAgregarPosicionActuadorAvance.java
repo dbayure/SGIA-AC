@@ -1,4 +1,3 @@
-
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -7,11 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for wsAgregarPosicionActuadorAvance complex type.
+ * <p>
+ * Java class for wsAgregarPosicionActuadorAvance complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="wsAgregarPosicionActuadorAvance">
@@ -32,116 +33,100 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "wsAgregarPosicionActuadorAvance", propOrder = {
-    "idActuadorAvance",
-    "numeroPosicion",
-    "descripcion",
-    "valor"
-})
+		"idActuadorAvance", "numeroPosicion", "descripcion", "valor" })
 public class WsAgregarPosicionActuadorAvance {
 
-    @XmlElement(required = true)
-    protected BigInteger idActuadorAvance;
-    @XmlElement(required = true)
-    protected BigInteger numeroPosicion;
-    @XmlElement(required = true)
-    protected String descripcion;
-    @XmlElement(required = true)
-    protected BigInteger valor;
+	@XmlElement(required = true)
+	protected BigInteger idActuadorAvance;
+	@XmlElement(required = true)
+	protected BigInteger numeroPosicion;
+	@XmlElement(required = true)
+	protected String descripcion;
+	@XmlElement(required = true)
+	protected BigInteger valor;
 
-    /**
-     * Gets the value of the idActuadorAvance property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getIdActuadorAvance() {
-        return idActuadorAvance;
-    }
+	/**
+	 * Gets the value of the idActuadorAvance property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getIdActuadorAvance() {
+		return idActuadorAvance;
+	}
 
-    /**
-     * Sets the value of the idActuadorAvance property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setIdActuadorAvance(BigInteger value) {
-        this.idActuadorAvance = value;
-    }
+	/**
+	 * Sets the value of the idActuadorAvance property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setIdActuadorAvance(BigInteger value) {
+		this.idActuadorAvance = value;
+	}
 
-    /**
-     * Gets the value of the numeroPosicion property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getNumeroPosicion() {
-        return numeroPosicion;
-    }
+	/**
+	 * Gets the value of the numeroPosicion property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getNumeroPosicion() {
+		return numeroPosicion;
+	}
 
-    /**
-     * Sets the value of the numeroPosicion property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setNumeroPosicion(BigInteger value) {
-        this.numeroPosicion = value;
-    }
+	/**
+	 * Sets the value of the numeroPosicion property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setNumeroPosicion(BigInteger value) {
+		this.numeroPosicion = value;
+	}
 
-    /**
-     * Gets the value of the descripcion property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
+	/**
+	 * Gets the value of the descripcion property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    /**
-     * Sets the value of the descripcion property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescripcion(String value) {
-        this.descripcion = value;
-    }
+	/**
+	 * Sets the value of the descripcion property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDescripcion(String value) {
+		this.descripcion = value;
+	}
 
-    /**
-     * Gets the value of the valor property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
-     */
-    public BigInteger getValor() {
-        return valor;
-    }
+	/**
+	 * Gets the value of the valor property.
+	 * 
+	 * @return possible object is {@link BigInteger }
+	 * 
+	 */
+	public BigInteger getValor() {
+		return valor;
+	}
 
-    /**
-     * Sets the value of the valor property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
-     */
-    public void setValor(BigInteger value) {
-        this.valor = value;
-    }
+	/**
+	 * Sets the value of the valor property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigInteger }
+	 * 
+	 */
+	public void setValor(BigInteger value) {
+		this.valor = value;
+	}
 
 }
