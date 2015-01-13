@@ -6,8 +6,16 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
+	
+	
 
 		<h:form id="form" prependId="false">
+		
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
 
 			<p:dialog id="dlg" header="Lecturas" widgetVar="dlgGrafica"
 				modal="true" height="400">
@@ -40,7 +48,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
-					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					<h3>Descripción: #{placaBean.placa.descripcion}</h3>
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>

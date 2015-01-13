@@ -17,6 +17,13 @@
 		</style>
 
 		<h:form id="form" prependId="false">
+			
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
+			
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
@@ -34,7 +41,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
-					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					<h3>Descripción: #{placaBean.placa.descripcion}</h3>
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
@@ -95,7 +102,7 @@
 			</h:panelGrid>
 
 			<p:accordionPanel id="tablasActuadores" activeIndex="-1">
-				<p:tab title="Asoiar Actuadores...">
+				<p:tab title="Asociar Actuadores...">
 
 					<p:dataTable id="panel1" var="act" value="#{actuadores}"
 						selection="#{grupoActuadoresBean.actuadoresSelecconados}"

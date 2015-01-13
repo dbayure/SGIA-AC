@@ -9,6 +9,12 @@
 
 		<h:form id="form" prependId="false">
 
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
+			
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
@@ -26,7 +32,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
-					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					<h3>Descripción: #{placaBean.placa.descripcion}</h3>
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
@@ -71,7 +77,7 @@
 					value="#{tipoPlacaAuxiliarBean.tipoPlacaAuxiliar.nombre}"
 					label="nombre" required="true" />
 
-				<p:outputLabel for="desc" value="Descripcion:" />
+				<p:outputLabel for="desc" value="Descripción:" />
 				<p:inputText id="desc"
 					value="#{tipoPlacaAuxiliarBean.tipoPlacaAuxiliar.descripcion}"
 					label="descripcion" required="false" />
@@ -113,7 +119,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Descripcion" style="width:25%">
+				<p:column headerText="Descripción" style="width:25%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_tpa.descripcion}" />

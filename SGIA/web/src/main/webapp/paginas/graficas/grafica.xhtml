@@ -18,6 +18,13 @@
 
 		<h:form id="form" prependId="false">
 		
+			
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
+			
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}" action="#{placaBean.alertas}">
@@ -25,7 +32,7 @@
 					</p:commandLink>
 					<p><h3>Ip: #{placaBean.placa.ipPlaca}</h3></p> <p:spacer width="20" height="10" />
 					<p><h3>Serie: #{placaBean.placa.nroSerie}</h3></p> <p:spacer width="20" height="10" />
-					<p><h3>Descripcion: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
+					<p><h3>Descripción: #{placaBean.placa.descripcion}</h3></p> <p:spacer width="20" height="10" />
 					<p><h3>Estado Placa: #{placaBean.placa.estado}</h3></p> <p:spacer width="20" height="10" />
 					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}" update="form" icon="ui-icon-gear"/>
 					

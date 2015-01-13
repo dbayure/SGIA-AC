@@ -26,7 +26,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
-					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					<h3>Descripción: #{placaBean.placa.descripcion}</h3>
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
@@ -67,7 +67,7 @@
 				<p:inputText id="nombre" value="#{rolBean.rolTemp.rol}"
 					label="nombre" required="true" />
 
-				<p:outputLabel for="desc" value="Descripcion:" />
+				<p:outputLabel for="desc" value="Descripción:" />
 				<p:inputText id="desc" value="#{rolBean.rolTemp.descripcion}"
 					label="descripcion" required="false" />
 
@@ -103,7 +103,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Descripcion" style="width:25%">
+				<p:column headerText="Descripción" style="width:25%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_rol.descripcion}" />

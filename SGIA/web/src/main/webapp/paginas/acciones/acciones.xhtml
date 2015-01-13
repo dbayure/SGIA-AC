@@ -8,6 +8,13 @@
 	<ui:define name="content">
 
 		<h:form id="form" prependId="false">
+			
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
+			
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
@@ -25,7 +32,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
-					<h3>Descripcion: #{placaBean.placa.descripcion}</h3>
+					<h3>Descripción: #{placaBean.placa.descripcion}</h3>
 					</p>
 					<p:spacer width="20" height="10" />
 					<p>
@@ -155,7 +162,9 @@
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 				paginator="true" rows="15" style="margin-bottom:20px">
 				<p:column headerText="Fecha" style="width:20%">
-					<h:outputText value="#{_act.fechaHora}" />
+					<h:outputText value="#{_act.fechaHora}" >
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Id Dispositivo" style="width:20%">

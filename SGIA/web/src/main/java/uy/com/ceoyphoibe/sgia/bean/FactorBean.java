@@ -321,7 +321,7 @@ public class FactorBean {
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		}
-		return Float.toString(rl.getLectura());
+		return String.format("%.2f", rl.getLectura());
 
 	}
 
