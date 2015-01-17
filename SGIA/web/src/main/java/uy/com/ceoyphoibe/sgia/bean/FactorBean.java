@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -11,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.chart.Axis;
@@ -18,8 +20,10 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
 import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
@@ -40,6 +44,9 @@ public class FactorBean {
 	private RegistroSensor registroSensor;
 	@Inject
 	private LecturaFactorListProducer lecturasFactorList;
+	@Inject
+	private RegistroMensaje registroMensaje;
+	
 
 	private List<Sensor> sensores = new ArrayList<Sensor>();
 	private Factor factorTemp = new Factor();
@@ -178,78 +185,98 @@ public class FactorBean {
 	}
 
 	public void registrar() {
-		factorTemp.setActivoSistema('S');
-		try {
-			factorTemp.setPlaca(placaBean.getPlaca());
-			if (editando) {
-				Mensaje mensaje = registroFactor.modificar(factorTemp);
-				if (mensaje.getTipo().equals("Informativo")) {
-					FacesMessage msg = new FacesMessage(
-							FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-				} else {
-					FacesMessage msg = new FacesMessage(
-							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-				}
-			} else
-				factorTemp = registroFactor.registroPlaca(factorTemp);
-
-			for (Sensor s : sensores) {
-				s.setFactor(null);
-				registroSensor.modificar(s);
-			}
-			if (sensoresSelecconados.size() > 0) {
-				for (Sensor s : sensoresSelecconados) {
-					s.setFactor(factorTemp);
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			factorTemp.setActivoSistema('S');
+			try {
+				factorTemp.setPlaca(placaBean.getPlaca());
+				if (editando) {
+					Mensaje mensaje = registroFactor.modificar(factorTemp);
+					if (mensaje.getTipo().equals("Informativo")) {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					}
+				} else
+					factorTemp = registroFactor.registroPlaca(factorTemp);
+	
+				for (Sensor s : sensores) {
+					s.setFactor(null);
 					registroSensor.modificar(s);
 				}
-				factorTemp.setSensores(sensoresSelecconados);
-				registroFactor.registro(factorTemp);
-				factorTemp = new Factor();
-				sensoresSelecconados = new ArrayList<Sensor>();
-				if (!editando) {
-					FacesMessage msg = new FacesMessage(
-							FacesMessage.SEVERITY_INFO, "Se registró ",
-							"con éxito!");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
+				if (sensoresSelecconados.size() > 0) {
+					for (Sensor s : sensoresSelecconados) {
+						s.setFactor(factorTemp);
+						registroSensor.modificar(s);
+					}
+					factorTemp.setSensores(sensoresSelecconados);
+					registroFactor.registro(factorTemp);
+					factorTemp = new Factor();
+					sensoresSelecconados = new ArrayList<Sensor>();
+					if (!editando) {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_INFO, "Se registró ",
+								"con éxito!");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						editando = false;
+						nombreBoton = "Registro";
+					}
 				} else {
-					editando = false;
-					nombreBoton = "Registro";
+					registroFactor.registro(factorTemp);
+					factorTemp = new Factor();
+					if (!editando) {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_INFO, "Se registró ",
+								"con éxito!");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						editando = false;
+						nombreBoton = "Registro";
+					}
 				}
-			} else {
-				registroFactor.registro(factorTemp);
-				factorTemp = new Factor();
-				if (!editando) {
-					FacesMessage msg = new FacesMessage(
-							FacesMessage.SEVERITY_INFO, "Se registró ",
-							"con éxito!");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-				} else {
-					editando = false;
-					nombreBoton = "Registro";
-				}
+	
 			}
-
+	
+			catch (Exception e) {
+				e.printStackTrace();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Error al registrar ", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
 		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEditar(long id) {
-		try {
-			factorTemp = registroFactor.obtenerFactorPorId(id);
-			sensoresSelecconados = factorTemp.getSensores();
-			sensores = factorTemp.getSensores();
-			editando = true;
-			nombreBoton = "Actualizar";
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				factorTemp = registroFactor.obtenerFactorPorId(id);
+				sensoresSelecconados = factorTemp.getSensores();
+				sensores = factorTemp.getSensores();
+				editando = true;
+				nombreBoton = "Actualizar";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
@@ -270,32 +297,51 @@ public class FactorBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			Factor factorAEliminar = registroFactor.obtenerFactorPorId(id);
-			sensoresSelecconados = factorAEliminar.getSensores();
-			for (Sensor s : sensoresSelecconados) {
-				s.setFactor(null);
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			if (placaBean.getPlaca().getEstado() == 'C')
+			{
+				try {
+					Factor factorAEliminar = registroFactor.obtenerFactorPorId(id);
+					sensoresSelecconados = factorAEliminar.getSensores();
+					for (Sensor s : sensoresSelecconados) {
+						s.setFactor(null);
+					}
+		
+					factorAEliminar.setSensores(sensoresSelecconados);
+					registroFactor.modificar(factorAEliminar);
+					Mensaje mensaje = registroFactor.eliminar(id);
+					if (mensaje.getTipo().equals("Informativo")) {
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+								mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					FacesMessage msg = new FacesMessage("Error al eliminar",
+							id.toString());
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
 			}
-
-			factorAEliminar.setSensores(sensoresSelecconados);
-			registroFactor.modificar(factorAEliminar);
-			Mensaje mensaje = registroFactor.eliminar(id);
-			if (mensaje.getTipo().equals("Informativo")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+			else
+			{
+				Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						mensaje.getTexto(), "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	public void getSensoresId(long id) {

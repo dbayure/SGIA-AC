@@ -1,3 +1,6 @@
+/**
+ * La clase Sensor representa a todos aquellos dispositivos capaces de obtener lecturas del ambiente para determinado factor.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -16,9 +19,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "factor", "placa" })
 public class Sensor extends Dispositivo implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2766478052400319078L;
 
 	private String formulaConversion;
@@ -29,18 +29,32 @@ public class Sensor extends Dispositivo implements Serializable {
 	@JoinColumn(name = "factor_id", referencedColumnName = "idFactor")
 	private Factor factor;
 
+	/**
+	 * @return la fórmula de conversión del valor bruto obtenido al valor final interpretado.
+	 */
 	public String getFormulaConversion() {
 		return formulaConversion;
 	}
 
+	/**
+	 * @param formulaConversion
+	 * 						La fórmula de conversión a asignar.
+	 */
 	public void setFormulaConversion(String formulaConversion) {
 		this.formulaConversion = formulaConversion;
 	}
 
+	/**
+	 * @return el tipo de puerto
+	 */
 	public TipoPuerto getTipoPuerto() {
 		return tipoPuerto;
 	}
 
+	/**
+	 * @param tipoPuerto 
+	 * 					El tipo de puerto a asignar.
+	 */
 	public void setTipoPuerto(TipoPuerto tipoPuerto) {
 		this.tipoPuerto = tipoPuerto;
 	}
@@ -50,7 +64,7 @@ public class Sensor extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @return the factor
+	 * @return el factor al que pertenece el sensor
 	 */
 	public Factor getFactor() {
 		return factor;
@@ -58,7 +72,7 @@ public class Sensor extends Dispositivo implements Serializable {
 
 	/**
 	 * @param factor
-	 *            the factor to set
+	 *            el factor a asignar.
 	 */
 	public void setFactor(Factor factor) {
 		this.factor = factor;

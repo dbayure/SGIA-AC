@@ -3,13 +3,17 @@ package uy.com.ceoyphoibe.sgia.bean;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroNivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
@@ -28,6 +32,9 @@ public class NivelSeveridadBean {
 
 	@Inject
 	private RegistroNivelSeveridad registroNivelSeveridad;
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	private NivelSeveridad nivelSeveridadSeleccionado = new NivelSeveridad();
 
@@ -113,102 +120,150 @@ public class NivelSeveridadBean {
 	}
 
 	public void agregarFilaPerfil() {
-		filaPerfilTemp.setGrupoActuadores(grupoTemp);
-		if (grupoTemp.getDeAvance().equals("S")) {
-			filaPerfilTemp.setEstado(Integer.toString(posicionTemp));
-		} else {
-			if (estadoTemp)
-				filaPerfilTemp.setEstado("E");
-			else
-				filaPerfilTemp.setEstado("A");
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			filaPerfilTemp.setGrupoActuadores(grupoTemp);
+			if (grupoTemp.getDeAvance().equals("S")) {
+				filaPerfilTemp.setEstado(Integer.toString(posicionTemp));
+			} else {
+				if (estadoTemp)
+					filaPerfilTemp.setEstado("E");
+				else
+					filaPerfilTemp.setEstado("A");
+			}
+			perfilActivacion.add(filaPerfilTemp);
+			filaPerfilTemp = new FilaPerfilActivacion();
 		}
-		perfilActivacion.add(filaPerfilTemp);
-		filaPerfilTemp = new FilaPerfilActivacion();
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	public void eliminarFilaPerfil(FilaPerfilActivacion fila) {
-
-		perfilActivacion.remove(fila);
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			perfilActivacion.remove(fila);
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	public void registrar() {
-		try {
-
-			nivelSeveridadSeleccionado.setActivoSistema("S");
-			nivelSeveridadSeleccionado.setPerfilActivacion(perfilActivacion);
-			nivelSeveridadSeleccionado.setFactor(factorTemp);
-			nivelSeveridadSeleccionado.setPlaca(placaBean.getPlaca());
-			if (!editando) {
-				registroNivelSeveridad.registro(nivelSeveridadSeleccionado);
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Se registró ", "con éxito!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				editando = false;
-				Mensaje mensaje = registroNivelSeveridad
-						.modificar(nivelSeveridadSeleccionado);
-				nombreIcono = "/resources/gfx/apply.png";
-				if (mensaje.getTipo().equals("Informativo")) {
-					FacesMessage msg = new FacesMessage(
-							FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				nivelSeveridadSeleccionado.setActivoSistema("S");
+				nivelSeveridadSeleccionado.setPerfilActivacion(perfilActivacion);
+				nivelSeveridadSeleccionado.setFactor(factorTemp);
+				nivelSeveridadSeleccionado.setPlaca(placaBean.getPlaca());
+				if (!editando) {
+					registroNivelSeveridad.registro(nivelSeveridadSeleccionado);
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Se registró ", "con éxito!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				} else {
-					FacesMessage msg = new FacesMessage(
-							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
+					editando = false;
+					Mensaje mensaje = registroNivelSeveridad
+							.modificar(nivelSeveridadSeleccionado);
+					nombreIcono = "/resources/gfx/apply.png";
+					if (mensaje.getTipo().equals("Informativo")) {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_INFO, mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						FacesMessage msg = new FacesMessage(
+								FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					}
 				}
+				nivelSeveridadSeleccionado = new NivelSeveridad();
+				perfilActivacion = new HashSet<FilaPerfilActivacion>();
+				grupoTemp = new GrupoActuadores();
+				factorTemp = new Factor();
+				posicionesDisponibles = new HashSet<Posicion>();
+	
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						e.getMessage(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-			nivelSeveridadSeleccionado = new NivelSeveridad();
-			perfilActivacion = new HashSet<FilaPerfilActivacion>();
-			grupoTemp = new GrupoActuadores();
-			factorTemp = new Factor();
-			posicionesDisponibles = new HashSet<Posicion>();
-
-		} catch (Exception e) {
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEdit(Long id) {
-		NivelSeveridad nivelSeveridad = registroNivelSeveridad
-				.obtenerNivelSeveridadPorId(id);
-		try {
-			nivelSeveridadSeleccionado = new NivelSeveridad();
-			perfilActivacion = new HashSet<FilaPerfilActivacion>();
-			grupoTemp = new GrupoActuadores();
-			posicionesDisponibles = new HashSet<Posicion>();
-			nivelSeveridadSeleccionado = nivelSeveridad;
-			perfilActivacion = nivelSeveridad.getPerfilActivacion();
-			factorTemp = nivelSeveridad.getFactor();
-			editando = true;
-			nombreIcono = "/resources/gfx/Recargar.png";
-		} catch (Exception e) {
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			NivelSeveridad nivelSeveridad = registroNivelSeveridad
+					.obtenerNivelSeveridadPorId(id);
+			try {
+				nivelSeveridadSeleccionado = new NivelSeveridad();
+				perfilActivacion = new HashSet<FilaPerfilActivacion>();
+				grupoTemp = new GrupoActuadores();
+				posicionesDisponibles = new HashSet<Posicion>();
+				nivelSeveridadSeleccionado = nivelSeveridad;
+				perfilActivacion = nivelSeveridad.getPerfilActivacion();
+				factorTemp = nivelSeveridad.getFactor();
+				editando = true;
+				nombreIcono = "/resources/gfx/Recargar.png";
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						e.getMessage(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEditFila(RowEditEvent event) {
-		FilaPerfilActivacion fila = ((FilaPerfilActivacion) event.getObject());
-		try {
-			Iterator<FilaPerfilActivacion> itPerfil = perfilActivacion
-					.iterator();
-			filaPerfilTemp = itPerfil.next();
-			while (filaPerfilTemp.getGrupoActuadores().getId() != fila
-					.getGrupoActuadores().getId())
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			FilaPerfilActivacion fila = ((FilaPerfilActivacion) event.getObject());
+			try {
+				Iterator<FilaPerfilActivacion> itPerfil = perfilActivacion
+						.iterator();
 				filaPerfilTemp = itPerfil.next();
-			filaPerfilTemp.setEstado(fila.getEstado());
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se modificó ", fila.getGrupoActuadores().getNombre());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", fila.getGrupoActuadores()
-							.getNombre());
+				while (filaPerfilTemp.getGrupoActuadores().getId() != fila
+						.getGrupoActuadores().getId())
+					filaPerfilTemp = itPerfil.next();
+				filaPerfilTemp.setEstado(fila.getEstado());
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se modificó ", fila.getGrupoActuadores().getNombre());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				e.printStackTrace();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al modificar ", fila.getGrupoActuadores()
+								.getNombre());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -228,51 +283,69 @@ public class NivelSeveridadBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			Mensaje mensaje = registroNivelSeveridad.eliminar(id);
-			if (mensaje.getTipo().equals("Informativo")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				Mensaje mensaje = registroNivelSeveridad.eliminar(id);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	public void clonar(Long id) {
-		try {
-			nivelSeveridadSeleccionado = new NivelSeveridad();
-			NivelSeveridad nivelTemp = registroNivelSeveridad
-					.obtenerNivelSeveridadPorId(id);
-			nivelSeveridadSeleccionado.setActivoSistema("S");
-			factorTemp = nivelTemp.getFactor();
-			nivelSeveridadSeleccionado.setPrioridad(nivelTemp.getPrioridad());
-			perfilActivacion = new HashSet<FilaPerfilActivacion>();
-			Iterator<FilaPerfilActivacion> perfiltemp = nivelTemp
-					.getPerfilActivacion().iterator();
-			while (perfiltemp.hasNext()) {
-				FilaPerfilActivacion filaTemp = perfiltemp.next();
-				filaPerfilTemp = new FilaPerfilActivacion();
-				filaPerfilTemp
-						.setGrupoActuadores(filaTemp.getGrupoActuadores());
-				filaPerfilTemp.setEstado(filaTemp.getEstado());
-				perfilActivacion.add(filaPerfilTemp);
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				nivelSeveridadSeleccionado = new NivelSeveridad();
+				NivelSeveridad nivelTemp = registroNivelSeveridad
+						.obtenerNivelSeveridadPorId(id);
+				nivelSeveridadSeleccionado.setActivoSistema("S");
+				factorTemp = nivelTemp.getFactor();
+				nivelSeveridadSeleccionado.setPrioridad(nivelTemp.getPrioridad());
+				perfilActivacion = new HashSet<FilaPerfilActivacion>();
+				Iterator<FilaPerfilActivacion> perfiltemp = nivelTemp
+						.getPerfilActivacion().iterator();
+				while (perfiltemp.hasNext()) {
+					FilaPerfilActivacion filaTemp = perfiltemp.next();
+					filaPerfilTemp = new FilaPerfilActivacion();
+					filaPerfilTemp
+							.setGrupoActuadores(filaTemp.getGrupoActuadores());
+					filaPerfilTemp.setEstado(filaTemp.getEstado());
+					perfilActivacion.add(filaPerfilTemp);
+				}
+	
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al clonar",
+						id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al clonar",
-					id.toString());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	/**

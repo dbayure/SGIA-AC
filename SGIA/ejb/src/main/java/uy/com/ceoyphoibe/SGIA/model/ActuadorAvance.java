@@ -1,3 +1,6 @@
+/**
+ * La clase Actuador Avance representa a todos aquellos dispositivos sobre los que se puede actuar para cambiar su posición.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -46,7 +49,7 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 	}
 
 	/**
-	 * @return the posicion
+	 * @return posicion
 	 */
 	public int getPosicion() {
 		return posicion;
@@ -54,14 +57,14 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 
 	/**
 	 * @param posicion
-	 *            the posicion to set
+	 *            posicion a asignar
 	 */
 	public void setPosicion(int posicion) {
 		this.posicion = posicion;
 	}
 
 	/**
-	 * @return the numeroPuertoRetroceso
+	 * @return numeroPuertoRetroceso
 	 */
 	public int getNumeroPuertoRetroceso() {
 		return numeroPuertoRetroceso;
@@ -69,14 +72,14 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 
 	/**
 	 * @param numeroPuertoRetroceso
-	 *            the numeroPuertoRetroceso to set
+	 *            El número de puerto de retroceso a asignar
 	 */
 	public void setNumeroPuertoRetroceso(int numeroPuertoRetroceso) {
 		this.numeroPuertoRetroceso = numeroPuertoRetroceso;
 	}
 
 	/**
-	 * @return the tipoActuador
+	 * @return tipoActuador
 	 */
 	public TipoActuador getTipoActuador() {
 		return tipoActuador;
@@ -84,14 +87,14 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 
 	/**
 	 * @param tipoActuador
-	 *            the tipoActuador to set
+	 *            El TipoActuador a asignar
 	 */
 	public void setTipoActuador(TipoActuador tipoActuador) {
 		this.tipoActuador = tipoActuador;
 	}
 
 	/**
-	 * @return the tipoPuerto
+	 * @return tipoPuerto
 	 */
 	public TipoPuerto getTipoPuerto() {
 		return tipoPuerto;
@@ -99,21 +102,21 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 
 	/**
 	 * @param tipoPuerto
-	 *            the tipoPuerto to set
+	 *            El TipoPuerto a asignar
 	 */
 	public void setTipoPuerto(TipoPuerto tipoPuerto) {
 		this.tipoPuerto = tipoPuerto;
 	}
 
 	/**
-	 * @return the listaPosiciones
+	 * @return listaPosiciones
 	 */
 	public Set<Posicion> getListaPosiciones() {
 		return listaPosiciones;
 	}
 
 	/**
-	 * @return the tiempoEntrePosiciones
+	 * @return tiempoEntrePosiciones
 	 */
 	public int getTiempoEntrePosiciones() {
 		return tiempoEntrePosiciones;
@@ -121,7 +124,7 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 
 	/**
 	 * @param tiempoEntrePosiciones
-	 *            the tiempoEntrePosiciones to set
+	 *            El tiempo entre posiciones a asignar
 	 */
 	public void setTiempoEntrePosiciones(int tiempoEntrePosiciones) {
 		this.tiempoEntrePosiciones = tiempoEntrePosiciones;
@@ -129,32 +132,33 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 
 	/**
 	 * @param listaPosiciones
-	 *            the listaPosiciones to set
+	 *            La lista de posiciones a asignar
 	 */
 	public void setListaPosiciones(Set<Posicion> listaPosiciones) {
 		this.listaPosiciones = listaPosiciones;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/**
+	 * @return grupoActuadores
+	 */
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
 	}
 
+	/**
+	 * @param grupoActuadores
+	 * 					El GrupoActuadores a asignar			
+	 */
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -169,11 +173,7 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -202,11 +202,7 @@ public class ActuadorAvance extends Dispositivo implements Serializable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+	
 	@Override
 	public String toString() {
 		return "ActuadorAvance [posicion=" + posicion

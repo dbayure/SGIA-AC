@@ -1,3 +1,6 @@
+/**
+ * La clase PlacaNoSeConectaExeption se utiliza para el disparo de excepciones cuando no es posible establecer comunicación con la placa controladora. 
+ */
 package uy.com.ceoyphoibe.SGIA.exception;
 
 import java.io.Serializable;

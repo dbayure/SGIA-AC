@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Dispositivo
+ */
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import javax.ejb.Stateless;

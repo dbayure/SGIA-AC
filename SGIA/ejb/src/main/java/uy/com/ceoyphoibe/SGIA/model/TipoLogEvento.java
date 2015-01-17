@@ -1,3 +1,7 @@
+/**
+ * La clase TipoLogEvento representa a los tipos de log que pueden generarse.
+ * Sobre estos se define a que destinatarios notificar y mediante que medios.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -33,7 +37,7 @@ public class TipoLogEvento implements Serializable {
 	}
 
 	/**
-	 * @return the idTipoLogEvento
+	 * @return el identificador del tipo de log de evento
 	 */
 	public Long getIdTipoLogEvento() {
 		return idTipoLogEvento;
@@ -41,14 +45,14 @@ public class TipoLogEvento implements Serializable {
 
 	/**
 	 * @param idTipoLogEvento
-	 *            the idTipoLogEvento to set
+	 *            el identificador a asignar
 	 */
 	public void setIdTipoLogEvento(Long idTipoLogEvento) {
 		this.idTipoLogEvento = idTipoLogEvento;
 	}
 
 	/**
-	 * @return the nombre
+	 * @return el nombre del tipo de log de evento
 	 */
 	public String getNombre() {
 		return nombre;
@@ -56,14 +60,14 @@ public class TipoLogEvento implements Serializable {
 
 	/**
 	 * @param nombre
-	 *            the nombre to set
+	 *            el nombre a asignar
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 	/**
-	 * @return the enviarSMS
+	 * @return el indicador si ante este tipo de log de evento se debe notificar mediante el envío de SMS
 	 */
 	public char getEnviarSMS() {
 		return enviarSMS;
@@ -71,14 +75,14 @@ public class TipoLogEvento implements Serializable {
 
 	/**
 	 * @param enviarSMS
-	 *            the enviarSMS to set
+	 *            el indicador si se debe enviar SMS a asignar
 	 */
 	public void setEnviarSMS(char enviarSMS) {
 		this.enviarSMS = enviarSMS;
 	}
 
 	/**
-	 * @return the enviarMail
+	 * @return the el indicador si ante este tipo de log de evento se debe notificar mediante el envío de mail
 	 */
 	public char getEnviarMail() {
 		return enviarMail;
@@ -86,14 +90,14 @@ public class TipoLogEvento implements Serializable {
 
 	/**
 	 * @param enviarMail
-	 *            the enviarMail to set
+	 *            el indicador si se debe enviar mail a asignar
 	 */
 	public void setEnviarMail(char enviarMail) {
 		this.enviarMail = enviarMail;
 	}
 
 	/**
-	 * @return the listaDestinatarios
+	 * @return la lista de destinatarios a notificar ante el cumplimiento del tipo de log de eventos
 	 */
 	public List<Destinatario> getListaDestinatarios() {
 		return listaDestinatarios;
@@ -101,24 +105,18 @@ public class TipoLogEvento implements Serializable {
 
 	/**
 	 * @param listaDestinatarios
-	 *            the listaDestinatarios to set
+	 *            la lista de destinatarios a asignar
 	 */
 	public void setListaDestinatarios(List<Destinatario> listaDestinatarios) {
 		this.listaDestinatarios = listaDestinatarios;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -135,11 +133,7 @@ public class TipoLogEvento implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -171,11 +165,7 @@ public class TipoLogEvento implements Serializable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "TipoLogEvento [idTipoLogEvento=" + idTipoLogEvento

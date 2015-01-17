@@ -1,3 +1,6 @@
+/**
+ * La clase NivelSeveridad representa a un conjunto de directivas definidas para cumplimiento automático en la placa controladora ante el cumplimiento de condiciones también definidas en este objeto.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -21,9 +24,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "placa" })
 public class NivelSeveridad implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6092319973077241634L;
 
 	@Id
@@ -52,74 +53,137 @@ public class NivelSeveridad implements Serializable {
 		perfilActivacion = new HashSet<FilaPerfilActivacion>();
 	}
 
+	/**
+	 * @return el identificador del nivel de severidad.
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 			El identificador a asignar.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return el nombre del nivel de severidad.
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * @param nombre
+	 * 				El nombre a asignar.
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return la prioridad de aplicación del nivel de severidad.
+	 */
 	public int getPrioridad() {
 		return prioridad;
 	}
 
+	/**
+	 * @param prioridad
+	 * 				La prioridad a asignar.
+	 */
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
 	}
 
+	/**
+	 * @return el límite inferior definido para cumplimiento del nivel de severidad.
+	 */
 	public int getRangoMin() {
 		return rangoMin;
 	}
 
+	/**
+	 * @param rangoMin
+	 * 				El límite inferior a asignar para cumplimiento del nivel de severidad.
+	 */
 	public void setRangoMin(int rangoMin) {
 		this.rangoMin = rangoMin;
 	}
 
+	/**
+	 * @return el límite superior definido para cumplimiento del nivel de severidad.
+	 */
 	public int getRangoMax() {
 		return rangoMax;
 	}
 
+	/**
+	 * @param rangoMax
+	 * 				El límite superior a asignar para cumplimiento del nivel de severidad.
+	 */
 	public void setRangoMax(int rangoMax) {
 		this.rangoMax = rangoMax;
 	}
 
+	/**
+	 * @return el factor sobre el que se define el nivel de severidad.
+	 */
 	public Factor getFactor() {
 		return factor;
 	}
 
+	/**
+	 * @param factor
+	 * 			El factor a asignar.
+	 */
 	public void setFactor(Factor factor) {
 		this.factor = factor;
 	}
 
+	/**
+	 * @return el conjunto de filas del perfil de activación que lo definen.
+	 */
 	public Set<FilaPerfilActivacion> getPerfilActivacion() {
 		return perfilActivacion;
 	}
 
+	/**
+	 * @param perfilActivacion
+	 * 					El conjunto de filas del perfil de activación a asignar.
+	 */
 	public void setPerfilActivacion(Set<FilaPerfilActivacion> perfilActivacion) {
 		this.perfilActivacion = perfilActivacion;
 	}
 
+	/**
+	 * @return la placa sobre la que se define el perfil de activación
+	 */
 	public Placa getPlaca() {
 		return placa;
 	}
 
+	/**
+	 * @param placa
+	 * 				La placa a asignar.
+	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}
 
+	/**
+	 * @return el indicador si el nivel de severidad está activo en el sistema.
+	 */
 	public String getActivoSistema() {
 		return activoSistema;
 	}
 
+	/**
+	 * @param activoSistema
+	 * 					El indicador si está activo en el sistema a asignar.
+	 */
 	public void setActivoSistema(String activoSistema) {
 		this.activoSistema = activoSistema;
 	}

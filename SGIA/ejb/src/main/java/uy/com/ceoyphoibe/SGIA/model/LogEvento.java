@@ -1,3 +1,6 @@
+/**
+ * La clase LogEvento representa a un elemento de log generado ante un evento disparado en la placa controladora.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -40,50 +43,93 @@ public class LogEvento implements Serializable {
 	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
 
+	
+	/**
+	 * @return el identificador del log de evento.
+	 */
 	public Long getIdLogEvento() {
 		return idLogEvento;
 	}
 
+	/**
+	 * @param idLogEvento
+	 * 					El identificador a asignar.
+	 */
 	public void setIdLogEvento(Long idLogEvento) {
 		this.idLogEvento = idLogEvento;
 	}
 
+	/**
+	 * @return la fecha y hora en la que se genera el log de eventos.
+	 */
 	public Timestamp getFecha() {
 		return fecha;
 	}
 
+	/**
+	 * @param fecha
+	 * 				La fecha y hora a asignar.
+	 */
 	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 
+	/**
+	 * @return el tipo de log de evento.
+	 */
 	public TipoLogEvento getTipoLogEvento() {
 		return tipoLogEvento;
 	}
 
+	/**
+	 * @param tipoLogEvento
+	 * 					El tipo de log de evento a asignar.
+	 */
 	public void setTipoLogEvento(TipoLogEvento tipoLogEvento) {
 		this.tipoLogEvento = tipoLogEvento;
 	}
 
+	/**
+	 * @return el mensaje asociado al log de evento.
+	 */
 	public Mensaje getMensaje() {
 		return mensaje;
 	}
 
+	/**
+	 * @param mensaje
+	 * 				El mensaje a asignar.
+	 */
 	public void setMensaje(Mensaje mensaje) {
 		this.mensaje = mensaje;
 	}
 
+	/**
+	 * @return el dispositivo sobre el que se genera el log de evento.
+	 */
 	public Dispositivo getDispositivo() {
 		return dispositivo;
 	}
 
+	/**
+	 * @param dispositivo
+	 * 					El dispositivo a asignar.
+	 */
 	public void setDispositivo(Dispositivo dispositivo) {
 		this.dispositivo = dispositivo;
 	}
 
+	/**
+	 * @return la placa sobre la que se generó el log de evento.
+	 */
 	public Placa getPlaca() {
 		return placa;
 	}
 
+	/**
+	 * @param placa
+	 * 				La placa a asignar.
+	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}

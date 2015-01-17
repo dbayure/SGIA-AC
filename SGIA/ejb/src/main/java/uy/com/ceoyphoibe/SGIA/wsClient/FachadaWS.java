@@ -1,3 +1,7 @@
+/**
+ * La clase FachadaWS permite conectar con los servicios web publicados en las placas controladoras e invocar los servicios publicados en esta.
+ * Actúa como intermediario para el pasaje y la transformación de datos entre los métodos del sistema y los servicios web invocados.
+ */
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,8 +10,12 @@ import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import javax.inject.Inject;
+
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
@@ -28,6 +36,9 @@ import uy.com.ceoyphoibe.SGIA.util.Herramientas;
 
 public class FachadaWS {
 
+	@Inject
+	RegistroMensaje registroMensaje;
+	
 	public FachadaWS() {
 
 	}
@@ -79,7 +90,7 @@ public class FachadaWS {
 		boolean ok = false;
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 		BigInteger idFactor = null;
 		if (sensor.getFactor() != null)
 			idFactor = BigInteger.valueOf(sensor.getFactor().getIdFactor());
@@ -93,7 +104,7 @@ public class FachadaWS {
 	public Factor registroFactor(Factor factor) {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger valorMin = BigInteger.valueOf(factor.getValorMin());
 		BigInteger valorMax = BigInteger.valueOf(factor.getValorMax());
@@ -110,7 +121,7 @@ public class FachadaWS {
 	public Sensor registroSensor(Sensor sensor) {
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger nroPuerto = BigInteger.valueOf(sensor.getNumeroPuerto());
 		BigInteger idTipoPuerto = BigInteger.valueOf(sensor.getTipoPuerto()
@@ -133,7 +144,7 @@ public class FachadaWS {
 
 	public Actuador registroActuador(Actuador actuador) {
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
-				.getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 
 		BigInteger nroPuerto = BigInteger.valueOf(actuador.getNumeroPuerto());
 		BigInteger idTipoPuerto = BigInteger.valueOf(actuador.getTipoPuerto()
@@ -158,7 +169,7 @@ public class FachadaWS {
 
 	public ActuadorAvance registroActuadorAvance(ActuadorAvance actuadorAvance) {
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
-				.getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 
 		BigInteger nroPuerto = BigInteger.valueOf(actuadorAvance
 				.getNumeroPuerto());
@@ -213,7 +224,7 @@ public class FachadaWS {
 
 	public GrupoActuadores registroGrupoActuadores(GrupoActuadores grupo) {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
-				grupo.getPlaca().getPuetroPlaca());
+				grupo.getPlaca().getPuertoPlaca());
 
 		ResultadoCreacionWS resultadoWS = clienteWS.wsCrearGrupoActuadores(
 				grupo.getNombre(), grupo.getDeAvance());
@@ -226,7 +237,7 @@ public class FachadaWS {
 	public boolean asociarActuadorGrupoActuadores(Actuador actuador) {
 		boolean ok = false;
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
-				.getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 		BigInteger idGrupoActuadores = null;
 		if (actuador.getGrupoActuadores() != null)
 			idGrupoActuadores = BigInteger.valueOf(actuador
@@ -242,7 +253,7 @@ public class FachadaWS {
 			ActuadorAvance actuadorAvance) {
 		boolean ok = false;
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
-				.getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 		BigInteger idGrupoActuadores = null;
 		if (actuadorAvance.getGrupoActuadores() != null)
 			idGrupoActuadores = BigInteger.valueOf(actuadorAvance
@@ -256,7 +267,7 @@ public class FachadaWS {
 
 	public TipoActuador registroTipoActuador(TipoActuador tipoActuador) {
 		Comunicacion clienteWS = iniciarConexion(tipoActuador.getPlaca()
-				.getIpPlaca(), tipoActuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), tipoActuador.getPlaca().getPuertoPlaca());
 
 		ResultadoCreacionWS resultadoWS = clienteWS
 				.wsCrearTipoActuador(tipoActuador.getCategoria());
@@ -268,7 +279,7 @@ public class FachadaWS {
 
 	public Destinatario registroDestinatario(Destinatario destinatario) {
 		Comunicacion clienteWS = iniciarConexion(destinatario.getPlaca()
-				.getIpPlaca(), destinatario.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), destinatario.getPlaca().getPuertoPlaca());
 		BigInteger horaMin = BigInteger.valueOf(destinatario.getHoraMin());
 		BigInteger horaMax = BigInteger.valueOf(destinatario.getHoraMax());
 		ResultadoCreacionWS resultadoWS = clienteWS.wsCrearDestinatario(
@@ -282,7 +293,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarDestinatario(Destinatario destinatario) {
 		Comunicacion clienteWS = iniciarConexion(destinatario.getPlaca()
-				.getIpPlaca(), destinatario.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), destinatario.getPlaca().getPuertoPlaca());
 		BigInteger horaMin = BigInteger.valueOf(destinatario.getHoraMin());
 		BigInteger horaMax = BigInteger.valueOf(destinatario.getHoraMax());
 		BigInteger idDestinatario = BigInteger.valueOf(destinatario
@@ -292,6 +303,7 @@ public class FachadaWS {
 						destinatario.getCelular(), destinatario.getMail(),
 						horaMin, horaMax, idDestinatario);
 		Mensaje mensaje = new Mensaje();
+	
 		mensaje.setId(resultadoWS.getIdMensaje().longValue());
 		mensaje.setTexto(resultadoWS.getTexto());
 		mensaje.setTipo(resultadoWS.getTipo());
@@ -302,7 +314,7 @@ public class FachadaWS {
 	public void asociarDestinatariosTipoLogEventos(TipoLogEvento tipoLogEvento,
 			Placa placa) {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
-				placa.getPuetroPlaca());
+				placa.getPuertoPlaca());
 		BigInteger idTipoLogEvento = BigInteger.valueOf(tipoLogEvento
 				.getIdTipoLogEvento());
 		List<Destinatario> destinatarios = tipoLogEvento
@@ -321,7 +333,7 @@ public class FachadaWS {
 	public void desasociarDestinatariosTipoLogEventos(
 			TipoLogEvento tipoLogEvento, Placa placa) {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
-				placa.getPuetroPlaca());
+				placa.getPuertoPlaca());
 		BigInteger idTipoLogEvento = BigInteger.valueOf(tipoLogEvento
 				.getIdTipoLogEvento());
 		List<Destinatario> destinatarios = tipoLogEvento
@@ -340,7 +352,7 @@ public class FachadaWS {
 	public TipoPlacaAuxiliar registroTipoPlacaAuxiliar(
 			TipoPlacaAuxiliar tipoPlacaAuxiliar) {
 		Comunicacion clienteWS = iniciarConexion(tipoPlacaAuxiliar.getPlaca()
-				.getIpPlaca(), tipoPlacaAuxiliar.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), tipoPlacaAuxiliar.getPlaca().getPuertoPlaca());
 
 		ResultadoCreacionWS resultadoWS = clienteWS
 				.wsCrearTipoPlaca(tipoPlacaAuxiliar.getNombre());
@@ -352,7 +364,7 @@ public class FachadaWS {
 
 	public PlacaAuxiliar registroPlacaAuxiliar(PlacaAuxiliar placaAux) {
 		Comunicacion clienteWS = iniciarConexion(placaAux.getPlaca()
-				.getIpPlaca(), placaAux.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), placaAux.getPlaca().getPuertoPlaca());
 
 		BigInteger nroPuerto = BigInteger.valueOf(placaAux.getNumeroPuerto());
 		BigInteger idTipoPlaca = BigInteger.valueOf(placaAux
@@ -372,7 +384,7 @@ public class FachadaWS {
 
 	public NivelSeveridad registroNivelSeveridad(NivelSeveridad nivel) {
 		Comunicacion clienteWS = iniciarConexion(nivel.getPlaca().getIpPlaca(),
-				nivel.getPlaca().getPuetroPlaca());
+				nivel.getPlaca().getPuertoPlaca());
 
 		BigInteger idFactor = BigInteger.valueOf(nivel.getFactor()
 				.getIdFactor());
@@ -404,7 +416,7 @@ public class FachadaWS {
 	public ResultadoLectura lecturaFactor(Factor factor) {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger idFactor = BigInteger.valueOf(factor.getIdFactor());
 		ResultadoLecturaWS resultadoWS = clienteWS.wsLecturaFactor(idFactor);
@@ -427,7 +439,7 @@ public class FachadaWS {
 
 	public Mensaje cambiarEstadoPlaca(Placa placa, String estado) {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
-				placa.getPuetroPlaca());
+				placa.getPuertoPlaca());
 
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
 				.wsCambiarEstadoSistema(estado);
@@ -443,7 +455,7 @@ public class FachadaWS {
 
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 		BigInteger nroPuerto = BigInteger.valueOf(sensor.getNumeroPuerto());
 		BigInteger idTipoPuerto = null;
 		if (sensor.getTipoPuerto() != null)
@@ -470,7 +482,7 @@ public class FachadaWS {
 	public Mensaje actualizarActuadorAvance(ActuadorAvance actuadorAvance) {
 
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
-				.getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 		BigInteger nroPuerto = BigInteger.valueOf(actuadorAvance
 				.getNumeroPuerto());
 		BigInteger idTipoPuerto = null;
@@ -512,7 +524,7 @@ public class FachadaWS {
 	public Mensaje actualizarActuador(Actuador actuador) {
 
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
-				.getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 		BigInteger nroPuerto = BigInteger.valueOf(actuador.getNumeroPuerto());
 		BigInteger idTipoPuerto = null;
 		if (actuador.getTipoPuerto() != null)
@@ -544,7 +556,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarGrupoActuadores(GrupoActuadores grupoActuadores) {
 		Comunicacion clienteWS = iniciarConexion(grupoActuadores.getPlaca()
-				.getIpPlaca(), grupoActuadores.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), grupoActuadores.getPlaca().getPuertoPlaca());
 		BigInteger idGrupoActuadores = BigInteger.valueOf(grupoActuadores
 				.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -559,7 +571,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarTipoActuador(TipoActuador tipoActuador) {
 		Comunicacion clienteWS = iniciarConexion(tipoActuador.getPlaca()
-				.getIpPlaca(), tipoActuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), tipoActuador.getPlaca().getPuertoPlaca());
 		BigInteger idTipoActuador = BigInteger.valueOf(tipoActuador.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
 				.wsActualizarTipoActuador(tipoActuador.getCategoria(),
@@ -573,7 +585,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarTipoPlaca(TipoPlacaAuxiliar tipoPlaca) {
 		Comunicacion clienteWS = iniciarConexion(tipoPlaca.getPlaca()
-				.getIpPlaca(), tipoPlaca.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), tipoPlaca.getPlaca().getPuertoPlaca());
 		BigInteger idTipoPlaca = BigInteger.valueOf(tipoPlaca.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
 				.wsActualizarTipoPlaca(tipoPlaca.getNombre(), idTipoPlaca);
@@ -587,7 +599,7 @@ public class FachadaWS {
 	public Mensaje actualizarTipoLogEvento(TipoLogEvento tipoLogEvento,
 			Placa placa) {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
-				placa.getPuetroPlaca());
+				placa.getPuertoPlaca());
 		BigInteger idTipoLogEvento = BigInteger.valueOf(tipoLogEvento
 				.getIdTipoLogEvento());
 		String enviarMail = String.valueOf(tipoLogEvento.getEnviarMail());
@@ -605,7 +617,7 @@ public class FachadaWS {
 	public Mensaje actualizarFactor(Factor factor) {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger valorMin = BigInteger.valueOf(factor.getValorMin());
 		BigInteger valorMax = BigInteger.valueOf(factor.getValorMax());
@@ -623,7 +635,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) {
 		Comunicacion clienteWS = iniciarConexion(placaAuxiliar.getPlaca()
-				.getIpPlaca(), placaAuxiliar.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), placaAuxiliar.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(placaAuxiliar.getId());
 		BigInteger idTipoPlaca = BigInteger.valueOf(placaAuxiliar
@@ -645,7 +657,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarNivelSeveridad(NivelSeveridad nivelSeveridad) {
 		Comunicacion clienteWS = iniciarConexion(nivelSeveridad.getPlaca()
-				.getIpPlaca(), nivelSeveridad.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), nivelSeveridad.getPlaca().getPuertoPlaca());
 
 		BigInteger idFactor = BigInteger.valueOf(nivelSeveridad.getFactor()
 				.getIdFactor());
@@ -682,7 +694,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarPerfilActivacion(NivelSeveridad nivelSeveridad) {
 		Comunicacion clienteWS = iniciarConexion(nivelSeveridad.getPlaca()
-				.getIpPlaca(), nivelSeveridad.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), nivelSeveridad.getPlaca().getPuertoPlaca());
 
 		BigInteger idNivelSeveridad = BigInteger
 				.valueOf(nivelSeveridad.getId());
@@ -697,7 +709,7 @@ public class FachadaWS {
 
 	public Mensaje actualizarParametrosPlaca(Placa placa) {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
-				placa.getPuetroPlaca());
+				placa.getPuertoPlaca());
 
 		BigInteger periodicidadLecturas = BigInteger.valueOf(placa
 				.getPeriodicidadLecturas());
@@ -714,7 +726,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarDestinatario(Destinatario destinatario) {
 		Comunicacion clienteWS = iniciarConexion(destinatario.getPlaca()
-				.getIpPlaca(), destinatario.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), destinatario.getPlaca().getPuertoPlaca());
 
 		BigInteger idDestinatario = BigInteger.valueOf(destinatario
 				.getIdDestinatario());
@@ -730,7 +742,7 @@ public class FachadaWS {
 	public Mensaje eliminarSensor(Sensor sensor) {
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(sensor.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -744,7 +756,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarActuadorAvance(ActuadorAvance actuadorAvance) {
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
-				.getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(actuadorAvance.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -758,7 +770,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarActuador(Actuador actuador) {
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
-				.getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(actuador.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -772,7 +784,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarGrupoActuadores(GrupoActuadores grupoActuadores) {
 		Comunicacion clienteWS = iniciarConexion(grupoActuadores.getPlaca()
-				.getIpPlaca(), grupoActuadores.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), grupoActuadores.getPlaca().getPuertoPlaca());
 
 		BigInteger idGrupo = BigInteger.valueOf(grupoActuadores.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -787,7 +799,7 @@ public class FachadaWS {
 	public Mensaje eliminarFactor(Factor factor) {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger idFactor = BigInteger.valueOf(factor.getIdFactor());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -801,7 +813,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) {
 		Comunicacion clienteWS = iniciarConexion(placaAuxiliar.getPlaca()
-				.getIpPlaca(), placaAuxiliar.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), placaAuxiliar.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(placaAuxiliar.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -815,7 +827,7 @@ public class FachadaWS {
 
 	public Mensaje eliminarNivelSeveridad(NivelSeveridad nivelSeveridad) {
 		Comunicacion clienteWS = iniciarConexion(nivelSeveridad.getPlaca()
-				.getIpPlaca(), nivelSeveridad.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), nivelSeveridad.getPlaca().getPuertoPlaca());
 
 		BigInteger idNivelSeveridad = BigInteger
 				.valueOf(nivelSeveridad.getId());
@@ -830,7 +842,7 @@ public class FachadaWS {
 
 	public ResultadoAccion encenderGrupoActuadores(GrupoActuadores grupo) {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
-				grupo.getPlaca().getPuetroPlaca());
+				grupo.getPlaca().getPuertoPlaca());
 
 		BigInteger idGrupoActuadores = BigInteger.valueOf(grupo.getId());
 		ResultadoAccionWS resultadoWS = clienteWS
@@ -855,7 +867,7 @@ public class FachadaWS {
 
 	public ResultadoAccion apagarGrupoActuadores(GrupoActuadores grupo) {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
-				grupo.getPlaca().getPuetroPlaca());
+				grupo.getPlaca().getPuertoPlaca());
 
 		BigInteger idGrupoActuadores = BigInteger.valueOf(grupo.getId());
 		ResultadoAccionWS resultadoWS = clienteWS
@@ -881,7 +893,7 @@ public class FachadaWS {
 	public ResultadoAccion cambiarPosicionGrupoActuadores(
 			GrupoActuadores grupo, int nroPosicion) {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
-				grupo.getPlaca().getPuetroPlaca());
+				grupo.getPlaca().getPuertoPlaca());
 
 		BigInteger idGrupoActuadores = BigInteger.valueOf(grupo.getId());
 		BigInteger posicion = BigInteger.valueOf(nroPosicion);
@@ -908,7 +920,7 @@ public class FachadaWS {
 	public Mensaje reestablecerActuadorAvance(ActuadorAvance actuadorAvance,
 			int nroPosicion) {
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
-				.getIpPlaca(), actuadorAvance.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(actuadorAvance.getId());
 		BigInteger posicion = BigInteger.valueOf(nroPosicion);
@@ -923,7 +935,7 @@ public class FachadaWS {
 
 	public Mensaje reestablecerDispositivo(Dispositivo dispositivo) {
 		Comunicacion clienteWS = iniciarConexion(dispositivo.getPlaca()
-				.getIpPlaca(), dispositivo.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), dispositivo.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(dispositivo.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -938,7 +950,7 @@ public class FachadaWS {
 	public Mensaje reestablecerSensor(Sensor sensor) {
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
-						.getPuetroPlaca());
+						.getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(sensor.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -952,7 +964,7 @@ public class FachadaWS {
 
 	public Mensaje reestablecerActuador(Actuador actuador) {
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
-				.getIpPlaca(), actuador.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(actuador.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -966,7 +978,7 @@ public class FachadaWS {
 
 	public Mensaje reestablecerPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) {
 		Comunicacion clienteWS = iniciarConexion(placaAuxiliar.getPlaca()
-				.getIpPlaca(), placaAuxiliar.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), placaAuxiliar.getPlaca().getPuertoPlaca());
 
 		BigInteger idDispositivo = BigInteger.valueOf(placaAuxiliar.getId());
 		uy.com.ceoyphoibe.SGIA.wsClient.Mensaje resultadoWS = clienteWS
@@ -980,7 +992,7 @@ public class FachadaWS {
 
 	public String obtenerEstadoAlertaPlaca(Placa placa) {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
-				placa.getPuetroPlaca());
+				placa.getPuertoPlaca());
 		String resultadoWS = clienteWS.wsObtenerEstadoAlertaPlaca(placa
 				.getNroSerie());
 		return resultadoWS;
@@ -988,7 +1000,7 @@ public class FachadaWS {
 
 	public String obtenerEstadoAlertaDispositivo(Dispositivo dispositivo) {
 		Comunicacion clienteWS = iniciarConexion(dispositivo.getPlaca()
-				.getIpPlaca(), dispositivo.getPlaca().getPuetroPlaca());
+				.getIpPlaca(), dispositivo.getPlaca().getPuertoPlaca());
 		BigInteger idDispositivo = BigInteger.valueOf(dispositivo.getId());
 		String resultadoWS = clienteWS
 				.wsObtenerEstadoAlertaDispositivo(idDispositivo);

@@ -1,12 +1,13 @@
+/**
+ * Clase de apoyo utilizada para pasaje de datos de lecturas con los servicios web 
+ */
 package uy.com.ceoyphoibe.SGIA.DTO;
 
 import java.io.Serializable;
 
 public class LecturaWS implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -3135147364907375174L;
 
 	private String fecha;
@@ -33,17 +34,11 @@ public class LecturaWS implements Serializable {
 		return serialVersionUID;
 	}
 
-	/**
-	 * @return the idDispositivo
-	 */
+
 	public int getIdDispositivo() {
 		return idDispositivo;
 	}
 
-	/**
-	 * @param idDispositivo
-	 *            the idDispositivo to set
-	 */
 	public void setIdDispositivo(int idDispositivo) {
 		this.idDispositivo = idDispositivo;
 	}

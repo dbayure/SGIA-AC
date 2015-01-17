@@ -2,15 +2,19 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuador;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
@@ -28,6 +32,9 @@ public class ActuadorBean {
 
 	@Inject
 	private RegistroActuador regActuador;
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	private Actuador actuador = new Actuador();
 	private Actuador acatuadorSeleccionado = new Actuador();
@@ -76,66 +83,85 @@ public class ActuadorBean {
 	}
 
 	public void registrar() {
-
-		try {
-			if (actuador.getGrupoActuadores() != null) {
-
-				actuador.setPlaca(placa);
-				actuador.setEstado('A');
-				actuador.setEstadoAlerta("N");
-				actuador.setActivoSistema('S');
-				ga.setId(actuador.getGrupoActuadores().getId());
-				ga.setActivoSistema(actuador.getGrupoActuadores()
-						.getActivoSistema());
-				ga.setDeAvance(actuador.getGrupoActuadores().getDeAvance());
-				ga.setEstado(actuador.getGrupoActuadores().getEstado());
-				ga.setNombre(actuador.getGrupoActuadores().getNombre());
-				ga.getActuadores().add(actuador);
-				registroGrupoActuadores.registro(ga);
-				actuador = new Actuador();
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				if (actuador.getGrupoActuadores() != null) {
+	
+					actuador.setPlaca(placa);
+					actuador.setEstado('A');
+					actuador.setEstadoAlerta("N");
+					actuador.setActivoSistema('S');
+					ga.setId(actuador.getGrupoActuadores().getId());
+					ga.setActivoSistema(actuador.getGrupoActuadores()
+							.getActivoSistema());
+					ga.setDeAvance(actuador.getGrupoActuadores().getDeAvance());
+					ga.setEstado(actuador.getGrupoActuadores().getEstado());
+					ga.setNombre(actuador.getGrupoActuadores().getNombre());
+					ga.getActuadores().add(actuador);
+					registroGrupoActuadores.registro(ga);
+					actuador = new Actuador();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Se registró ", "con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					actuador.setPlaca(placa);
+					actuador.setEstado('A');
+					actuador.setEstadoAlerta("N");
+					actuador.setActivoSistema('S');
+	
+					regActuador.registro(actuador);
+					actuador = new Actuador();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Se registró ", "con éxito!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Se registró ", "con éxito!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				actuador.setPlaca(placa);
-				actuador.setEstado('A');
-				actuador.setEstadoAlerta("N");
-				actuador.setActivoSistema('S');
-
-				regActuador.registro(actuador);
-				actuador = new Actuador();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Se registró ", "con éxito!");
+						"Error al registrar ", "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEdit(RowEditEvent event) {
-		Actuador actuador = ((Actuador) event.getObject());
-		System.out
-				.println("Valor del grupo obtenido del actuador seleccionado "
-						+ actuador.getNombre());
-		try {
-			actuador.setGrupoActuadores(ga);
-			Mensaje mensaje = regActuador.modificar(actuador);
-			if (mensaje.getTipo().equals("Informativo")) {
+		if (placa.getEstado() == 'C')
+		{
+			Actuador actuador = ((Actuador) event.getObject());
+			System.out
+					.println("Valor del grupo obtenido del actuador seleccionado "
+							+ actuador.getNombre());
+			try {
+				actuador.setGrupoActuadores(ga);
+				Mensaje mensaje = regActuador.modificar(actuador);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+	
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al modificar ", actuador.getNombre());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", actuador.getNombre());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -147,26 +173,34 @@ public class ActuadorBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			Actuador a = regActuador.obtenerActuadorPorId(id);
-			a.setGrupoActuadores(null);
-			regActuador.modificar(a);
-			Mensaje mensaje = regActuador.eliminar(id);
-			if (mensaje.getTipo().equals("Informativo")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				Actuador a = regActuador.obtenerActuadorPorId(id);
+				a.setGrupoActuadores(null);
+				regActuador.modificar(a);
+				Mensaje mensaje = regActuador.eliminar(id);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
-
 }

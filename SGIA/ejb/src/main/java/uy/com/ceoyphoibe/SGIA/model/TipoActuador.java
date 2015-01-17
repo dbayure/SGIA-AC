@@ -1,3 +1,6 @@
+/**
+ * La clase TipoActuador representa a las categorías de actuadores que se puede definir.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -16,9 +19,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "placa" })
 public class TipoActuador implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6092319973077241634L;
 
 	@Id
@@ -31,26 +31,47 @@ public class TipoActuador implements Serializable {
 	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
 
+	/**
+	 * @return el identificador del tipo de actuador
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 			el identificador a asignar.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return el nombre del tipo de actuador
+	 */
 	public String getCategoria() {
 		return categoria;
 	}
 
+	/**
+	 * @param categoria
+	 * 				el nombre a asignar
+	 */
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
+	/**
+	 * @return la descripción del tipo de actuador
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	/**
+	 * @param descripcion
+	 * 					la descripción a asignar
+	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -60,7 +81,7 @@ public class TipoActuador implements Serializable {
 	}
 
 	/**
-	 * @return the placa
+	 * @return la placa a la que pertenece el tipo de actuador
 	 */
 	public Placa getPlaca() {
 		return placa;
@@ -68,7 +89,7 @@ public class TipoActuador implements Serializable {
 
 	/**
 	 * @param placa
-	 *            the placa to set
+	 *            la placa a asignar
 	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;

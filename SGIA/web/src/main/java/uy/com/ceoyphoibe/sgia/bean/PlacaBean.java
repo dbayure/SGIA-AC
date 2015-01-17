@@ -1,13 +1,20 @@
+/**
+ * 
+ */
 package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
 import uy.com.ceoyphoibe.SGIA.data.DispositivoListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
@@ -26,6 +33,9 @@ public class PlacaBean {
 
 	@Inject
 	private DispositivoListProducer dispositivoListProducer;
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	private Placa placa;
 	private boolean mostrar = false;
@@ -104,36 +114,55 @@ public class PlacaBean {
 	}
 
 	public void registrar() {
-
-		try {
-			Mensaje mensaje = registroPlaca.modificar(placa);
-			if (mensaje.getTipo().equals("Informativo")) {
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				Mensaje mensaje = registroPlaca.modificar(placa);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+	
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al actualizar la placa controladora.", "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al actualizar la placa controladora.", "");
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEdit(RowEditEvent event) {
-		Placa placa = ((Placa) event.getObject());
-		try {
-			registroPlaca.modificar(placa);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se modificó ", placa.getNroSerie());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", placa.getNroSerie());
+		if (placa.getEstado() == 'C')
+		{
+			Placa placa = ((Placa) event.getObject());
+			try {
+				registroPlaca.modificar(placa);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se modificó ", placa.getNroSerie());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al modificar ", placa.getNroSerie());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -145,16 +174,25 @@ public class PlacaBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			registroPlaca.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				registroPlaca.eliminar(id);
+				FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	public boolean conectar() {
@@ -201,6 +239,9 @@ public class PlacaBean {
 		seleccion = "actuadores";
 	}
 
+	/**
+	 * 
+	 */
 	public void setNiveles() {
 		seleccion = "niveles";
 	}
@@ -242,24 +283,37 @@ public class PlacaBean {
 		}
 	}
 
+	/**
+	 * @param id
+	 */
 	public void reestablecerDispositivo(long id) {
-		Dispositivo dispositivo = regDispositivo.obtenerDispositivoId(id);
-
-		try {
-			Mensaje mensaje = regDispositivo
-					.reestablecerDispositivo(dispositivo);
-			if (mensaje.getTipo().equals("Informativo")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
+		if (placa.getEstado() == 'C')
+		{
+			Dispositivo dispositivo = regDispositivo.obtenerDispositivoId(id);
+	
+			try {
+				Mensaje mensaje = regDispositivo
+						.reestablecerDispositivo(dispositivo);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al restablecer la posicion ");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(
-					"Error al restablecer la posicion ");
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}

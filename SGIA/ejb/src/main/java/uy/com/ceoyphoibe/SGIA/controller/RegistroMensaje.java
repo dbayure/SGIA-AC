@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Mensaje
+ */
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.logging.Logger;

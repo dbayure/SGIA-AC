@@ -6,7 +6,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoPlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -23,6 +26,9 @@ public class TipoPlacaAuxiliarBean {
 	private RegistroTipoPlacaAuxiliar registroTipoPlacaAuxiliar;
 
 	private TipoPlacaAuxiliar tipoPlacaAuxiliar = new TipoPlacaAuxiliar();
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	/**
 	 * @return the tipoPlacaAuxiliar
@@ -48,37 +54,57 @@ public class TipoPlacaAuxiliarBean {
 	}
 
 	public void registrar() {
-		try {
-			tipoPlacaAuxiliar.setPlaca(placa);
-			registroTipoPlacaAuxiliar.registro(tipoPlacaAuxiliar);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se registró ", "con éxito!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			tipoPlacaAuxiliar = new TipoPlacaAuxiliar();
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				tipoPlacaAuxiliar.setPlaca(placa);
+				registroTipoPlacaAuxiliar.registro(tipoPlacaAuxiliar);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se registró ", "con éxito!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				tipoPlacaAuxiliar = new TipoPlacaAuxiliar();
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al registrar ", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEdit(RowEditEvent event) {
-		TipoPlacaAuxiliar tipoPlaca = ((TipoPlacaAuxiliar) event.getObject());
-
-		try {
-			Mensaje mensaje = registroTipoPlacaAuxiliar.modificar(tipoPlaca);
-			if (mensaje.getTipo().equals("Informativo")) {
+		if (placa.getEstado() == 'C')
+		{
+			TipoPlacaAuxiliar tipoPlaca = ((TipoPlacaAuxiliar) event.getObject());
+	
+			try {
+				Mensaje mensaje = registroTipoPlacaAuxiliar.modificar(tipoPlaca);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al modificar ", tipoPlaca.getNombre());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", tipoPlaca.getNombre());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -90,15 +116,24 @@ public class TipoPlacaAuxiliarBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			registroTipoPlacaAuxiliar.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				registroTipoPlacaAuxiliar.eliminar(id);
+				FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 }

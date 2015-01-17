@@ -1,3 +1,6 @@
+/**
+ * La clase LecturaFactor representa a una lectura de un factor, procesada a partir de la lectura de sus sensores asignados.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -14,9 +17,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "lecturasFactor")
 public class LecturaFactor implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5571525997828429088L;
 
 	@Id
@@ -29,7 +29,7 @@ public class LecturaFactor implements Serializable {
 	private Timestamp fechaHora;
 
 	/**
-	 * @return the valor
+	 * @return el valor procesado de la lectura.
 	 */
 	public float getValor() {
 		return valor;
@@ -37,14 +37,14 @@ public class LecturaFactor implements Serializable {
 
 	/**
 	 * @param valor
-	 *            the valor to set
+	 *            El valor a asignar.
 	 */
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
 
 	/**
-	 * @return the id
+	 * @return el identificador de la lectura.
 	 */
 	public Long getId() {
 		return id;
@@ -52,29 +52,29 @@ public class LecturaFactor implements Serializable {
 
 	/**
 	 * @param id
-	 *            the id to set
+	 *         El identificador a asignar.
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the idSensor
+	 * @return el identificador del factor sobre el que se obtiene la lectura.
 	 */
 	public Long getIdFactor() {
 		return idFactor;
 	}
 
 	/**
-	 * @param idSensor
-	 *            the idSensor to set
+	 * @param idFactor
+	 *            El identificador de factor a asignar.
 	 */
 	public void setIdFactor(Long idFactor) {
 		this.idFactor = idFactor;
 	}
 
 	/**
-	 * @return the fechaHora
+	 * @return la fecha y hora en la que se obtiene la lectura.
 	 */
 	public Timestamp getFechaHora() {
 		return fechaHora;
@@ -82,14 +82,14 @@ public class LecturaFactor implements Serializable {
 
 	/**
 	 * @param fechaHora
-	 *            the fechaHora to set
+	 *            La fecha y hora a asignar.
 	 */
 	public void setFechaHora(Timestamp fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 
 	/**
-	 * @return the idPlaca
+	 * @return el identificador de la placa desde donde se obtiene la lectura.
 	 */
 	public Long getIdPlaca() {
 		return idPlaca;
@@ -97,7 +97,7 @@ public class LecturaFactor implements Serializable {
 
 	/**
 	 * @param idPlaca
-	 *            the idPlaca to set
+	 *            El identificador de la placa a asignar.
 	 */
 	public void setIdPlaca(Long idPlaca) {
 		this.idPlaca = idPlaca;

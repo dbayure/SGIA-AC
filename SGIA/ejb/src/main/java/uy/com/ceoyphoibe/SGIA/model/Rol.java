@@ -1,3 +1,6 @@
+/**
+ * La clase Rol representa a un grupo de seguridad del sistema, según los usuarios pertenezcan a uno u otro rol tendrán permisos para ejecutar determinadas tareas en el sistema.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -13,9 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "rol")
 public class Rol implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5815809470148059527L;
 
 	@Id
@@ -30,26 +31,47 @@ public class Rol implements Serializable {
 		super();
 	}
 
+	/**
+	 * @return la descripción del rol
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	/**
+	 * @param descripcion
+	 * 					La descripción a asignar.
+	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	/**
+	 * @return el identificador del rol.
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 			El identificador a asignar.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return el nombre del rol
+	 */
 	public String getRol() {
 		return rol;
 	}
 
+	/**
+	 * @param rol
+	 * 			El nombre del rol a asignar.
+	 */
 	public void setRol(String rol) {
 		this.rol = rol;
 	}

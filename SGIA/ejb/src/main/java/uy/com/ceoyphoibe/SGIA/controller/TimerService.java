@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite invocar periódicamente el método para obtener el estado de alerta desde la placa controladora.
+ */
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import javax.ejb.Schedule;

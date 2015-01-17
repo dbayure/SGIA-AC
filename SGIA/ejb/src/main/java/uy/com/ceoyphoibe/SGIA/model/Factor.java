@@ -1,3 +1,6 @@
+/**
+ * La clase Factor representa a un parámetro del ambiente que se va a mesurar mediante el uso de un conjunto de sensores.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -18,9 +21,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "factores")
 public class Factor implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 407757945510772852L;
 
 	@Id
@@ -45,74 +45,137 @@ public class Factor implements Serializable {
 		this.sensores = new ArrayList<Sensor>();
 	}
 
+	/**
+	 * @return el identificador del factor
+	 */
 	public Long getIdFactor() {
 		return idFactor;
 	}
 
+	/**
+	 * @param idFactor
+	 * 				El identificador a asignar
+	 */
 	public void setIdFactor(Long idFactor) {
 		this.idFactor = idFactor;
 	}
 
+	/**
+	 * @return el nombre del factor
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * @param nombre
+	 * 				El nombre a asignar
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return la unidad en la que se mide el factor
+	 */
 	public String getUnidad() {
 		return unidad;
 	}
 
+	/**
+	 * @param unidad
+	 * 				La unidad a asignar.
+	 */
 	public void setUnidad(String unidad) {
 		this.unidad = unidad;
 	}
 
+	/**
+	 * @return el valor mínimo admitido como lectura
+	 */
 	public int getValorMin() {
 		return valorMin;
 	}
 
+	/**
+	 * @param valorMin
+	 * 				El valor mínimo a asignar
+	 */
 	public void setValorMin(int valorMin) {
 		this.valorMin = valorMin;
 	}
 
+	/**
+	 * @return el valor máximo admitido como lectura
+	 */
 	public int getValorMax() {
 		return valorMax;
 	}
 
+	/**
+	 * @param valorMax
+	 * 				El valor máximo a asignar
+	 */
 	public void setValorMax(int valorMax) {
 		this.valorMax = valorMax;
 	}
 
+	/**
+	 * @return el umbral de diferencia admitido entre lecturas
+	 */
 	public int getUmbral() {
 		return umbral;
 	}
 
+	/**
+	 * @param umbral
+	 * 				El umbral a asignar
+	 */
 	public void setUmbral(int umbral) {
 		this.umbral = umbral;
 	}
 
+	/**
+	 * @return La lista de sensores del factor.
+	 */
 	public List<Sensor> getSensores() {
 		return sensores;
 	}
 
+	/**
+	 * @param sensores
+	 * 				La lista de sensores a asignar.
+	 */
 	public void setSensores(List<Sensor> sensores) {
 		this.sensores = sensores;
 	}
 
+	/**
+	 * @return la placa a la que pertenece el factor
+	 */
 	public Placa getPlaca() {
 		return placa;
 	}
 
+	/**
+	 * @param placa
+	 * 			La placa a asignar
+	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}
 
+	/**
+	 * @return el indicador si el factor está activo en el sistema.
+	 */
 	public char getActivoSistema() {
 		return activoSistema;
 	}
 
+	/**
+	 * @param activoSistema
+	 * 					El parámetro activo sistema a asignar.
+	 */
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
 	}

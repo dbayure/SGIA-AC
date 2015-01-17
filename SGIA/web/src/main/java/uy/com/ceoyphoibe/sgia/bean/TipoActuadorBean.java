@@ -6,7 +6,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoActuador;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -21,6 +24,9 @@ public class TipoActuadorBean {
 
 	@Inject
 	private RegistroTipoActuador registroTipoActuador;
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	private TipoActuador tipoActuador = new TipoActuador();
 
@@ -48,37 +54,57 @@ public class TipoActuadorBean {
 	}
 
 	public void registrar() {
-		try {
-			tipoActuador.setPlaca(placa);
-			registroTipoActuador.registro(tipoActuador);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se registró ", "con éxito!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			tipoActuador = new TipoActuador();
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				tipoActuador.setPlaca(placa);
+				registroTipoActuador.registro(tipoActuador);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se registró ", "con éxito!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				tipoActuador = new TipoActuador();
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al registrar ", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEdit(RowEditEvent event) {
-		TipoActuador tipoActuador = ((TipoActuador) event.getObject());
-
-		try {
-			Mensaje mensaje = registroTipoActuador.modificar(tipoActuador);
-			if (mensaje.getTipo().equals("Informativo")) {
+		if (placa.getEstado() == 'C')
+		{
+			TipoActuador tipoActuador = ((TipoActuador) event.getObject());
+	
+			try {
+				Mensaje mensaje = registroTipoActuador.modificar(tipoActuador);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al modificar ", tipoActuador.getCategoria());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", tipoActuador.getCategoria());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -90,15 +116,24 @@ public class TipoActuadorBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			registroTipoActuador.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				registroTipoActuador.eliminar(id);
+				FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 }

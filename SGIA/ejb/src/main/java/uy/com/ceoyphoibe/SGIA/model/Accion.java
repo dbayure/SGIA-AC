@@ -1,3 +1,6 @@
+/**
+ * La clase Accion se utiliza para representar las acciones disparadas por los actuadores desde la placa controladora.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -14,9 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "acciones")
 public class Accion implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 5571525997828429088L;
 
 	@Id
@@ -29,7 +30,7 @@ public class Accion implements Serializable {
 	private Timestamp fechaHora;
 
 	/**
-	 * @return the id
+	 * @return el id
 	 */
 	public Long getId() {
 		return id;
@@ -37,14 +38,14 @@ public class Accion implements Serializable {
 
 	/**
 	 * @param id
-	 *            the id to set
+	 *            el id a setear
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the fechaHora
+	 * @return el fechaHora
 	 */
 	public Timestamp getFechaHora() {
 		return fechaHora;
@@ -52,14 +53,14 @@ public class Accion implements Serializable {
 
 	/**
 	 * @param fechaHora
-	 *            the fechaHora to set
+	 *            el fechaHora a setear
 	 */
 	public void setFechaHora(Timestamp fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 
 	/**
-	 * @return the idPlaca
+	 * @return el idPlaca
 	 */
 	public Long getIdPlaca() {
 		return idPlaca;
@@ -67,14 +68,14 @@ public class Accion implements Serializable {
 
 	/**
 	 * @param idPlaca
-	 *            the idPlaca to set
+	 *            el idPlaca a setear
 	 */
 	public void setIdPlaca(Long idPlaca) {
 		this.idPlaca = idPlaca;
 	}
 
 	/**
-	 * @return the tipoAccion
+	 * @return el tipoAccion
 	 */
 	public String getTipoAccion() {
 		return tipoAccion;
@@ -82,14 +83,14 @@ public class Accion implements Serializable {
 
 	/**
 	 * @param tipoAccion
-	 *            the tipoAccion to set
+	 *            el tipoAccion a setear
 	 */
 	public void setTipoAccion(String tipoAccion) {
 		this.tipoAccion = tipoAccion;
 	}
 
 	/**
-	 * @return the idDispositivo
+	 * @return el idDispositivo
 	 */
 	public Long getIdDispositivo() {
 		return idDispositivo;
@@ -97,7 +98,7 @@ public class Accion implements Serializable {
 
 	/**
 	 * @param idDispositivo
-	 *            the idDispositivo to set
+	 *            el idDispositivo a setear
 	 */
 	public void setIdDispositivo(Long idDispositivo) {
 		this.idDispositivo = idDispositivo;

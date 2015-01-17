@@ -1,3 +1,6 @@
+/**
+ * La clase Destinatario representa a toda persona a la que se puede notificar vía mail y/o sms los eventos generados en los galpones.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -30,7 +33,7 @@ public class Destinatario implements Serializable {
 	private Placa placa;
 
 	/**
-	 * @return the idDestinatario
+	 * @return idDestinatario
 	 */
 	public Long getIdDestinatario() {
 		return idDestinatario;
@@ -38,14 +41,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param idDestinatario
-	 *            the idDestinatario to set
+	 *            El identificador a asignar
 	 */
 	public void setIdDestinatario(Long idDestinatario) {
 		this.idDestinatario = idDestinatario;
 	}
 
 	/**
-	 * @return the nombre
+	 * @return nombre
 	 */
 	public String getNombre() {
 		return nombre;
@@ -53,14 +56,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param nombre
-	 *            the nombre to set
+	 *            El nombre a asignar
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 	/**
-	 * @return the celular
+	 * @return celular
 	 */
 	public String getCelular() {
 		return celular;
@@ -68,14 +71,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param celular
-	 *            the celular to set
+	 *            El celular a asignar
 	 */
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
 	/**
-	 * @return the mail
+	 * @return mail
 	 */
 	public String getMail() {
 		return mail;
@@ -83,14 +86,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param mail
-	 *            the mail to set
+	 *            El mail a asignar
 	 */
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
 
 	/**
-	 * @return the horaMin
+	 * @return horaMin
 	 */
 	public int getHoraMin() {
 		return horaMin;
@@ -98,14 +101,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param horaMin
-	 *            the horaMin to set
+	 *            La hora mínima a asignar
 	 */
 	public void setHoraMin(int horaMin) {
 		this.horaMin = horaMin;
 	}
 
 	/**
-	 * @return the horaMax
+	 * @return horaMax
 	 */
 	public int getHoraMax() {
 		return horaMax;
@@ -113,14 +116,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param horaMax
-	 *            the horaMax to set
+	 *            La hora máxima a asignar
 	 */
 	public void setHoraMax(int horaMax) {
 		this.horaMax = horaMax;
 	}
 
 	/**
-	 * @return the activoSistema
+	 * @return activoSistema
 	 */
 	public char getActivoSistema() {
 		return activoSistema;
@@ -128,14 +131,14 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param activoSistema
-	 *            the activoSistema to set
+	 *            El parámetro activo sistema a asignar
 	 */
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
 	}
 
 	/**
-	 * @return the placa
+	 * @return placa
 	 */
 	public Placa getPlaca() {
 		return placa;
@@ -143,24 +146,16 @@ public class Destinatario implements Serializable {
 
 	/**
 	 * @param placa
-	 *            the placa to set
+	 *            La placa a asignar
 	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto Accion
+ */
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.sql.Timestamp;
@@ -51,7 +54,6 @@ public class AccionListProducer {
 		criteria.select(accion).orderBy(cb.asc(accion.get("fechaHora")));
 
 		Expression<Timestamp> fecha = accion.get("fechaHora");
-		// Expression<Timestamp> fechaParam = cb.parameter(Timestamp.class);
 
 		Predicate p = cb.between(fecha, min, max);
 		criteria.where(cb.equal(accion.get("idDispositivo"), idDispositivo), p);

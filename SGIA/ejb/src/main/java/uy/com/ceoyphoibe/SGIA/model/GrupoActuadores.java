@@ -1,3 +1,7 @@
+/**
+ * La clase GrupoActuadores representa a un conjunto de actuadores sobre el que se puede actuar globalmente.
+ * Es la unidad mínima sobre la que se puede definir un estado esperado.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -20,14 +24,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "grupoActuadores")
 public class GrupoActuadores implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1308127548538608653L;
 
 	@Id
 	private Long id;
-
 	private String nombre;
 	private char estado;
 	private String deAvance;
@@ -49,66 +50,122 @@ public class GrupoActuadores implements Serializable {
 		actuadoresAvance = new HashSet<ActuadorAvance>();
 	}
 
+	/**
+	 * @return el identificador del grupo de actuadores
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 			El identificador a asignar.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return el nombre del grupo de actuadores.
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * @param nombre
+	 * 			El nombre a asignar.
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return el estado actual del grupo de actuadores
+	 */
 	public char getEstado() {
 		return estado;
 	}
 
+	/**
+	 * @param estado
+	 * 				El estado actual a asignar.
+	 */
 	public void setEstado(char estado) {
 		this.estado = estado;
 	}
 
+	/**
+	 * @return el indicador si se trata de un grupo de actuadores de avance
+	 */
 	public String getDeAvance() {
 		return deAvance;
 	}
 
+	/**
+	 * @param deAvance
+	 * 				El parámetro si es un actuador de avance a asignar.
+	 */
 	public void setDeAvance(String deAvance) {
 		this.deAvance = deAvance;
 	}
 
+	/**
+	 * @return el parámetro que indica si el grupo de actuadores está activo en el sistema
+	 */
 	public char getActivoSistema() {
 		return activoSistema;
 	}
 
+	/**
+	 * @param activoSistema
+	 * 					El parámetro que indica si está activo en el sistema a asignar.
+	 */
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
 	}
 
+	/**
+	 * @return la lista de actuadores del grupo de actuadores
+	 */
 	public List<Actuador> getActuadores() {
 		return actuadores;
 	}
 
+	/**
+	 * @param actuadores
+	 * 				La lista de actuadores a asignar al grupo de actuadores
+	 */
 	public void setActuadores(List<Actuador> actuadores) {
 		this.actuadores = actuadores;
 	}
 
+	/**
+	 * @return la lista de actuadores de avance del grupo de actuadores.
+	 */
 	public Set<ActuadorAvance> getActuadoresAvance() {
 		return actuadoresAvance;
 	}
 
+	/**
+	 * @param actuadoresAvance
+	 * 						La lista de actuadores de avance del grupo de actuadores.
+	 */
 	public void setActuadoresAvance(Set<ActuadorAvance> actuadoresAvance) {
 		this.actuadoresAvance = actuadoresAvance;
 	}
 
+	/**
+	 * @return la placa a la que pertenece el grupo de actuadores
+	 */
 	public Placa getPlaca() {
 		return placa;
 	}
 
+	/**
+	 * @param placa
+	 * 			La placa controladora a asignar
+	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}

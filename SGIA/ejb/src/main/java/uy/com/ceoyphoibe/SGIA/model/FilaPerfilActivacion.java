@@ -1,3 +1,6 @@
+/**
+ * La clase FilaPerfilActivacion representa a una fila perteneciente a un perfil de activación definido sobre un nivel de severidad.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -16,9 +19,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "filasPerfilesActivacion")
 public class FilaPerfilActivacion implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6092319973077241634L;
 
 	@Id
@@ -31,7 +31,7 @@ public class FilaPerfilActivacion implements Serializable {
 	private String estado;
 
 	/**
-	 * @return the id
+	 * @return el identificador de la fila del perfil de activación.
 	 */
 	public Long getId() {
 		return id;
@@ -39,14 +39,14 @@ public class FilaPerfilActivacion implements Serializable {
 
 	/**
 	 * @param id
-	 *            the id to set
+	 *            El identificador a asignar
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the grupoActuadores
+	 * @return el grupo de actuadores sobre el que se va a definir el estado esperado para el mismo.
 	 */
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
@@ -54,14 +54,14 @@ public class FilaPerfilActivacion implements Serializable {
 
 	/**
 	 * @param grupoActuadores
-	 *            the grupoActuadores to set
+	 *            El grupoActuadores a asignar
 	 */
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}
 
 	/**
-	 * @return the estado
+	 * @return el estado en el que debe quedar el grupo de actuadores cuando se cumpla el perfil de activación.
 	 */
 	public String getEstado() {
 		return estado;
@@ -69,24 +69,18 @@ public class FilaPerfilActivacion implements Serializable {
 
 	/**
 	 * @param estado
-	 *            the estado to set
+	 *            El estado a asignar
 	 */
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -98,11 +92,7 @@ public class FilaPerfilActivacion implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -130,11 +120,7 @@ public class FilaPerfilActivacion implements Serializable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
 		return "FilaPerfilActivacion [id=" + id + ", grupoActuadores="

@@ -1,3 +1,6 @@
+/**
+ * La clase Placa representa a una placa controladora.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -21,9 +24,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 		"factores", "gruposActuadores", "tiposActuadores", "destinatarios" })
 public class Placa implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6894536552258619248L;
 
 	@Id
@@ -37,7 +37,7 @@ public class Placa implements Serializable {
 	private int numPuertosSDigitales;
 	private char estadoAlerta;
 	private String ipPlaca;
-	private int puetroPlaca;
+	private int puertoPlaca;
 	private int periodicidadLecturas;
 	private int periodicidadNiveles;
 	private String ipCentralizadora;
@@ -76,138 +76,257 @@ public class Placa implements Serializable {
 
 	}
 
+	/**
+	 * @return el identificador de la placa controladora.
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 			El identificador a asignar.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return el estado en el que se encuentra la placa (I=Inactivo, C=Configuración, M=Manual, A=Automático)
+	 */
 	public char getEstado() {
 		return estado;
 	}
 
+	/**
+	 * @param estado
+	 * 				El estado a asignar.
+	 */
 	public void setEstado(char estado) {
 		this.estado = estado;
 	}
 
+	/**
+	 * @return el número de serie de la placa.
+	 */
 	public String getNroSerie() {
 		return nroSerie;
 	}
 
+	/**
+	 * @param nroSerie
+	 * 				El número de serie a asignar.
+	 */
 	public void setNroSerie(String nroSerie) {
 		this.nroSerie = nroSerie;
 	}
 
+	/**
+	 * @return la descripción de la placa controladora.
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	/**
+	 * @param descripcion
+	 * 					La descripción a asignar.
+	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+	/**
+	 * @return el número de puertos analógicos.
+	 */
 	public int getNumPuertosAnalogicos() {
 		return numPuertosAnalogicos;
 	}
 
+	/**
+	 * @param numPuertosAnalogicos
+	 * 							El número de puertos analógicos a asignar.
+	 */
 	public void setNumPuertosAnalogicos(int numPuertosAnalogicos) {
 		this.numPuertosAnalogicos = numPuertosAnalogicos;
 	}
 
+	/**
+	 * @return el número de puertos de entrada digital
+	 */
 	public int getNumPuertosEDigitales() {
 		return numPuertosEDigitales;
 	}
 
+	/**
+	 * @param numPuertosEDigitales
+	 * 						El número de puertos de entrada digital a asignar.
+	 */
 	public void setNumPuertosEDigitales(int numPuertosEDigitales) {
 		this.numPuertosEDigitales = numPuertosEDigitales;
 	}
 
+	/**
+	 * @return el número de puertos de salida digital
+	 */
 	public int getNumPuertosSDigitales() {
 		return numPuertosSDigitales;
 	}
 
+	/**
+	 * @param numPuertosSDigitales
+	 * 							El número de puertos de salida digital a asignar
+	 */
 	public void setNumPuertosSDigitales(int numPuertosSDigitales) {
 		this.numPuertosSDigitales = numPuertosSDigitales;
 	}
 
+	/**
+	 * @return el estado de alerta de la placa (S/N)
+	 */
 	public char getEstadoAlerta() {
 		return estadoAlerta;
 	}
 
+	/**
+	 * @param estadoAlerta
+	 * 					El estado de alerta a asignar.
+	 */
 	public void setEstadoAlerta(char estadoAlerta) {
 		this.estadoAlerta = estadoAlerta;
 	}
 
+	/**
+	 * @return la dirección IP de la placa.
+	 */
 	public String getIpPlaca() {
 		return ipPlaca;
 	}
 
+	/**
+	 * @param ipPlaca
+	 * 				La IP a asignar.
+	 */
 	public void setIpPlaca(String ipPlaca) {
 		this.ipPlaca = ipPlaca;
 	}
 
-	public int getPuetroPlaca() {
-		return puetroPlaca;
+	/**
+	 * @return el puerto de comunicación con la placa
+	 */
+	public int getPuertoPlaca() {
+		return puertoPlaca;
 	}
 
-	public void setPuetroPlaca(int puetroPlaca) {
-		this.puetroPlaca = puetroPlaca;
+	/**
+	 * @param puertoPlaca
+	 * 					El puerto de comunicación con la placa a asignar 					
+	 */
+	public void setPuetroPlaca(int puertoPlaca) {
+		this.puertoPlaca = puertoPlaca;
 	}
 
+	/**
+	 * @return la periodicidad de lecturas definida.
+	 */
 	public int getPeriodicidadLecturas() {
 		return periodicidadLecturas;
 	}
 
+	/**
+	 * @param periodicidadLecturas
+	 * 							La periodicidad de lecturas a asignar.
+	 */
 	public void setPeriodicidadLecturas(int periodicidadLecturas) {
 		this.periodicidadLecturas = periodicidadLecturas;
 	}
 
+	/**
+	 * @return la periodicidad de procesado de los niveles de severidad.
+	 */
 	public int getPeriodicidadNiveles() {
 		return periodicidadNiveles;
 	}
 
+	/**
+	 * @param periodicidadNiveles
+	 * 							La periodicidad de procesado de los niveles de severidad a asignar.
+	 */
 	public void setPeriodicidadNiveles(int periodicidadNiveles) {
 		this.periodicidadNiveles = periodicidadNiveles;
 	}
 
+	/**
+	 * @return la lista de dispositivos pertenecientes a la placa controladora.
+	 */
 	public Set<Dispositivo> getListaDispositivos() {
 		return listaDispositivos;
 	}
 
+	/**
+	 * @param listaDispositivos
+	 * 						La lista de dispositivos a asignar.
+	 */
 	public void setListaDispositivos(Set<Dispositivo> listaDispositivos) {
 		this.listaDispositivos = listaDispositivos;
 	}
 
+	/**
+	 * @return la lista de log de eventos de la placa controladora
+	 */
 	public Set<LogEvento> getLogsEventos() {
 		return logsEventos;
 	}
 
+	/**
+	 * @param logsEventos
+	 * 					La lista de log de eventos a asignar.
+	 */
 	public void setLogsEventos(Set<LogEvento> logsEventos) {
 		this.logsEventos = logsEventos;
 	}
 
+	/**
+	 * @return la lista de niveles de severidad pertenecientes a la placa controladora.
+	 */
 	public Set<NivelSeveridad> getNiveles() {
 		return niveles;
 	}
 
+	/**
+	 * @param niveles
+	 * 				La lista de niveles de severidad a asignar.
+	 */
 	public void setNiveles(Set<NivelSeveridad> niveles) {
 		this.niveles = niveles;
 	}
 
+	/**
+	 * @return la lista de factores pertenecientesa la placa controladora.
+	 */
 	public Set<Factor> getFactores() {
 		return factores;
 	}
 
+	/**
+	 * @param factores
+	 * 				La lista de factores a asignar.
+	 */
 	public void setFactores(Set<Factor> factores) {
 		this.factores = factores;
 	}
 
+	/**
+	 * @return la lista de grupos de actuadores pertenecientes a la placa controladora
+	 */
 	public Set<GrupoActuadores> getGruposActuadores() {
 		return gruposActuadores;
 	}
 
+	/**
+	 * @param gruposActuadores
+	 * 						La lista de grupos de actuadores a asignar.
+	 */
 	public void setGruposActuadores(Set<GrupoActuadores> gruposActuadores) {
 		this.gruposActuadores = gruposActuadores;
 	}
@@ -216,34 +335,62 @@ public class Placa implements Serializable {
 		return serialVersionUID;
 	}
 
+	/**
+	 * @return la dirección IP de la aplicación centralizadora.
+	 */
 	public String getIpCentralizadora() {
 		return ipCentralizadora;
 	}
 
+	/**
+	 * @param ipCentralizadora
+	 * 						La ip de la placa centralizadora a asignar.
+	 */
 	public void setIpCentralizadora(String ipCentralizadora) {
 		this.ipCentralizadora = ipCentralizadora;
 	}
 
+	/**
+	 * @return el puerto de comunicación de la aplicación centralizadora.
+	 */
 	public int getPuertoCentralizadora() {
 		return puertoCentralizadora;
 	}
 
+	/**
+	 * @param puertoCentralizadora
+	 * 							El puerto de comunicación de la aplicación centralizadora a asignar.
+	 */
 	public void setPuertoCentralizadora(int puertoCentralizadora) {
 		this.puertoCentralizadora = puertoCentralizadora;
 	}
 
+	/**
+	 * @return el host del servicio web para envío de SMS
+	 */
 	public String getHostWSSMS() {
 		return hostWSSMS;
 	}
 
+	/**
+	 * @param hostWSSMS
+	 * 					El host del servicio web para envío de SMS a asignar.
+	 */
 	public void setHostWSSMS(String hostWSSMS) {
 		this.hostWSSMS = hostWSSMS;
 	}
 
+	/**
+	 * @return el puerto de comunicación con el servicio web para envío de SMS
+	 */
 	public int getPuertoWSSMS() {
 		return puertoWSSMS;
 	}
 
+	/**
+	 * @param puertoWSSMS
+	 * 					El puerto de comunicación con el servicio web para envío de SMS a asignar.
+	 */
 	public void setPuertoWSSMS(int puertoWSSMS) {
 		this.puertoWSSMS = puertoWSSMS;
 	}
@@ -272,7 +419,7 @@ public class Placa implements Serializable {
 		result = prime * result + periodicidadNiveles;
 		result = prime * result + puertoCentralizadora;
 		result = prime * result + puertoWSSMS;
-		result = prime * result + puetroPlaca;
+		result = prime * result + puertoPlaca;
 		return result;
 	}
 
@@ -333,7 +480,7 @@ public class Placa implements Serializable {
 			return false;
 		if (puertoWSSMS != other.puertoWSSMS)
 			return false;
-		if (puetroPlaca != other.puetroPlaca)
+		if (puertoPlaca != other.puertoPlaca)
 			return false;
 		return true;
 	}
@@ -346,7 +493,7 @@ public class Placa implements Serializable {
 				+ ", numPuertosEDigitales=" + numPuertosEDigitales
 				+ ", numPuertosSDigitales=" + numPuertosSDigitales
 				+ ", estadoAlerta=" + estadoAlerta + ", ipPlaca=" + ipPlaca
-				+ ", puetroPlaca=" + puetroPlaca + ", periodicidadLecturas="
+				+ ", puetroPlaca=" + puertoPlaca + ", periodicidadLecturas="
 				+ periodicidadLecturas + ", periodicidadNiveles="
 				+ periodicidadNiveles + ", ipCentralizadora="
 				+ ipCentralizadora + ", puertoCentralizadora="

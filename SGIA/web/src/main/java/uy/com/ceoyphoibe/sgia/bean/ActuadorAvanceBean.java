@@ -2,15 +2,19 @@ package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.FlowEvent;
 import org.primefaces.event.RowEditEvent;
+
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
@@ -25,6 +29,9 @@ public class ActuadorAvanceBean {
 
 	@Inject
 	private RegistroActuadorAvance registroActuadorAvance;
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	private ActuadorAvance actuadorAvanceSeleccionado = new ActuadorAvance();
 
@@ -164,44 +171,63 @@ public class ActuadorAvanceBean {
 	}
 
 	public void guardar() {
-		try {
-			if (!skip)
-				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			actuadorAvanceSeleccionado.setActivoSistema('S');
-			actuadorAvanceSeleccionado.setEstadoAlerta("N");
-			actuadorAvanceSeleccionado.setPlaca(placaBean.getPlaca());
-			registroActuadorAvance.guardar(actuadorAvanceSeleccionado);
-			actuadorAvanceSeleccionado = new ActuadorAvance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se registró ", "con éxito!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al registrar ", "");
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				if (!skip)
+					actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+				actuadorAvanceSeleccionado.setActivoSistema('S');
+				actuadorAvanceSeleccionado.setEstadoAlerta("N");
+				actuadorAvanceSeleccionado.setPlaca(placaBean.getPlaca());
+				registroActuadorAvance.guardar(actuadorAvanceSeleccionado);
+				actuadorAvanceSeleccionado = new ActuadorAvance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se registró ", "con éxito!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Error al registrar ", "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void actualizar() {
-		try {
-
-			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			Mensaje mensaje = registroActuadorAvance
-					.modificar(actuadorAvanceSeleccionado);
-			if (mensaje.getTipo().equals("Informativo")) {
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+				Mensaje mensaje = registroActuadorAvance
+						.modificar(actuadorAvanceSeleccionado);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+	
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+	
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al actualizar ", "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al actualizar ", "");
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -215,66 +241,104 @@ public class ActuadorAvanceBean {
 	}
 
 	public void impactarListaPosiciones() {
-		try {
-
-			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se modificó ", actuadorAvanceSeleccionado.getNombre());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ",
-					actuadorAvanceSeleccionado.getNombre());
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+	
+				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+				registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se modificó ", actuadorAvanceSeleccionado.getNombre());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al modificar ",
+						actuadorAvanceSeleccionado.getNombre());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void onEditPosicion(RowEditEvent event) {
-		Posicion posicion = ((Posicion) event.getObject());
-
-		try {
-
-			posicion.setListaSensores(listaSensoresPosicion);
-			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", posicion.getDescripcion());
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			Posicion posicion = ((Posicion) event.getObject());
+			try {
+	
+				posicion.setListaSensores(listaSensoresPosicion);
+				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+				registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
+			} catch (Exception e) {
+				e.printStackTrace();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al modificar ", posicion.getDescripcion());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
 	public void eliminarPosicion(Posicion pos) {
-		try {
-			listaPosiciones.remove(pos);
-			actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
-			registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
-			FacesMessage msg = new FacesMessage("Se eliminó la posición",
-					pos.getDescripcion());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(
-					"Error al eliminar la posición", pos.getDescripcion());
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				listaPosiciones.remove(pos);
+				actuadorAvanceSeleccionado.setListaPosiciones(listaPosiciones);
+				registroActuadorAvance.modificar(actuadorAvanceSeleccionado);
+				FacesMessage msg = new FacesMessage("Se eliminó la posición",
+						pos.getDescripcion());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(
+						"Error al eliminar la posición", pos.getDescripcion());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	public void onEdit(RowEditEvent event) {
-		ActuadorAvance actuadorAvance = ((ActuadorAvance) event.getObject());
-
-		try {
-
-			actuadorAvance.setListaPosiciones(listaPosiciones);
-			registroActuadorAvance.modificar(actuadorAvance);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Se modificó ", actuadorAvance.getNombre());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", actuadorAvance.getNombre());
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			ActuadorAvance actuadorAvance = ((ActuadorAvance) event.getObject());
+	
+			try {
+	
+				actuadorAvance.setListaPosiciones(listaPosiciones);
+				registroActuadorAvance.modificar(actuadorAvance);
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Se modificó ", actuadorAvance.getNombre());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Error al modificar ", actuadorAvance.getNombre());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -286,23 +350,32 @@ public class ActuadorAvanceBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			Mensaje mensaje = registroActuadorAvance.eliminar(id);
-			if (mensaje.getTipo().equals("Informativo")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				Mensaje mensaje = registroActuadorAvance.eliminar(id);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 
 	public String onFlowProcess(FlowEvent event) {
@@ -320,22 +393,32 @@ public class ActuadorAvanceBean {
 	}
 
 	public void reestablecerPosicion() {
-		try {
-			Mensaje mensaje = registroActuadorAvance
-					.reestablecerPosicionActuadorAvance(
-							actuadorAvanceSeleccionado, posicionRes);
-			if (mensaje.getTipo().equals("Informativo")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
+		if (placaBean.getPlaca().getEstado() == 'C')
+		{
+			try {
+				Mensaje mensaje = registroActuadorAvance
+						.reestablecerPosicionActuadorAvance(
+								actuadorAvanceSeleccionado, posicionRes);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al restablecer la posicion ");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(
-					"Error al restablecer la posicion ");
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}

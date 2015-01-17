@@ -1,13 +1,17 @@
 package uy.com.ceoyphoibe.sgia.bean;
 
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import org.primefaces.event.RowEditEvent;
+
+import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
@@ -23,6 +27,9 @@ public class TipoLogEventoBean {
 
 	@Inject
 	private RegistroTipoLogEvento registroTipoLogEvento;
+	
+	@Inject
+	private RegistroMensaje registroMensaje;
 
 	private TipoLogEvento tipoLogEventoSeleccionado;
 	private Destinatario destinatarioSeleccionado;
@@ -119,25 +126,35 @@ public class TipoLogEventoBean {
 	}
 
 	public void onEdit(RowEditEvent event) {
-		TipoLogEvento tipoLogEvento = ((TipoLogEvento) event.getObject());
-
-		try {
-			registroTipoLogEvento.eliminarDestinatarios(tipoLogEvento, placa);
-			tipoLogEvento.setListaDestinatarios(listaDestinatarios);
-			Mensaje mensaje = registroTipoLogEvento.modificar(tipoLogEvento,
-					placa);
-			if (mensaje.getTipo().equals("Informativo")) {
+		if (placa.getEstado() == 'C')
+		{
+			TipoLogEvento tipoLogEvento = ((TipoLogEvento) event.getObject());
+	
+			try {
+				registroTipoLogEvento.eliminarDestinatarios(tipoLogEvento, placa);
+				tipoLogEvento.setListaDestinatarios(listaDestinatarios);
+				Mensaje mensaje = registroTipoLogEvento.modificar(tipoLogEvento,
+						placa);
+				if (mensaje.getTipo().equals("Informativo")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				} else {
+					FacesMessage msg = new FacesMessage(
+							FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, mensaje.getTexto(), "");
+						"Error al modificar ", tipoLogEvento.getNombre());
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Error al modificar ", tipoLogEvento.getNombre());
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -149,15 +166,24 @@ public class TipoLogEventoBean {
 	}
 
 	public void eliminar(Long id) {
-		try {
-			registroTipoLogEvento.eliminar(id);
-			FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Error al eliminar",
-					id.toString());
+		if (placa.getEstado() == 'C')
+		{
+			try {
+				registroTipoLogEvento.eliminar(id);
+				FacesMessage msg = new FacesMessage("Se eliminó ", id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			} catch (Exception e) {
+				FacesMessage msg = new FacesMessage("Error al eliminar",
+						id.toString());
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		}
+		else
+		{
+			Mensaje mensaje= registroMensaje.obtenerMensajeId((long) 33);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
 	}
 }

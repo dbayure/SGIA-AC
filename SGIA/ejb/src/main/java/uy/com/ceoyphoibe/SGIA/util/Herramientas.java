@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite la formación de urls
+ */
 package uy.com.ceoyphoibe.SGIA.util;
 
 import java.net.MalformedURLException;

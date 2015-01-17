@@ -1,12 +1,13 @@
+/**
+ * Clase de apoyo utilizada para pasaje de datos de acciones con los servicios web 
+ */
 package uy.com.ceoyphoibe.SGIA.DTO;
 
 import java.io.Serializable;
 
 public class AccionWS implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -3135147364907375174L;
 
 	private String fecha;
@@ -25,32 +26,22 @@ public class AccionWS implements Serializable {
 		return serialVersionUID;
 	}
 
-	/**
-	 * @return the idDispositivo
-	 */
+
 	public int getIdDispositivo() {
 		return idDispositivo;
 	}
 
-	/**
-	 * @param idDispositivo
-	 *            the idDispositivo to set
-	 */
+
 	public void setIdDispositivo(int idDispositivo) {
 		this.idDispositivo = idDispositivo;
 	}
 
-	/**
-	 * @return the tipoAccion
-	 */
+
 	public String getTipoAccion() {
 		return tipoAccion;
 	}
 
-	/**
-	 * @param tipoAccion
-	 *            the tipoAccion to set
-	 */
+
 	public void setTipoAccion(String tipoAccion) {
 		this.tipoAccion = tipoAccion;
 	}

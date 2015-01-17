@@ -1,3 +1,6 @@
+/**
+ * La clase TipoPuerto representa a cada uno de los tipos de puerto que se pueden definir en el sistema.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -11,9 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tipoPuerto")
 public class TipoPuerto implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5195600533836100836L;
 
 	@Id
@@ -22,26 +23,47 @@ public class TipoPuerto implements Serializable {
 	private String nombre;
 	private String descripcion;
 
+	/**
+	 * @return el identificador del tipo de puerto
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 			el identificador a asignar
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return el nombre del tipo de puerto
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * @param nombre
+	 * 				el nombre a asignar
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return la descripción del tipo de puerto
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+	/**
+	 * @param descripcion
+	 * 					la descripción a asignar
+	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}

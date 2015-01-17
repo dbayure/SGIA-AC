@@ -1,3 +1,6 @@
+/**
+ * La clase Actuador representa a todos aquellos dispositivos sobre los que se puede actuar para encenderlos o apagarlos.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -17,9 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "grupoActuadores", "placa" })
 public class Actuador extends Dispositivo implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6858893439293443051L;
 
 	private char estado;
@@ -31,39 +32,67 @@ public class Actuador extends Dispositivo implements Serializable {
 	@JoinColumn(name = "tipo_puerto_id", unique = false)
 	private TipoPuerto tipoPuerto;
 
-	// @ManyToOne(cascade = CascadeType.ALL)
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "grupoActuadores_id", referencedColumnName = "id")
 	private GrupoActuadores grupoActuadores;
 
+	/**
+	 * @return el estado
+	 */
 	public char getEstado() {
 		return estado;
 	}
 
+	/**
+	 * @param estado
+	 * 				Estado a asignar
+	 */
 	public void setEstado(char estado) {
 		this.estado = estado;
 	}
 
+	
+	/**
+	 * @return el tipoActuador
+	 */
 	public TipoActuador getTipoActuador() {
 		return tipoActuador;
 	}
 
+	/**
+	 * @param tipoActuador
+	 * 					TipoActuador a asignar
+	 */
 	public void setTipoActuador(TipoActuador tipoActuador) {
 		this.tipoActuador = tipoActuador;
 	}
 
+	/**
+	 * @return tipoPuerto
+	 */
 	public TipoPuerto getTipoPuerto() {
 		return tipoPuerto;
 	}
 
+	/**
+	 * @param tipoPuerto
+	 * 				TipoPuerto a asignar
+	 */
 	public void setTipoPuerto(TipoPuerto tipoPuerto) {
 		this.tipoPuerto = tipoPuerto;
 	}
 
+	/**
+	 * @return grupoActuadores
+	 */
 	public GrupoActuadores getGrupoActuadores() {
 		return grupoActuadores;
 	}
 
+	/**
+	 * @param grupoActuadores
+	 * 					GrupoActuadores a asignar
+	 */
 	public void setGrupoActuadores(GrupoActuadores grupoActuadores) {
 		this.grupoActuadores = grupoActuadores;
 	}

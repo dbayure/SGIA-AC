@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase NivelSeveridad
+ */
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.Iterator;
@@ -11,9 +14,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import uy.com.ceoyphoibe.SGIA.exception.contradiccionPrioridadException;
-import uy.com.ceoyphoibe.SGIA.exception.perfilContradictorioFactorException;
-import uy.com.ceoyphoibe.SGIA.exception.rangoNivelException;
+import uy.com.ceoyphoibe.SGIA.exception.ContradiccionPrioridadException;
+import uy.com.ceoyphoibe.SGIA.exception.PerfilContradictorioFactorException;
+import uy.com.ceoyphoibe.SGIA.exception.RangoNivelException;
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
@@ -130,8 +133,8 @@ public class RegistroNivelSeveridad {
 	}
 
 	private boolean validarNivelSeveridad(NivelSeveridad nivel)
-			throws rangoNivelException, contradiccionPrioridadException,
-			perfilContradictorioFactorException {
+			throws RangoNivelException, ContradiccionPrioridadException,
+			PerfilContradictorioFactorException {
 		boolean control = true;
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -148,17 +151,17 @@ public class RegistroNivelSeveridad {
 		if (listaNiveles.size() > 0) {
 			control = validarRangoFactor(listaNiveles, nivel);
 			if (!control)
-				throw new rangoNivelException(
+				throw new RangoNivelException(
 						"Rango no válido para el Factor seleccionado");
 			else {
 				control = validarContradiccionPrioridad(listaNiveles, nivel);
 				if (!control)
-					throw new contradiccionPrioridadException(
+					throw new ContradiccionPrioridadException(
 							"Perfil de activación contradictorio para la prioridad definida.");
 				else {
 					control = validarPerfilActivacionFactor(listaNiveles, nivel);
 					if (!control)
-						throw new perfilContradictorioFactorException(
+						throw new PerfilContradictorioFactorException(
 								"Los perfiles de activación de niveles de un mismo factor deben actuar sobre exactamente el mismo conjunto de grupos de actuadores");
 
 				}

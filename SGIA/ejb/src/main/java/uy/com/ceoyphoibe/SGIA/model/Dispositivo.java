@@ -1,3 +1,7 @@
+/**
+ * La clase Dispositivo representa a todo dispositivo perteneciente al sistema.
+ * Sus especializaciones son Actuador, ActuadoresAvance, Sensor y PlacaAuxiliar.
+ */
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -17,9 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "dispositivo")
 public class Dispositivo implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 8866292107833641690L;
 
 	@Id
@@ -38,66 +40,123 @@ public class Dispositivo implements Serializable {
 	@JoinColumn(name = "placa_id", referencedColumnName = "id")
 	private Placa placa;
 
+	
+	/**
+	 * @return id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 * 		El id a asignar.
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * @param nombre
+	 * 			El nombre a asignar
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return modelo
+	 */
 	public String getModelo() {
 		return modelo;
 	}
 
+	/**
+	 * @param modelo
+	 * 			El modelo a asignar
+	 */
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
+	/**
+	 * @return numeroPuerto
+	 */
 	public int getNumeroPuerto() {
 		return numeroPuerto;
 	}
 
+	/**
+	 * @param numeroPuerto
+	 * 				El número de puerto a asignar.
+	 */
 	public void setNumeroPuerto(int numeroPuerto) {
 		this.numeroPuerto = numeroPuerto;
 	}
 
+	/**
+	 * @return activoSistema
+	 */
 	public char getActivoSistema() {
 		return activoSistema;
 	}
 
+	/**
+	 * @param activoSistema
+	 * 					El parámetro activo sistema a asignar
+	 */
 	public void setActivoSistema(char activoSistema) {
 		this.activoSistema = activoSistema;
 	}
 
+	/**
+	 * @return estadoAlerta
+	 */
 	public String getEstadoAlerta() {
 		return estadoAlerta;
 	}
 
+	/**
+	 * @param estadoAlerta
+	 * 				El estado de alerta a asignar.
+	 */
 	public void setEstadoAlerta(String estadoAlerta) {
 		this.estadoAlerta = estadoAlerta;
 	}
 
+	/**
+	 * @return Placa auxiliar padre a la que está enchufado el dispositivo
+	 */
 	public PlacaAuxiliar getPadre() {
 		return padre;
 	}
 
+	/**
+	 * @param padre
+	 * 			La PlacaAuxiliar a asignar.
+	 */
 	public void setPadre(PlacaAuxiliar padre) {
 		this.padre = padre;
 	}
 
+	/**
+	 * @return Placa controladora a la que pertenece el dispositivo.
+	 */
 	public Placa getPlaca() {
 		return placa;
 	}
 
+	/**
+	 * @param placa
+	 * 			La placa a asignar.
+	 */
 	public void setPlaca(Placa placa) {
 		this.placa = placa;
 	}

@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto Dispositivo
+ */
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.util.List;

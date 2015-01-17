@@ -1,3 +1,6 @@
+/**
+ * Clase de apoyo utilizada para pasaje de datos de resultados de lecturas con los servicios web 
+ */
 package uy.com.ceoyphoibe.SGIA.DTO;
 
 import java.io.Serializable;
@@ -6,9 +9,7 @@ import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 
 public class ResultadoLectura implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -3135147364907375174L;
 
 	private Mensaje mensaje;
