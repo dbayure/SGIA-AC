@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Mensaje
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.logging.Logger;
@@ -12,7 +10,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Mensaje
+ */
 @Stateless
 public class RegistroMensaje {
 

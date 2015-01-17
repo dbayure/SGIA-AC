@@ -1,6 +1,4 @@
-/**
- * La clase NivelSeveridad representa a un conjunto de directivas definidas para cumplimiento automático en la placa controladora ante el cumplimiento de condiciones también definidas en este objeto.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -17,7 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase NivelSeveridad representa a un conjunto de directivas definidas para cumplimiento automático en la placa controladora ante el cumplimiento de condiciones también definidas en este objeto.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "nivelesSeveridad")

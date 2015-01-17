@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
-
+/**
+ * La clase MensajeBean controla a las páginas de la vista relacionadas a los mensajes y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @RequestScoped
 public class MensajeBean {

@@ -9,7 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-
+/**
+ * Clase utilizada para atender pedidos REST y devolver un recurso web de una Posicion para ser utilizado en la vista
+ */
 @Path("/posiciones")
 @RequestScoped
 public class PosicionResourceRESTService {

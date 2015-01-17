@@ -1,6 +1,4 @@
-/**
- * La clase Usuario representa a los usuarios del sistema.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -14,7 +12,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.jboss.security.auth.spi.Util;
-
+/**
+ * La clase Usuario representa a los usuarios del sistema.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "usuarios")

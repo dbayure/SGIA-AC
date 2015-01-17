@@ -1,7 +1,4 @@
-/**
- * La clase FachadaWS permite conectar con los servicios web publicados en las placas controladoras e invocar los servicios publicados en esta.
- * Actúa como intermediario para el pasaje y la transformación de datos entre los métodos del sistema y los servicios web invocados.
- */
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -33,7 +30,10 @@ import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.model.TipoPlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.util.Herramientas;
-
+/**
+ * La clase FachadaWS permite conectar con los servicios web publicados en las placas controladoras e invocar los servicios publicados en esta.
+ * Actúa como intermediario para el pasaje y la transformación de datos entre los métodos del sistema y los servicios web invocados.
+ */
 public class FachadaWS {
 
 	@Inject

@@ -1,13 +1,13 @@
-/**
- * Clase de apoyo que permite la formación de urls
- */
+
 package uy.com.ceoyphoibe.SGIA.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import uy.com.ceoyphoibe.SGIA.wsClient.Comunicacion_Service;
-
+/**
+ * Clase de apoyo que permite la formación de urls
+ */
 public class Herramientas {
 
 	public URL obtenerWSDL(String ip, String puerto) {

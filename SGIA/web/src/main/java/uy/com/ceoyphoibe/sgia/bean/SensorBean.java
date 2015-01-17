@@ -14,7 +14,9 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
-
+/**
+ * La clase SensorBean controla a las páginas de la vista relacionadas a los sensores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @RequestScoped
 public class SensorBean {

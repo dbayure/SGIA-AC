@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-
+/**
+ * Clase utilizada para convertir un objeto Posicion para ser utilizado en la vista
+ */
 @FacesConverter(forClass = Posicion.class, value = "posicionConverter")
 public class PosicionConverter implements Converter {
 

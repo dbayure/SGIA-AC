@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
-
+/**
+ * Clase utilizada para convertir un objeto Placa para ser utilizado en la vista
+ */
 @FacesConverter(forClass = Placa.class, value = "placaConverter")
 public class PlacaConverter implements Converter {
 

@@ -19,7 +19,10 @@ import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
-
+/**
+ * La clase ActuadorBean controla a las páginas de la vista relacionadas a los Actuadores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean
 @ViewScoped
 public class ActuadorBean {

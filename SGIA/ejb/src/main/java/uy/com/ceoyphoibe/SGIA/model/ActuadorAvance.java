@@ -1,6 +1,4 @@
-/**
- * La clase Actuador Avance representa a todos aquellos dispositivos sobre los que se puede actuar para cambiar su posición.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -16,7 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase Actuador Avance representa a todos aquellos dispositivos sobre los que se puede actuar para cambiar su posición.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "actuadoresAvance")

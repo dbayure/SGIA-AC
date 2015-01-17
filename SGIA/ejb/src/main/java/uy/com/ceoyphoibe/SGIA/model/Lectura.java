@@ -1,6 +1,4 @@
-/**
- * La clase Lectura representa a una lectura de un sensor recibida desde la placa controladora.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -11,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Lectura representa a una lectura de un sensor recibida desde la placa controladora.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "lecturas")

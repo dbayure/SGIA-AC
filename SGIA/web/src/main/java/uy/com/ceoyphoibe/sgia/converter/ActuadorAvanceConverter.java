@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
-
+/**
+ * Clase utilizada para convertir un objeto ActuadorAvance para ser utilizado en la vista
+ */
 @FacesConverter(forClass = ActuadorAvance.class, value = "actuadorAvanceConverter")
 public class ActuadorAvanceConverter implements Converter {
 

@@ -30,7 +30,10 @@ import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
-
+/**
+ * La clase FactorBean controla a las páginas de la vista relacionadas a los factores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean(name = "factorBean")
 @SessionScoped
 public class FactorBean {

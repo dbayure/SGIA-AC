@@ -1,6 +1,4 @@
-/**
- * La clase TipoPuerto representa a cada uno de los tipos de puerto que se pueden definir en el sistema.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -8,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase TipoPuerto representa a cada uno de los tipos de puerto que se pueden definir en el sistema.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "tipoPuerto")

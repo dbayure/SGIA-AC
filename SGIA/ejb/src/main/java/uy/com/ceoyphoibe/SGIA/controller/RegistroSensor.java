@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Sensor
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.logging.Logger;
@@ -14,7 +12,9 @@ import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Sensor
+ */
 @Stateless
 public class RegistroSensor {
 

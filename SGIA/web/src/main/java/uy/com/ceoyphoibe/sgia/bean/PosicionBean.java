@@ -10,7 +10,9 @@ import org.primefaces.event.RowEditEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPosicion;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
-
+/**
+ * La clase PosicionBean controla a las páginas de la vista relacionadas a las posiciones y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @ViewScoped
 public class PosicionBean {

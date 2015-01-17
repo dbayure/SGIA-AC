@@ -1,6 +1,4 @@
-/**
- * La clase Rol representa a un grupo de seguridad del sistema, según los usuarios pertenezcan a uno u otro rol tendrán permisos para ejecutar determinadas tareas en el sistema.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -10,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Rol representa a un grupo de seguridad del sistema, según los usuarios pertenezcan a uno u otro rol tendrán permisos para ejecutar determinadas tareas en el sistema.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "rol")

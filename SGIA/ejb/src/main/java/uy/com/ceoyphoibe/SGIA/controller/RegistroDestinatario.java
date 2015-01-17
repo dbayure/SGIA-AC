@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Destinatario
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +11,9 @@ import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Destinatario
+ */
 @Stateless
 public class RegistroDestinatario {
 

@@ -22,7 +22,10 @@ import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-
+/**
+ * La clase GrupoActuadoresBean controla a las páginas de la vista relacionadas a los grupos de actuadores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean
 @SessionScoped
 public class GrupoActuadoresBean {

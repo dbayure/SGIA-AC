@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Factor
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.List;
@@ -14,8 +12,9 @@ import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Factor
+ */
 @Stateless
 public class RegistroFactor {
 

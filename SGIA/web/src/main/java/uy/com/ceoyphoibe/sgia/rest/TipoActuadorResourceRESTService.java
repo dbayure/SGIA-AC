@@ -11,10 +11,7 @@ import javax.ws.rs.Produces;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
 
 /**
- * JAX-RS Example
- * 
- * This class produces a RESTful service to read the contents of the members
- * table.
+ * Clase utilizada para atender pedidos REST y devolver un recurso web de un TipoActuador para ser utilizado en la vista
  */
 @Path("/tipoActuadores")
 @RequestScoped

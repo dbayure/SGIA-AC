@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase TipoLogEvento
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.logging.Logger;
@@ -15,7 +13,9 @@ import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase TipoLogEvento
+ */
 @Stateless
 public class RegistroTipoLogEvento {
 

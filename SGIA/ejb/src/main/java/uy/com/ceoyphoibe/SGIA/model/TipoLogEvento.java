@@ -1,7 +1,4 @@
-/**
- * La clase TipoLogEvento representa a los tipos de log que pueden generarse.
- * Sobre estos se define a que destinatarios notificar y mediante que medios.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -15,7 +12,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase TipoLogEvento representa a los tipos de log que pueden generarse.
+ * Sobre estos se define a que destinatarios notificar y mediante que medios.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "tipoLogEventos")

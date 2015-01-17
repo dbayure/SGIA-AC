@@ -26,6 +26,9 @@ import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 
+/**
+ * Clase utilizada para publicar servicios web, para establecer comunicación con la placa controladora y los dispositivos móviles.
+ */
 @WebService
 public class sgia_AC_ws implements Serializable {
 
@@ -54,7 +57,13 @@ public class sgia_AC_ws implements Serializable {
 
 	@Inject
 	private RegistroMensaje rMensaje;
-
+	
+	/**
+	 * WS que permite recibir una lista de lecturas de una placa auxiliar y persistirlas en el sistema.
+	 * @param nroSerie
+	 * @param listaLecturas
+	 * @return una confirmación si finalizó correctamente
+	 */
 	@WebMethod
 	public boolean inLecturas(String nroSerie, List<LecturaWS> listaLecturas) {
 		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
@@ -76,6 +85,12 @@ public class sgia_AC_ws implements Serializable {
 		return true;
 	}
 
+	/**
+	 * WS que permite recibir desde la placa controladora una lista de lecturas de factores.
+	 * @param nroSerie
+	 * @param listaLecturas
+	 * @return una confirmación si finalizó correctamente
+	 */
 	@WebMethod
 	public boolean inLecturasFactor(String nroSerie,
 			List<LecturaWS> listaLecturas) {
@@ -97,6 +112,12 @@ public class sgia_AC_ws implements Serializable {
 		return true;
 	}
 
+	/**
+	 * WS que permite recibir desde la placa controladora una lista de acciones.
+	 * @param nroSerie
+	 * @param listaAcciones
+	 * @return una confirmación si finalizó correctamente
+	 */
 	@WebMethod
 	public boolean inAcciones(String nroSerie, List<AccionWS> listaAcciones) {
 		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
@@ -117,6 +138,12 @@ public class sgia_AC_ws implements Serializable {
 		return true;
 	}
 
+	/**
+	 * WS que permite recibir desde la placa controladora una lista de log eventos.
+	 * @param nroSerie
+	 * @param listaLogEventoWS
+	 * @return una confirmación si finalizó correctamente
+	 */
 	@WebMethod
 	public boolean inLogEventosPendientes(String nroSerie,
 			List<LogEventoWS> listaLogEventoWS) {
@@ -144,10 +171,15 @@ public class sgia_AC_ws implements Serializable {
 				e.printStackTrace();
 			}
 		}
-
 		return true;
 	}
 
+	/**
+	 * WS que permite recibir desde la placa controladora un log de eventos
+	 * @param nroSerie
+	 * @param logEventoWS
+	 * @return una confirmación si finalizó correctamente
+	 */
 	@WebMethod
 	public boolean inLogEvento(String nroSerie, LogEventoWS logEventoWS) {
 		Long idPlaca = rPlaca.obtenerIdPlacaNroSerie(nroSerie);
@@ -172,7 +204,6 @@ public class sgia_AC_ws implements Serializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return true;
 	}
 }

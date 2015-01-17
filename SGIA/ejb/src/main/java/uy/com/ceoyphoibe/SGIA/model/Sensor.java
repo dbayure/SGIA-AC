@@ -1,6 +1,4 @@
-/**
- * La clase Sensor representa a todos aquellos dispositivos capaces de obtener lecturas del ambiente para determinado factor.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -12,7 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase Sensor representa a todos aquellos dispositivos capaces de obtener lecturas del ambiente para determinado factor.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "sensores")

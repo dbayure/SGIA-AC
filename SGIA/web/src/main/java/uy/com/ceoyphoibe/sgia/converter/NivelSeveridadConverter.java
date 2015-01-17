@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
-
+/**
+ * Clase utilizada para convertir un objeto NivelSeveridad para ser utilizado en la vista
+ */
 @FacesConverter(forClass = NivelSeveridad.class, value = "nivelSeveridadConverter")
 public class NivelSeveridadConverter implements Converter {
 

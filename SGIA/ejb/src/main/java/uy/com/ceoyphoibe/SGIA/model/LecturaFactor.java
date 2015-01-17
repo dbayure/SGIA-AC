@@ -1,6 +1,4 @@
-/**
- * La clase LecturaFactor representa a una lectura de un factor, procesada a partir de la lectura de sus sensores asignados.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -11,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase LecturaFactor representa a una lectura de un factor, procesada a partir de la lectura de sus sensores asignados.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "lecturasFactor")

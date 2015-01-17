@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase PlacaAuxiliar
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.ArrayList;
@@ -12,7 +10,9 @@ import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.PlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase PlacaAuxiliar
+ */
 @Stateless
 public class RegistroPlacaAuxiliar {
 

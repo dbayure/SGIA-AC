@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.Rol;
-
+/**
+ * Clase utilizada para convertir un objeto Rol para ser utilizado en la vista
+ */
 @FacesConverter(forClass = Rol.class, value = "rolConverter")
 public class RolConverter implements Converter {
 

@@ -19,7 +19,10 @@ import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
-
+/**
+ * La clase ActuadorAvanceBean controla a las páginas de la vista relacionadas a los Actuadores de avance y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean
 @SessionScoped
 public class ActuadorAvanceBean {

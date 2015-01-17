@@ -1,6 +1,4 @@
-/**
- * La clase Factor representa a un parámetro del ambiente que se va a mesurar mediante el uso de un conjunto de sensores.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -15,7 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Factor representa a un parámetro del ambiente que se va a mesurar mediante el uso de un conjunto de sensores.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "factores")

@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto LecturaFactor
- */
+
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.sql.Timestamp;
@@ -19,7 +17,9 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto LecturaFactor
+ */
 @RequestScoped
 public class LecturaFactorListProducer {
 

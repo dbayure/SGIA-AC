@@ -14,7 +14,9 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoPlacaAuxiliar;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoPlacaAuxiliar;
-
+/**
+ * La clase TipoPlacaAuxiliarBean controla a las páginas de la vista relacionadas a los tipos de placas auxiliares y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @RequestScoped
 public class TipoPlacaAuxiliarBean {

@@ -14,7 +14,10 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
-
+/**
+ * La clase DestinatarioBean controla a las páginas de la vista relacionadas a los destinatarios y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean
 @RequestScoped
 public class DestinatarioBean {

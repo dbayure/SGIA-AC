@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
-
+/**
+ * Clase utilizada para convertir un objeto LogEvento para ser utilizado en la vista
+ */
 @FacesConverter(forClass = LogEvento.class, value = "logEventoConverter")
 public class LogEventoConverter implements Converter {
 

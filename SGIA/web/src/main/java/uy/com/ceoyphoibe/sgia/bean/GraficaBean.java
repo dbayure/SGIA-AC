@@ -19,7 +19,10 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
-
+/**
+ * La clase GraficaBean controla a las páginas de la vista relacionadas a los factores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean(name = "graficaBean")
 @SessionScoped
 public class GraficaBean {

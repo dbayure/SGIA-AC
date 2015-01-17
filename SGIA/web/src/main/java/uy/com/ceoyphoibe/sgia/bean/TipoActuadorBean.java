@@ -14,7 +14,9 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoActuador;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoActuador;
-
+/**
+ * La clase TipoActuadorBean controla a las páginas de la vista relacionadas a los tipos de actuadores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @RequestScoped
 public class TipoActuadorBean {

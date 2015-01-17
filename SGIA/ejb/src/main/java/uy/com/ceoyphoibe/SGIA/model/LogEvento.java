@@ -1,6 +1,4 @@
-/**
- * La clase LogEvento representa a un elemento de log generado ante un evento disparado en la placa controladora.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -16,7 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase LogEvento representa a un elemento de log generado ante un evento disparado en la placa controladora.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "logEventos")

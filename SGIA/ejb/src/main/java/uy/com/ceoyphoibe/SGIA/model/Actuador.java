@@ -1,6 +1,4 @@
-/**
- * La clase Actuador representa a todos aquellos dispositivos sobre los que se puede actuar para encenderlos o apagarlos.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -13,7 +11,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase Actuador representa a todos aquellos dispositivos sobre los que se puede actuar para encenderlos o apagarlos.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "actuador")

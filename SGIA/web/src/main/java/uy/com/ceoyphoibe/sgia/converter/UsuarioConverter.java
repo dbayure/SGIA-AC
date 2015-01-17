@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.Usuario;
-
+/**
+ * Clase utilizada para convertir un objeto Usuario para ser utilizado en la vista
+ */
 @FacesConverter(forClass = Usuario.class, value = "usuarioConverter")
 public class UsuarioConverter implements Converter {
 

@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Dispositivo
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import javax.ejb.Stateless;
@@ -9,7 +7,9 @@ import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Dispositivo
+ */
 @Stateless
 public class RegistroDispositivo {
 

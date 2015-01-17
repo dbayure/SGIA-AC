@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.FilaPerfilActivacion;
-
+/**
+ * Clase utilizada para convertir un objeto FilaPerfilActivacion para ser utilizado en la vista
+ */
 @FacesConverter(forClass = FilaPerfilActivacion.class, value = "filaPerfilConverter")
 public class FilaPerfilActivacionConverter implements Converter {
 

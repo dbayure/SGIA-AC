@@ -1,7 +1,4 @@
-/**
- * La clase Dispositivo representa a todo dispositivo perteneciente al sistema.
- * Sus especializaciones son Actuador, ActuadoresAvance, Sensor y PlacaAuxiliar.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -14,7 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Dispositivo representa a todo dispositivo perteneciente al sistema.
+ * Sus especializaciones son Actuador, ActuadoresAvance, Sensor y PlacaAuxiliar.
+ */
 @Entity
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.JOINED)

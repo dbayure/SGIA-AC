@@ -1,6 +1,4 @@
-/**
- * La clase TipoPlacaAuxiliar representa a las categorías de placas auxiliares que se puede definir.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -12,7 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase TipoPlacaAuxiliar representa a las categorías de placas auxiliares que se puede definir.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "tipoPlacaAuxiliar")

@@ -9,7 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
-
+/**
+ * Clase utilizada para atender pedidos REST y devolver un recurso web de un LogEvento para ser utilizado en la vista
+ */
 @Path("/logeventos")
 @RequestScoped
 public class LogEventoResourceRESTService {

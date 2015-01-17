@@ -1,6 +1,4 @@
-/**
- * La clase FilaPerfilActivacion representa a una fila perteneciente a un perfil de activación definido sobre un nivel de severidad.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -13,7 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase FilaPerfilActivacion representa a una fila perteneciente a un perfil de activación definido sobre un nivel de severidad.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "filasPerfilesActivacion")

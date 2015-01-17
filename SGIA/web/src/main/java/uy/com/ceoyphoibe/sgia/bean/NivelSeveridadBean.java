@@ -22,7 +22,9 @@ import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.NivelSeveridad;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
-
+/**
+ * La clase NivelSeveridadBean controla a las páginas de la vista relacionadas a los niveles de severidad y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @SessionScoped
 public class NivelSeveridadBean {

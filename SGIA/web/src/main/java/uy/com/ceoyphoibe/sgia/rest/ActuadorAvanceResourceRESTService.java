@@ -11,6 +11,9 @@ import javax.ws.rs.Produces;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 
+/**
+ * Clase utilizada para atender pedidos REST y devolver un recurso web de un ActuadorAvance para ser utilizado en la vista
+ */
 @Path("/actuadoresAvance")
 @RequestScoped
 public class ActuadorAvanceResourceRESTService {
@@ -35,7 +38,6 @@ public class ActuadorAvanceResourceRESTService {
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("application/json")
 	public ActuadorAvance lookupById(@PathParam("id") long id) {
-		System.out.println("########### Id Actuador Avance: " + id);
 		ActuadorAvance av = registroActuadorAvance.obtenerActuadorAvance(id);
 		return av;
 	}

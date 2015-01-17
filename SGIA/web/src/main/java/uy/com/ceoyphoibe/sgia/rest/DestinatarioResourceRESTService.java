@@ -10,7 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
-
+/**
+ * Clase utilizada para atender pedidos REST y devolver un recurso web de un Destinatario para ser utilizado en la vista
+ */
 @Path("/destinatarios")
 @RequestScoped
 public class DestinatarioResourceRESTService {

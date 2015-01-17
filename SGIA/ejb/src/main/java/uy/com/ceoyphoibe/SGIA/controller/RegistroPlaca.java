@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Placa
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.HashSet;
@@ -22,7 +20,9 @@ import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase Placa
+ */
 @Stateful
 @Model
 public class RegistroPlaca {

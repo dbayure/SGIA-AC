@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
-
+/**
+ * Clase utilizada para convertir un objeto TipoLogEvento para ser utilizado en la vista
+ */
 @FacesConverter(forClass = TipoLogEvento.class, value = "tipoLogEventoConverter")
 public class TipoLogEventoConverter implements Converter {
 

@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.TipoPuerto;
-
+/**
+ * Clase utilizada para convertir un objeto TipoPuerto para ser utilizado en la vista
+ */
 @FacesConverter(forClass = TipoPuerto.class, value = "tipoPuertoConverter")
 public class TipoPuertoConverter implements Converter {
 

@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
-
+/**
+ * Clase utilizada para convertir un objeto Mensaje para ser utilizado en la vista
+ */
 @FacesConverter(forClass = Mensaje.class, value = "mensajeConverter")
 public class MensajeConverter implements Converter {
 

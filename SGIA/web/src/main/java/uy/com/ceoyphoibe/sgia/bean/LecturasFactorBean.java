@@ -26,7 +26,10 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-
+/**
+ * La clase LecturasFactorBean controla a las páginas de la vista relacionadas a las lecturas de factores y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean(name = "lecturasFactorBean")
 @SessionScoped
 public class LecturasFactorBean {

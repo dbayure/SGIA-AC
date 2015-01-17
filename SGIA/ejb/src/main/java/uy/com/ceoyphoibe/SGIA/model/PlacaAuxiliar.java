@@ -1,6 +1,4 @@
-/**
- * La clase PlacaAuxiliar representa a todo dispositivo que puede controlar a otros dispositivos, y que se puede instanciar a nivel de placa controladora como un interface kit.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -14,7 +12,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase PlacaAuxiliar representa a todo dispositivo que puede controlar a otros dispositivos, y que se puede instanciar a nivel de placa controladora como un interface kit.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "placaAuxiliar")

@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
-
+/**
+ * Clase utilizada para convertir un objeto Factor para ser utilizado en la vista
+ */
 @FacesConverter(forClass = Factor.class, value = "factorConverter")
 public class FactorConverter implements Converter {
 

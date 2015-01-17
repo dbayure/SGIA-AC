@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoPuerto;
 import uy.com.ceoyphoibe.SGIA.model.TipoPuerto;
-
+/**
+ * La clase TipoPuertoBean controla a las páginas de la vista relacionadas a los tipos de puerto y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @RequestScoped
 public class TipoPuertoBean {

@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
-
+/**
+ * Clase utilizada para convertir un objeto GrupoActuadores para ser utilizado en la vista
+ */
 @FacesConverter(forClass = GrupoActuadores.class, value = "grupoActuadoresConverter")
 public class GrupoActuadoresConverter implements Converter {
 

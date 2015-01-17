@@ -17,7 +17,9 @@ import uy.com.ceoyphoibe.SGIA.model.Destinatario;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
 import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
-
+/**
+ * La clase TipoLogEventoBean controla a las páginas de la vista relacionadas a los tipos de log de eventos y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @ViewScoped
 public class TipoLogEventoBean {

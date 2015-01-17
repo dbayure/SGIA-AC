@@ -20,7 +20,9 @@ import uy.com.ceoyphoibe.SGIA.data.DispositivoListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
-
+/**
+ * La clase PlacaBean controla a las páginas de la vista relacionadas a las placas y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean(name = "placaBean")
 @SessionScoped
 public class PlacaBean {

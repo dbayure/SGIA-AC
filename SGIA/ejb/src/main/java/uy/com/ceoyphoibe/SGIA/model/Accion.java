@@ -1,6 +1,4 @@
-/**
- * La clase Accion se utiliza para representar las acciones disparadas por los actuadores desde la placa controladora.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -11,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Accion se utiliza para representar las acciones disparadas por los actuadores desde la placa controladora.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "acciones")

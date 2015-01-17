@@ -1,7 +1,4 @@
-/**
- * La clase Posicion representa a las posiciones que pueden poseer los actuadores de avance.
- * Cada posición pertenece a un solo actuador de avance.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -17,7 +14,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Posicion representa a las posiciones que pueden poseer los actuadores de avance.
+ * Cada posición pertenece a un solo actuador de avance.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "posiciones")

@@ -1,12 +1,12 @@
-/**
- * Clase de apoyo utilizada para pasaje de datos de resultados de acciones con los servicios web 
- */
+
 package uy.com.ceoyphoibe.SGIA.DTO;
 
 import java.io.Serializable;
 import java.util.Date;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
-
+/**
+ * Clase de apoyo utilizada para pasaje de datos de resultados de acciones con los servicios web 
+ */
 public class ResultadoAccion implements Serializable {
 
 

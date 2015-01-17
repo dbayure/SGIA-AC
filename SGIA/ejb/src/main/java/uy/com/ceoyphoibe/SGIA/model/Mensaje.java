@@ -1,6 +1,4 @@
-/**
- * La clase Mensaje representa a todos los mensajes emitidos desde la placa controladora para desplegar al usuario.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -9,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Mensaje representa a todos los mensajes emitidos desde la placa controladora para desplegar al usuario.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "mensajes")

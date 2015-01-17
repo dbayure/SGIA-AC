@@ -10,7 +10,9 @@ import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import uy.com.ceoyphoibe.SGIA.model.TipoPlacaAuxiliar;
-
+/**
+ * Clase utilizada para convertir un objeto TipoPlacaAuxiliar para ser utilizado en la vista
+ */
 @FacesConverter(forClass = TipoPlacaAuxiliar.class, value = "tipoPlacaAuxiliarConverter")
 public class TipoPlacaAuxiliarConverter implements Converter {
 

@@ -1,6 +1,4 @@
-/**
- * La clase Destinatario representa a toda persona a la que se puede notificar vía mail y/o sms los eventos generados en los galpones.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -11,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase Destinatario representa a toda persona a la que se puede notificar vía mail y/o sms los eventos generados en los galpones.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "destinatarios")

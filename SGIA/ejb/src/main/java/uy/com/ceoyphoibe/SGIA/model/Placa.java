@@ -1,6 +1,4 @@
-/**
- * La clase Placa representa a una placa controladora.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -16,7 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
+/**
+ * La clase Placa representa a una placa controladora.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "placas")

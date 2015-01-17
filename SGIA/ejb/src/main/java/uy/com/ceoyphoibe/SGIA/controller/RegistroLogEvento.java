@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase LogEvento
- */
+
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.logging.Logger;
@@ -13,7 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para realizar tareas con la clase LogEvento
+ */
 @Stateless
 public class RegistroLogEvento {
 

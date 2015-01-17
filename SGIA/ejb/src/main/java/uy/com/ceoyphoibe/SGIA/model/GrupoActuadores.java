@@ -1,7 +1,4 @@
-/**
- * La clase GrupoActuadores representa a un conjunto de actuadores sobre el que se puede actuar globalmente.
- * Es la unidad mínima sobre la que se puede definir un estado esperado.
- */
+
 package uy.com.ceoyphoibe.SGIA.model;
 
 import java.io.Serializable;
@@ -18,7 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
+/**
+ * La clase GrupoActuadores representa a un conjunto de actuadores sobre el que se puede actuar globalmente.
+ * Es la unidad mínima sobre la que se puede definir un estado esperado.
+ */
 @Entity
 @XmlRootElement
 @Table(name = "grupoActuadores")

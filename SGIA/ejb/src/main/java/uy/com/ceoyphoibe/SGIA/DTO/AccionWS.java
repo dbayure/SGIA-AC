@@ -1,10 +1,10 @@
-/**
- * Clase de apoyo utilizada para pasaje de datos de acciones con los servicios web 
- */
+
 package uy.com.ceoyphoibe.SGIA.DTO;
 
 import java.io.Serializable;
-
+/**
+ * Clase de apoyo utilizada para pasaje de datos de acciones con los servicios web 
+ */
 public class AccionWS implements Serializable {
 
 

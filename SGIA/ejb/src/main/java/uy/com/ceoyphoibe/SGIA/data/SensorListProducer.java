@@ -1,6 +1,4 @@
-/**
- * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto Sensor
- */
+
 package uy.com.ceoyphoibe.SGIA.data;
 
 import java.util.List;
@@ -16,7 +14,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
-
+/**
+ * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto Sensor
+ */
 @RequestScoped
 public class SensorListProducer {
 

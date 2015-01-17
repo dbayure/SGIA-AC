@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.sgia.bean;
 
 import java.sql.Timestamp;
@@ -27,6 +28,10 @@ import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.faces.context.FacesContext;
 
+/**
+ * La clase AccionesBean controla a las páginas de la vista relacionadas a las Acciones y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ *	
+ */
 @ManagedBean(name = "accionesBean")
 @SessionScoped
 public class AccionesBean {

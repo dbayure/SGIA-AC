@@ -8,7 +8,9 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroRol;
 import uy.com.ceoyphoibe.SGIA.model.Rol;
-
+/**
+ * La clase RolBean controla a las páginas de la vista relacionadas a los roles y establece las comunicaciones necesarias con el EJB para ejecutar las tareas solicitadas.
+ */
 @ManagedBean
 @RequestScoped
 public class RolBean {
