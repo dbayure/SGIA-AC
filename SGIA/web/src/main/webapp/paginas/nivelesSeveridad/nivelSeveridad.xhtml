@@ -191,7 +191,7 @@
 								<p:column style="width:40%">
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{_fila.estado}" />
+											<h:outputText value="#{_fila.estado == 'A' ? 'Apagado' : _fila.estado == 'E' ? 'Encendido' : _fila.estado}" /> 
 										</f:facet>
 										<f:facet name="input">
 											<p:inputText id="modelInputEstado" value="#{_fila.estado}"
@@ -282,7 +282,7 @@
 								</p:column>
 
 								<p:column style="width:40%">
-									<h:outputText value="#{_fila.estado}" />
+									<h:outputText value="#{_fila.estado == 'A' ? 'Apagado' : _fila.estado == 'E' ? 'Encendido' : _fila.estado}" />
 								</p:column>
 
 							</p:dataTable>

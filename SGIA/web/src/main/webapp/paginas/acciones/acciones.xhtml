@@ -180,7 +180,7 @@
 				</p:column>
 
 				<p:column headerText="Accion" style="width:20%">
-					<h:outputText value="#{_act.tipoAccion}" />
+					<h:outputText value="#{_act.tipoAccion == 'A' ? 'Apagado' : _act.tipoAccion == 'E' ? 'Encendido' : _act.tipoAccion}" /> 
 				</p:column>
 			</p:dataTable>
 

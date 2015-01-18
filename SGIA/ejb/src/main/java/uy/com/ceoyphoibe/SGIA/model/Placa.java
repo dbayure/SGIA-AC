@@ -222,7 +222,7 @@ public class Placa implements Serializable {
 	 * @param puertoPlaca
 	 * 					El puerto de comunicación con la placa a asignar 					
 	 */
-	public void setPuetroPlaca(int puertoPlaca) {
+	public void setPuertoPlaca(int puertoPlaca) {
 		this.puertoPlaca = puertoPlaca;
 	}
 

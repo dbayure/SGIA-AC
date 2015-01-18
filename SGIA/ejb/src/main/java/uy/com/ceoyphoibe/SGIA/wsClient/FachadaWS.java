@@ -80,7 +80,7 @@ public class FachadaWS {
 		if (datosPlaca.getPuertoWSSMS() != null
 				&& !datosPlaca.getPuertoWSSMS().equals(""))
 			placa.setPuertoWSSMS(Integer.valueOf(datosPlaca.getPuertoWSSMS()));
-		placa.setPuetroPlaca(puerto);
+		placa.setPuertoPlaca(puerto);
 		placa.setIpPlaca(ip);
 
 		return placa;
