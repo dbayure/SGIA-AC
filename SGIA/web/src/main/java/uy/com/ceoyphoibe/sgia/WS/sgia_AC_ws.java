@@ -2,13 +2,24 @@ package uy.com.ceoyphoibe.sgia.WS;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+
 import uy.com.ceoyphoibe.SGIA.DTO.AccionWS;
+import uy.com.ceoyphoibe.SGIA.DTO.Accion_AM;
+import uy.com.ceoyphoibe.SGIA.DTO.Dispositivo_AM;
+import uy.com.ceoyphoibe.SGIA.DTO.EstadosPlaca_AM;
+import uy.com.ceoyphoibe.SGIA.DTO.Factor_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.LecturaWS;
+import uy.com.ceoyphoibe.SGIA.DTO.Lectura_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.LogEventoWS;
+import uy.com.ceoyphoibe.SGIA.DTO.LogEvento_AM;
+import uy.com.ceoyphoibe.SGIA.DTO.Placa_AM;
+import uy.com.ceoyphoibe.SGIA.DTO.TipoLogEvento_AM;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroAccion;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroLectura;
@@ -17,8 +28,14 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroLogEvento;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
+import uy.com.ceoyphoibe.SGIA.data.AccionListProducer;
+import uy.com.ceoyphoibe.SGIA.data.FactorListProducer;
+import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
+import uy.com.ceoyphoibe.SGIA.data.LogEventoListProducer;
+import uy.com.ceoyphoibe.SGIA.data.PlacaListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Accion;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
+import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Lectura;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
@@ -29,7 +46,7 @@ import uy.com.ceoyphoibe.SGIA.model.TipoLogEvento;
 /**
  * Clase utilizada para publicar servicios web, para establecer comunicación con la placa controladora y los dispositivos móviles.
  */
-@WebService
+@WebService(targetNamespace = "http://sgiaAC/")
 public class sgia_AC_ws implements Serializable {
 
 	private static final long serialVersionUID = 2953071844666719795L;
@@ -57,6 +74,21 @@ public class sgia_AC_ws implements Serializable {
 
 	@Inject
 	private RegistroMensaje rMensaje;
+	
+	@Inject
+	private PlacaListProducer placaListProducer;
+	
+	@Inject
+	private FactorListProducer factorListProducer;
+	
+	@Inject
+	private LecturaFactorListProducer lecturaFactorListProducer;
+	
+	@Inject
+	private AccionListProducer accionListProducer;
+	
+	@Inject
+	private LogEventoListProducer logEventoListProducer;
 	
 	/**
 	 * WS que permite recibir una lista de lecturas de una placa auxiliar y persistirlas en el sistema.
@@ -205,5 +237,107 @@ public class sgia_AC_ws implements Serializable {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de placas controladoras disponibles
+	 * @return una lista de Placas como objetos Placa_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<Placa_AM> wsObtenerListaPlacas() {
+		List<Placa> listaPlacas= placaListProducer.getPlacas();
+		ArrayList<Placa_AM> listaPlacasWS= new ArrayList<Placa_AM>();
+		for (Placa p : listaPlacas)
+		{
+			
+			Placa_AM placa= new Placa_AM(p.getId(), String.valueOf(p.getEstado()), p.getNroSerie(), p.getDescripcion(), String.valueOf(p.getEstadoAlerta()) );
+			listaPlacasWS.add(placa);
+		}
+		return listaPlacasWS;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de factores pertenecientes a la placa controladora al que corresponde el id pasado como parámetro
+	 * @return una lista de Factores como objetos Factor_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<Factor_AM> wsObtenerListaFactores(Long idPlaca) {
+		
+		List<Factor> listaFactores= factorListProducer.obtenerFactoresPlaca(idPlaca);
+		ArrayList<Factor_AM> listaFactoresAM= new ArrayList<Factor_AM>();
+		for (Factor f : listaFactores)
+		{
+			Factor_AM factor= new Factor_AM(f.getIdFactor(), f.getNombre(), f.getUnidad(), f.getValorMin(), f.getValorMax());
+			listaFactoresAM.add(factor);
+		}
+		return listaFactoresAM;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de lecturas pertenecientes a la placa controladora y al factor al que corresponden los ids pasados como parámetros
+	 * @return una lista de Factores como objetos Factor_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<Lectura_AM> wsObtenerListaLecturas(Long idPlaca, Long idFactor) {
+		
+		List<LecturaFactor> listaLecturas= lecturaFactorListProducer.obtenerUltimasDiezLecturasFactor(idPlaca, idFactor);
+		ArrayList<Lectura_AM> listaLecturasAM= new ArrayList<Lectura_AM>();
+		for (LecturaFactor l : listaLecturas)
+		{
+			Lectura_AM lectura= new Lectura_AM(l.getFechaHora().toString(), l.getValor());
+			listaLecturasAM.add(lectura);
+		}
+		return listaLecturasAM;
+	}
+	
+	/**
+	 * WS que permite obtener los estados de la placa controladora que corresponde con el id pasado como parámetro
+	 */
+	@WebMethod
+	public EstadosPlaca_AM wsObtenerEstadosPlaca(Long idPlaca) {
+		Placa placaSel= rPlaca.obtenerPlacaPorId(idPlaca);
+		EstadosPlaca_AM estados= new EstadosPlaca_AM(String.valueOf(placaSel.getEstado()), String.valueOf(placaSel.getEstadoAlerta()));
+		return estados;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de lecturas pertenecientes a la placa controladora y al factor al que corresponden los ids pasados como parámetros
+	 * @return una lista de Factores como objetos Factor_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<Accion_AM> wsObtenerListaAcciones(Long idPlaca) {
+		
+		List<Accion> listaAcciones= accionListProducer.obtenerUltimasAcciones(idPlaca);
+		ArrayList<Accion_AM> listaAccionesAM= new ArrayList<Accion_AM>();
+		for (Accion a : listaAcciones)
+		{
+			Dispositivo d= rDispositivo.obtenerDispositivoId(a.getIdDispositivo());
+			Dispositivo_AM dispAM= new Dispositivo_AM(d.getId(), d.getNombre(), d.getModelo(), d.getEstadoAlerta());
+			Accion_AM accionAM= new Accion_AM(a.getFechaHora().toString(), a.getTipoAccion(), dispAM);
+			listaAccionesAM.add(accionAM);
+		}
+		return listaAccionesAM;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de lecturas pertenecientes a la placa controladora y al factor al que corresponden los ids pasados como parámetros
+	 * @return una lista de Factores como objetos Factor_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<LogEvento_AM> wsObtenerListaLogEventos(Long idPlaca) {
+		
+		List<LogEvento> listaLogEventos= logEventoListProducer.obtenerUltimosLogEventos(idPlaca);
+		ArrayList<LogEvento_AM> listaLogEventosAM= new ArrayList<LogEvento_AM>();
+		for (LogEvento l : listaLogEventos)
+		{
+			Dispositivo d= l.getDispositivo();
+			Dispositivo_AM dispAM= new Dispositivo_AM(d.getId(), d.getNombre(), d.getModelo(), d.getEstadoAlerta());
+			Mensaje m= l.getMensaje();
+			TipoLogEvento t= l.getTipoLogEvento();
+			TipoLogEvento_AM tipoLogAM= new TipoLogEvento_AM(t.getIdTipoLogEvento(), t.getNombre(), String.valueOf(t.getEnviarSMS()), String.valueOf(t.getEnviarMail()));
+			LogEvento_AM logEventoAM= new LogEvento_AM(l.getIdLogEvento(), l.getFecha().toString(), m, tipoLogAM, dispAM);
+			listaLogEventosAM.add(logEventoAM);
+		}
+		return listaLogEventosAM;
 	}
 }

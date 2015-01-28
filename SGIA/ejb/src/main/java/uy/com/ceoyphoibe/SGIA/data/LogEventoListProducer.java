@@ -3,6 +3,7 @@ package uy.com.ceoyphoibe.SGIA.data;
 
 import java.sql.Timestamp;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
@@ -16,6 +17,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import uy.com.ceoyphoibe.SGIA.model.Accion;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
 /**
  * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto LogEvento
@@ -50,6 +53,18 @@ public class LogEventoListProducer {
 		criteria.where(p);
 
 		logEventos = em.createQuery(criteria).getResultList();
+		return logEventos;
+	}
+	
+	public List<LogEvento> obtenerUltimosLogEventos(Long idPlaca) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<LogEvento> criteria = cb.createQuery(LogEvento.class);
+		Root<LogEvento> log = criteria.from(LogEvento.class);
+		
+		criteria.select(log).orderBy(cb.asc(log.get("fecha")));
+		criteria.where(cb.equal(log.get("placa").get("id"), idPlaca));
+		List<LogEvento> logEventos = em.createQuery(criteria).setMaxResults(10).getResultList();
+
 		return logEventos;
 	}
 

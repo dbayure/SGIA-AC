@@ -45,4 +45,14 @@ public class FactorListProducer {
 		criteria.where(cb.equal(factor.get("activoSistema"), 'S'));
 		factores = em.createQuery(criteria).getResultList();
 	}
+	
+	public List<Factor> obtenerFactoresPlaca(Long idPlaca) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Factor> criteria = cb.createQuery(Factor.class);
+		Root<Factor> factor = criteria.from(Factor.class);
+		criteria.select(factor).orderBy(cb.asc(factor.get("idFactor")));
+		criteria.where(cb.equal(factor.get("activoSistema"), 'S'), cb.equal(factor.get("placa").get("id"), idPlaca));
+		List<Factor> listaFactores = em.createQuery(criteria).getResultList();
+		return listaFactores;
+	}
 }

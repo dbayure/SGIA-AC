@@ -51,7 +51,7 @@ public class AccionListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Accion> criteria = cb.createQuery(Accion.class);
 		Root<Accion> accion = criteria.from(Accion.class);
-		criteria.select(accion).orderBy(cb.asc(accion.get("fechaHora")));
+		criteria.select(accion).orderBy(cb.desc(accion.get("fechaHora")));
 
 		Expression<Timestamp> fecha = accion.get("fechaHora");
 
@@ -60,6 +60,16 @@ public class AccionListProducer {
 
 		accionesActuador = em.createQuery(criteria).getResultList();
 		return accionesActuador;
+	}
+	
+	public List<Accion> obtenerUltimasAcciones(Long idPlaca) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Accion> criteria = cb.createQuery(Accion.class);
+		Root<Accion> accion = criteria.from(Accion.class);
+		criteria.select(accion).orderBy(cb.desc(accion.get("fechaHora")));
+		criteria.where(cb.equal(accion.get("idPlaca"), idPlaca));
+		List<Accion> acciones = em.createQuery(criteria).setMaxResults(10).getResultList();
+		return acciones;
 	}
 
 	public void onListChanged(

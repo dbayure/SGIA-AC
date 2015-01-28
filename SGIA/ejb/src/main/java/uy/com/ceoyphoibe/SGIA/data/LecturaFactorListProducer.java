@@ -65,6 +65,18 @@ public class LecturaFactorListProducer {
 		lecturasFactores = em.createQuery(criteria).getResultList();
 		return lecturasFactores;
 	}
+	
+	public List<LecturaFactor> obtenerUltimasDiezLecturasFactor(Long idPlaca, Long idFactor) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<LecturaFactor> criteria = cb
+				.createQuery(LecturaFactor.class);
+		
+		Root<LecturaFactor> lectura = criteria.from(LecturaFactor.class);
+		criteria.select(lectura).orderBy(cb.desc(lectura.get("fechaHora")));
+		criteria.where(cb.equal(lectura.get("idFactor"), idFactor), cb.equal(lectura.get("idPlaca"), idPlaca));
+		List<LecturaFactor> lecturas = em.createQuery(criteria).setMaxResults(10).getResultList();
+		return lecturas;
+	}
 
 	@PostConstruct
 	public void retrieveAllOrderedByName() {
