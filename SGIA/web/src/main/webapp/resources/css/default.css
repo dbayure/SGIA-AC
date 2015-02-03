@@ -7,3 +7,10 @@
 .uy-datatable * {
 	border: 0px !important;
 }
+.centered {
+	position: absolute;
+	height: 100px;
+	top: 0;
+	bottom: 0;
+	margin:auto;
+}

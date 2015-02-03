@@ -14,6 +14,7 @@ import uy.com.ceoyphoibe.SGIA.DTO.Accion_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.Dispositivo_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.EstadosPlaca_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.Factor_AM;
+import uy.com.ceoyphoibe.SGIA.DTO.GrupoActuador_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.LecturaWS;
 import uy.com.ceoyphoibe.SGIA.DTO.Lectura_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.LogEventoWS;
@@ -29,13 +30,16 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroPlaca;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroTipoLogEvento;
 import uy.com.ceoyphoibe.SGIA.data.AccionListProducer;
+import uy.com.ceoyphoibe.SGIA.data.DispositivoListProducer;
 import uy.com.ceoyphoibe.SGIA.data.FactorListProducer;
+import uy.com.ceoyphoibe.SGIA.data.GrupoActuadoresListProducer;
 import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
 import uy.com.ceoyphoibe.SGIA.data.LogEventoListProducer;
 import uy.com.ceoyphoibe.SGIA.data.PlacaListProducer;
 import uy.com.ceoyphoibe.SGIA.model.Accion;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
+import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.model.Lectura;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
@@ -89,6 +93,12 @@ public class sgia_AC_ws implements Serializable {
 	
 	@Inject
 	private LogEventoListProducer logEventoListProducer;
+	
+	@Inject
+	private GrupoActuadoresListProducer grupoActuadoresListProducer;
+	
+	@Inject
+	private DispositivoListProducer dispositivoListProducer;
 	
 	/**
 	 * WS que permite recibir una lista de lecturas de una placa auxiliar y persistirlas en el sistema.
@@ -339,5 +349,41 @@ public class sgia_AC_ws implements Serializable {
 			listaLogEventosAM.add(logEventoAM);
 		}
 		return listaLogEventosAM;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de grupos de actuadores pertenecientes a la placa controladora al que corresponde el id pasado como parámetro
+	 * @return una lista de Grupos de Actuadores como objetos GrupoActuador_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<GrupoActuador_AM> wsObtenerListaGrupoActuadores(Long idPlaca) {
+		
+		List<GrupoActuadores> listaGrupos= grupoActuadoresListProducer.obtenerGrupoActuadoresPlaca(idPlaca);
+		ArrayList<GrupoActuador_AM> listaGruposAM= new ArrayList<GrupoActuador_AM>();
+		for (GrupoActuadores g : listaGrupos)
+		{
+			String estado= String.valueOf(g.getEstado());
+			GrupoActuador_AM grupoAM= new GrupoActuador_AM(g.getNombre(), estado);
+			listaGruposAM.add(grupoAM);
+		}
+		return listaGruposAM;
+	}
+	
+	/**
+	 * WS que permite obtener la lista de dispositivos pertenecientes a la placa controladora al que corresponde el id pasado como parámetro
+	 * @return una lista de Grupos de Actuadores como objetos GrupoActuador_AM para ser interpretados en la aplicación móvil
+	 */
+	@WebMethod
+	public ArrayList<Dispositivo_AM> wsObtenerListaDispositivos(Long idPlaca) {
+		
+		List<Dispositivo> listaDispositivos= dispositivoListProducer.obtenerDispositivosPlaca(idPlaca);
+		ArrayList<Dispositivo_AM> listaDispositivosAM= new ArrayList<Dispositivo_AM>();
+		for (Dispositivo d : listaDispositivos)
+		{
+			
+			Dispositivo_AM dispositivoAM= new Dispositivo_AM(d.getId(), d.getNombre(), d.getModelo(), d.getEstadoAlerta());
+			listaDispositivosAM.add(dispositivoAM);
+		}
+		return listaDispositivosAM;
 	}
 }
