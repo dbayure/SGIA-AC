@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,13 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsAsociarDestinatarioTipoLogEvento complex type.
+ * <p>Java class for wsAsociarDestinatarioTipoLogEvento complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsAsociarDestinatarioTipoLogEvento">
@@ -31,54 +30,62 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "wsAsociarDestinatarioTipoLogEvento", propOrder = {
-		"idTipoLogEvento", "idDestinatario" })
+    "idTipoLogEvento",
+    "idDestinatario"
+})
 public class WsAsociarDestinatarioTipoLogEvento {
 
-	@XmlElement(required = true)
-	protected BigInteger idTipoLogEvento;
-	@XmlElement(required = true)
-	protected BigInteger idDestinatario;
+    @XmlElement(required = true)
+    protected BigInteger idTipoLogEvento;
+    @XmlElement(required = true)
+    protected BigInteger idDestinatario;
 
-	/**
-	 * Gets the value of the idTipoLogEvento property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdTipoLogEvento() {
-		return idTipoLogEvento;
-	}
+    /**
+     * Gets the value of the idTipoLogEvento property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdTipoLogEvento() {
+        return idTipoLogEvento;
+    }
 
-	/**
-	 * Sets the value of the idTipoLogEvento property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdTipoLogEvento(BigInteger value) {
-		this.idTipoLogEvento = value;
-	}
+    /**
+     * Sets the value of the idTipoLogEvento property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdTipoLogEvento(BigInteger value) {
+        this.idTipoLogEvento = value;
+    }
 
-	/**
-	 * Gets the value of the idDestinatario property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdDestinatario() {
-		return idDestinatario;
-	}
+    /**
+     * Gets the value of the idDestinatario property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdDestinatario() {
+        return idDestinatario;
+    }
 
-	/**
-	 * Sets the value of the idDestinatario property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdDestinatario(BigInteger value) {
-		this.idDestinatario = value;
-	}
+    /**
+     * Sets the value of the idDestinatario property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdDestinatario(BigInteger value) {
+        this.idDestinatario = value;
+    }
 
 }

@@ -7,7 +7,7 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-		<h:form prependId="false" id="form">
+		<h:form prependId="false" id="form" >
 
 			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
  
@@ -15,7 +15,7 @@
 			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
 			</p:dialog>
 			
-			<p:panel id="p1" style="border: none;">
+			<p:panel id="p1" style="border: none;" rendered="#{placaBean.mostrarMenu}">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
 						action="#{placaBean.alertas}">
@@ -86,41 +86,47 @@
 
 			<p:panel id="p3" style="border: none;">
 
-				<p:dataScroller value="#{placas}" var="_placa" chunkSize="5"
-					mode="inline" scrollHeight="100">
+				<p:dataScroller value="#{placas}" var="_placa" chunkSize="3"
+					mode="inline" >
 					<f:facet name="header">
 			            Placas Disponibles
 			        </f:facet>
 
-					<h:panelGrid columns="3" style="width:100%"
-						columnClasses="logo,detail">
+					<h:panelGrid columns="3"  layout="grid" style="width:100%"
+						columnClasses="logo,detail,logo" >
 
-						<p:commandLink id="selPlaca" style="float:left;" ajax="true"
-							update=":form"
-							actionListener="#{placaBean.seleccionarPlaca(_placa)}">
-							<p:graphicImage value="/resources/gfx/motherboard_icon.jpg"
-								height="50px" />
-						</p:commandLink>
+						<p:column>
+							<p:commandLink id="selPlaca" style="float:left;"
+								action="#{placaBean.principal()}"
+								actionListener="#{placaBean.seleccionarPlaca(_placa)}" >
+								<p:graphicImage value="/resources/gfx/motherboard_icon.jpg"
+									height="50px" />
+							</p:commandLink>
+						</p:column>
 
-						<p:outputPanel>
-							<h:panelGrid columns="2" cellpadding="5">
-								<h:outputText value="Id:" />
-								<h:outputText value="#{_placa.id}" style="font-weight: bold" />
-
-								<h:outputText value="Descripción:" />
-								<h:outputText value="#{_placa.descripcion}"
-									style="font-weight: bold" />
-
-								<h:outputText value="Serie:" />
-								<h:outputText value="#{_placa.nroSerie}"
-									style="font-weight: bold" />
-							</h:panelGrid>
-						</p:outputPanel>
-
-						<p:commandLink id="acctiones" action="#{placaBean.acciones}">
-							<h:graphicImage value="/resources/gfx/ver.png" alt="acciones"
-								height="50px" />
-						</p:commandLink>
+						<p:column >
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Id:" />
+									<h:outputText value="#{_placa.id}" style="font-weight: bold" />
+	
+									<h:outputText value="Descripción:" />
+									<h:outputText value="#{_placa.descripcion}"
+										style="font-weight: bold" />
+	
+									<h:outputText value="Serie:" />
+									<h:outputText value="#{_placa.nroSerie}"
+										style="font-weight: bold" />
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:column>
+						
+						<p:column >
+							<p:commandLink id="acctiones" actionListener="#{placaBean.seleccionarPlaca(_placa)}" action="#{placaBean.acciones}">
+								<h:graphicImage value="/resources/gfx/ver.png" alt="acciones"
+									height="50px" />
+							</p:commandLink>
+						</p:column>
 					</h:panelGrid>
 				</p:dataScroller>
 			</p:panel>

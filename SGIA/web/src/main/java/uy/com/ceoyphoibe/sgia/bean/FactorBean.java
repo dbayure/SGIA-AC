@@ -21,11 +21,14 @@ import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
+import uy.com.ceoyphoibe.SGIA.DTO.FactorLectura;
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroSensor;
+import uy.com.ceoyphoibe.SGIA.data.FactorListProducer;
 import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.LecturaFactor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
@@ -46,6 +49,8 @@ public class FactorBean {
 	@Inject
 	private RegistroSensor registroSensor;
 	@Inject
+	private FactorListProducer factorListProducer;
+	@Inject
 	private LecturaFactorListProducer lecturasFactorList;
 	@Inject
 	private RegistroMensaje registroMensaje;
@@ -60,6 +65,7 @@ public class FactorBean {
 	private String nombreBoton = "Registrar";
 
 	private LineChartModel animatedModel1 = new LineChartModel();
+	private List<FactorLectura> listaFactoresLectura= new ArrayList<FactorLectura>();
 
 	@PostConstruct
 	public void init() {
@@ -352,7 +358,8 @@ public class FactorBean {
 				.getListaSensoresId(id);
 	}
 
-	public String lecturaFactor(long idFactor) {
+	public String lecturaFactor(long idFactor) throws WsPlacaControladoraException {
+		String res=null;
 		rl = registroFactor.lecturaFactor(idFactor);
 		Mensaje mensaje = rl.getMensaje();
 		if (mensaje.getTipo().equals("Error")) {
@@ -364,14 +371,14 @@ public class FactorBean {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
 						mensaje.getTexto(), "");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			}
+			} 
 		}
-		return String.format("%.2f", rl.getLectura());
+			
+		
+		res= String.format("%.2f", rl.getLectura());
 
+		
+		return res;
 	}
 
 	public String factores() {
@@ -402,5 +409,20 @@ public class FactorBean {
 		Axis yAxis = animatedModel1.getAxis(AxisType.Y);
 		yAxis.setMin(temp.getValorMin());
 		yAxis.setMax(temp.getValorMax());
+	}
+
+	/**
+	 * @return the listaFactoresLectura
+	 */
+	public List<FactorLectura> getListaFactoresLectura() {
+				
+		return listaFactoresLectura;
+	}
+
+	/**
+	 * @param listaFactoresLectura the listaFactoresLectura to set
+	 */
+	public void setListaFactoresLectura(List<FactorLectura> listaFactoresLectura) {
+		this.listaFactoresLectura = listaFactoresLectura;
 	}
 }

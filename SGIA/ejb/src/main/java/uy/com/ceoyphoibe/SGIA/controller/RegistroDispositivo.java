@@ -4,6 +4,8 @@ package uy.com.ceoyphoibe.SGIA.controller;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.wsClient.FachadaWS;
@@ -33,7 +35,7 @@ public class RegistroDispositivo {
 		}
 	}
 
-	public Mensaje reestablecerDispositivo(Dispositivo dispositivo) {
+	public Mensaje reestablecerDispositivo(Dispositivo dispositivo) throws WsPlacaControladoraException {
 		FachadaWS wsClient = new FachadaWS();
 		Mensaje resultado = wsClient.reestablecerDispositivo(dispositivo);
 		if (resultado.getTipo().equals("Informativo"))

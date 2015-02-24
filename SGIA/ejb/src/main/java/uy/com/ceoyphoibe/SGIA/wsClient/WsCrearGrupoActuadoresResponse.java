@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsCrearGrupoActuadoresResponse complex type.
+ * <p>Java class for wsCrearGrupoActuadoresResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsCrearGrupoActuadoresResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsCrearGrupoActuadoresResponse", propOrder = { "wsCrearGrupoActuadoresResult" })
+@XmlType(name = "wsCrearGrupoActuadoresResponse", propOrder = {
+    "wsCrearGrupoActuadoresResult"
+})
 public class WsCrearGrupoActuadoresResponse {
 
-	@XmlElement(required = true)
-	protected ResultadoCreacionWS wsCrearGrupoActuadoresResult;
+    @XmlElement(required = true)
+    protected ResultadoCreacionWS wsCrearGrupoActuadoresResult;
 
-	/**
-	 * Gets the value of the wsCrearGrupoActuadoresResult property.
-	 * 
-	 * @return possible object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public ResultadoCreacionWS getWsCrearGrupoActuadoresResult() {
-		return wsCrearGrupoActuadoresResult;
-	}
+    /**
+     * Gets the value of the wsCrearGrupoActuadoresResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public ResultadoCreacionWS getWsCrearGrupoActuadoresResult() {
+        return wsCrearGrupoActuadoresResult;
+    }
 
-	/**
-	 * Sets the value of the wsCrearGrupoActuadoresResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public void setWsCrearGrupoActuadoresResult(ResultadoCreacionWS value) {
-		this.wsCrearGrupoActuadoresResult = value;
-	}
+    /**
+     * Sets the value of the wsCrearGrupoActuadoresResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public void setWsCrearGrupoActuadoresResult(ResultadoCreacionWS value) {
+        this.wsCrearGrupoActuadoresResult = value;
+    }
 
 }

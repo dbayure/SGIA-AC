@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -23,6 +25,7 @@ import uy.com.ceoyphoibe.SGIA.DTO.Placa_AM;
 import uy.com.ceoyphoibe.SGIA.DTO.TipoLogEvento_AM;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroAccion;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroDispositivo;
+import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroLecturaFactor;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroLogEvento;
@@ -36,6 +39,7 @@ import uy.com.ceoyphoibe.SGIA.data.GrupoActuadoresListProducer;
 import uy.com.ceoyphoibe.SGIA.data.LecturaFactorListProducer;
 import uy.com.ceoyphoibe.SGIA.data.LogEventoListProducer;
 import uy.com.ceoyphoibe.SGIA.data.PlacaListProducer;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Accion;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
@@ -99,6 +103,9 @@ public class sgia_AC_ws implements Serializable {
 	
 	@Inject
 	private DispositivoListProducer dispositivoListProducer;
+	
+	@Inject
+	private RegistroGrupoActuadores rGrupoActuadores;
 	
 	/**
 	 * WS que permite recibir una lista de lecturas de una placa auxiliar y persistirlas en el sistema.
@@ -360,11 +367,18 @@ public class sgia_AC_ws implements Serializable {
 		
 		List<GrupoActuadores> listaGrupos= grupoActuadoresListProducer.obtenerGrupoActuadoresPlaca(idPlaca);
 		ArrayList<GrupoActuador_AM> listaGruposAM= new ArrayList<GrupoActuador_AM>();
-		for (GrupoActuadores g : listaGrupos)
-		{
-			String estado= String.valueOf(g.getEstado());
-			GrupoActuador_AM grupoAM= new GrupoActuador_AM(g.getNombre(), estado);
-			listaGruposAM.add(grupoAM);
+		try{
+			for (GrupoActuadores g : listaGrupos)
+			{
+				rGrupoActuadores.actualizarEstado(g);
+				String estado= String.valueOf(g.getEstado());
+				GrupoActuador_AM grupoAM= new GrupoActuador_AM(g.getNombre(), estado);
+				listaGruposAM.add(grupoAM);
+			}
+		} catch (WsPlacaControladoraException e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+					e.getMessage(), "");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		return listaGruposAM;
 	}
@@ -380,7 +394,7 @@ public class sgia_AC_ws implements Serializable {
 		ArrayList<Dispositivo_AM> listaDispositivosAM= new ArrayList<Dispositivo_AM>();
 		for (Dispositivo d : listaDispositivos)
 		{
-			
+			rDispositivo.pedirEstadoDispositivo(d);
 			Dispositivo_AM dispositivoAM= new Dispositivo_AM(d.getId(), d.getNombre(), d.getModelo(), d.getEstadoAlerta());
 			listaDispositivosAM.add(dispositivoAM);
 		}

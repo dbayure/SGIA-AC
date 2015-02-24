@@ -18,7 +18,6 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import uy.com.ceoyphoibe.SGIA.model.Accion;
 import uy.com.ceoyphoibe.SGIA.model.LogEvento;
 /**
  * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto LogEvento
@@ -46,7 +45,7 @@ public class LogEventoListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<LogEvento> criteria = cb.createQuery(LogEvento.class);
 		Root<LogEvento> log = criteria.from(LogEvento.class);
-		criteria.select(log).orderBy(cb.asc(log.get("fecha")));
+		criteria.select(log).orderBy(cb.desc(log.get("fecha")));
 
 		Expression<Timestamp> fecha = log.get("fecha");
 		Predicate p = cb.between(fecha, min, max);
@@ -61,7 +60,7 @@ public class LogEventoListProducer {
 		CriteriaQuery<LogEvento> criteria = cb.createQuery(LogEvento.class);
 		Root<LogEvento> log = criteria.from(LogEvento.class);
 		
-		criteria.select(log).orderBy(cb.asc(log.get("fecha")));
+		criteria.select(log).orderBy(cb.desc(log.get("fecha")));
 		criteria.where(cb.equal(log.get("placa").get("id"), idPlaca));
 		List<LogEvento> logEventos = em.createQuery(criteria).setMaxResults(10).getResultList();
 
@@ -73,7 +72,7 @@ public class LogEventoListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<LogEvento> criteria = cb.createQuery(LogEvento.class);
 		Root<LogEvento> logEvento = criteria.from(LogEvento.class);
-		criteria.select(logEvento).orderBy(cb.asc(logEvento.get("fecha")));
+		criteria.select(logEvento).orderBy(cb.desc(logEvento.get("fecha")));
 		logEventos = em.createQuery(criteria).getResultList();
 	}
 }

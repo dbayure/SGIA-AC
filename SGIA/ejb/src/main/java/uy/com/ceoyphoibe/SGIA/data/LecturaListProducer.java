@@ -44,7 +44,7 @@ public class LecturaListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Lectura> criteria = cb.createQuery(Lectura.class);
 		Root<Lectura> lectura = criteria.from(Lectura.class);
-		criteria.select(lectura).orderBy(cb.asc(lectura.get("fechaHora")));
+		criteria.select(lectura).orderBy(cb.desc(lectura.get("fechaHora")));
 
 		Expression<Timestamp> fecha = lectura.get("fechaHora");
 		Predicate p = cb.between(fecha, min, max);
@@ -58,7 +58,7 @@ public class LecturaListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Lectura> criteria = cb.createQuery(Lectura.class);
 		Root<Lectura> lectura = criteria.from(Lectura.class);
-		criteria.select(lectura).orderBy(cb.asc(lectura.get("fechaHora")));
+		criteria.select(lectura).orderBy(cb.desc(lectura.get("fechaHora")));
 		criteria.where(cb.equal(lectura.get("idSensor"), idDispositivo));
 		lecturasSensor = em.createQuery(criteria).getResultList();
 		return lecturasSensor;
@@ -69,7 +69,7 @@ public class LecturaListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Lectura> criteria = cb.createQuery(Lectura.class);
 		Root<Lectura> lectura = criteria.from(Lectura.class);
-		criteria.select(lectura).orderBy(cb.asc(lectura.get("fechaHora")));
+		criteria.select(lectura).orderBy(cb.desc(lectura.get("fechaHora")));
 		lecturasSensor = em.createQuery(criteria).getResultList();
 	}
 }

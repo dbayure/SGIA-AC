@@ -63,7 +63,7 @@
 
 			</p:panel>
 			<p:separator />
-			<h1 style="text-align: center;">Administración de Tipos de
+			<h1 style="text-align: center;">Administración Tipos de
 				Puertos</h1>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
@@ -76,9 +76,6 @@
 				<p:ajax event="rowEditCancel" listener="#{tipoPuertoBean.onCancel}"
 					update=":form:messages" />
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_tp.id}" />
-				</p:column>
 
 				<p:column headerText="Nombre" style="width:25%">
 					<h:outputText value="#{_tp.nombre}" />

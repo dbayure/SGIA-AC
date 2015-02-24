@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsActualizarNivelSeveridadResponse complex type.
+ * <p>Java class for wsActualizarNivelSeveridadResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsActualizarNivelSeveridadResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsActualizarNivelSeveridadResponse", propOrder = { "wsActualizarNivelSeveridadResult" })
+@XmlType(name = "wsActualizarNivelSeveridadResponse", propOrder = {
+    "wsActualizarNivelSeveridadResult"
+})
 public class WsActualizarNivelSeveridadResponse {
 
-	@XmlElement(required = true)
-	protected Mensaje wsActualizarNivelSeveridadResult;
+    @XmlElement(required = true)
+    protected Mensaje wsActualizarNivelSeveridadResult;
 
-	/**
-	 * Gets the value of the wsActualizarNivelSeveridadResult property.
-	 * 
-	 * @return possible object is {@link Mensaje }
-	 * 
-	 */
-	public Mensaje getWsActualizarNivelSeveridadResult() {
-		return wsActualizarNivelSeveridadResult;
-	}
+    /**
+     * Gets the value of the wsActualizarNivelSeveridadResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Mensaje }
+     *     
+     */
+    public Mensaje getWsActualizarNivelSeveridadResult() {
+        return wsActualizarNivelSeveridadResult;
+    }
 
-	/**
-	 * Sets the value of the wsActualizarNivelSeveridadResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Mensaje }
-	 * 
-	 */
-	public void setWsActualizarNivelSeveridadResult(Mensaje value) {
-		this.wsActualizarNivelSeveridadResult = value;
-	}
+    /**
+     * Sets the value of the wsActualizarNivelSeveridadResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Mensaje }
+     *     
+     */
+    public void setWsActualizarNivelSeveridadResult(Mensaje value) {
+        this.wsActualizarNivelSeveridadResult = value;
+    }
 
 }

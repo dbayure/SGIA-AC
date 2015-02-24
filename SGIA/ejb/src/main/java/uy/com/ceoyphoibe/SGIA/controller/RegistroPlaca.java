@@ -16,6 +16,7 @@ import javax.persistence.criteria.Root;
 
 import uy.com.ceoyphoibe.SGIA.data.PlacaListProducer;
 import uy.com.ceoyphoibe.SGIA.exception.PlacaNoSeConectaExeption;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Placa;
@@ -121,7 +122,7 @@ public class RegistroPlaca {
 
 	}
 
-	public Mensaje cambiarEstadoPlaca(Placa placa, String estado) {
+	public Mensaje cambiarEstadoPlaca(Placa placa, String estado) throws WsPlacaControladoraException {
 		FachadaWS ws = new FachadaWS();
 
 		Mensaje msg = ws.cambiarEstadoPlaca(placa, estado);
@@ -136,11 +137,24 @@ public class RegistroPlaca {
 	public void obtenerEstadoAlertaPlacas() {
 		FachadaWS ws = new FachadaWS();
 		List<Placa> listaPlacas = placaListProducer.getPlacas();
+		
 		for (Placa placa : listaPlacas) {
-			String estado = ws.obtenerEstadoAlertaPlaca(placa);
-			if (placa.getEstadoAlerta() != estado.charAt(0)) {
-				placa.setEstadoAlerta(estado.charAt(0));
-				em.merge(placa);
+			try {
+				String estado;
+				estado = ws.obtenerEstadoAlertaPlaca(placa);
+				
+				if (placa.getEstadoAlerta() != estado.charAt(0)) {
+					placa.setEstadoAlerta(estado.charAt(0));
+					em.merge(placa);
+				}
+			} catch (WsPlacaControladoraException e) {
+				char estado;
+				estado = 'O';
+				
+				if (placa.getEstadoAlerta() != estado) {
+					placa.setEstadoAlerta(estado);
+					em.merge(placa);
+				}
 			}
 
 		}

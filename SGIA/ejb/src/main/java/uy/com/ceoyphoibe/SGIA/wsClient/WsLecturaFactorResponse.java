@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsLecturaFactorResponse complex type.
+ * <p>Java class for wsLecturaFactorResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsLecturaFactorResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsLecturaFactorResponse", propOrder = { "wsLecturaFactorResult" })
+@XmlType(name = "wsLecturaFactorResponse", propOrder = {
+    "wsLecturaFactorResult"
+})
 public class WsLecturaFactorResponse {
 
-	@XmlElement(required = true)
-	protected ResultadoLecturaWS wsLecturaFactorResult;
+    @XmlElement(required = true)
+    protected ResultadoLecturaWS wsLecturaFactorResult;
 
-	/**
-	 * Gets the value of the wsLecturaFactorResult property.
-	 * 
-	 * @return possible object is {@link ResultadoLecturaWS }
-	 * 
-	 */
-	public ResultadoLecturaWS getWsLecturaFactorResult() {
-		return wsLecturaFactorResult;
-	}
+    /**
+     * Gets the value of the wsLecturaFactorResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ResultadoLecturaWS }
+     *     
+     */
+    public ResultadoLecturaWS getWsLecturaFactorResult() {
+        return wsLecturaFactorResult;
+    }
 
-	/**
-	 * Sets the value of the wsLecturaFactorResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ResultadoLecturaWS }
-	 * 
-	 */
-	public void setWsLecturaFactorResult(ResultadoLecturaWS value) {
-		this.wsLecturaFactorResult = value;
-	}
+    /**
+     * Sets the value of the wsLecturaFactorResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ResultadoLecturaWS }
+     *     
+     */
+    public void setWsLecturaFactorResult(ResultadoLecturaWS value) {
+        this.wsLecturaFactorResult = value;
+    }
 
 }

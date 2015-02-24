@@ -3,11 +3,14 @@ package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
@@ -84,7 +87,7 @@ public class RegistroGrupoActuadores {
 		return em.find(Posicion.class, id);
 	}
 
-	public ResultadoAccion cambiarPosicionAvance(GrupoActuadores ga, int p) {
+	public ResultadoAccion cambiarPosicionAvance(GrupoActuadores ga, int p) throws WsPlacaControladoraException {
 		FachadaWS ws = new FachadaWS();
 		ResultadoAccion resultado = ws.cambiarPosicionGrupoActuadores(ga, p);
 		if (!resultado.getMensaje().getTipo().equals("Error")) {
@@ -94,23 +97,34 @@ public class RegistroGrupoActuadores {
 		return resultado;
 	}
 
-	public ResultadoAccion encenderGrupo(GrupoActuadores ga) {
+	public ResultadoAccion encenderGrupo(GrupoActuadores ga) throws WsPlacaControladoraException {
 		FachadaWS ws = new FachadaWS();
 		ResultadoAccion resultado = ws.encenderGrupoActuadores(ga);
 		if (!resultado.getMensaje().getTipo().equals("Error")) {
 			ga.setEstado(resultado.getAccion().charAt(0));
 			em.merge(ga);
 		}
+		grupoActuadoresSrc.fire(ga);
 		return resultado;
 	}
+	
+	public void actualizarEstado(GrupoActuadores ga) throws WsPlacaControladoraException {
+		FachadaWS ws = new FachadaWS();
+		String resultado = ws.obtenerEstadoGrupoActuadores(ga);
+		if (ga.getEstado() != resultado.charAt(0)) {
+			ga.setEstado(resultado.charAt(0));
+			em.merge(ga);
+		}
+	}
 
-	public ResultadoAccion apagarGrupo(GrupoActuadores ga) {
+	public ResultadoAccion apagarGrupo(GrupoActuadores ga) throws WsPlacaControladoraException {
 		FachadaWS ws = new FachadaWS();
 		ResultadoAccion resultado = ws.apagarGrupoActuadores(ga);
 		if (resultado.getMensaje().getTexto() != "Error") {
 			ga.setEstado(resultado.getAccion().charAt(0));
 			em.merge(ga);
 		}
+		grupoActuadoresSrc.fire(ga);
 		return resultado;
 	}
 }

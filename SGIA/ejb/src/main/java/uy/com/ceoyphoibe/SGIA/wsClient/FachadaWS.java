@@ -9,10 +9,14 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.xml.ws.BindingProvider;
+import com.sun.xml.internal.ws.client.*;
+
 
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoAccion;
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Destinatario;
@@ -43,16 +47,24 @@ public class FachadaWS {
 
 	}
 
-	private Comunicacion iniciarConexion(String ip, int puerto) {
-		Herramientas h = new Herramientas();
-		URL wsdl = h.obtenerWSDL(ip, String.valueOf(puerto));
-		Comunicacion_Service service1 = new Comunicacion_Service(wsdl);
-
-		Comunicacion port1 = service1.getComunicacion();
+	private Comunicacion iniciarConexion(String ip, int puerto) throws WsPlacaControladoraException {
+		Comunicacion port1 = null;
+		try
+		{
+			Herramientas h = new Herramientas();
+			URL wsdl = h.obtenerWSDL(ip, String.valueOf(puerto));
+			Comunicacion_Service service1 = new Comunicacion_Service(wsdl);
+			port1 = service1.getComunicacion();
+		}
+		catch (Exception ex)
+		{
+			throw new WsPlacaControladoraException("Pérdida de conectividad con la placa controladora.");
+		}
+		
 		return port1;
 	}
 
-	public Placa obtenerDatosPlaca(String ip, int puerto) {
+	public Placa obtenerDatosPlaca(String ip, int puerto) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(ip, puerto);
 
 		Placa placa = new Placa();
@@ -86,7 +98,7 @@ public class FachadaWS {
 		return placa;
 	}
 
-	public boolean asociarSensorFactor(Sensor sensor) {
+	public boolean asociarSensorFactor(Sensor sensor) throws WsPlacaControladoraException {
 		boolean ok = false;
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
@@ -101,7 +113,7 @@ public class FachadaWS {
 		return ok;
 	}
 
-	public Factor registroFactor(Factor factor) {
+	public Factor registroFactor(Factor factor) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
 						.getPuertoPlaca());
@@ -118,7 +130,7 @@ public class FachadaWS {
 		return factor;
 	}
 
-	public Sensor registroSensor(Sensor sensor) {
+	public Sensor registroSensor(Sensor sensor) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
 						.getPuertoPlaca());
@@ -142,7 +154,7 @@ public class FachadaWS {
 		return sensor;
 	}
 
-	public Actuador registroActuador(Actuador actuador) {
+	public Actuador registroActuador(Actuador actuador) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
 				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 
@@ -167,7 +179,7 @@ public class FachadaWS {
 		return actuador;
 	}
 
-	public ActuadorAvance registroActuadorAvance(ActuadorAvance actuadorAvance) {
+	public ActuadorAvance registroActuadorAvance(ActuadorAvance actuadorAvance) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
 				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 
@@ -222,7 +234,7 @@ public class FachadaWS {
 		return actuadorAvance;
 	}
 
-	public GrupoActuadores registroGrupoActuadores(GrupoActuadores grupo) {
+	public GrupoActuadores registroGrupoActuadores(GrupoActuadores grupo) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
 				grupo.getPlaca().getPuertoPlaca());
 
@@ -234,7 +246,7 @@ public class FachadaWS {
 		return grupo;
 	}
 
-	public boolean asociarActuadorGrupoActuadores(Actuador actuador) {
+	public boolean asociarActuadorGrupoActuadores(Actuador actuador) throws WsPlacaControladoraException {
 		boolean ok = false;
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
 				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
@@ -250,7 +262,7 @@ public class FachadaWS {
 	}
 
 	public boolean asociarActuadorAvanceGrupoActuadores(
-			ActuadorAvance actuadorAvance) {
+			ActuadorAvance actuadorAvance) throws WsPlacaControladoraException {
 		boolean ok = false;
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
 				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
@@ -265,7 +277,7 @@ public class FachadaWS {
 		return ok;
 	}
 
-	public TipoActuador registroTipoActuador(TipoActuador tipoActuador) {
+	public TipoActuador registroTipoActuador(TipoActuador tipoActuador) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(tipoActuador.getPlaca()
 				.getIpPlaca(), tipoActuador.getPlaca().getPuertoPlaca());
 
@@ -277,7 +289,7 @@ public class FachadaWS {
 		return tipoActuador;
 	}
 
-	public Destinatario registroDestinatario(Destinatario destinatario) {
+	public Destinatario registroDestinatario(Destinatario destinatario) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(destinatario.getPlaca()
 				.getIpPlaca(), destinatario.getPlaca().getPuertoPlaca());
 		BigInteger horaMin = BigInteger.valueOf(destinatario.getHoraMin());
@@ -291,7 +303,7 @@ public class FachadaWS {
 		return destinatario;
 	}
 
-	public Mensaje actualizarDestinatario(Destinatario destinatario) {
+	public Mensaje actualizarDestinatario(Destinatario destinatario) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(destinatario.getPlaca()
 				.getIpPlaca(), destinatario.getPlaca().getPuertoPlaca());
 		BigInteger horaMin = BigInteger.valueOf(destinatario.getHoraMin());
@@ -312,7 +324,7 @@ public class FachadaWS {
 	}
 
 	public void asociarDestinatariosTipoLogEventos(TipoLogEvento tipoLogEvento,
-			Placa placa) {
+			Placa placa) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
 				placa.getPuertoPlaca());
 		BigInteger idTipoLogEvento = BigInteger.valueOf(tipoLogEvento
@@ -331,7 +343,7 @@ public class FachadaWS {
 	}
 
 	public void desasociarDestinatariosTipoLogEventos(
-			TipoLogEvento tipoLogEvento, Placa placa) {
+			TipoLogEvento tipoLogEvento, Placa placa) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
 				placa.getPuertoPlaca());
 		BigInteger idTipoLogEvento = BigInteger.valueOf(tipoLogEvento
@@ -350,7 +362,7 @@ public class FachadaWS {
 	}
 
 	public TipoPlacaAuxiliar registroTipoPlacaAuxiliar(
-			TipoPlacaAuxiliar tipoPlacaAuxiliar) {
+			TipoPlacaAuxiliar tipoPlacaAuxiliar) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(tipoPlacaAuxiliar.getPlaca()
 				.getIpPlaca(), tipoPlacaAuxiliar.getPlaca().getPuertoPlaca());
 
@@ -362,7 +374,7 @@ public class FachadaWS {
 		return tipoPlacaAuxiliar;
 	}
 
-	public PlacaAuxiliar registroPlacaAuxiliar(PlacaAuxiliar placaAux) {
+	public PlacaAuxiliar registroPlacaAuxiliar(PlacaAuxiliar placaAux) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placaAux.getPlaca()
 				.getIpPlaca(), placaAux.getPlaca().getPuertoPlaca());
 
@@ -382,7 +394,7 @@ public class FachadaWS {
 		return placaAux;
 	}
 
-	public NivelSeveridad registroNivelSeveridad(NivelSeveridad nivel) {
+	public NivelSeveridad registroNivelSeveridad(NivelSeveridad nivel) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(nivel.getPlaca().getIpPlaca(),
 				nivel.getPlaca().getPuertoPlaca());
 
@@ -413,31 +425,35 @@ public class FachadaWS {
 		return nivel;
 	}
 
-	public ResultadoLectura lecturaFactor(Factor factor) {
-		Comunicacion clienteWS = iniciarConexion(
-				factor.getPlaca().getIpPlaca(), factor.getPlaca()
-						.getPuertoPlaca());
-
-		BigInteger idFactor = BigInteger.valueOf(factor.getIdFactor());
-		ResultadoLecturaWS resultadoWS = clienteWS.wsLecturaFactor(idFactor);
-
+	public ResultadoLectura lecturaFactor(Factor factor) throws WsPlacaControladoraException  {
 		ResultadoLectura resultado = new ResultadoLectura();
-		Timestamp fechaHora = new Timestamp(resultadoWS.getFecha()
-				.toGregorianCalendar().getTimeInMillis());
-		float lectura = resultadoWS.getValor();
-		Mensaje mensaje = new Mensaje();
-		mensaje.setTexto(resultadoWS.getMensaje().getTexto());
-		mensaje.setTipo(resultadoWS.getMensaje().getTipo());
-		mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
-
-		resultado.setMensaje(mensaje);
-		resultado.setFecha(fechaHora);
-		resultado.setLectura(lectura);
-
+		try
+		{
+			Comunicacion clienteWS = iniciarConexion(
+					factor.getPlaca().getIpPlaca(), factor.getPlaca()
+							.getPuertoPlaca());
+			BigInteger idFactor = BigInteger.valueOf(factor.getIdFactor());
+			ResultadoLecturaWS resultadoWS = clienteWS.wsLecturaFactor(idFactor);
+	
+			Timestamp fechaHora = new Timestamp(resultadoWS.getFecha()
+					.toGregorianCalendar().getTimeInMillis());
+			float lectura = resultadoWS.getValor();
+			Mensaje mensaje = new Mensaje();
+			mensaje.setTexto(resultadoWS.getMensaje().getTexto());
+			mensaje.setTipo(resultadoWS.getMensaje().getTipo());
+			mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
+	
+			resultado.setMensaje(mensaje);
+			resultado.setFecha(fechaHora);
+			resultado.setLectura(lectura);
+		} catch (Exception ex)
+		{
+			throw new WsPlacaControladoraException("Pérdida de conectividad con la placa controladora."); 
+		}
 		return resultado;
 	}
 
-	public Mensaje cambiarEstadoPlaca(Placa placa, String estado) {
+	public Mensaje cambiarEstadoPlaca(Placa placa, String estado) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
 				placa.getPuertoPlaca());
 
@@ -451,7 +467,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarSensor(Sensor sensor) {
+	public Mensaje actualizarSensor(Sensor sensor) throws WsPlacaControladoraException {
 
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
@@ -479,7 +495,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarActuadorAvance(ActuadorAvance actuadorAvance) {
+	public Mensaje actualizarActuadorAvance(ActuadorAvance actuadorAvance) throws WsPlacaControladoraException {
 
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
 				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
@@ -521,7 +537,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarActuador(Actuador actuador) {
+	public Mensaje actualizarActuador(Actuador actuador) throws WsPlacaControladoraException {
 
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
 				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
@@ -554,7 +570,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarGrupoActuadores(GrupoActuadores grupoActuadores) {
+	public Mensaje actualizarGrupoActuadores(GrupoActuadores grupoActuadores) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(grupoActuadores.getPlaca()
 				.getIpPlaca(), grupoActuadores.getPlaca().getPuertoPlaca());
 		BigInteger idGrupoActuadores = BigInteger.valueOf(grupoActuadores
@@ -569,7 +585,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarTipoActuador(TipoActuador tipoActuador) {
+	public Mensaje actualizarTipoActuador(TipoActuador tipoActuador) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(tipoActuador.getPlaca()
 				.getIpPlaca(), tipoActuador.getPlaca().getPuertoPlaca());
 		BigInteger idTipoActuador = BigInteger.valueOf(tipoActuador.getId());
@@ -583,7 +599,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarTipoPlaca(TipoPlacaAuxiliar tipoPlaca) {
+	public Mensaje actualizarTipoPlaca(TipoPlacaAuxiliar tipoPlaca) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(tipoPlaca.getPlaca()
 				.getIpPlaca(), tipoPlaca.getPlaca().getPuertoPlaca());
 		BigInteger idTipoPlaca = BigInteger.valueOf(tipoPlaca.getId());
@@ -597,7 +613,7 @@ public class FachadaWS {
 	}
 
 	public Mensaje actualizarTipoLogEvento(TipoLogEvento tipoLogEvento,
-			Placa placa) {
+			Placa placa) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
 				placa.getPuertoPlaca());
 		BigInteger idTipoLogEvento = BigInteger.valueOf(tipoLogEvento
@@ -614,7 +630,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarFactor(Factor factor) {
+	public Mensaje actualizarFactor(Factor factor) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
 						.getPuertoPlaca());
@@ -633,7 +649,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) {
+	public Mensaje actualizarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placaAuxiliar.getPlaca()
 				.getIpPlaca(), placaAuxiliar.getPlaca().getPuertoPlaca());
 
@@ -655,7 +671,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarNivelSeveridad(NivelSeveridad nivelSeveridad) {
+	public Mensaje actualizarNivelSeveridad(NivelSeveridad nivelSeveridad) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(nivelSeveridad.getPlaca()
 				.getIpPlaca(), nivelSeveridad.getPlaca().getPuertoPlaca());
 
@@ -692,7 +708,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarPerfilActivacion(NivelSeveridad nivelSeveridad) {
+	public Mensaje eliminarPerfilActivacion(NivelSeveridad nivelSeveridad) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(nivelSeveridad.getPlaca()
 				.getIpPlaca(), nivelSeveridad.getPlaca().getPuertoPlaca());
 
@@ -707,7 +723,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje actualizarParametrosPlaca(Placa placa) {
+	public Mensaje actualizarParametrosPlaca(Placa placa) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
 				placa.getPuertoPlaca());
 
@@ -724,7 +740,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarDestinatario(Destinatario destinatario) {
+	public Mensaje eliminarDestinatario(Destinatario destinatario) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(destinatario.getPlaca()
 				.getIpPlaca(), destinatario.getPlaca().getPuertoPlaca());
 
@@ -739,7 +755,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarSensor(Sensor sensor) {
+	public Mensaje eliminarSensor(Sensor sensor) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
 						.getPuertoPlaca());
@@ -754,7 +770,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarActuadorAvance(ActuadorAvance actuadorAvance) {
+	public Mensaje eliminarActuadorAvance(ActuadorAvance actuadorAvance) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
 				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 
@@ -768,7 +784,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarActuador(Actuador actuador) {
+	public Mensaje eliminarActuador(Actuador actuador) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
 				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 
@@ -782,7 +798,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarGrupoActuadores(GrupoActuadores grupoActuadores) {
+	public Mensaje eliminarGrupoActuadores(GrupoActuadores grupoActuadores) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(grupoActuadores.getPlaca()
 				.getIpPlaca(), grupoActuadores.getPlaca().getPuertoPlaca());
 
@@ -796,7 +812,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarFactor(Factor factor) {
+	public Mensaje eliminarFactor(Factor factor) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(
 				factor.getPlaca().getIpPlaca(), factor.getPlaca()
 						.getPuertoPlaca());
@@ -811,7 +827,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) {
+	public Mensaje eliminarPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placaAuxiliar.getPlaca()
 				.getIpPlaca(), placaAuxiliar.getPlaca().getPuertoPlaca());
 
@@ -825,7 +841,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje eliminarNivelSeveridad(NivelSeveridad nivelSeveridad) {
+	public Mensaje eliminarNivelSeveridad(NivelSeveridad nivelSeveridad) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(nivelSeveridad.getPlaca()
 				.getIpPlaca(), nivelSeveridad.getPlaca().getPuertoPlaca());
 
@@ -840,7 +856,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public ResultadoAccion encenderGrupoActuadores(GrupoActuadores grupo) {
+	public ResultadoAccion encenderGrupoActuadores(GrupoActuadores grupo) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
 				grupo.getPlaca().getPuertoPlaca());
 
@@ -865,33 +881,40 @@ public class FachadaWS {
 		return resultado;
 	}
 
-	public ResultadoAccion apagarGrupoActuadores(GrupoActuadores grupo) {
-		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
-				grupo.getPlaca().getPuertoPlaca());
-
-		BigInteger idGrupoActuadores = BigInteger.valueOf(grupo.getId());
-		ResultadoAccionWS resultadoWS = clienteWS
-				.wsApagarGrupoActuadores(idGrupoActuadores);
-
+	public ResultadoAccion apagarGrupoActuadores(GrupoActuadores grupo) throws WsPlacaControladoraException {
 		ResultadoAccion resultado = new ResultadoAccion();
-		Timestamp fechaHora = new Timestamp(resultadoWS.getFecha()
-				.toGregorianCalendar().getTimeInMillis());
-		String accion = resultadoWS.getTipoAccion();
-
-		Mensaje mensaje = new Mensaje();
-		mensaje.setTexto(resultadoWS.getMensaje().getTexto());
-		mensaje.setTipo(resultadoWS.getMensaje().getTipo());
-		mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
-
-		resultado.setMensaje(mensaje);
-		resultado.setFecha(fechaHora);
-		resultado.setAccion(accion);
-
+		try{
+			
+			
+			Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
+					grupo.getPlaca().getPuertoPlaca());
+	
+			BigInteger idGrupoActuadores = BigInteger.valueOf(grupo.getId());
+			ResultadoAccionWS resultadoWS = clienteWS
+					.wsApagarGrupoActuadores(idGrupoActuadores);
+	
+			
+			Timestamp fechaHora = new Timestamp(resultadoWS.getFecha()
+					.toGregorianCalendar().getTimeInMillis());
+			String accion = resultadoWS.getTipoAccion();
+	
+			Mensaje mensaje = new Mensaje();
+			mensaje.setTexto(resultadoWS.getMensaje().getTexto());
+			mensaje.setTipo(resultadoWS.getMensaje().getTipo());
+			mensaje.setId(resultadoWS.getMensaje().getIdMensaje().longValue());
+	
+			resultado.setMensaje(mensaje);
+			resultado.setFecha(fechaHora);
+			resultado.setAccion(accion);
+		} catch (Exception ex)
+		{
+			throw new WsPlacaControladoraException("Pérdida de conectividad con la placa controladora."); 
+		}
 		return resultado;
 	}
 
 	public ResultadoAccion cambiarPosicionGrupoActuadores(
-			GrupoActuadores grupo, int nroPosicion) {
+			GrupoActuadores grupo, int nroPosicion) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca().getIpPlaca(),
 				grupo.getPlaca().getPuertoPlaca());
 
@@ -918,7 +941,7 @@ public class FachadaWS {
 	}
 
 	public Mensaje reestablecerActuadorAvance(ActuadorAvance actuadorAvance,
-			int nroPosicion) {
+			int nroPosicion) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
 				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
 
@@ -933,7 +956,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje reestablecerDispositivo(Dispositivo dispositivo) {
+	public Mensaje reestablecerDispositivo(Dispositivo dispositivo) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(dispositivo.getPlaca()
 				.getIpPlaca(), dispositivo.getPlaca().getPuertoPlaca());
 
@@ -947,7 +970,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje reestablecerSensor(Sensor sensor) {
+	public Mensaje reestablecerSensor(Sensor sensor) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(
 				sensor.getPlaca().getIpPlaca(), sensor.getPlaca()
 						.getPuertoPlaca());
@@ -962,7 +985,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje reestablecerActuador(Actuador actuador) {
+	public Mensaje reestablecerActuador(Actuador actuador) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
 				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
 
@@ -976,7 +999,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public Mensaje reestablecerPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) {
+	public Mensaje reestablecerPlacaAuxiliar(PlacaAuxiliar placaAuxiliar) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placaAuxiliar.getPlaca()
 				.getIpPlaca(), placaAuxiliar.getPlaca().getPuertoPlaca());
 
@@ -990,7 +1013,7 @@ public class FachadaWS {
 		return mensaje;
 	}
 
-	public String obtenerEstadoAlertaPlaca(Placa placa) {
+	public String obtenerEstadoAlertaPlaca(Placa placa) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(placa.getIpPlaca(),
 				placa.getPuertoPlaca());
 		String resultadoWS = clienteWS.wsObtenerEstadoAlertaPlaca(placa
@@ -998,13 +1021,40 @@ public class FachadaWS {
 		return resultadoWS;
 	}
 
-	public String obtenerEstadoAlertaDispositivo(Dispositivo dispositivo) {
+	public String obtenerEstadoAlertaDispositivo(Dispositivo dispositivo) throws WsPlacaControladoraException {
 		Comunicacion clienteWS = iniciarConexion(dispositivo.getPlaca()
 				.getIpPlaca(), dispositivo.getPlaca().getPuertoPlaca());
 		BigInteger idDispositivo = BigInteger.valueOf(dispositivo.getId());
 		String resultadoWS = clienteWS
 				.wsObtenerEstadoAlertaDispositivo(idDispositivo);
 		return resultadoWS;
+	}
+	
+	public String obtenerEstadoGrupoActuadores(GrupoActuadores grupo) throws WsPlacaControladoraException {
+		Comunicacion clienteWS = iniciarConexion(grupo.getPlaca()
+				.getIpPlaca(), grupo.getPlaca().getPuertoPlaca());
+		BigInteger idGrupo = BigInteger.valueOf(grupo.getId());
+		String resultadoWS = clienteWS
+				.wsObtenerEstadoGrupoActuadores(idGrupo);
+		return resultadoWS;
+	}
+	
+	public String obtenerEstadoActuador(Actuador actuador) throws WsPlacaControladoraException {
+		Comunicacion clienteWS = iniciarConexion(actuador.getPlaca()
+				.getIpPlaca(), actuador.getPlaca().getPuertoPlaca());
+		BigInteger idDispositivo = BigInteger.valueOf(actuador.getId());
+		String resultadoWS = clienteWS
+				.wsObtenerEstadoActuador(idDispositivo);
+		return resultadoWS;
+	}
+	
+	public int obtenerEstadoActuadorAvance(ActuadorAvance actuadorAvance) throws WsPlacaControladoraException {
+		Comunicacion clienteWS = iniciarConexion(actuadorAvance.getPlaca()
+				.getIpPlaca(), actuadorAvance.getPlaca().getPuertoPlaca());
+		BigInteger idDispositivo = BigInteger.valueOf(actuadorAvance.getId());
+		BigInteger resultadoWS = clienteWS
+				.wsObtenerPosicionActuadorAvance(idDispositivo);
+		return resultadoWS.intValue();
 	}
 
 }

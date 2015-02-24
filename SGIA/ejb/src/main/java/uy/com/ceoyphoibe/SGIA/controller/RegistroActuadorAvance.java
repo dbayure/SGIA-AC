@@ -9,6 +9,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Posicion;
@@ -33,7 +34,7 @@ public class RegistroActuadorAvance {
 		return newActuadorAvance;
 	}
 
-	public ActuadorAvance guardar(ActuadorAvance actuadorAvance) {
+	public ActuadorAvance guardar(ActuadorAvance actuadorAvance) throws WsPlacaControladoraException {
 		FachadaWS ws = new FachadaWS();
 		actuadorAvance = ws.registroActuadorAvance(actuadorAvance);
 
@@ -78,6 +79,15 @@ public class RegistroActuadorAvance {
 		}
 		return es;
 	}
+	
+	public void actualizarEstado(ActuadorAvance a) throws WsPlacaControladoraException {
+		FachadaWS ws = new FachadaWS();
+		int resultado = ws.obtenerEstadoActuadorAvance(a);
+		if (a.getPosicion() != resultado) {
+			a.setPosicion(resultado);
+			em.merge(a);
+		}
+	}
 
 	@PostConstruct
 	public void initNewActuadorAvance() {
@@ -85,7 +95,7 @@ public class RegistroActuadorAvance {
 	}
 
 	public Mensaje reestablecerPosicionActuadorAvance(
-			ActuadorAvance actuadorAvance, char nroPosicion) {
+			ActuadorAvance actuadorAvance, char nroPosicion) throws WsPlacaControladoraException {
 		FachadaWS wsClient = new FachadaWS();
 		Mensaje resultado = wsClient.reestablecerActuadorAvance(actuadorAvance,
 				nroPosicion);

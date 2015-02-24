@@ -89,7 +89,7 @@
 
 					<p:commandLink action="#{placaBean.setActuadores}" update="form">
 						<h:graphicImage value="/resources/gfx/actuadores.png"
-							alt="actuadores" height="150px" />
+							alt="actuadores" height="130px" />
 					</p:commandLink>
 					<p:spacer width="100" />
 
@@ -101,7 +101,7 @@
 
 					<p:commandLink action="#{placaBean.niveles}" immediate="true">
 						<h:graphicImage value="/resources/gfx/niveles.png" alt="niveles"
-							height="150px" />
+							height="130px" />
 					</p:commandLink>
 					<p:spacer width="100" />
 
@@ -124,7 +124,7 @@
 				<p:panel style="border:none;">
 					<p:commandLink
 						style="display: block; float:right; margin-left: auto; margin-right: auto;"
-						update=":form">
+						update=":form" action="#{placaBean.setFactores()}">
 
 						<h:graphicImage value="/resources/gfx/Recargar.png" alt="recargar"
 							height="25px" />
@@ -133,25 +133,25 @@
 				<p></p>
 				<p:spacer height="15"></p:spacer>
 
-				<p:dataScroller value="#{factores}" var="_factores" chunkSize="5">
+				<p:dataScroller value="#{placaBean.listaFactoresLectura}" var="_factLectura" chunkSize="5">
 					<f:facet name="header">
 						<h:outputText value="Factores" />
 
 					</f:facet>
 					<h:panelGrid columns="5"
 						style=" margin-left: 10; margin-right: auto; width: 100%;">
-						<h:graphicImage value="/resources/gfx/#{_factores.nombre}.png"
+						<h:graphicImage value="/resources/gfx/#{_factLectura.factor.nombre}.png"
 							alt="niveles" height="100px" width="100px"
 							style=" margin-left: 50px; margin-right: inherit; vertical-align: middle;" />
 						<p:spacer width="100" />
 						<p:panel style="border:none;">
 							<h2 style="text-align: center; vertical-align: bottom;">Lectura</h2>
-							<h3 style="text-align: center; vertical-align: bottom;">#{factorBean.lecturaFactor(_factores.idFactor)}
-								#{_factores.unidad}</h3>
+							<h3 style="text-align: center; vertical-align: bottom;">#{_factLectura.lectura}
+								#{_factLectura.factor.unidad}</h3>
 							<h:panelGrid columns="3">
 								<p:commandLink
 									style="display: block; margin-left: 50px; margin-right: auto;"
-									action="#{factorBean.graficarFactor(_factores.idFactor)}"
+									action="#{factorBean.graficarFactor(_factLectura.factor.idFactor)}"
 									oncomplete="PF('dlgGrafica').show()" update=":form:dlg">
 									<h:graphicImage value="/resources/gfx/Graficar.png"
 										alt="niveles" height="30px" />
@@ -167,7 +167,7 @@
 						</p:panel>
 						<p:spacer width="100" />
 
-						<h3 style="text-align: center;">#{_factores.nombre}</h3>
+						<h3 style="text-align: center;">#{_factLectura.factor.nombre}</h3>
 					</h:panelGrid>
 					<p:separator></p:separator>
 				</p:dataScroller>
@@ -181,18 +181,22 @@
 						<h:outputText value="Grupos" />
 					</f:facet>
 					<h:panelGrid columns="5"
-						style=" margin-left: 130px; margin-right: inherit;">
-						<h:graphicImage value="/resources/gfx/GrupoActuadores.png"
-							alt="niveles" height="50px" width="50px"
-							style=" margin-left: 30px; margin-right: inherit; vertical-align:middle;" />
+						style=" margin-left: 80px; margin-right: inherit;">
+						<h:panelGrid>
+							<p:spacer width="20" />
+							<h:graphicImage value="#{placaBean.obtenerIconoGrupoActuador(_gruposActuadores)}"
+								alt="niveles" height="60px" width="60px"
+								style=" margin-left: 30px; margin-right: inherit; vertical-align:middle;" />
+							
+						</h:panelGrid>	
 						<p:spacer width="100" />
 						<p:panel style="border:none;" id="panelValoresPuerto">
-							<h3 style="text-align: center; vertical-align: bottom;">#{_gruposActuadores.nombre}</h3>
+							<h2 style="text-align: center; vertical-align: bottom;">#{_gruposActuadores.nombre}</h2>
 							<h:panelGrid id="panelPosiciones"
 								rendered="#{_gruposActuadores.deAvance == 'S'}">
 
 								<h:panelGrid id="gridMostrarPosiciones"
-									rendered="#{grupoActuadoresBean.mostrarModificar == 'mostrar'}"
+									rendered="#{grupoActuadoresBean.mostrarEstado != _gruposActuadores.id}"
 									columns="4">
 									<h:outputText value="Posicion Actual: "
 										style="font-weight: bold;" />
@@ -201,13 +205,13 @@
 									<p:spacer width="10" />
 									<p:commandButton id="editarPosiciones" update=":form"
 										icon="ui-icon-pencil"
-										rendered="#{grupoActuadoresBean.mostrarModificar == 'mostrar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarModificar}"
+										rendered="#{grupoActuadoresBean.mostrarEstado != _gruposActuadores.id}"
+										action="#{grupoActuadoresBean.cambiaMostrarEstado(_gruposActuadores.id)}"
 										actionListener="#{grupoActuadoresBean.obtenerListaPosiciones(_gruposActuadores.id)}" />
 								</h:panelGrid>
 
 								<h:panelGrid id="gridCambiarPosiciones"
-									rendered="#{grupoActuadoresBean.mostrarModificar == 'modificar'}"
+									rendered="#{grupoActuadoresBean.mostrarEstado == _gruposActuadores.id}"
 									columns="3">
 									<h:outputText value="Posiciones: " style="font-weight: bold;" />
 									<p:spacer width="10" />
@@ -219,10 +223,10 @@
 											itemValue="#{_posicion.nroPosicion}" />
 									</p:selectOneMenu>
 									<p:commandButton id="modificar" update=":form"
-										icon="ui-icon-check"
-										rendered="#{grupoActuadoresBean.mostrarModificar == 'modificar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarModificar}"
-										actionListener="#{grupoActuadoresBean.cambiarPosicion}" />
+										value="Actualizar Posición"
+										rendered="#{grupoActuadoresBean.mostrarEstado == _gruposActuadores.id}"
+										action="#{grupoActuadoresBean.cambiaMostrarEstado(_gruposActuadores.id)}"
+										actionListener="#{grupoActuadoresBean.cambiarPosicion(_gruposActuadores.id)}" />
 								</h:panelGrid>
 
 							</h:panelGrid>
@@ -231,45 +235,107 @@
 								rendered="#{_gruposActuadores.deAvance == 'N'}">
 
 								<h:panelGrid id="gridMostrarEstado"
-									rendered="#{grupoActuadoresBean.mostrarEstado == 'mostrar'}"
+									rendered="#{grupoActuadoresBean.mostrarEstado != _gruposActuadores.id}"
 									columns="4">
 									<h:outputText value="Estado Actual: "
 										style="font-weight: bold;" />
-									<h:outputText value="#{_gruposActuadores.estado}"
+									<h:outputText value="#{_gruposActuadores.estado == 65 ? 'Apagado' : 'Encendido'}"
 										style="font-weight: bold;" />
 									<p:spacer width="10" />
 									<p:commandButton id="refrescarValor" update=":form"
 										icon="ui-icon-pencil"
-										rendered="#{grupoActuadoresBean.mostrarEstado == 'mostrar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarEstado}"
+										rendered="#{grupoActuadoresBean.mostrarEstado != _gruposActuadores.id}"
+										action="#{grupoActuadoresBean.cambiaMostrarEstado(_gruposActuadores.id)}"
 										actionListener="#{grupoActuadoresBean.setEstadoGrupo(_gruposActuadores.estado)}" />
 								</h:panelGrid>
 
 								<h:panelGrid id="gridCambiarEstado"
-									rendered="#{grupoActuadoresBean.mostrarEstado == 'modificar'}"
+									rendered="#{grupoActuadoresBean.mostrarEstado == _gruposActuadores.id}"
 									columns="3">
 									<h:outputText value="Estados: " style="font-weight: bold;" />
 									<p:spacer width="10" />
-									<p:inputSwitch value="#{grupoActuadoresBean.estado}" />
-									<p:commandButton id="modificarValor" update=":form"
-										icon="ui-icon-check"
-										rendered="#{grupoActuadoresBean.mostrarEstado == 'modificar'}"
-										action="#{grupoActuadoresBean.cambiaMostrarEstado}"
-										actionListener="#{grupoActuadoresBean.cambiarEstado(_gruposActuadores.id)}" />
+									<p:inputSwitch value="#{grupoActuadoresBean.estado}">
+										<p:ajax listener="#{grupoActuadoresBean.cambiarEstado(_gruposActuadores.id)}"  update=":form" />
+									</p:inputSwitch>
 								</h:panelGrid>
 
 							</h:panelGrid>
 
 						</p:panel>
 						<p:spacer width="100" />
-						<p:commandLink action="#{placaBean.grupos}" immediate="true">
-							<h:graphicImage value="/resources/gfx/Modificar.png" alt="grupos"
+						<h:panelGrid columns="1">
+							<p:spacer height="20" />
+							<p:commandLink
+								style="display: block; margin-left: 50px; margin-right: auto;"
+								rendered="#{_gruposActuadores.deAvance == 'N'}"
+								action="#{placaBean.actualizarEstadoDispositivos(_gruposActuadores)}"
+								oncomplete="PF('dlgActGrupo').show()" update=":form:dlgAct">
+								<h:graphicImage value="/resources/gfx/dispositivo.png"
+									alt="Actuadores pertenecientes al grupo" height="50px" />
+							</p:commandLink>
+							
+							<p:commandLink
+								style="display: block; margin-left: 50px; margin-right: auto;"
+								rendered="#{_gruposActuadores.deAvance == 'S'}"
+								action="#{placaBean.actualizarEstadoDispositivos(_gruposActuadores)}"
+								oncomplete="PF('dlgActAvGrupo').show()" update=":form:dlgActAv">
+								<h:graphicImage value="/resources/gfx/dispositivo.png"
+									alt="Actuadores pertenecientes al grupo" height="50px" />
+							</p:commandLink>
+						
+						</h:panelGrid>
+						
+<!-- 						<h3 style="text-align: center;">#{_gruposActuadores.nombre}</h3> -->
+
+					</h:panelGrid>
+					<p:panel style="border:none;">
+						<p:commandLink action="#{placaBean.grupos}" style="display: block; float:right; margin-left: auto; margin-right: auto;">
+							<h:graphicImage value="/resources/gfx/settings.png" alt="grupos"
 								height="30px" />
 						</p:commandLink>
-						<h3 style="text-align: center;">#{_gruposActuadores.nombre}</h3>
-					</h:panelGrid>
+					</p:panel>
+					<p:spacer height="30" />
+					<p:separator></p:separator>
 				</p:dataScroller>
 			</p:panel>
+			
+			<p:dialog id="dlgAct" header="Actuadores pertenecientes al grupo" widgetVar="dlgActGrupo"
+				modal="true" showEffect="blind" resizable="false">
+				<p:outputPanel id="destDetail" style="text-align:center;">
+						<p:dataScroller value="#{placaBean.listaActuadores}" var="_act" chunkSize="5">
+						
+						<h:panelGrid columns="4"
+							style=" margin-left: 10; margin-right: auto; width: 100%;">
+							<h:outputText value="#{_act.nombre} &#160;&#160;&#160;" style="font-weight: bold;" />
+							<h:outputText value="#{_act.modelo} &#160;&#160;&#160;" style="font-weight: bold;" />
+							<h:outputText value="Nro. Puerto: #{_act.numeroPuerto} &#160;&#160;&#160;" style="font-weight: bold;" />
+							<h:outputText value="#{_act.estado == 65 ? 'Apagado' : 'Encendido'}" style="font-weight: bold;" />
+							
+						</h:panelGrid>
+						<p:separator></p:separator>
+					</p:dataScroller>
+					
+				</p:outputPanel>
+			</p:dialog>
+			
+			<p:dialog id="dlgActAv" header="Actuadores de avance pertenecientes al grupo" widgetVar="dlgActAvGrupo"
+				modal="true" showEffect="blind" resizable="false">
+				<p:outputPanel id="destDetailAv" style="text-align:center;">
+						<p:dataScroller value="#{placaBean.listaActuadoresAvance}" var="_act" chunkSize="5">
+						
+						<h:panelGrid columns="4"
+							style=" margin-left: 10; margin-right: auto; width: 100%;">
+							<h:outputText value="#{_act.nombre} &#160;&#160;&#160;" style="font-weight: bold;" />
+							<h:outputText value="#{_act.modelo} &#160;&#160;&#160;" style="font-weight: bold;" />
+							<h:outputText value="Nro. Puerto: #{_act.numeroPuerto} &#160;&#160;&#160;" style="font-weight: bold;" />
+							<h:outputText value="Posición: #{_act.posicion}" style="font-weight: bold;" />
+							
+						</h:panelGrid>
+						<p:separator></p:separator>
+					</p:dataScroller>
+					
+				</p:outputPanel>
+			</p:dialog>
 
 		</h:form>
 

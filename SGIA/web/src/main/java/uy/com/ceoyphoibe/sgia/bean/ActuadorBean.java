@@ -51,19 +51,19 @@ public class ActuadorBean {
 	}
 
 	private List<Actuador> actuadorLis = new ArrayList<Actuador>();
-	private GrupoActuadores ga = new GrupoActuadores();
+//	private GrupoActuadores ga = new GrupoActuadores();
 
 	public Actuador getActuador() {
 		return actuador;
 	}
 
-	public GrupoActuadores getGa() {
-		return ga;
-	}
-
-	public void setGa(GrupoActuadores ga) {
-		this.ga = ga;
-	}
+//	public GrupoActuadores getGa() {
+//		return ga;
+//	}
+//
+//	public void setGa(GrupoActuadores ga) {
+//		this.ga = ga;
+//	}
 
 	/**
 	 * @param placa
@@ -89,36 +89,33 @@ public class ActuadorBean {
 		if (placa.getEstado() == 'C')
 		{
 			try {
-				if (actuador.getGrupoActuadores() != null) {
-	
+//				if (actuador.getGrupoActuadores() != null) {
+//	
+//					actuador.setPlaca(placa);
+//					actuador.setEstado('A');
+//					actuador.setEstadoAlerta("N");
+//					actuador.setActivoSistema('S');
+//					long idGrupo=(actuador.getGrupoActuadores().getId());
+//					ga= registroGrupoActuadores.obtenerGrupoPorId(idGrupo);
+//					ga.getActuadores().add(actuador);
+//					regActuador.registro(actuador);
+//					registroGrupoActuadores.registro(ga);
+//					actuador = new Actuador();
+//					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+//							"Se registró ", "con éxito!");
+//					FacesContext.getCurrentInstance().addMessage(null, msg);
+//				} else {
 					actuador.setPlaca(placa);
 					actuador.setEstado('A');
 					actuador.setEstadoAlerta("N");
 					actuador.setActivoSistema('S');
-					ga.setId(actuador.getGrupoActuadores().getId());
-					ga.setActivoSistema(actuador.getGrupoActuadores()
-							.getActivoSistema());
-					ga.setDeAvance(actuador.getGrupoActuadores().getDeAvance());
-					ga.setEstado(actuador.getGrupoActuadores().getEstado());
-					ga.setNombre(actuador.getGrupoActuadores().getNombre());
-					ga.getActuadores().add(actuador);
-					registroGrupoActuadores.registro(ga);
-					actuador = new Actuador();
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Se registró ", "con éxito!");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-				} else {
-					actuador.setPlaca(placa);
-					actuador.setEstado('A');
-					actuador.setEstadoAlerta("N");
-					actuador.setActivoSistema('S');
-	
+					actuador.getPadre().setPlaca(placa);
 					regActuador.registro(actuador);
 					actuador = new Actuador();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Se registró ", "con éxito!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
-				}
+		//		}
 			} catch (Exception e) {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Error al registrar ", "");
@@ -142,8 +139,11 @@ public class ActuadorBean {
 					.println("Valor del grupo obtenido del actuador seleccionado "
 							+ actuador.getNombre());
 			try {
-				actuador.setGrupoActuadores(ga);
+				actuador.setPlaca(placa);
+				actuador.getPadre().setPlaca(placa);
+				
 				Mensaje mensaje = regActuador.modificar(actuador);
+				
 				if (mensaje.getTipo().equals("Informativo")) {
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							mensaje.getTexto(), "");

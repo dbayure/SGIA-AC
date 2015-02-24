@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsCrearSensorResponse complex type.
+ * <p>Java class for wsCrearSensorResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsCrearSensorResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsCrearSensorResponse", propOrder = { "wsCrearSensorResult" })
+@XmlType(name = "wsCrearSensorResponse", propOrder = {
+    "wsCrearSensorResult"
+})
 public class WsCrearSensorResponse {
 
-	@XmlElement(required = true)
-	protected ResultadoCreacionWS wsCrearSensorResult;
+    @XmlElement(required = true)
+    protected ResultadoCreacionWS wsCrearSensorResult;
 
-	/**
-	 * Gets the value of the wsCrearSensorResult property.
-	 * 
-	 * @return possible object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public ResultadoCreacionWS getWsCrearSensorResult() {
-		return wsCrearSensorResult;
-	}
+    /**
+     * Gets the value of the wsCrearSensorResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public ResultadoCreacionWS getWsCrearSensorResult() {
+        return wsCrearSensorResult;
+    }
 
-	/**
-	 * Sets the value of the wsCrearSensorResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public void setWsCrearSensorResult(ResultadoCreacionWS value) {
-		this.wsCrearSensorResult = value;
-	}
+    /**
+     * Sets the value of the wsCrearSensorResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public void setWsCrearSensorResult(ResultadoCreacionWS value) {
+        this.wsCrearSensorResult = value;
+    }
 
 }

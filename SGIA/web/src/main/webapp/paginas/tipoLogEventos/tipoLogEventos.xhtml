@@ -65,7 +65,7 @@
 			</p:panel>
 			<p:separator />
 
-			<h1 style="text-align: center;">Administración de Tipos de Logs
+			<h1 style="text-align: center;">Administración Tipos de Log
 				de Eventos</h1>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
@@ -80,9 +80,6 @@
 				<p:ajax event="rowEditCancel"
 					listener="#{tipoLogEventoBean.onCancel}" update=":form:messages" />
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_tipoLogEventos.idTipoLogEvento}" />
-				</p:column>
 
 				<p:column headerText="Nombre" style="width:40%">
 					<h:outputText value="#{_tipoLogEventos.nombre}" />
@@ -119,7 +116,7 @@
 						<f:facet name="output">
 							<p:dataList id="destinatariosTab"
 								value="#{_tipoLogEventos.listaDestinatarios}" var="desti"
-								type="unordered" itemType="none" paginator="false" rows="10">
+								type="unordered" itemType="none" paginator="false" rows="10" emptyMessage="Sin destinatarios.">
 
 								<h:outputText value="#{desti.nombre}" />
 							</p:dataList>
@@ -184,7 +181,7 @@
 					<p:dataList id="destinatarios"
 						value="#{tipoLogEventoBean.tipoLogEventoSeleccionado.listaDestinatarios}"
 						var="desti" type="unordered" itemType="none" paginator="false"
-						rows="10">
+						rows="10" emptyMessage="Sin destinatarios.">
 
 						<p:commandLink update=":form:destDetail"
 							styleClass="ui-icon ui-icon-search"

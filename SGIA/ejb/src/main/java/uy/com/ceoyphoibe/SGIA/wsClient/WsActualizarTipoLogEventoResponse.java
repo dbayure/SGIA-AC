@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsActualizarTipoLogEventoResponse complex type.
+ * <p>Java class for wsActualizarTipoLogEventoResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsActualizarTipoLogEventoResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsActualizarTipoLogEventoResponse", propOrder = { "wsActualizarTipoLogEventoResult" })
+@XmlType(name = "wsActualizarTipoLogEventoResponse", propOrder = {
+    "wsActualizarTipoLogEventoResult"
+})
 public class WsActualizarTipoLogEventoResponse {
 
-	@XmlElement(required = true)
-	protected Mensaje wsActualizarTipoLogEventoResult;
+    @XmlElement(required = true)
+    protected Mensaje wsActualizarTipoLogEventoResult;
 
-	/**
-	 * Gets the value of the wsActualizarTipoLogEventoResult property.
-	 * 
-	 * @return possible object is {@link Mensaje }
-	 * 
-	 */
-	public Mensaje getWsActualizarTipoLogEventoResult() {
-		return wsActualizarTipoLogEventoResult;
-	}
+    /**
+     * Gets the value of the wsActualizarTipoLogEventoResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Mensaje }
+     *     
+     */
+    public Mensaje getWsActualizarTipoLogEventoResult() {
+        return wsActualizarTipoLogEventoResult;
+    }
 
-	/**
-	 * Sets the value of the wsActualizarTipoLogEventoResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Mensaje }
-	 * 
-	 */
-	public void setWsActualizarTipoLogEventoResult(Mensaje value) {
-		this.wsActualizarTipoLogEventoResult = value;
-	}
+    /**
+     * Sets the value of the wsActualizarTipoLogEventoResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Mensaje }
+     *     
+     */
+    public void setWsActualizarTipoLogEventoResult(Mensaje value) {
+        this.wsActualizarTipoLogEventoResult = value;
+    }
 
 }

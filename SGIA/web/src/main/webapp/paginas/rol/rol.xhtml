@@ -7,12 +7,18 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-		<h:form id="form" prependId="false">
+		<h:form id="form2" prependId="false">
+
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
 
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
-						action="#{placaBean.alertas}">
+						action="#{placaBean.alertas}" >
 						<h:graphicImage
 							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
 							alt="placa" height="30px" />
@@ -34,7 +40,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
-						update="form" icon="ui-icon-gear" />
+						update="p1" icon="ui-icon-gear" immediate="true"/>
 
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
@@ -51,14 +57,17 @@
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
-						update="form" icon="ui-icon-transferthick-e-w" />
+					<p:commandButton actionListener="#{placaBean.cambiarEstadoPlaca}"
+						update=":form2" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
 
 			</p:panel>
-			<p:separator />
+				
+		</h:form>
+		<p:separator />
+		<h:form id="form" prependId="false">
 
-			<h1 style="text-align: center;">Administración Rol</h1>
+			<h1 style="text-align: center;">Administración de Roles</h1>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 			<h:panelGrid columns="2">
@@ -87,9 +96,9 @@
 				<p:ajax event="rowEditCancel" listener="#{rolBean.onCancel}"
 					update=":form:messages" />
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_rol.id}" />
-				</p:column>
+<!-- 				<p:column headerText="Id" style="width:5%"> -->
+<!-- 					<h:outputText value="#{_rol.id}" /> -->
+<!-- 				</p:column> -->
 
 				<p:column headerText="Nombre" style="width:25%">
 					<p:cellEditor>

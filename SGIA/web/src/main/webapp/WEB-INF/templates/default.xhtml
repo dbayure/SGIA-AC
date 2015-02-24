@@ -14,13 +14,45 @@
 
 </h:head>
 <h:body>
+
+	<script type="text/javascript">
+			PrimeFaces.locales['es'] = {
+			    closeText: 'Cerrar',
+			    prevText: 'Anterior',
+			    nextText: 'Siguiente',
+			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			    dayNamesMin: ['D','L','M','X','J','V','S'],
+			    weekHeader: 'Semana',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'Sólo hora',
+			    timeText: 'Tiempo',
+			    hourText: 'Hora',
+			    minuteText: 'Minuto',
+			    secondText: 'Segundo',
+			    currentText: 'Fecha actual',
+			    ampm: false,
+			    month: 'Mes',
+			    week: 'Semana',
+			    day: 'Día',
+			    allDayText : 'Todo el día'
+			};
+		</script>
 	<div id="container">
 		<div id="header">
+			
 			<h:form prependId="false" id="fMenu">
+			
+			
 
 				<p:menubar autoDisplay="false">
 					<p:menuitem value="Inicio" url="/paginas/principal/principal.jsf"
-						icon="ui-icon-home" />
+						icon="ui-icon-home"/>
 
 					<p:submenu label="Usuarios" icon="ui-icon-person"
 						rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
@@ -28,23 +60,23 @@
 						<p:menuitem value="Roles" url="/paginas/rol/rol.jsf" />
 					</p:submenu>
 
-					<p:submenu label="Acciones" icon="ui-icon-lightbulb">
+					<p:submenu label="Acciones" icon="ui-icon-lightbulb" rendered="#{placaBean.mostrarMenu}">
 						<p:menuitem value="Vista General"
 							url="/paginas/placas/accionesPlaca.jsf" />
 						<p:menuitem value="Alertas" url="/paginas/alertas/alertas.jsf" />
 						<p:menuitem value="Aplicación Móvil" url="/paginas/android/android.jsf" />
 					</p:submenu>
 
-					<p:submenu label="Informes" icon="ui-icon-clipboard">
+					<p:submenu label="Informes" icon="ui-icon-clipboard" rendered="#{placaBean.mostrarMenu}">
 						<p:menuitem value="Eventos"
 							url="/paginas/LogEventos/LogEventos.jsf" />
 						<p:menuitem value="Acciones" url="/paginas/acciones/acciones.jsf" />
 						<p:menuitem value="Lecturas" url="/paginas/lecturas/lecturas.jsf" />
-						<p:menuitem value="Graficas" url="/paginas/graficas/grafica.jsf" />
+						<p:menuitem value="Gráficas" url="/paginas/graficas/grafica.jsf" />
 					</p:submenu>
 
 					<p:submenu label="Administración Sistema" icon="ui-icon-gear"
-						rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN')}">
+						rendered="#{facesContext.externalContext.isUserInRole('SGIADMIN') and placaBean.mostrarMenu}">
 						<p:menuitem value="Mensajes" url="/paginas/mensajes/mensajes.jsf" />
 						<p:menuitem value="Destinatarios"
 							url="/paginas/destinatarios/destinatarios.jsf" />
@@ -54,7 +86,7 @@
 						<p:menuitem value="Detalle Actuador de Avance"
 							url="/paginas/actuadoresAvance/detalleActuador.jsf" />
 						<p:menuitem value="Actuador" url="/paginas/actuador/actuador.jsf" />
-						<p:menuitem value="GrupoActuadores"
+						<p:menuitem value="Grupo de Actuadores"
 							url="/paginas/grupoActuadores/grupoActuadores.jsf" />
 						<p:menuitem value="Tipo Puerto" url="/paginas/tipoPuerto/" />
 						<p:menuitem value="Tipo Actuador" url="/paginas/tipoActuador/" />
@@ -68,6 +100,12 @@
 						<p:menuitem value="Niveles de Severidad"
 							url="/paginas/nivelesSeveridad/nivelSeveridad.jsf" />
 						<p:menuitem value="Placas" url="/paginas/placas/placa.jsf" />
+					</p:submenu>
+					
+					<p:submenu label="Ayuda" icon="ui-icon-help">
+						<p:menuitem value="Manual de Uso"
+							url="/paginas/manual/manual.jsf" />
+						<p:menuitem value="Acerca de SGIA" url="/paginas/acercaDe/acercaDe.jsf" />
 					</p:submenu>
 
 					<f:facet name="options">
@@ -87,15 +125,15 @@
                     [Template content will be inserted here]
           </ui:insert>
 		</div>
-		<div id="footer">
-			<h:graphicImage value="/resources/gfx/ude.jpg" alt="UDE"
-				height="50px" />
-			<p>
-				Sede Pocitos: 21 de Septiembre 2741<br /> Casa Central: Soriano 959<br />
-				tel: +598 2711 6220 eMail: info@ude.edu.uy<br /> Montevideo -
-				Uruguay<br />
-			</p>
-		</div>
+<!-- 		<div id="footer"> -->
+<!-- 			<h:graphicImage value="/resources/gfx/ude.jpg" alt="UDE" -->
+<!-- 				height="50px" /> -->
+<!-- 			<p> -->
+<!-- 				Sede Pocitos: 21 de Septiembre 2741<br /> Casa Central: Soriano 959<br /> -->
+<!-- 				tel: +598 2711 6220 eMail: info@ude.edu.uy<br /> Montevideo - -->
+<!-- 				Uruguay<br /> -->
+<!-- 			</p> -->
+<!-- 		</div> -->
 	</div>
 </h:body>
 </html>

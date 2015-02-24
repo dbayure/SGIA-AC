@@ -56,7 +56,6 @@ public class GraficaBean {
         series1.set(4, 6);
         series1.set(5, 8);
         graficaFactores.addSeries(series1);
-
 	}
 	
 	
@@ -106,6 +105,7 @@ public class GraficaBean {
 		factorTemp= registroFactor.obtenerFactorPorId(idFactor);
 		graficarFactor();
 		mostrarGrafica= true;
+		System.out.println("Mostrar grafica: "+ mostrarGrafica);
 	}
 
 	

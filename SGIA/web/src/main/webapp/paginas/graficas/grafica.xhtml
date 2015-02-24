@@ -56,6 +56,8 @@
 			</p:panel>
 			<p:separator/>
 			
+			<h1 style="text-align: center;">Gráficas</h1>
+			
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 			
@@ -64,10 +66,10 @@
 					<h:panelGrid columns="2">
 					
 						<p:outputLabel for="fechaMinF" value="Fecha Min:" />
-        				<p:calendar id="fechaMinF" value="#{graficaBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+        				<p:calendar id="fechaMinF" value="#{graficaBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" locale="es"/>
 					
 			            <p:outputLabel for="fechaMaxF" value="Fecha Max:" />
-        				<p:calendar id="fechaMaxF" value="#{graficaBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+        				<p:calendar id="fechaMaxF" value="#{graficaBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" locale="es"/>
 			            
 					</h:panelGrid>
 			</p:panel>
@@ -106,19 +108,9 @@
 			
 			<p:panel id="graficaPanel" style="border: none;" rendered="#{graficaBean.mostrarGrafica}" closable="true">
 					
-						<p:chart type="line" model="#{graficaBean.graficaFactores}"
-							style="width:800px; height:400px"  />
-					
-					<p:commandLink action="#{placaBean.graficas}" immediate="true">
-						<h:graphicImage value="/resources/gfx/Graficas.png" alt="graficas" height="30px" />
-					</p:commandLink>
-				</p:panel>
-			
-			
-
-
-
-
+				<p:chart type="line" model="#{graficaBean.graficaFactores}"
+					style="width:800px; height:400px"  />
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

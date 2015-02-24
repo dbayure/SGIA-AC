@@ -45,7 +45,7 @@ public class LecturaFactorListProducer {
 		CriteriaQuery<LecturaFactor> criteria = cb
 				.createQuery(LecturaFactor.class);
 		Root<LecturaFactor> lectura = criteria.from(LecturaFactor.class);
-		criteria.select(lectura).orderBy(cb.asc(lectura.get("fechaHora")));
+		criteria.select(lectura).orderBy(cb.desc(lectura.get("fechaHora")));
 
 		Expression<Timestamp> fecha = lectura.get("fechaHora");
 		Predicate p = cb.between(fecha, min, max);
@@ -60,7 +60,7 @@ public class LecturaFactorListProducer {
 		CriteriaQuery<LecturaFactor> criteria = cb
 				.createQuery(LecturaFactor.class);
 		Root<LecturaFactor> lectura = criteria.from(LecturaFactor.class);
-		criteria.select(lectura).orderBy(cb.asc(lectura.get("fechaHora")));
+		criteria.select(lectura).orderBy(cb.desc(lectura.get("fechaHora")));
 		criteria.where(cb.equal(lectura.get("idFactor"), idFactor));
 		lecturasFactores = em.createQuery(criteria).getResultList();
 		return lecturasFactores;
@@ -85,7 +85,7 @@ public class LecturaFactorListProducer {
 				.createQuery(LecturaFactor.class);
 		Root<LecturaFactor> lecturaFactor = criteria.from(LecturaFactor.class);
 		criteria.select(lecturaFactor).orderBy(
-				cb.asc(lecturaFactor.get("fechaHora")));
+				cb.desc(lecturaFactor.get("fechaHora")));
 		criteria.where(cb.equal(lecturaFactor.get("idFactor"), 1));
 		lecturasFactores = em.createQuery(criteria).getResultList();
 	}

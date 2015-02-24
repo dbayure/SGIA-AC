@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsCrearActuadorAvanceResponse complex type.
+ * <p>Java class for wsCrearActuadorAvanceResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsCrearActuadorAvanceResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsCrearActuadorAvanceResponse", propOrder = { "wsCrearActuadorAvanceResult" })
+@XmlType(name = "wsCrearActuadorAvanceResponse", propOrder = {
+    "wsCrearActuadorAvanceResult"
+})
 public class WsCrearActuadorAvanceResponse {
 
-	@XmlElement(required = true)
-	protected ResultadoCreacionWS wsCrearActuadorAvanceResult;
+    @XmlElement(required = true)
+    protected ResultadoCreacionWS wsCrearActuadorAvanceResult;
 
-	/**
-	 * Gets the value of the wsCrearActuadorAvanceResult property.
-	 * 
-	 * @return possible object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public ResultadoCreacionWS getWsCrearActuadorAvanceResult() {
-		return wsCrearActuadorAvanceResult;
-	}
+    /**
+     * Gets the value of the wsCrearActuadorAvanceResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public ResultadoCreacionWS getWsCrearActuadorAvanceResult() {
+        return wsCrearActuadorAvanceResult;
+    }
 
-	/**
-	 * Sets the value of the wsCrearActuadorAvanceResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public void setWsCrearActuadorAvanceResult(ResultadoCreacionWS value) {
-		this.wsCrearActuadorAvanceResult = value;
-	}
+    /**
+     * Sets the value of the wsCrearActuadorAvanceResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public void setWsCrearActuadorAvanceResult(ResultadoCreacionWS value) {
+        this.wsCrearActuadorAvanceResult = value;
+    }
 
 }

@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,13 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsObtenerEstadoAlertaDispositivo complex type.
+ * <p>Java class for wsObtenerEstadoAlertaDispositivo complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsObtenerEstadoAlertaDispositivo">
@@ -29,31 +28,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsObtenerEstadoAlertaDispositivo", propOrder = { "idDispositivo" })
+@XmlType(name = "wsObtenerEstadoAlertaDispositivo", propOrder = {
+    "idDispositivo"
+})
 public class WsObtenerEstadoAlertaDispositivo {
 
-	@XmlElement(required = true)
-	protected BigInteger idDispositivo;
+    @XmlElement(required = true)
+    protected BigInteger idDispositivo;
 
-	/**
-	 * Gets the value of the idDispositivo property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdDispositivo() {
-		return idDispositivo;
-	}
+    /**
+     * Gets the value of the idDispositivo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdDispositivo() {
+        return idDispositivo;
+    }
 
-	/**
-	 * Sets the value of the idDispositivo property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdDispositivo(BigInteger value) {
-		this.idDispositivo = value;
-	}
+    /**
+     * Sets the value of the idDispositivo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdDispositivo(BigInteger value) {
+        this.idDispositivo = value;
+    }
 
 }

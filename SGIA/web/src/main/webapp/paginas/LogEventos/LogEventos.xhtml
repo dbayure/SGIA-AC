@@ -65,7 +65,7 @@
 			</p:panel>
 			<p:separator />
 
-			<h1 style="text-align: center;">Logs de Eventos</h1>
+			<h1 style="text-align: center;">Log de Eventos</h1>
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 
@@ -76,11 +76,11 @@
 
 						<p:outputLabel for="fechaMin" value="Fecha Min:" />
 						<p:calendar id="fechaMin" value="#{logEventoBean.fechaMin}"
-							pattern="dd/MM/yyyy HH:mm:ss" />
+							pattern="dd/MM/yyyy HH:mm:ss" locale="es" />
 
 						<p:outputLabel for="fechaMax" value="Fecha Max:" />
 						<p:calendar id="fechaMax" value="#{logEventoBean.fechaMax}"
-							pattern="dd/MM/yyyy HH:mm:ss" />
+							pattern="dd/MM/yyyy HH:mm:ss" locale="es" />
 
 					</h:panelGrid>
 
@@ -118,6 +118,8 @@
 			<p:dataTable id="TlogEventos" var="_logEvento"
 				value="#{logEventoBean.logEventos}" widgetVar="tablaLogs"
 				emptyMessage="No hay logs que coincidan con los filtros establecidos"
+				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
+				paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 				paginator="true" rows="15">
 				<f:facet name="header">  
@@ -126,7 +128,7 @@
 
 				<p:column headerText="Fecha" style="width:15%">
 					<h:outputText value="#{_logEvento.fecha}" >
-						<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
 

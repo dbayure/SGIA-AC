@@ -7,18 +7,18 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-		<h:form id="form" prependId="false">
-			
+		<h:form id="form2" prependId="false">
+
 			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
  
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
 			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
 			</p:dialog>
-			
+
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
 					<p:commandLink rendered="#{placaBean.placa.estadoAlerta != null}"
-						action="#{placaBean.alertas}">
+						action="#{placaBean.alertas}" >
 						<h:graphicImage
 							value="/resources/gfx/#{placaBean.placa.estadoAlerta}.png"
 							alt="placa" height="30px" />
@@ -40,7 +40,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
-						update="form" icon="ui-icon-gear" />
+						update="p1" icon="ui-icon-gear" immediate="true"/>
 
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
@@ -57,17 +57,20 @@
 						<f:selectItem itemLabel="Manual" itemValue="M" />
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
-					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
-						update="form" icon="ui-icon-transferthick-e-w" />
+					<p:commandButton actionListener="#{placaBean.cambiarEstadoPlaca}"
+						update=":form2" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
 
 			</p:panel>
-			<p:separator />
-
-			<h1 style="text-align: center;">Administración de Actuadores</h1>
-
+				
+		</h:form>
+		<p:separator />
+				
+		<h:form id="form" prependId="false">
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
+				
+			<h1 style="text-align: center;">Administración de Actuadores</h1>
 
 			<h:panelGrid columns="2">
 
@@ -88,7 +91,7 @@
 						itemLabel="#{placaAux.nombre}" itemValue="#{placaAux}" />
 				</p:selectOneMenu>
 
-				<p:outputLabel for="numPuerto" value="Número de puerto:" />
+				<p:outputLabel for="numPuerto" value="Número de Puerto:" />
 				<p:inputText id="numPuerto"
 					value="#{actuadorBean.actuador.numeroPuerto}" label="numPuerto"
 					required="false" />
@@ -127,7 +130,7 @@
 			</p>
 
 			<p:dataTable id="TabActuadores" var="_actuador" value="#{actuadores}"
-				editable="true">
+				editable="true" emptyMessage="No existen actuadores.">
 				<f:facet name="header">  
             	Administrar Actuadores
         	</f:facet>
@@ -137,9 +140,6 @@
 				<p:ajax event="rowEditCancel" listener="#{actuadorBean.onCancel}"
 					update=":form:messages" />
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_actuador.id}" />
-				</p:column>
 
 				<p:column headerText="Nombre" style="width:25%">
 					<p:cellEditor>
@@ -181,7 +181,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Puerto" style="width:10%">
+				<p:column headerText="Puerto" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_actuador.numeroPuerto}" />
@@ -211,7 +211,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Tipo Puerto" style="width:40%">
+				<p:column headerText="Tipo Puerto" style="width:35%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_actuador.tipoPuerto.nombre}" />
@@ -228,21 +228,21 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Grupo Actuador" style="width:40%">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{_actuador.grupoActuadores.nombre}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:selectOneMenu id="grupoActuadoresEdit"
-								value="#{actuadorBean.ga}" required="false" style="width:100%">
-								<f:converter converterId="grupoActuadoresConverter" />
-								<f:selectItems value="#{grupoActuadores}" var="g"
-									itemLabel="#{g.nombre}" itemValue="#{g}" style="width:150%" />
-							</p:selectOneMenu>
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
+<!-- 				<p:column headerText="Grupo Actuador" style="width:40%"> -->
+<!-- 					<p:cellEditor> -->
+<!-- 						<f:facet name="output"> -->
+<!-- 							<h:outputText value="#{_actuador.grupoActuadores.nombre}" /> -->
+<!-- 						</f:facet> -->
+<!-- 						<f:facet name="input"> -->
+<!-- 							<p:selectOneMenu id="grupoActuadoresEdit" -->
+<!-- 								value="#{actuadorBean.ga}" required="false" style="width:100%"> -->
+<!-- 								<f:converter converterId="grupoActuadoresConverter" /> -->
+<!-- 								<f:selectItems value="#{grupoActuadores}" var="g" -->
+<!-- 									itemLabel="#{g.nombre}" itemValue="#{g}" style="width:150%" /> -->
+<!-- 							</p:selectOneMenu> -->
+<!-- 						</f:facet> -->
+<!-- 					</p:cellEditor> -->
+<!-- 				</p:column> -->
 
 				<p:column style="width:3%">
 					<p:rowEditor />

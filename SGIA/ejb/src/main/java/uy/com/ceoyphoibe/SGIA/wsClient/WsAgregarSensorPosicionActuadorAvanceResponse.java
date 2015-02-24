@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsAgregarSensorPosicionActuadorAvanceResponse complex type.
+ * <p>Java class for wsAgregarSensorPosicionActuadorAvanceResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsAgregarSensorPosicionActuadorAvanceResponse">
@@ -28,34 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsAgregarSensorPosicionActuadorAvanceResponse", propOrder = { "wsAgregarSensorPosicionActuadorAvanceResult" })
+@XmlType(name = "wsAgregarSensorPosicionActuadorAvanceResponse", propOrder = {
+    "wsAgregarSensorPosicionActuadorAvanceResult"
+})
 public class WsAgregarSensorPosicionActuadorAvanceResponse {
 
-	@XmlElement(required = true)
-	protected ResultadoCreacionWS wsAgregarSensorPosicionActuadorAvanceResult;
+    @XmlElement(required = true)
+    protected ResultadoCreacionWS wsAgregarSensorPosicionActuadorAvanceResult;
 
-	/**
-	 * Gets the value of the wsAgregarSensorPosicionActuadorAvanceResult
-	 * property.
-	 * 
-	 * @return possible object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public ResultadoCreacionWS getWsAgregarSensorPosicionActuadorAvanceResult() {
-		return wsAgregarSensorPosicionActuadorAvanceResult;
-	}
+    /**
+     * Gets the value of the wsAgregarSensorPosicionActuadorAvanceResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public ResultadoCreacionWS getWsAgregarSensorPosicionActuadorAvanceResult() {
+        return wsAgregarSensorPosicionActuadorAvanceResult;
+    }
 
-	/**
-	 * Sets the value of the wsAgregarSensorPosicionActuadorAvanceResult
-	 * property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link ResultadoCreacionWS }
-	 * 
-	 */
-	public void setWsAgregarSensorPosicionActuadorAvanceResult(
-			ResultadoCreacionWS value) {
-		this.wsAgregarSensorPosicionActuadorAvanceResult = value;
-	}
+    /**
+     * Sets the value of the wsAgregarSensorPosicionActuadorAvanceResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ResultadoCreacionWS }
+     *     
+     */
+    public void setWsAgregarSensorPosicionActuadorAvanceResult(ResultadoCreacionWS value) {
+        this.wsAgregarSensorPosicionActuadorAvanceResult = value;
+    }
 
 }

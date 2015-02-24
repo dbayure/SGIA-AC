@@ -32,7 +32,7 @@ public class Actuador extends Dispositivo implements Serializable {
 	@JoinColumn(name = "tipo_puerto_id", unique = false)
 	private TipoPuerto tipoPuerto;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "grupoActuadores_id", referencedColumnName = "id")
 	private GrupoActuadores grupoActuadores;
 

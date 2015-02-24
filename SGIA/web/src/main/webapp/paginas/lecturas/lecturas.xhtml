@@ -6,6 +6,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
+	
+		
 
 		<h:form id="form" prependId="false">
 			
@@ -53,7 +55,7 @@
 				closable="true" />
 			<p></p>
 			<h:panelGrid columns="2">
-				<p:outputLabel for="switch" value="Obtener lecturas según: " />
+				<p:outputLabel for="switch" value="Obtener lecturas según: " style="font-weight: bold;"/>
 				<p:selectBooleanButton id="switch" value="#{lecturasFactorBean.verFactores}" onLabel="Factores" offLabel="Sensores" style="width:100px">
 					<p:ajax event="change" process="@this" update=":form"/>
 				</p:selectBooleanButton>
@@ -79,10 +81,10 @@
 					<h:panelGrid columns="2">
 					
 						<p:outputLabel for="fechaMinF" value="Fecha Min:" />
-        				<p:calendar id="fechaMinF" value="#{lecturasFactorBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+        				<p:calendar id="fechaMinF" value="#{lecturasFactorBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" locale="es"/>
 					
 			            <p:outputLabel for="fechaMaxF" value="Fecha Max:" />
-        				<p:calendar id="fechaMaxF" value="#{lecturasFactorBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+        				<p:calendar id="fechaMaxF" value="#{lecturasFactorBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" locale="es" />
 			            
 					</h:panelGrid>
 					
@@ -118,10 +120,10 @@
 					<h:panelGrid columns="2">
 					
 						<p:outputLabel for="fechaMinS" value="Fecha Min:" />
-        				<p:calendar id="fechaMinS" value="#{lecturasFactorBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" />
+        				<p:calendar id="fechaMinS" value="#{lecturasFactorBean.fechaMin}" pattern="dd/MM/yyyy HH:mm:ss" locale="es"/>
 					
-			            <p:outputLabel for="fechaMaxS" value="Fecha Min:" />
-        				<p:calendar id="fechaMaxS" value="#{lecturasFactorBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" />
+			            <p:outputLabel for="fechaMaxS" value="Fecha Max:" />
+        				<p:calendar id="fechaMaxS" value="#{lecturasFactorBean.fechaMax}" pattern="dd/MM/yyyy HH:mm:ss" locale="es"/>
 			            
 					</h:panelGrid>
 					
@@ -173,11 +175,19 @@
 			
 			<p:dataTable id="lecturasSel" var="_lec" value="#{lecturasFactorBean.listaLecturas}" rendered="#{lecturasFactorBean.verFactores}"
 				editable="false"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                 paginator="true" rows="15" style="margin-bottom:20px">
+                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
+				paginatorPosition="bottom"
+                 paginator="true" rows="15" style="margin-bottom:20px"
+                 
+                 emptyMessage="No existen lecturas.">
 
+				<f:facet name="header">  
+	            	Lecturas
+	        	</f:facet>
+				
 				<p:column headerText="Fecha" style="width:20%">
 					<h:outputText value="#{_lec.fechaHora}" >
-						<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
 				
@@ -191,11 +201,18 @@
 			
 			<p:dataTable id="lecturasSensSel" var="_lec" value="#{lecturasFactorBean.listaLecturasSensor}" rendered="#{!lecturasFactorBean.verFactores}"
 				editable="false"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-                 paginator="true" rows="15" style="margin-bottom:20px">
+                 paginator="true" rows="15" style="margin-bottom:20px"
+                 emptyMessage="No existen lecturas."
+                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords}"
+				paginatorPosition="bottom">
+				
+				<f:facet name="header">  
+	            	Lecturas
+	        	</f:facet>
 
 				<p:column headerText="Fecha" style="width:20%">
 					<h:outputText value="#{_lec.fechaHora}" >
-						<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" />
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
 					</h:outputText>
 				</p:column>
 				

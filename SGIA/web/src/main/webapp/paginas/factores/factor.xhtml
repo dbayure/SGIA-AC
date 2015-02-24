@@ -106,7 +106,8 @@
 					<p:dataTable id="checkboxSens" var="sensor" value="#{sensores}"
 						selection="#{factorBean.sensoresSelecconados}"
 						rowKey="#{sensor.id}"
-						rowStyleClass="#{sensor.factor eq null ? 'sensorRowSelected' : null}">
+						rowStyleClass="#{sensor.factor eq null ? 'sensorRowSelected' : null}"
+						emptyMessage="No existen sensores.">
 						<f:facet name="header">
 			            Sensores disponibles
 			        </f:facet>
@@ -114,9 +115,7 @@
 							listener="#{factorBean.desvincularSensor}" />
 						<p:column selectionMode="multiple"
 							style="width:16px;text-align:center" />
-						<p:column headerText="Id" style="width:15%">
-							<h:outputText value="#{sensor.id}" />
-						</p:column>
+
 						<p:column headerText="Nombre Sensor">
 							<h:outputText value="#{sensor.nombre}" />
 						</p:column>
@@ -140,12 +139,9 @@
 
 
 			<p:dataTable id="factoresTab" var="_factor" value="#{factores}"
-				editable="true">
+				editable="true" emptyMessage="No existen factores.">
 				<f:facet name="header">	Factores </f:facet>
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_factor.idFactor}" />
-				</p:column>
 
 				<p:column headerText="Nombre" style="width:25%">
 					<h:outputText value="#{_factor.nombre}" />

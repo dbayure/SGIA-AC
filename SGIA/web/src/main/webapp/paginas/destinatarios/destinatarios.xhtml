@@ -7,13 +7,8 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 
-		<h:form id="form" prependId="false">
-			
-			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
- 
-			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
-			</p:dialog>
+		<h:form id="form2" prependId="false">
+		
 			
 			<p:panel id="p1" style="border: none;">
 				<h:panelGrid id="gridImg" columns="10">
@@ -40,7 +35,7 @@
 					</p>
 					<p:spacer width="20" height="10" />
 					<p:commandButton action="#{placaBean.mostrarCambioEstadoPlaca}"
-						update="form" icon="ui-icon-gear" />
+						update="form2" icon="ui-icon-gear" />
 
 				</h:panelGrid>
 				<h:panelGrid id="gridEstado"
@@ -58,11 +53,20 @@
 						<f:selectItem itemLabel="Automatico" itemValue="A" />
 					</p:selectOneButton>
 					<p:commandButton action="#{placaBean.cambiarEstadoPlaca}"
-						update="form" icon="ui-icon-transferthick-e-w" />
+						update="form2" icon="ui-icon-transferthick-e-w" />
 				</h:panelGrid>
 
 			</p:panel>
-			<p:separator />
+		</h:form>
+		<p:separator />
+		<h:form id="form" prependId="false">
+			
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <h:graphicImage value="/resources/gfx/ajaxloaderbar.gif" />
+			</p:dialog>
+			
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
@@ -82,7 +86,7 @@
 					value="#{destinatarioBean.destinatarioSeleccionado.celular}"
 					label="Celular" required="false" />
 
-				<p:outputLabel for="mail" value="E-Mail:" />
+				<p:outputLabel for="mail" value="Correo:" />
 				<p:inputText id="mail"
 					value="#{destinatarioBean.destinatarioSeleccionado.mail}"
 					label="E-Mail" required="false" />
@@ -109,7 +113,8 @@
 			</p>
 
 			<p:dataTable id="tabDest" value="#{destinatarios}"
-				var="_destinatario" editable="true">
+				var="_destinatario" editable="true"
+				emptyMessage="No existen destinatarios.">
 				<f:facet name="header">  Destinatarios    	</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{destinatarioBean.onEdit}"
@@ -117,9 +122,9 @@
 				<p:ajax event="rowEditCancel"
 					listener="#{destinatarioBean.onCancel}" update=":form:messages" />
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_destinatario.idDestinatario}" />
-				</p:column>
+<!-- 				<p:column headerText="Id" style="width:5%"> -->
+<!-- 					<h:outputText value="#{_destinatario.idDestinatario}" /> -->
+<!-- 				</p:column> -->
 
 				<p:column headerText="Nombre y Apellido" style="width:30%">
 					<p:cellEditor>
@@ -147,7 +152,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Mail" style="width:25%">
+				<p:column headerText="Correo" style="width:25%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{_destinatario.mail}" />

@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,13 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsActualizarFactor complex type.
+ * <p>Java class for wsActualizarFactor complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsActualizarFactor">
@@ -34,147 +33,171 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsActualizarFactor", propOrder = { "nombre", "unidad",
-		"valorMin", "valorMax", "umbral", "idFactor" })
+@XmlType(name = "wsActualizarFactor", propOrder = {
+    "nombre",
+    "unidad",
+    "valorMin",
+    "valorMax",
+    "umbral",
+    "idFactor"
+})
 public class WsActualizarFactor {
 
-	@XmlElement(required = true)
-	protected String nombre;
-	@XmlElement(required = true)
-	protected String unidad;
-	@XmlElement(required = true)
-	protected BigInteger valorMin;
-	@XmlElement(required = true)
-	protected BigInteger valorMax;
-	@XmlElement(required = true)
-	protected BigInteger umbral;
-	@XmlElement(required = true)
-	protected BigInteger idFactor;
+    @XmlElement(required = true)
+    protected String nombre;
+    @XmlElement(required = true)
+    protected String unidad;
+    @XmlElement(required = true)
+    protected BigInteger valorMin;
+    @XmlElement(required = true)
+    protected BigInteger valorMax;
+    @XmlElement(required = true)
+    protected BigInteger umbral;
+    @XmlElement(required = true)
+    protected BigInteger idFactor;
 
-	/**
-	 * Gets the value of the nombre property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    /**
+     * Gets the value of the nombre property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNombre() {
+        return nombre;
+    }
 
-	/**
-	 * Sets the value of the nombre property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setNombre(String value) {
-		this.nombre = value;
-	}
+    /**
+     * Sets the value of the nombre property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNombre(String value) {
+        this.nombre = value;
+    }
 
-	/**
-	 * Gets the value of the unidad property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getUnidad() {
-		return unidad;
-	}
+    /**
+     * Gets the value of the unidad property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUnidad() {
+        return unidad;
+    }
 
-	/**
-	 * Sets the value of the unidad property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setUnidad(String value) {
-		this.unidad = value;
-	}
+    /**
+     * Sets the value of the unidad property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUnidad(String value) {
+        this.unidad = value;
+    }
 
-	/**
-	 * Gets the value of the valorMin property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getValorMin() {
-		return valorMin;
-	}
+    /**
+     * Gets the value of the valorMin property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getValorMin() {
+        return valorMin;
+    }
 
-	/**
-	 * Sets the value of the valorMin property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setValorMin(BigInteger value) {
-		this.valorMin = value;
-	}
+    /**
+     * Sets the value of the valorMin property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setValorMin(BigInteger value) {
+        this.valorMin = value;
+    }
 
-	/**
-	 * Gets the value of the valorMax property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getValorMax() {
-		return valorMax;
-	}
+    /**
+     * Gets the value of the valorMax property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getValorMax() {
+        return valorMax;
+    }
 
-	/**
-	 * Sets the value of the valorMax property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setValorMax(BigInteger value) {
-		this.valorMax = value;
-	}
+    /**
+     * Sets the value of the valorMax property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setValorMax(BigInteger value) {
+        this.valorMax = value;
+    }
 
-	/**
-	 * Gets the value of the umbral property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getUmbral() {
-		return umbral;
-	}
+    /**
+     * Gets the value of the umbral property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getUmbral() {
+        return umbral;
+    }
 
-	/**
-	 * Sets the value of the umbral property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setUmbral(BigInteger value) {
-		this.umbral = value;
-	}
+    /**
+     * Sets the value of the umbral property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setUmbral(BigInteger value) {
+        this.umbral = value;
+    }
 
-	/**
-	 * Gets the value of the idFactor property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdFactor() {
-		return idFactor;
-	}
+    /**
+     * Gets the value of the idFactor property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdFactor() {
+        return idFactor;
+    }
 
-	/**
-	 * Sets the value of the idFactor property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdFactor(BigInteger value) {
-		this.idFactor = value;
-	}
+    /**
+     * Sets the value of the idFactor property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdFactor(BigInteger value) {
+        this.idFactor = value;
+    }
 
 }

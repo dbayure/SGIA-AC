@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,13 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsCambiarPosicionGrupoActuadores complex type.
+ * <p>Java class for wsCambiarPosicionGrupoActuadores complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsCambiarPosicionGrupoActuadores">
@@ -30,55 +29,63 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsCambiarPosicionGrupoActuadores", propOrder = { "idGrupo",
-		"nroPosicion" })
+@XmlType(name = "wsCambiarPosicionGrupoActuadores", propOrder = {
+    "idGrupo",
+    "nroPosicion"
+})
 public class WsCambiarPosicionGrupoActuadores {
 
-	@XmlElement(required = true)
-	protected BigInteger idGrupo;
-	@XmlElement(required = true)
-	protected BigInteger nroPosicion;
+    @XmlElement(required = true)
+    protected BigInteger idGrupo;
+    @XmlElement(required = true)
+    protected BigInteger nroPosicion;
 
-	/**
-	 * Gets the value of the idGrupo property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdGrupo() {
-		return idGrupo;
-	}
+    /**
+     * Gets the value of the idGrupo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdGrupo() {
+        return idGrupo;
+    }
 
-	/**
-	 * Sets the value of the idGrupo property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdGrupo(BigInteger value) {
-		this.idGrupo = value;
-	}
+    /**
+     * Sets the value of the idGrupo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdGrupo(BigInteger value) {
+        this.idGrupo = value;
+    }
 
-	/**
-	 * Gets the value of the nroPosicion property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getNroPosicion() {
-		return nroPosicion;
-	}
+    /**
+     * Gets the value of the nroPosicion property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getNroPosicion() {
+        return nroPosicion;
+    }
 
-	/**
-	 * Sets the value of the nroPosicion property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setNroPosicion(BigInteger value) {
-		this.nroPosicion = value;
-	}
+    /**
+     * Sets the value of the nroPosicion property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setNroPosicion(BigInteger value) {
+        this.nroPosicion = value;
+    }
 
 }

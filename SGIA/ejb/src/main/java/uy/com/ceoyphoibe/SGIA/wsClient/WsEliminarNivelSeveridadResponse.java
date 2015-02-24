@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -5,13 +6,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsEliminarNivelSeveridadResponse complex type.
+ * <p>Java class for wsEliminarNivelSeveridadResponse complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsEliminarNivelSeveridadResponse">
@@ -28,31 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsEliminarNivelSeveridadResponse", propOrder = { "wsEliminarNivelSeveridadResult" })
+@XmlType(name = "wsEliminarNivelSeveridadResponse", propOrder = {
+    "wsEliminarNivelSeveridadResult"
+})
 public class WsEliminarNivelSeveridadResponse {
 
-	@XmlElement(required = true)
-	protected Mensaje wsEliminarNivelSeveridadResult;
+    @XmlElement(required = true)
+    protected Mensaje wsEliminarNivelSeveridadResult;
 
-	/**
-	 * Gets the value of the wsEliminarNivelSeveridadResult property.
-	 * 
-	 * @return possible object is {@link Mensaje }
-	 * 
-	 */
-	public Mensaje getWsEliminarNivelSeveridadResult() {
-		return wsEliminarNivelSeveridadResult;
-	}
+    /**
+     * Gets the value of the wsEliminarNivelSeveridadResult property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Mensaje }
+     *     
+     */
+    public Mensaje getWsEliminarNivelSeveridadResult() {
+        return wsEliminarNivelSeveridadResult;
+    }
 
-	/**
-	 * Sets the value of the wsEliminarNivelSeveridadResult property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Mensaje }
-	 * 
-	 */
-	public void setWsEliminarNivelSeveridadResult(Mensaje value) {
-		this.wsEliminarNivelSeveridadResult = value;
-	}
+    /**
+     * Sets the value of the wsEliminarNivelSeveridadResult property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Mensaje }
+     *     
+     */
+    public void setWsEliminarNivelSeveridadResult(Mensaje value) {
+        this.wsEliminarNivelSeveridadResult = value;
+    }
 
 }

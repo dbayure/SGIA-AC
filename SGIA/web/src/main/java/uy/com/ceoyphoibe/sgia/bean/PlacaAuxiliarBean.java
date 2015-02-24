@@ -104,6 +104,7 @@ public class PlacaAuxiliarBean {
 		{
 			PlacaAuxiliar placaAux = ((PlacaAuxiliar) event.getObject());
 			try {
+				placaAux.setPlaca(placa);
 				Mensaje mensaje = registroPlacaAuxiliar.modificar(placaAux);
 				if (mensaje.getTipo().equals("Informativo")) {
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,

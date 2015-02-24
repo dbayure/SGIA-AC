@@ -17,6 +17,7 @@ import uy.com.ceoyphoibe.SGIA.controller.RegistroActuador;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroGrupoActuadores;
 import uy.com.ceoyphoibe.SGIA.controller.RegistroMensaje;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Actuador;
 import uy.com.ceoyphoibe.SGIA.model.ActuadorAvance;
 import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
@@ -52,8 +53,8 @@ public class GrupoActuadoresBean {
 	private List<Posicion> posicionesGrupoActuadorAvanceSeleccionado = new ArrayList<Posicion>();
 	private Posicion posicion = new Posicion();
 	private int posActual;
-	private String mostrarModificar = "mostrar";
-	private String mostrarEstado = "mostrar";
+	private Long mostrarModificar = (long) 0;
+	private Long mostrarEstado = (long) 0;
 	private boolean estado;
 
 	@Inject
@@ -156,19 +157,19 @@ public class GrupoActuadoresBean {
 		this.posActual = posActual;
 	}
 
-	public String getMostrarModificar() {
+	public Long getMostrarModificar() {
 		return mostrarModificar;
 	}
 
-	public void setMostrarModificar(String mostrarModificar) {
+	public void setMostrarModificar(Long mostrarModificar) {
 		this.mostrarModificar = mostrarModificar;
 	}
 
-	public String getMostrarEstado() {
+	public Long getMostrarEstado() {
 		return mostrarEstado;
 	}
 
-	public void setMostrarEstado(String mostrarEstado) {
+	public void setMostrarEstado(Long mostrarEstado) {
 		this.mostrarEstado = mostrarEstado;
 	}
 
@@ -215,6 +216,7 @@ public class GrupoActuadoresBean {
 						}
 						ga.setActuadores(actuadoresSelecconados);
 						registroGrupoActuadores.registro(ga);
+						ga = new GrupoActuadores();
 						actuadoresSelecconados = new ArrayList<Actuador>();
 						if (!editando) {
 							FacesMessage msg = new FacesMessage(
@@ -227,7 +229,7 @@ public class GrupoActuadoresBean {
 						}
 					} else {
 						registroGrupoActuadores.registro(ga);
-						actuadoresSelecconados = new ArrayList<Actuador>();
+						ga = new GrupoActuadores();
 						if (!editando) {
 							FacesMessage msg = new FacesMessage(
 									FacesMessage.SEVERITY_INFO, "Se registró ",
@@ -275,7 +277,7 @@ public class GrupoActuadoresBean {
 						}
 					}
 				}
-				ga = new GrupoActuadores();
+				//ga = new GrupoActuadores();
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -384,29 +386,36 @@ public class GrupoActuadoresBean {
 	public void cambiarEstado(long idGrupo) {
 		if (placaBean.getPlaca().getEstado() == 'M')
 		{
-			ga = registroGrupoActuadores.obtenerGrupoPorId(idGrupo);
-			ResultadoAccion resultado = new ResultadoAccion();
-			if (estado == false) {
-				resultado = registroGrupoActuadores.apagarGrupo(ga);
-			} else {
-				resultado = registroGrupoActuadores.encenderGrupo(ga);
-			}
-			Mensaje mensaje = resultado.getMensaje();
-			if (mensaje.getTipo().equals("Error")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				if (mensaje.getTipo().equals("Advertencia")) {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+			try {
+				ga = registroGrupoActuadores.obtenerGrupoPorId(idGrupo);
+				ResultadoAccion resultado = new ResultadoAccion();
+				if (estado == false) {
+					resultado = registroGrupoActuadores.apagarGrupo(ga);
+				} else {
+					resultado = registroGrupoActuadores.encenderGrupo(ga);
+				}
+				Mensaje mensaje = resultado.getMensaje();
+				if (mensaje.getTipo().equals("Error")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							mensaje.getTexto(), "");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				} else {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-							mensaje.getTexto(), "");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
+					if (mensaje.getTipo().equals("Advertencia")) {
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+								mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+								mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					}
 				}
+			} catch (WsPlacaControladoraException e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+						e.getMessage(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
+			
 		}
 		else
 		{
@@ -415,28 +424,36 @@ public class GrupoActuadoresBean {
 					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+		cambiaMostrarEstado(idGrupo);
 	}
 
-	public void cambiarPosicion() {
+	public void cambiarPosicion(Long idGrupo) {
 		if (placaBean.getPlaca().getEstado() == 'M')
 		{
-			ResultadoAccion resultado = registroGrupoActuadores
-					.cambiarPosicionAvance(ga, posActual);
-			Mensaje mensaje = resultado.getMensaje();
-			if (mensaje.getTipo().equals("Error")) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						mensaje.getTexto(), "");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-			} else {
-				if (mensaje.getTipo().equals("Advertencia")) {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+			try
+			{
+				ResultadoAccion resultado = registroGrupoActuadores
+						.cambiarPosicionAvance(ga, posActual);
+				Mensaje mensaje = resultado.getMensaje();
+				if (mensaje.getTipo().equals("Error")) {
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							mensaje.getTexto(), "");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				} else {
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-							mensaje.getTexto(), "");
-					FacesContext.getCurrentInstance().addMessage(null, msg);
+					if (mensaje.getTipo().equals("Advertencia")) {
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,
+								mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					} else {
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+								mensaje.getTexto(), "");
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+					}
 				}
+			} catch (WsPlacaControladoraException e) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+						e.getMessage(), "");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		}
 		else
@@ -446,21 +463,22 @@ public class GrupoActuadoresBean {
 					mensaje.getTexto(), "");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+		cambiaMostrarEstado(idGrupo);
 	}
 
-	public void cambiaMostrarModificar() {
-		if (mostrarModificar == "mostrar") {
-			mostrarModificar = "modificar";
+	public void cambiaMostrarModificar(Long idGrupo) {
+		if (mostrarModificar != idGrupo) {
+			mostrarModificar = idGrupo;
 		} else {
-			mostrarModificar = "mostrar";
+			mostrarModificar = (long) 0;
 		}
 	}
 
-	public void cambiaMostrarEstado() {
-		if (mostrarEstado == "mostrar") {
-			mostrarEstado = "modificar";
+	public void cambiaMostrarEstado(Long idGrupo) {
+		if (mostrarEstado != idGrupo) {
+			mostrarEstado = idGrupo;
 		} else {
-			mostrarEstado = "mostrar";
+			mostrarEstado = (long) 0;
 		}
 	}
 

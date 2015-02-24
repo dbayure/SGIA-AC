@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -6,13 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * <p>
- * Java class for wsEncenderGrupoActuadores complex type.
+ * <p>Java class for wsEncenderGrupoActuadores complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="wsEncenderGrupoActuadores">
@@ -29,31 +28,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "wsEncenderGrupoActuadores", propOrder = { "idGrupo" })
+@XmlType(name = "wsEncenderGrupoActuadores", propOrder = {
+    "idGrupo"
+})
 public class WsEncenderGrupoActuadores {
 
-	@XmlElement(required = true)
-	protected BigInteger idGrupo;
+    @XmlElement(required = true)
+    protected BigInteger idGrupo;
 
-	/**
-	 * Gets the value of the idGrupo property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdGrupo() {
-		return idGrupo;
-	}
+    /**
+     * Gets the value of the idGrupo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdGrupo() {
+        return idGrupo;
+    }
 
-	/**
-	 * Sets the value of the idGrupo property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdGrupo(BigInteger value) {
-		this.idGrupo = value;
-	}
+    /**
+     * Sets the value of the idGrupo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdGrupo(BigInteger value) {
+        this.idGrupo = value;
+    }
 
 }

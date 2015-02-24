@@ -70,9 +70,10 @@
 				</h:panelGrid>
 
 			</p:panel>
+			<p:separator />
 
-			<h1 style="text-align: center;">Administración de Niveles
-				Severidad</h1>
+			<h1 style="text-align: center;">Administración Niveles 
+				de Severidad</h1>
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
@@ -174,7 +175,8 @@
 							</p:panel>
 
 							<p:dataTable id="perfilTab" var="_fila" style="width:100%;"
-								value="#{nivelSeveridadBean.perfilActivacion}" editable="true">
+								value="#{nivelSeveridadBean.perfilActivacion}" editable="true"
+								emptyMessage="Perfil de activación vacío.">
 								<f:facet name="header"> Perfil de Activación 	</f:facet>
 
 								<p:ajax event="rowEdit"

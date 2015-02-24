@@ -16,7 +16,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import uy.com.ceoyphoibe.SGIA.model.Dispositivo;
-import uy.com.ceoyphoibe.SGIA.model.GrupoActuadores;
 /**
  * Clase de apoyo que permite la interacción con el entity manager para obtener desde base de datos listas del objeto Dispositivo
  */

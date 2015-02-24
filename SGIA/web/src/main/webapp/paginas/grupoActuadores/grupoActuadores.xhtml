@@ -73,7 +73,7 @@
 			</p:panel>
 			<p:separator />
 
-			<h1 style="text-align: center;">Administración de Grupo de
+			<h1 style="text-align: center;">Administración Grupos de
 				Actuadores</h1>
 
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
@@ -108,15 +108,14 @@
 						selection="#{grupoActuadoresBean.actuadoresSelecconados}"
 						rowKey="#{act.id}"
 						rowStyleClass="#{act.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"
-						rendered="#{grupoActuadoresBean.ga.deAvance == 'N'}">
+						rendered="#{grupoActuadoresBean.ga.deAvance == 'N'}"
+						emptyMessage="No existen actuadores.">
 						<f:facet name="header">
 			            Actuadores disponibles
 			        </f:facet>
 						<p:column selectionMode="multiple"
 							style="width:16px;text-align:center" />
-						<p:column headerText="Id" style="width:15%">
-							<h:outputText value="#{act.id}" />
-						</p:column>
+
 						<p:column headerText="Nombre Actuador">
 							<h:outputText value="#{act.nombre}" />
 						</p:column>
@@ -134,7 +133,8 @@
 						selection="#{grupoActuadoresBean.actuadoresDeAvanceSelecconados}"
 						rowKey="#{actAvance.id}"
 						rowStyleClass="#{actAvance.grupoActuadores.nombre eq null ? 'actuadorRowSelected' : null}"
-						rendered="#{grupoActuadoresBean.ga.deAvance == 'S'}">
+						rendered="#{grupoActuadoresBean.ga.deAvance == 'S'}"
+						emptyMessage="No existen actuadores de avance.">
 						<f:facet name="header">
 			            Actuadores de Avance disponibles
 			        </f:facet>
@@ -169,14 +169,11 @@
 			</h:panelGrid>
 
 			<p:dataTable id="gactuadores" var="_gactuadores"
-				value="#{grupoActuadores}" editable="true">
+				value="#{grupoActuadores}" editable="true" emptyMessage="No existen grupos de actuadores.">
 				<f:facet name="header">  
             	Administrar Grupo Actuadores
         	</f:facet>
 
-				<p:column headerText="Id" style="width:5%">
-					<h:outputText value="#{_gactuadores.id}" />
-				</p:column>
 
 				<p:column headerText="Nombre" style="width:25%">
 					<h:outputText value="#{_gactuadores.nombre}" />

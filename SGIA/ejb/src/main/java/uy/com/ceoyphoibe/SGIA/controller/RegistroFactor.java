@@ -2,12 +2,12 @@
 package uy.com.ceoyphoibe.SGIA.controller;
 
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import uy.com.ceoyphoibe.SGIA.DTO.ResultadoLectura;
+import uy.com.ceoyphoibe.SGIA.exception.WsPlacaControladoraException;
 import uy.com.ceoyphoibe.SGIA.model.Factor;
 import uy.com.ceoyphoibe.SGIA.model.Mensaje;
 import uy.com.ceoyphoibe.SGIA.model.Sensor;
@@ -25,9 +25,18 @@ public class RegistroFactor {
 	   @Inject
 	   private Event <Factor> factorEventSrc;
 	   
-	   public Factor registroPlaca(Factor factor) throws Exception {
+	   public Factor registroPlaca(Factor factor) throws WsPlacaControladoraException {
 		   FachadaWS ws= new FachadaWS();
-		   factor= ws.registroFactor(factor);
+		   try
+		   {
+			   factor= ws.registroFactor(factor);
+		   }
+		   catch (Exception ex)
+		   {
+			   factor.getPlaca().setEstadoAlerta('O');
+			   factorEventSrc.fire(factor);
+			   throw new WsPlacaControladoraException("Pérdida de conectividad con Placa Controladora");
+		   }
 		   
 		   em.merge(factor);
 		   factorEventSrc.fire(factor);
@@ -71,11 +80,12 @@ public class RegistroFactor {
 		   return em.find(Factor.class, id);		   
 	   }
 	   
-	   public ResultadoLectura lecturaFactor(long idFactor){
+	   public ResultadoLectura lecturaFactor(long idFactor) throws WsPlacaControladoraException{
 		   ResultadoLectura rl = new ResultadoLectura();
 		   Factor factor= obtenerFactorPorId(idFactor);
 		   FachadaWS ws= new FachadaWS();
 		   rl = ws.lecturaFactor(factor);
+
 		   return rl;
 	   }
 }

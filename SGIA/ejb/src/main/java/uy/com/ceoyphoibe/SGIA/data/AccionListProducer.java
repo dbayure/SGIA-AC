@@ -40,7 +40,7 @@ public class AccionListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Accion> criteria = cb.createQuery(Accion.class);
 		Root<Accion> accion = criteria.from(Accion.class);
-		criteria.select(accion).orderBy(cb.asc(accion.get("fechaHora")));
+		criteria.select(accion).orderBy(cb.desc(accion.get("fechaHora")));
 		criteria.where(cb.equal(accion.get("idDispositivo"), idDispositivo));
 		accionesActuador = em.createQuery(criteria).getResultList();
 		return accionesActuador;
@@ -82,7 +82,7 @@ public class AccionListProducer {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Accion> criteria = cb.createQuery(Accion.class);
 		Root<Accion> accion = criteria.from(Accion.class);
-		criteria.select(accion).orderBy(cb.asc(accion.get("fechaHora")));
+		criteria.select(accion).orderBy(cb.desc(accion.get("fechaHora")));
 		accionesActuador = em.createQuery(criteria).getResultList();
 	}
 }

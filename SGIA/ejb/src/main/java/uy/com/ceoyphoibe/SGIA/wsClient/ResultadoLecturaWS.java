@@ -1,3 +1,4 @@
+
 package uy.com.ceoyphoibe.SGIA.wsClient;
 
 import java.math.BigInteger;
@@ -7,13 +8,11 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+
 /**
- * <p>
- * Java class for ResultadoLecturaWS complex type.
+ * <p>Java class for ResultadoLecturaWS complex type.
  * 
- * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
  * &lt;complexType name="ResultadoLecturaWS">
@@ -33,98 +32,114 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ResultadoLecturaWS", propOrder = { "fecha", "mensaje",
-		"idFactor", "valor" })
+@XmlType(name = "ResultadoLecturaWS", propOrder = {
+    "fecha",
+    "mensaje",
+    "idFactor",
+    "valor"
+})
 public class ResultadoLecturaWS {
 
-	@XmlSchemaType(name = "dateTime")
-	protected XMLGregorianCalendar fecha;
-	protected Mensaje mensaje;
-	protected BigInteger idFactor;
-	protected float valor;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fecha;
+    protected Mensaje mensaje;
+    protected BigInteger idFactor;
+    protected float valor;
 
-	/**
-	 * Gets the value of the fecha property.
-	 * 
-	 * @return possible object is {@link XMLGregorianCalendar }
-	 * 
-	 */
-	public XMLGregorianCalendar getFecha() {
-		return fecha;
-	}
+    /**
+     * Gets the value of the fecha property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getFecha() {
+        return fecha;
+    }
 
-	/**
-	 * Sets the value of the fecha property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link XMLGregorianCalendar }
-	 * 
-	 */
-	public void setFecha(XMLGregorianCalendar value) {
-		this.fecha = value;
-	}
+    /**
+     * Sets the value of the fecha property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setFecha(XMLGregorianCalendar value) {
+        this.fecha = value;
+    }
 
-	/**
-	 * Gets the value of the mensaje property.
-	 * 
-	 * @return possible object is {@link Mensaje }
-	 * 
-	 */
-	public Mensaje getMensaje() {
-		return mensaje;
-	}
+    /**
+     * Gets the value of the mensaje property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Mensaje }
+     *     
+     */
+    public Mensaje getMensaje() {
+        return mensaje;
+    }
 
-	/**
-	 * Sets the value of the mensaje property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Mensaje }
-	 * 
-	 */
-	public void setMensaje(Mensaje value) {
-		this.mensaje = value;
-	}
+    /**
+     * Sets the value of the mensaje property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Mensaje }
+     *     
+     */
+    public void setMensaje(Mensaje value) {
+        this.mensaje = value;
+    }
 
-	/**
-	 * Gets the value of the idFactor property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public BigInteger getIdFactor() {
-		return idFactor;
-	}
+    /**
+     * Gets the value of the idFactor property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public BigInteger getIdFactor() {
+        return idFactor;
+    }
 
-	/**
-	 * Sets the value of the idFactor property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setIdFactor(BigInteger value) {
-		this.idFactor = value;
-	}
+    /**
+     * Sets the value of the idFactor property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setIdFactor(BigInteger value) {
+        this.idFactor = value;
+    }
 
-	/**
-	 * Gets the value of the valor property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public float getValor() {
-		return valor;
-	}
+    /**
+     * Gets the value of the valor property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BigInteger }
+     *     
+     */
+    public float getValor() {
+        return valor;
+    }
 
-	/**
-	 * Sets the value of the valor property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setValor(float value) {
-		this.valor = value;
-	}
+    /**
+     * Sets the value of the valor property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setValor(float value) {
+        this.valor = value;
+    }
 
 }

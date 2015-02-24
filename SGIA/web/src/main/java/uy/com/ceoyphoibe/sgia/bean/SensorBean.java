@@ -88,6 +88,7 @@ public class SensorBean {
 			Sensor sensor = ((Sensor) event.getObject());
 	
 			try {
+				sensor.setPlaca(placa);
 				registroSensor.modificar(sensor);
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Se modificó ", sensor.getNombre());
